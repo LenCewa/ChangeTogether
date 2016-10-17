@@ -7,26 +7,25 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by Yannick on 17.10.2016.
+ * Created by len13 on 17.10.2016.
  */
 
-public class SearchActivity extends Activity {
+public class BieteActivity extends Activity {
     Button menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_biete);
 
         menu = (Button) findViewById(R.id.menuButton);
         menu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent menuActivity = new Intent(SearchActivity.this, MenuActivity.class);
+                Intent menuActivity = new Intent(BieteActivity.this, MenuActivity.class);
                 startActivity(menuActivity);
             }
         });
     }
-
 }

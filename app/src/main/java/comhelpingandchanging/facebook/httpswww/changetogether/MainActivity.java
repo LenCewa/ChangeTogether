@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
                 Intent search = new Intent(MainActivity.this, SearchActivity.class);

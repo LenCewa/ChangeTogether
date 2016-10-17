@@ -3,4 +3,33 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:text="Profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/profileButton" />
+
+    <Button
+        android:text="SEARCH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchButton" />
+
+    <Button
+        android:text="BIETE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bieteButton" />
+
+    <Button
+        android:text="INBOX"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inboxButton" />
+
+    <Button
+        android:text="LOGOUT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoutButton" />
 </LinearLayout>
