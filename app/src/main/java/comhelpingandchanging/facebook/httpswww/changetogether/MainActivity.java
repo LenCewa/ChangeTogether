@@ -11,8 +11,6 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Test
-        // Test Len
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
