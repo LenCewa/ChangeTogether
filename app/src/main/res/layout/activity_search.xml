@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
-</LinearLayout>
+    <Button
+        android:text="M"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/menu"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Len Williamson - Darmstadt"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="330dp"
+        android:layout_alignBaseline="@+id/menu"
+        android:layout_alignBottom="@+id/menu"
+        android:layout_toLeftOf="@+id/menu"
+        android:layout_toStartOf="@+id/menu" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Search..."
+        android:ems="10"
+        android:layout_below="@+id/menu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:id="@+id/editText3" />
+
+</RelativeLayout>
