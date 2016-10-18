@@ -76,5 +76,8 @@ public class ProfileActivity extends Activity {
                 dialog.show(getFragmentManager(), "Dialog Fragment");
             }
         });
+
+        //if(adapter.getCount() == 0)
+
     }
 }

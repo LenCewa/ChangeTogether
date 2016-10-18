@@ -54,4 +54,10 @@
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/rateBtn" />
+
 </RelativeLayout>
