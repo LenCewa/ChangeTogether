@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
@@ -23,8 +24,7 @@ public class ProfileActivity extends Activity {
     Button rate;
     Button feedbackButton;
     ListView feedbackList;
-    EditText feedback;
-    ArrayList<String> listItems=new ArrayList<String>();
+    ArrayList<String[]> listItems = new ArrayList<String[]>();
     customAdapter adapter;
 
     @Override
@@ -49,29 +49,20 @@ public class ProfileActivity extends Activity {
                 //listItems);
         feedbackList.setAdapter(adapter);
 
-        feedback = (EditText) findViewById(R.id.editText);
-
         feedbackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String feedbackText = (String) adapter.getItem(position);
+                String[] arr = (String[]) adapter.getItem(position);
+                String profileName = arr[0];
+                String feedbackText = arr[1];
+                float rating = Float.parseFloat(arr[2]);
 
                 Intent intent = new Intent(ProfileActivity.this, FeedbackActivity.class);
-                intent.putExtra("profileName", "Profile Name Example");
+                intent.putExtra("profileName", profileName);
                 intent.putExtra("feedbackText", feedbackText);
+                intent.putExtra("rating", rating);
                 startActivity(intent);
-            }
-        });
-
-        feedbackButton = (Button) findViewById(R.id.sendButton);
-        feedbackButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Editable feedbackText = feedback.getText();
-                listItems.add(0,feedbackText.toString());
-                adapter.notifyDataSetChanged();
             }
         });
 
@@ -85,7 +76,5 @@ public class ProfileActivity extends Activity {
                 dialog.show(getFragmentManager(), "Dialog Fragment");
             }
         });
-
-
     }
 }
