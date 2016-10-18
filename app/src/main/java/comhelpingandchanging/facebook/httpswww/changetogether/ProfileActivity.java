@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class ProfileActivity extends Activity {
     Button menu;
+    Button rate;
     Button feedbackButton;
     ListView feedbackList;
     EditText feedback;
@@ -74,7 +75,16 @@ public class ProfileActivity extends Activity {
             }
         });
 
+        rate = (Button) findViewById(R.id.rateBtn);
+        rate.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+
+                FeedbackDialog dialog = new FeedbackDialog();
+                dialog.show(getFragmentManager(), "Dialog Fragment");
+            }
+        });
 
 
     }

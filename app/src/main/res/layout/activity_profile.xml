@@ -61,13 +61,13 @@
         android:layout_alignStart="@+id/editText"
         android:layout_alignRight="@+id/editText"
         android:layout_alignEnd="@+id/editText"
-        android:layout_below="@+id/contactButton" />
+        android:layout_below="@+id/rateBtn" />
 
     <Button
-        android:text="CONTACT"
+        android:text="RATE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/contactButton"
+        android:id="@+id/rateBtn"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
 
