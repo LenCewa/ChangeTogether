@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,7 +50,18 @@ public class ProfileActivity extends Activity {
 
         feedback = (EditText) findViewById(R.id.editText);
 
+        feedbackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                String feedbackText = (String) adapter.getItem(position);
+
+                Intent intent = new Intent(ProfileActivity.this, FeedbackActivity.class);
+                intent.putExtra("profileName", "Profile Name Example");
+                intent.putExtra("feedbackText", feedbackText);
+                startActivity(intent);
+            }
+        });
 
         feedbackButton = (Button) findViewById(R.id.sendButton);
         feedbackButton.setOnClickListener(new View.OnClickListener() {
