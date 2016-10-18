@@ -12,9 +12,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class FeedbackActivity extends Activity {
 
+    String feedbackText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+
+        feedbackText = getIntent().getStringExtra("feedbackText");
     }
 }
