@@ -23,7 +23,7 @@ public class ProfileActivity extends Activity {
     ListView feedbackList;
     EditText feedback;
     ArrayList<String> listItems=new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    customAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,10 @@ public class ProfileActivity extends Activity {
         });
 
         feedbackList = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                listItems);
+        adapter = new customAdapter(this, listItems);
+                //new ArrayAdapter<String>(this,
+                //R.layout.feedback_list_item,
+                //listItems);
         feedbackList.setAdapter(adapter);
 
         feedback = (EditText) findViewById(R.id.editText);
