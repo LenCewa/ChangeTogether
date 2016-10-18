@@ -57,6 +57,7 @@ public class ProfileActivity extends Activity {
                 String feedbackText = (String) adapter.getItem(position);
 
                 Intent intent = new Intent(ProfileActivity.this, FeedbackActivity.class);
+                intent.putExtra("profileName", "Profile Name Example");
                 intent.putExtra("feedbackText", feedbackText);
                 startActivity(intent);
             }
