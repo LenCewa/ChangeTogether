@@ -41,7 +41,7 @@ public class ProfileActivity extends Activity {
         });
 
         feedbackList = (ListView) findViewById(R.id.list);
-        adapter=new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
         feedbackList.setAdapter(adapter);
@@ -56,7 +56,7 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Editable feedbackText = feedback.getText();
-                listItems.add(feedbackText.toString());
+                listItems.add(0,feedbackText.toString());
                 adapter.notifyDataSetChanged();
             }
         });
