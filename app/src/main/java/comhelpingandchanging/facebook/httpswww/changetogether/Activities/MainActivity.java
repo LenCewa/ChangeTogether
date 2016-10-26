@@ -34,20 +34,12 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                try {
-                    Login l = new Login(email.getText().toString(), password.getText().toString());
-                } catch (MalformedURLException e) {
-                    Log.e("stacktrace","MalformedURLException",e);
-                    Toast.makeText(MainActivity.this, "URL may be false", Toast.LENGTH_SHORT).show();
-                    connectionEstablished = false;
-                }
-                catch (IOException e){
-                    Log.e("stacktrace","IOException",e);
-                    Toast.makeText(MainActivity.this, "IOException", Toast.LENGTH_SHORT).show();
-                    connectionEstablished = false;
-                }
+                Login l = new Login(email.getText().toString(), password.getText().toString());
+                l.execute();
 
-                if(connectionEstablished) {
+                while(l.isFinished() != true);
+
+                if(l.isConnectionEstablished()) {
                     Intent search = new Intent(MainActivity.this, SearchActivity.class);
                     startActivity(search);
                 }

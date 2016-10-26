@@ -6,31 +6,61 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainActivity;
+
 /**
  * Created by Yannick on 26.10.2016.
  */
 
-public class Login {
+public class Login extends AsyncTask{
 
-    public Login(String email, String password) throws IOException, MalformedURLException{
-        //String data = URLEncoder.encode("authkey", "UTF-8") + "=" + URLEncoder.encode(AUTHKEY, "UTF-8");
-        String link = "http://192.168.178.54/app/login.php?email=" + email + "&username=" + email + "&password=" + password;
-        Log.e("link", link);
-        URL url = new URL(link);
-        URLConnection conn = url.openConnection();
-        conn.setDoOutput(true);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        StringBuilder sb = new StringBuilder();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-           sb.append(line);
+    private String email, password;
+    private boolean connectionEstablished = true;
+    private boolean finished = false;
+
+    public Login(String email, String password) {
+
+        this.email = email;
+        this.password = password;
+    }
+
+    public boolean isFinished(){
+        return finished;
+    }
+
+    public boolean isConnectionEstablished(){
+        return connectionEstablished;
+    }
+
+    @Override
+    protected Object doInBackground(Object... params) {
+        try{
+            String link = "http://192.168.178.54/app/login.php?email=" + email + "&username=" + email + "&password=" + password;
+            Log.e("link", link);
+            URL url = new URL(link);
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+
+            InputStream in = conn.getInputStream();
+            in.close();
+
+        } catch (MalformedURLException e) {
+            Log.e("stacktrace","MalformedURLException",e);
+            connectionEstablished = false;
         }
-        Log.e("failure", sb.toString());
+        catch (IOException e){
+            Log.e("stacktrace","IOException",e);
+            connectionEstablished = false;
+        }
+
+        finished = connectionEstablished;
+        return null;
     }
 }
