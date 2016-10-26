@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     //Push
     Button login;
     EditText email, password;
-    boolean connectionEstablished = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
