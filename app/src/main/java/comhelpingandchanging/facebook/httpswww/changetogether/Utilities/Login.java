@@ -42,7 +42,7 @@ public class Login extends AsyncTask{
     @Override
     protected Object doInBackground(Object... params) {
         try{
-            String link = "http://192.168.178.54/app/login.php?email=" + email + "&username=" + email + "&password=" + password;
+            String link = "http://change-together.spdns.org/app/login.php?email=" + email + "&username=" + email + "&password=" + password;
             Log.e("link", link);
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
