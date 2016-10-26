@@ -1,12 +1,12 @@
-package comhelpingandchanging.facebook.httpswww.changetogether;
+package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**
  * Created by len13 on 17.10.2016.

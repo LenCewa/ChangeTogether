@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether;
+package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**
  * Created by Yannick on 18.10.2016.
