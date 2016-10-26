@@ -1,19 +1,16 @@
-package comhelpingandchanging.facebook.httpswww.changetogether;
+package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RatingBar;
 
 import java.util.ArrayList;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**
  * Created by len13 on 17.10.2016.

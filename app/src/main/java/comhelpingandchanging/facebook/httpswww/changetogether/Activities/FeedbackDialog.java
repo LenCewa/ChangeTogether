@@ -1,8 +1,7 @@
-package comhelpingandchanging.facebook.httpswww.changetogether;
+package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**
  * Created by Yannick on 18.10.2016.

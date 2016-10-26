@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether;
+package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**
  * Created by len13 on 18.10.2016.
