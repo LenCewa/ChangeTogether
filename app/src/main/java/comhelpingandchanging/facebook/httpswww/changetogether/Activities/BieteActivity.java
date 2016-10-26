@@ -13,7 +13,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
  */
 
 public class BieteActivity extends Activity {
-    Button menu;
+    Button menu, add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,23 @@ public class BieteActivity extends Activity {
         setContentView(R.layout.activity_biete);
 
         menu = (Button) findViewById(R.id.menuButton);
+        add = (Button) findViewById(R.id.addButton);
+
         menu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Intent menuActivity = new Intent(BieteActivity.this, MenuActivity.class);
                 startActivity(menuActivity);
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent addActivity = new Intent(BieteActivity.this, AddBidActivity.class);
+                startActivity(addActivity);
             }
         });
     }

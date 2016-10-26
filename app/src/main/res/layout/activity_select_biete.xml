@@ -7,7 +7,7 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
+        android:id="@+id/sprachkursBtnDetails"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button6"
-        android:layout_below="@+id/button2"
+        android:layout_below="@+id/sprachkursBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -25,9 +25,9 @@
         android:text="Sprachkurs"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox10"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
+        android:id="@+id/sprachkurs"
+        android:layout_alignBaseline="@+id/sprachkursBtnDetails"
+        android:layout_alignBottom="@+id/sprachkursBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:layout_below="@+id/button4"
+        android:layout_below="@+id/freizeitBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -44,8 +44,8 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button7"
-        android:layout_below="@+id/button2"
+        android:id="@+id/wohnungssucheBtnDetails"
+        android:layout_below="@+id/sprachkursBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -53,7 +53,7 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button8"
+        android:id="@+id/nachhilfeBtnDetails"
         android:layout_below="@+id/button6"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -63,8 +63,8 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button9"
-        android:layout_below="@+id/button8"
+        android:id="@+id/organisatorischesBtnDetails"
+        android:layout_below="@+id/nachhilfeBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -72,7 +72,7 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button4"
+        android:id="@+id/freizeitBtnDetails"
         android:layout_below="@+id/button6"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -81,8 +81,8 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button10"
-        android:layout_below="@+id/button9"
+        android:id="@+id/sportBtnDetails"
+        android:layout_below="@+id/organisatorischesBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -90,8 +90,8 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button11"
-        android:layout_below="@+id/button10"
+        android:id="@+id/kochenBtnDetails"
+        android:layout_below="@+id/sportBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -99,8 +99,8 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button12"
-        android:layout_below="@+id/button11"
+        android:id="@+id/bewerbungBtnDetails"
+        android:layout_below="@+id/kochenBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -108,7 +108,7 @@
         android:text="Wohnungssuche"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox14"
+        android:id="@+id/wohnungssuche"
         android:layout_alignBaseline="@+id/button6"
         android:layout_alignBottom="@+id/button6"
         android:layout_alignParentLeft="true"
@@ -118,9 +118,9 @@
         android:text="Nachhilfe"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox17"
-        android:layout_alignBaseline="@+id/button8"
-        android:layout_alignBottom="@+id/button8"
+        android:id="@+id/nachhilfe"
+        android:layout_alignBaseline="@+id/nachhilfeBtnDetails"
+        android:layout_alignBottom="@+id/nachhilfeBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -128,9 +128,9 @@
         android:text="Organisatorisches"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox18"
-        android:layout_alignBaseline="@+id/button9"
-        android:layout_alignBottom="@+id/button9"
+        android:id="@+id/organisatorisches"
+        android:layout_alignBaseline="@+id/organisatorischesBtnDetails"
+        android:layout_alignBottom="@+id/organisatorischesBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -138,9 +138,9 @@
         android:text="Sport"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox19"
-        android:layout_alignBaseline="@+id/button10"
-        android:layout_alignBottom="@+id/button10"
+        android:id="@+id/sport"
+        android:layout_alignBaseline="@+id/sportBtnDetails"
+        android:layout_alignBottom="@+id/sportBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -148,9 +148,9 @@
         android:text="Kochen"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox20"
-        android:layout_alignBaseline="@+id/button11"
-        android:layout_alignBottom="@+id/button11"
+        android:id="@+id/kochen"
+        android:layout_alignBaseline="@+id/kochenBtnDetails"
+        android:layout_alignBottom="@+id/kochenBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -158,9 +158,9 @@
         android:text="Freizeitaktivitäten"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox16"
-        android:layout_alignBaseline="@+id/button4"
-        android:layout_alignBottom="@+id/button4"
+        android:id="@+id/freizeit"
+        android:layout_alignBaseline="@+id/freizeitBtnDetails"
+        android:layout_alignBottom="@+id/freizeitBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -168,8 +168,8 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button13"
-        android:layout_below="@+id/button12"
+        android:id="@+id/freelancerBtnDetails"
+        android:layout_below="@+id/bewerbungBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -177,9 +177,9 @@
         android:text="Bewerbungsschreiben/Lebenslauf"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox13"
-        android:layout_alignBaseline="@+id/button12"
-        android:layout_alignBottom="@+id/button12"
+        android:id="@+id/bewerbung"
+        android:layout_alignBaseline="@+id/bewerbungBtnDetails"
+        android:layout_alignBottom="@+id/bewerbungBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -187,8 +187,8 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button5"
-        android:layout_below="@+id/button13"
+        android:id="@+id/button14"
+        android:layout_below="@+id/freelancerBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -196,9 +196,9 @@
         android:text="Freelancer"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox21"
-        android:layout_alignBaseline="@+id/button13"
-        android:layout_alignBottom="@+id/button13"
+        android:id="@+id/freelancer"
+        android:layout_alignBaseline="@+id/freelancerBtnDetails"
+        android:layout_alignBottom="@+id/freelancerBtnDetails"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -206,10 +206,18 @@
         android:text="Sonstiges"
         android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox15"
-        android:layout_alignBaseline="@+id/button5"
-        android:layout_alignBottom="@+id/button5"
+        android:id="@+id/sonstiges"
+        android:layout_alignBaseline="@+id/button14"
+        android:layout_alignBottom="@+id/button14"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="DONE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doneBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
