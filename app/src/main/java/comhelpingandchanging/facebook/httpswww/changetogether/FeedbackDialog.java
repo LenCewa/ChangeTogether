@@ -37,7 +37,7 @@ public class FeedbackDialog extends DialogFragment {
                 Editable feedbackText = feedback.getText();
 
                 ProfileActivity callingActivity = (ProfileActivity) getActivity();
-                callingActivity.listItems.add(0,new String[]{"Len Williamson", feedbackText.toString(), String.valueOf(rating)});
+                callingActivity.listItems.add(0,new String[]{"Len Cewa Williamson", feedbackText.toString(), String.valueOf(rating)});
                 callingActivity.adapter.notifyDataSetChanged();
                 getDialog().dismiss();
             }
