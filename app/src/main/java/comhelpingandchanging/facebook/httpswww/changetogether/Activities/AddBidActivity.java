@@ -122,7 +122,7 @@ public class AddBidActivity extends Activity {
             @Override
             public void onClick (View view) {
                 Intent bieteActivityIntent = new Intent(AddBidActivity.this, BieteActivity.class);
-                bieteActivityIntent.putExtra("bieteItems", bieteItems);
+                bieteActivityIntent.putStringArrayListExtra("bieteItems", bieteItems);
                 startActivity(bieteActivityIntent);
             }
         });

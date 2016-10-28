@@ -19,8 +19,8 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 public class BieteActivity extends Activity {
     Button menu, add;
     ArrayList<String> bieteItems;
+    String[] itemsForListView;
     ListView bieteList;
-    customAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +48,17 @@ public class BieteActivity extends Activity {
             }
         });
 
-        bieteItems = getIntent().getParcelableExtra("bieteItems");
+        bieteItems = getIntent().getStringArrayListExtra("bieteItems");
         bieteList = (ListView) findViewById(R.id.bieteList);
-       // ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, 0, bieteItems); // 0 ist falsch
+        if (bieteItems != null) {
+            itemsForListView = new String[bieteItems.size()];
+            for (int i = 0; i < itemsForListView.length; i++)
+                itemsForListView[i] = bieteItems.get(i);
 
-        /*if (bieteItems != null) {
-            for (int i = 0; i < bieteItems.size(); i++) {
-                String[] data = bieteItems.get(i);
-                bieteLis
-            }
-        }*/
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.id.bieteList, itemsForListView);
+            bieteList.setAdapter(adapter);
+        }
+
 
     }
 }
