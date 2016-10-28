@@ -39,4 +39,8 @@ public class SearchActivity extends Activity {
         profileInfo.setText(ConnectionManager.getEmail() + " - " + ConnectionManager.getLanguage() + " - " + ConnectionManager.getLanguage());
     }
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }
