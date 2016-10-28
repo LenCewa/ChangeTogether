@@ -6,5 +6,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 public class Constants {
 
+    public static final String DBREGISTER = "http://change-together.spdns.org/app/register.php";
     public static final String DBLOGIN = "http://change-together.spdns.org/app/login.php";
+
 }

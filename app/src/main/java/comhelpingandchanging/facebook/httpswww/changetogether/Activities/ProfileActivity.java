@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.ConnectionManager;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -20,6 +22,7 @@ public class ProfileActivity extends Activity {
     Button menu;
     Button rate;
     Button feedbackButton;
+    TextView profileInfo;
     ListView feedbackList;
     ArrayList<String[]> listItems = new ArrayList<String[]>();
     customAdapter adapter;
@@ -39,6 +42,8 @@ public class ProfileActivity extends Activity {
             }
         });
 
+        profileInfo = (TextView) findViewById(R.id.textView4);
+        profileInfo.setText(ConnectionManager.getEmail() + " - " + ConnectionManager.getLanguage() + " - " + ConnectionManager.getLanguage());
         feedbackList = (ListView) findViewById(R.id.list);
         adapter = new customAdapter(this, listItems);
                 //new ArrayAdapter<String>(this,

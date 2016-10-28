@@ -23,7 +23,6 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="Len Williamson - Darmstadt"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
         android:layout_width="match_parent"

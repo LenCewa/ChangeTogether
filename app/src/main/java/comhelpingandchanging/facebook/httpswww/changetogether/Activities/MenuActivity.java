@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.ConnectionManager;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -61,7 +63,8 @@ public class MenuActivity extends Activity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login = new Intent(MenuActivity.this, LoginActivity.class);
+                ConnectionManager.logout();
+                Intent login = new Intent(MenuActivity.this, MainActivity.class);
                 startActivity(login);
             }
         });

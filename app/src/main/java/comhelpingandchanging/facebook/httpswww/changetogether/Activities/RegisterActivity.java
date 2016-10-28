@@ -14,7 +14,12 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Register;
 
 /**
@@ -42,16 +47,9 @@ public class RegisterActivity extends Activity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent search = new Intent(RegisterActivity.this, SearchActivity.class);
-
                 if(password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                    Register l = new Register(email.getText().toString(), password.getText().toString());
-                    l.execute();
-
-                    while(l.isFinished() != true);
-
-                    if(l.isConnectionEstablished())
-                        startActivity(search);
+                    Register register = new Register(RegisterActivity.this, email.getText().toString(), password.getText().toString());
+                    register.execute();
                 }
                 else
                     Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
