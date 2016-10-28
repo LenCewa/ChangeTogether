@@ -2,30 +2,25 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
-
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainActivity;
 
 /**
  * Created by Yannick on 26.10.2016.
  */
 
-public class Login extends AsyncTask{
+public class Register extends AsyncTask{
 
-    private String email, password;
+    public String email;
+    private String password;
     private boolean connectionEstablished = true;
     private boolean finished = false;
 
-    public Login(String email, String password) {
+    public Register(String email, String password) {
 
         this.email = email;
         this.password = password;
@@ -42,8 +37,7 @@ public class Login extends AsyncTask{
     @Override
     protected Object doInBackground(Object... params) {
         try{
-            String link = "http://change-together.spdns.org/app/login.php?email=" + email + "&username=" + email + "&password=" + password;
-            Log.e("link", link);
+            String link = Constants.DBLOGIN + "?email=" + email + "&username=" + email + "&password=" + password;
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);

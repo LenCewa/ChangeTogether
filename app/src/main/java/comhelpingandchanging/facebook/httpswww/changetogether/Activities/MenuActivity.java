@@ -61,7 +61,7 @@ public class MenuActivity extends Activity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login = new Intent(MenuActivity.this, MainActivity.class);
+                Intent login = new Intent(MenuActivity.this, LoginActivity.class);
                 startActivity(login);
             }
         });
