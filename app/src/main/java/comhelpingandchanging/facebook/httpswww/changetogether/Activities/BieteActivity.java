@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**
@@ -14,6 +16,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 public class BieteActivity extends Activity {
     Button menu, add;
+    ArrayList<String> bieteItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
