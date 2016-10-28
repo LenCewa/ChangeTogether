@@ -50,7 +50,7 @@ public class BieteActivity extends Activity {
 
         bieteItems = getIntent().getParcelableExtra("bieteItems");
         bieteList = (ListView) findViewById(R.id.bieteList);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, 0, bieteItems); // 0 ist falsch
+       // ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, 0, bieteItems); // 0 ist falsch
 
         /*if (bieteItems != null) {
             for (int i = 0; i < bieteItems.size(); i++) {
