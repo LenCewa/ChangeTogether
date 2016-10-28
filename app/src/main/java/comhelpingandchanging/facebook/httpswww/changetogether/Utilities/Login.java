@@ -72,7 +72,7 @@ public class Login extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         if(connectionEstablished) {
-            if(result.equals("Password incorrect"))
+            if(result.equals("Password incorrect") ||result.equals("User doesnt exist, please register"))
                 Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
             else{
                 String[] results = result.split(Pattern.quote("|"));
