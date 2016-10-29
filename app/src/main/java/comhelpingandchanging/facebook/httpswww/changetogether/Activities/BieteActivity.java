@@ -55,7 +55,7 @@ public class BieteActivity extends Activity {
             for (int i = 0; i < itemsForListView.length; i++)
                 itemsForListView[i] = bieteItems.get(i);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.bie, itemsForListView);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_biete, R.id.textView13, itemsForListView);
             bieteList_class.setAdapter(adapter);
         }
 
