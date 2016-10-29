@@ -12,6 +12,7 @@ public class Account extends Application {
     private String email = "";
     private String location = "";
     private String language = "";
+    private UserProfile searchedUserInfo = null;
 
     public void login(String email) {
 
@@ -40,6 +41,11 @@ public class Account extends Application {
         email = "";
         location = "";
         language = "";
+    }
+
+    public void searchUser(UserProfile user){
+
+        searchedUserInfo = user;
     }
 
     public boolean getOnlineStatus(){return onlineStatus;}
