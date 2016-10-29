@@ -16,4 +16,7 @@ public class Constants {
 
     public static final String EMAILROW = "email";
     public static final String BIDDINGIDROW = "biddingID";
+
+    // Auto Fill Location Name Google API Key String Constant
+    public static final String PRIVATE_GOOGLE_API_KEY = "AIzaSyAECQJPDEuhvmWHsxFCY3R3vNrdW0kQya8";
 }

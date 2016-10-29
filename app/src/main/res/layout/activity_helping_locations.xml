@@ -12,13 +12,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:id="@+id/menuButton"
+    <!-- City and Country Selector -->
+    <AutoCompleteTextView
         android:layout_width="match_parent"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_height="wrap_content"
+        android:id="@+id/autocomplete"
+        android:hint="Type in your Location"
+        android:layout_below="@+id/button2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Data" />
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
