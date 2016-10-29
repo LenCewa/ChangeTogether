@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
@@ -14,6 +18,9 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 public class BieteActivity extends Activity {
     Button menu, add;
+    ArrayList<String> bieteItems;
+    String[] itemsForListView;
+    ListView bieteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +47,18 @@ public class BieteActivity extends Activity {
                 startActivity(addActivity);
             }
         });
+
+        bieteItems = getIntent().getStringArrayListExtra("bieteItems");
+        bieteList = (ListView) findViewById(R.id.bieteList);
+        if (bieteItems != null) {
+            itemsForListView = new String[bieteItems.size()];
+            for (int i = 0; i < itemsForListView.length; i++)
+                itemsForListView[i] = bieteItems.get(i);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.id.bieteList, itemsForListView);
+            bieteList.setAdapter(adapter);
+        }
+
+
     }
 }

@@ -3,14 +3,20 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.SearchDB;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProfile;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -20,14 +26,26 @@ public class ProfileActivity extends Activity {
     Button menu;
     Button rate;
     Button feedbackButton;
+    TextView profileInfo;
     ListView feedbackList;
     ArrayList<String[]> listItems = new ArrayList<String[]>();
     customAdapter adapter;
+    UserProfile searchedUser;
+
+    private UserProfile stringToUserProfile(String s){
+
+        String[] info = s.split(Pattern.quote("|"));
+        UserProfile u = new UserProfile(info[0], info[1], info[2]);
+        return u;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        String userInfo = getIntent().getStringExtra("searchedUser");
+        searchedUser = stringToUserProfile(userInfo);
 
         menu = (Button) findViewById(R.id.menuButton);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +56,9 @@ public class ProfileActivity extends Activity {
                 startActivity(menuActivity);
             }
         });
+
+        profileInfo = (TextView) findViewById(R.id.textView4);
+        profileInfo.setText(searchedUser.getUsername() + " - " + searchedUser.getLocation() + " - " + searchedUser.getLanguage());
 
         feedbackList = (ListView) findViewById(R.id.list);
         adapter = new customAdapter(this, listItems);

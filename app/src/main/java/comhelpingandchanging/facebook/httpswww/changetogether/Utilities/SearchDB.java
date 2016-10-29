@@ -15,34 +15,30 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.regex.Pattern;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchActivity;
 
 /**
  * Created by Yannick on 29.10.2016.
  */
 
-public class Login extends AsyncTask<Void, Void, String> {
+public class SearchDB extends AsyncTask<String, Void, String>{
 
-    private Account account;
-    private Activity callingActivity;
-    private String email;
-    private String password;
+    Activity callingActivity;
     private boolean connectionEstablished = true;
 
-    public Login(Activity callingActivity, String email, String password) {
+    public SearchDB(Activity callingActivity){
 
-        account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
-        this.email = email;
-        this.password = password;
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected String doInBackground(String... params) {
+
         StringBuilder sb = new StringBuilder();
 
         try {
-            String link = Constants.DBLOGIN + "?email=" + email + "&username=" + email + "&password=" + password;
+            String link = Constants.DBSEARCH + "?table=" + params[0] + "&where=" + params[1] + "6email=" + params[2];
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
@@ -70,17 +66,12 @@ public class Login extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if (connectionEstablished) {
-            if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
+            if(result.equals("User not found"))
                 Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
             else {
-                String[] results = result.split(Pattern.quote("|"));
-                String location = results[0];
-                String language = results[1];
-
-                account.login(email, location, language);
-                Intent search = new Intent(callingActivity, SearchActivity.class);
-                callingActivity.startActivity(search);
-                callingActivity.finishAffinity();
+                Intent profile = new Intent(callingActivity, ProfileActivity.class);
+                profile.putExtra("searchedUser", result);
+                callingActivity.startActivity(profile);
             }
         }
     }
