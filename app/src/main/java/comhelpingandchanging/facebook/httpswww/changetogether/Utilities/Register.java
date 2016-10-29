@@ -1,7 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,9 +12,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.RegisterActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchActivity;
 
 /**
  * Created by Yannick on 26.10.2016.

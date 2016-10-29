@@ -8,5 +8,12 @@ public class Constants {
 
     public static final String DBREGISTER = "http://change-together.spdns.org/app/register.php";
     public static final String DBLOGIN = "http://change-together.spdns.org/app/login.php";
+    public static final String DBSEARCH = "http://change-together.spdns.org/app/search.php";
 
+    public static final String USERTABLE = "User";
+    public static final String SUPPLYTABLE = "Supply";
+    public static final String BIDTABLE = "Bidding";
+
+    public static final String EMAILROW = "email";
+    public static final String BIDDINGIDROW = "biddingID";
 }
