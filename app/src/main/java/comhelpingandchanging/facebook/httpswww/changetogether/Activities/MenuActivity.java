@@ -34,6 +34,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent profileActivity = new Intent(MenuActivity.this, ProfileActivity.class);
+                profileActivity.putExtra("searchedUser", account.getEmail());
                 startActivity(profileActivity);
                 finish();
             }
