@@ -18,9 +18,10 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 public class BieteActivity extends Activity {
     Button menu, add;
-    ArrayList<String> bieteItems;
+    ArrayList<String> bieteItems = new ArrayList<>();
     String[] itemsForListView;
     ListView bieteList_class;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +44,13 @@ public class BieteActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                Intent addActivity = new Intent(BieteActivity.this, AddBidActivity.class);
-                startActivity(addActivity);
+                BidDialog add = new BidDialog();
+                add.show(getFragmentManager(), "Biete Dialog");
             }
         });
 
-        bieteItems = getIntent().getStringArrayListExtra("bieteItems");
         bieteList_class = (ListView) findViewById(R.id.bieteList);
-        if (bieteItems != null) {
-            itemsForListView = new String[bieteItems.size()];
-            for (int i = 0; i < itemsForListView.length; i++)
-                itemsForListView[i] = bieteItems.get(i);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_biete, R.id.textView13, itemsForListView);
-            bieteList_class.setAdapter(adapter);
-        }
-
-
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bieteItems);
+        bieteList_class.setAdapter(adapter);
     }
 }
