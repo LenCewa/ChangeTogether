@@ -38,7 +38,7 @@ public class SearchDB extends AsyncTask<String, Void, String>{
         StringBuilder sb = new StringBuilder();
 
         try {
-            String link = Constants.DBSEARCH + "?table=" + params[0] + "&where=" + params[1] + "6email=" + params[2];
+            String link = Constants.DBSEARCH + "?table=" + params[0] + "&where=" + params[1] + "&email=" + params[2];
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
