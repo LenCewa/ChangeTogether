@@ -9,38 +9,31 @@ import android.app.Application;
 public class Account extends Application {
 
     private boolean onlineStatus = false;
-    private String email = "";
-    private String location = "";
-    private String language = "";
+    private UserProfile self = null;
     private UserProfile searchedUserInfo = null;
 
     public void login(String email) {
 
         onlineStatus = true;
-        this.email = email;
+        self = new UserProfile(email);
     }
 
     public void login(String email, String location){
 
         onlineStatus = true;
-        this.email = email;
-        this.location = location;
+        self = new UserProfile(email, location);
     }
 
     public void login(String email, String location, String language){
 
         onlineStatus = true;
-        this.email = email;
-        this.location = location;
-        this.language = language;
+        self = new UserProfile(email, location, language);
     }
 
     public void logout(){
 
         onlineStatus = false;
-        email = "";
-        location = "";
-        language = "";
+        self = null;
     }
 
     public void searchUser(UserProfile user){
@@ -51,14 +44,14 @@ public class Account extends Application {
     public boolean getOnlineStatus(){return onlineStatus;}
 
     public String getEmail(){
-        return email;
+        return self.getUsername();
     }
 
     public String getLocation(){
-        return location;
+        return self.getLocation();
     }
 
     public String getLanguage(){
-        return language;
+        return self.getLanguage();
     }
 }

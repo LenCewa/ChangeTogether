@@ -13,6 +13,20 @@ public class UserProfile {
     private String language;
     //private ArrayList<String[]> feedback;
 
+    public UserProfile(String username){
+
+        this.username = username;
+        this.location = "N/A";
+        this.language = "N/A";
+    }
+
+    public UserProfile(String username, String location){
+
+        this.username = username;
+        this.location = location;
+        this.language = "N/A";
+    }
+
     public UserProfile(String username, String location, String language){
 
         this.username = username;
