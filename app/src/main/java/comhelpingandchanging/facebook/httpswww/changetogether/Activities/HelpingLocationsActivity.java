@@ -31,7 +31,7 @@ public class HelpingLocationsActivity extends Activity {
         AutoCompleteTextView autocompleteView = (AutoCompleteTextView) findViewById(R.id.autocomplete);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(this, R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this
 
-        menu = (Button) findViewById(R.id.menuButton);
+        menu = (Button) findViewById(R.id.button2);
         menu.setOnClickListener(new View.OnClickListener() {
 
             @Override

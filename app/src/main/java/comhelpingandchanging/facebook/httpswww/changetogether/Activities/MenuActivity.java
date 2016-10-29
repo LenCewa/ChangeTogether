@@ -80,7 +80,6 @@ public class MenuActivity extends Activity {
         helpingLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                account.logout();
                 Intent main = new Intent(MenuActivity.this, HelpingLocationsActivity.class);
                 startActivity(main);
                 finish();
