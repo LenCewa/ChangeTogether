@@ -1,14 +1,14 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.ConnectionManager;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -16,11 +16,13 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class MenuActivity extends Activity {
     Button profile, biete, inbox, search, logout;
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        account = (Account) getApplication();
 
         profile = (Button) findViewById(R.id.profileButton);
         biete = (Button) findViewById(R.id.bieteButton);
@@ -33,6 +35,7 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent profileActivity = new Intent(MenuActivity.this, ProfileActivity.class);
                 startActivity(profileActivity);
+                finish();
             }
         });
 
@@ -41,6 +44,7 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent bieteActivity = new Intent(MenuActivity.this, BieteActivity.class);
                 startActivity(bieteActivity);
+                finish();
             }
         });
 
@@ -49,6 +53,7 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent inboxActivity = new Intent(MenuActivity.this, InboxActivity.class);
                 startActivity(inboxActivity);
+                finish();
             }
         });
 
@@ -57,15 +62,17 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent searchActivity = new Intent(MenuActivity.this, SearchActivity.class);
                 startActivity(searchActivity);
+                finish();
             }
         });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectionManager.logout();
-                Intent login = new Intent(MenuActivity.this, MainActivity.class);
-                startActivity(login);
+                account.logout();
+                Intent main = new Intent(MenuActivity.this, MainActivity.class);
+                startActivity(main);
+                finishAffinity();
             }
         });
 

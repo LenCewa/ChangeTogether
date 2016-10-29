@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 
 /**
@@ -17,13 +18,20 @@ public class MainActivity extends Activity {
 
     Button login;
     Button register;
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        account = (Account) getApplication();
 
+        if(account.getOnlineStatus()) {
+            Intent search = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(search);
+            finish();
+        }
         login = (Button) findViewById(R.id.loginBtn);
         register = (Button) findViewById(R.id.registerBtn);
 
@@ -42,5 +50,10 @@ public class MainActivity extends Activity {
                 startActivity(register);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 }

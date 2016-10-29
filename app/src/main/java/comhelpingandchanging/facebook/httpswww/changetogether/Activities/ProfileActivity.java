@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.ConnectionManager;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -26,11 +26,13 @@ public class ProfileActivity extends Activity {
     ListView feedbackList;
     ArrayList<String[]> listItems = new ArrayList<String[]>();
     customAdapter adapter;
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        account = (Account) getApplication();
 
         menu = (Button) findViewById(R.id.menuButton);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +45,7 @@ public class ProfileActivity extends Activity {
         });
 
         profileInfo = (TextView) findViewById(R.id.textView4);
-        profileInfo.setText(ConnectionManager.getEmail() + " - " + ConnectionManager.getLanguage() + " - " + ConnectionManager.getLanguage());
+        profileInfo.setText(account.getEmail() + " - " + account.getLanguage() + " - " + account.getLanguage());
         feedbackList = (ListView) findViewById(R.id.list);
         adapter = new customAdapter(this, listItems);
                 //new ArrayAdapter<String>(this,

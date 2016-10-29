@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.ConnectionManager;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by Yannick on 17.10.2016.
@@ -19,11 +17,13 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Connecti
 public class SearchActivity extends Activity {
     Button menu;
     TextView profileInfo;
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        account = (Account) getApplication();
 
         menu = (Button) findViewById(R.id.menuButton);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -36,11 +36,6 @@ public class SearchActivity extends Activity {
         });
 
         profileInfo = (TextView) findViewById(R.id.textView);
-        profileInfo.setText(ConnectionManager.getEmail() + " - " + ConnectionManager.getLanguage() + " - " + ConnectionManager.getLanguage());
-    }
-
-    @Override
-    public void onBackPressed() {
-        return;
+        profileInfo.setText(account.getEmail() + " - " + account.getLanguage() + " - " + account.getLanguage());
     }
 }

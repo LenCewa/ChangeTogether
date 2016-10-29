@@ -13,18 +13,17 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.LoginActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchActivity;
 
 /**
- * Created by Yannick on 26.10.2016.
+ * Created by Yannick on 29.10.2016.
  */
 
-public class Login extends AsyncTask<Void, Void, String>{
+public class Login extends AsyncTask<Void, Void, String> {
 
+    private Account account;
     private Activity callingActivity;
     private String email;
     private String password;
@@ -32,17 +31,17 @@ public class Login extends AsyncTask<Void, Void, String>{
 
     public Login(Activity callingActivity, String email, String password) {
 
+        account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
         this.email = email;
         this.password = password;
     }
 
-
     @Override
     protected String doInBackground(Void... params) {
         StringBuilder sb = new StringBuilder();
 
-        try{
+        try {
             String link = Constants.DBLOGIN + "?email=" + email + "&username=" + email + "&password=" + password;
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
@@ -58,11 +57,10 @@ public class Login extends AsyncTask<Void, Void, String>{
             connectionEstablished = true;
 
         } catch (MalformedURLException e) {
-            Log.e("stacktrace","MalformedURLException",e);
+            Log.e("stacktrace", "MalformedURLException", e);
             connectionEstablished = false;
-        }
-        catch (IOException e){
-            Log.e("stacktrace","IOException",e);
+        } catch (IOException e) {
+            Log.e("stacktrace", "IOException", e);
             connectionEstablished = false;
         }
 
@@ -71,17 +69,18 @@ public class Login extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        if(connectionEstablished) {
-            if(result.equals("Password incorrect") ||result.equals("User doesnt exist, please register"))
+        if (connectionEstablished) {
+            if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
                 Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
-            else{
+            else {
                 String[] results = result.split(Pattern.quote("|"));
                 String location = results[0];
                 String language = results[1];
 
-                ConnectionManager.login(email, location, language);
+                account.login(email, location, language);
                 Intent search = new Intent(callingActivity, SearchActivity.class);
                 callingActivity.startActivity(search);
+                callingActivity.finishAffinity();
             }
         }
     }
