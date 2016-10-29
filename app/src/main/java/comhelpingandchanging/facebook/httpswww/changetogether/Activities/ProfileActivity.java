@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ public class ProfileActivity extends Activity {
     ArrayList<String[]> listItems = new ArrayList<String[]>();
     customAdapter adapter;
     UserProfile searchedUser;
+    Account account;
 
     private UserProfile stringToUserProfile(String s){
 
@@ -44,6 +46,7 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        account =(Account)getApplication();
         String userInfo = getIntent().getStringExtra("searchedUser");
         searchedUser = stringToUserProfile(userInfo);
 
@@ -97,5 +100,17 @@ public class ProfileActivity extends Activity {
 
         //if(adapter.getCount() == 0)
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("onlineStatus", account.getOnlineStatus());
+        editor.putString("email", account.getEmail());
+        editor.putString("password", account.getPassword());
+        editor.commit();
     }
 }

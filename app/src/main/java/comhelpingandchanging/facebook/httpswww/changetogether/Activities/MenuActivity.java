@@ -3,6 +3,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -87,5 +88,17 @@ public class MenuActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("onlineStatus", account.getOnlineStatus());
+        editor.putString("email", account.getEmail());
+        editor.putString("password", account.getPassword());
+        editor.commit();
     }
 }

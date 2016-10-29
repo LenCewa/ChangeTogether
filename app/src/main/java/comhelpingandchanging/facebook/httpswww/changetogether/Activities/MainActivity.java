@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,14 +25,19 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
+        boolean isOnline = sp.getBoolean("onlineStatus", false);
+        String email = sp.getString("email", "");
+        String password = sp.getString("password", "");
+
+        if(isOnline) {
+            account.setOnlineStatus(isOnline);
+            account.login(this, email, password);
+        }
+
         setContentView(R.layout.activity_main);
         account = (Account) getApplication();
 
-        if(account.getOnlineStatus()) {
-            Intent search = new Intent(MainActivity.this, SearchActivity.class);
-            startActivity(search);
-            finish();
-        }
         login = (Button) findViewById(R.id.loginBtn);
         register = (Button) findViewById(R.id.registerBtn);
 
@@ -50,6 +56,18 @@ public class MainActivity extends Activity {
                 startActivity(register);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("onlineStatus", account.getOnlineStatus());
+        editor.putString("email", account.getEmail());
+        editor.putString("password", account.getPassword());
+        editor.commit();
     }
 
     @Override

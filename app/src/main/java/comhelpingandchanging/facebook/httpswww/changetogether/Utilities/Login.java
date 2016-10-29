@@ -27,7 +27,7 @@ public class Login extends AsyncTask<Void, Void, String> {
     private Activity callingActivity;
     private String email;
     private String password;
-    private boolean connectionEstablished = true;
+    private boolean connectionEstablished = false;
 
     public Login(Activity callingActivity, String email, String password) {
 
@@ -77,7 +77,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                 String location = results[0];
                 String language = results[1];
 
-                account.login(email, location, language);
+                account.setSelfInfo(email, password, location, language);
                 Intent search = new Intent(callingActivity, SearchActivity.class);
                 callingActivity.startActivity(search);
                 callingActivity.finishAffinity();

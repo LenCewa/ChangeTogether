@@ -2,11 +2,13 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -14,12 +16,14 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 public class InboxActivity extends Activity {
     Button menu;
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
 
+        account = (Account) getApplication();
         menu = (Button) findViewById(R.id.menuButton);
         menu.setOnClickListener(new View.OnClickListener() {
 
@@ -29,5 +33,17 @@ public class InboxActivity extends Activity {
                 startActivity(menuActivity);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("onlineStatus", account.getOnlineStatus());
+        editor.putString("email", account.getEmail());
+        editor.putString("password", account.getPassword());
+        editor.commit();
     }
 }

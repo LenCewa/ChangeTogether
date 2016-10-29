@@ -19,6 +19,7 @@ import java.net.URLConnection;
 
 public class Register extends AsyncTask<Void, Void, String>{
 
+    Account account;
     private Activity callingActivity;
     private String email;
     private String password;
@@ -26,6 +27,7 @@ public class Register extends AsyncTask<Void, Void, String>{
 
     public Register(Activity callingActivity, String email, String password) {
 
+        account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
         this.email = email;
         this.password = password;
@@ -67,7 +69,7 @@ public class Register extends AsyncTask<Void, Void, String>{
     protected void onPostExecute(String result) {
         if(connectionEstablished) {
             if(result.equals("User added, logging in...") || result.equals("User already exists, logging in instead...")) {
-               new Login(callingActivity,email,password).execute();
+                account.login(callingActivity, email, password);
             }
             Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
         }
