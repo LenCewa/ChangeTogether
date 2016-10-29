@@ -41,7 +41,7 @@ public class SearchActivity extends Activity {
         });
 
         profileInfo = (TextView) findViewById(R.id.textView);
-        profileInfo.setText(account.getEmail() + " - " + account.getLanguage() + " - " + account.getLanguage());
+        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
 
         searchField = (EditText) findViewById(R.id.editText3);
         searchBtn = (Button) findViewById(R.id.searchBtn);

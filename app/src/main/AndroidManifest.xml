@@ -55,6 +55,8 @@
         <activity
             android:name=".Activities.AddBidActivity">
         </activity>
+        <activity android:name=".Activities.OwnProfileActivity" />
+        <activity android:name=".Activities.SettingsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

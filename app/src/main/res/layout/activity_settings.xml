@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageButton
+        app:srcCompat="@drawable/blank_profile_pic"
+        android:layout_marginTop="35dp"
+        android:id="@+id/changeProfilePic"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/changeProfilePic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:id="@+id/Location"
+        android:textAlignment="center"
+        android:layout_height="50dp"
+        android:hint="Location" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/editText2"
+        android:textAlignment="center"
+        android:layout_below="@+id/Location"
+        android:hint="Language" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/changePassword"
+        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:textAlignment="center"
+        android:hint="New Password" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/ConfirmPassword"
+        android:layout_below="@+id/changePassword"
+        android:layout_alignLeft="@+id/changePassword"
+        android:layout_alignStart="@+id/changePassword"
+        android:hint="Confirm Password"
+        android:singleLine="false"
+        android:selectAllOnFocus="false"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:id="@+id/Save" />
+</RelativeLayout>
