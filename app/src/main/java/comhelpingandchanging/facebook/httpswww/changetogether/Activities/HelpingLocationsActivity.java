@@ -25,7 +25,7 @@ public class HelpingLocationsActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                Intent menuActivity = new Intent(ProfileActivity.this, MenuActivity.class);
+                Intent menuActivity = new Intent(HelpingLocationsActivity.this, MenuActivity.class);
                 startActivity(menuActivity);
             }
         });
