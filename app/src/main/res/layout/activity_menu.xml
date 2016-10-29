@@ -28,6 +28,12 @@
         android:id="@+id/inboxButton" />
 
     <Button
+        android:text="Add Helping Locations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/helpingLocationsButton" />
+
+    <Button
         android:text="LOGOUT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

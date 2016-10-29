@@ -15,7 +15,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  */
 
 public class MenuActivity extends Activity {
-    Button profile, biete, inbox, search, logout;
+    Button profile, biete, inbox, search, logout, helpingLocations;
     Account account;
 
     @Override
@@ -29,6 +29,7 @@ public class MenuActivity extends Activity {
         inbox = (Button) findViewById(R.id.inboxButton);
         search = (Button) findViewById(R.id.searchButton);
         logout = (Button) findViewById(R.id.logoutButton);
+        helpingLocations = (Button) findViewById(R.id.helpingLocationsButton);
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,16 @@ public class MenuActivity extends Activity {
                 Intent main = new Intent(MenuActivity.this, MainActivity.class);
                 startActivity(main);
                 finishAffinity();
+            }
+        });
+
+        helpingLocations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                account.logout();
+                Intent main = new Intent(MenuActivity.this, HelpingLocationsActivity.class);
+                startActivity(main);
+                finish();
             }
         });
 
