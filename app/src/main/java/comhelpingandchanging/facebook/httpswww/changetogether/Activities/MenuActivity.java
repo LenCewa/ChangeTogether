@@ -34,9 +34,8 @@ public class MenuActivity extends Activity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileActivity = new Intent(MenuActivity.this, ProfileActivity.class);
-                profileActivity.putExtra("searchedUser", account.getEmail());
-                startActivity(profileActivity);
+                Intent OwnProfileActivity = new Intent(MenuActivity.this, OwnProfileActivity.class);
+                startActivity(OwnProfileActivity);
                 finish();
             }
         });

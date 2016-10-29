@@ -47,12 +47,18 @@ public class RegisterActivity extends Activity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                    Register register = new Register(RegisterActivity.this, email.getText().toString(), password.getText().toString());
-                    register.execute();
+                if(email.getText().toString().length() != 0) {
+                    if (password.getText().toString().length() != 0 && passwordConfirm.getText().toString().length() != 0) {
+                        if (password.getText().toString().equals(passwordConfirm.getText().toString())) {
+                            Register register = new Register(RegisterActivity.this, email.getText().toString(), password.getText().toString());
+                            register.execute();
+                        } else
+                            Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(RegisterActivity.this, "Password can not be empty", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "E-Mail can not be empty", Toast.LENGTH_SHORT).show();
             }
         });
     }
