@@ -1,7 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,15 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.PlacesAutoCompleteAdapter;
 
 /**
  * Created by len13 on 29.10.2016.

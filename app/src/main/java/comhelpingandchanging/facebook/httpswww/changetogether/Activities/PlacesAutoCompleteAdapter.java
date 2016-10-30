@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
@@ -6,6 +6,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import java.util.ArrayList;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.PlaceAPI;
 
 /**
  * Created by len13 on 29.10.2016.
