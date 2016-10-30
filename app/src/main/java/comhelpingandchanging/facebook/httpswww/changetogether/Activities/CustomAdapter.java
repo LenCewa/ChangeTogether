@@ -37,7 +37,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub (ignore this text in brackets, habe ich nur geschrieben um was comitten zu können)
         return data.get(position);
     }
 
