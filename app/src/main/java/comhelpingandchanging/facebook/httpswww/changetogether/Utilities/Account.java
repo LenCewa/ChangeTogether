@@ -25,8 +25,7 @@ public class Account extends Application {
         self = null;
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("stayLoggedIn", false);
-        editor.remove("onlineStatus");
+        editor.remove("stayLoggedIn");
         editor.remove("email");
         editor.remove("password");
         editor.apply();

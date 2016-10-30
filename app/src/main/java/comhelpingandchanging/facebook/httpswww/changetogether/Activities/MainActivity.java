@@ -31,8 +31,6 @@ public class MainActivity extends Activity {
         account = (Account) getApplication();
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sp.edit();
-        String email = sp.getString("email", "");
-        String password = sp.getString("password", "");
 
         setContentView(R.layout.activity_main);
 
@@ -46,8 +44,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        if(stayLoggedIn.isChecked())
-            account.login(this, email, password);
+        if(stayLoggedIn.isChecked() && !sp.getString("email", "").equals("") && !sp.getString("password", "").equals(""))
+            account.login(this, sp.getString("email",""), sp.getString("password",""));
 
         login = (Button) findViewById(R.id.loginBtn);
         register = (Button) findViewById(R.id.registerBtn);
