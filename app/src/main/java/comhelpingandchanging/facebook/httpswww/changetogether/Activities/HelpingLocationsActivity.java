@@ -1,7 +1,9 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.PlacesAutoCompleteAdapter;
 
@@ -22,12 +25,14 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.PlacesAu
 
 public class HelpingLocationsActivity extends Activity {
     Button menu;
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_helping_locations);
 
+        account = (Account) getApplication();
         AutoCompleteTextView autocompleteView = (AutoCompleteTextView) findViewById(R.id.autocomplete);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(this, R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this
 
@@ -50,5 +55,17 @@ public class HelpingLocationsActivity extends Activity {
                 //Toast.makeText(this, description, Toast.LENGTH_SHORT).show(); // TODO vorher getActivity() anstelle von this
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("onlineStatus", account.getOnlineStatus());
+        editor.putString("email", account.getEmail());
+        editor.putString("password", account.getPassword());
+        editor.commit();
     }
 }

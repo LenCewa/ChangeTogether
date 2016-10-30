@@ -16,12 +16,12 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
  * Created by Yannick on 18.10.2016.
  */
 
-public class CustomAdapter extends BaseAdapter {
+public class CustomAdapterSearch extends BaseAdapter {
     Context context;
     ArrayList<String[]> data;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapter(Context context, ArrayList<String[]> data) {
+    public CustomAdapterSearch(Context context, ArrayList<String[]> data) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.data = data;
@@ -52,16 +52,14 @@ public class CustomAdapter extends BaseAdapter {
         // TODO Auto-generated method stub
         View vi = convertView;
         if (vi == null)
-            vi = inflater.inflate(R.layout.feedback_list_item, null);
+            vi = inflater.inflate(R.layout.search_list_item, null);
 
-        TextView profileName = (TextView) vi.findViewById(R.id.profileNameListItem);
-        TextView text = (TextView) vi.findViewById(R.id.text);
+        TextView profileName = (TextView) vi.findViewById(R.id.profileNameSearch);
+        TextView text = (TextView) vi.findViewById(R.id.searchTag);
 
         profileName.setText(data.get(position)[0]);
         text.setText(data.get(position)[1]);
 
-        RatingBar ratingBar = (RatingBar) vi.findViewById(R.id.ratingBar2);
-        ratingBar.setRating(Float.parseFloat(data.get(position)[2]));
         return vi;
     }
 }

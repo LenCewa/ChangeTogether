@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.CheckBox;
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by len13 on 26.10.2016.
@@ -125,6 +127,8 @@ public class BidDialog extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for(String s : callingActivity.bieteItems)
+                    ((Account) callingActivity.getApplication()).addBid(s, "");
                 callingActivity.adapter.notifyDataSetChanged();
                 getDialog().dismiss();
             }

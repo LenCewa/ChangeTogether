@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        account = (Account) getApplication();
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         boolean isOnline = sp.getBoolean("onlineStatus", false);
         String email = sp.getString("email", "");
@@ -36,7 +37,6 @@ public class MainActivity extends Activity {
         }
 
         setContentView(R.layout.activity_main);
-        account = (Account) getApplication();
 
         login = (Button) findViewById(R.id.loginBtn);
         register = (Button) findViewById(R.id.registerBtn);

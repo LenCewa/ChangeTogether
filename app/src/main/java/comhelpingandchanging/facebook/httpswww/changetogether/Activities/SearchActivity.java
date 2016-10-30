@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.SearchDB;
 
 /**
  * Created by Yannick on 17.10.2016.
@@ -24,6 +25,9 @@ public class SearchActivity extends Activity {
     EditText searchField;
     Button searchBtn;
     Account account;
+    public ListView searches;
+    public ArrayList<String[]> listItems = new ArrayList<String[]>();
+    public CustomAdapterSearch adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +48,18 @@ public class SearchActivity extends Activity {
         profileInfo = (TextView) findViewById(R.id.textView);
         profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
 
+        searches = (ListView) findViewById(R.id.searchList);
+        adapter = new CustomAdapterSearch(this, listItems);
+        searches.setAdapter(adapter);
+
         searchField = (EditText) findViewById(R.id.editText3);
         searchBtn = (Button) findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchDB s = new SearchDB(SearchActivity.this);
-                s.execute(Constants.USERTABLE, Constants.EMAILROW, searchField.getText().toString());
+                listItems.clear();
+                adapter.notifyDataSetChanged();
+                account.searchBid(SearchActivity.this, searchField.getText().toString());
             }
         });
     }

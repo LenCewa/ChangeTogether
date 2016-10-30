@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,7 +15,6 @@ import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.SearchDB;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProfile;
 
 /**
@@ -30,7 +28,7 @@ public class ProfileActivity extends Activity {
     TextView profileInfo;
     ListView feedbackList;
     ArrayList<String[]> listItems = new ArrayList<String[]>();
-    customAdapter adapter;
+    CustomAdapter adapter;
     UserProfile searchedUser;
     Account account;
 
@@ -64,7 +62,7 @@ public class ProfileActivity extends Activity {
         profileInfo.setText(searchedUser.getUsername() + " - " + searchedUser.getLocation() + " - " + searchedUser.getLanguage());
 
         feedbackList = (ListView) findViewById(R.id.list);
-        adapter = new customAdapter(this, listItems);
+        adapter = new CustomAdapter(this, listItems);
                 //new ArrayAdapter<String>(this,
                 //R.layout.feedback_list_item,
                 //listItems);

@@ -11,6 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -18,15 +19,22 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 public class BieteActivity extends Activity {
     Button menu, add;
-    ArrayList<String> bieteItems = new ArrayList<>();
-    String[] itemsForListView;
+    public ArrayList<String> bieteItems = new ArrayList<>();
     ListView bieteList_class;
-    ArrayAdapter<String> adapter;
+    public ArrayAdapter<String> adapter;
+    Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biete);
+        account = (Account) getApplication();
+
+        bieteList_class = (ListView) findViewById(R.id.bieteList);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bieteItems);
+        bieteList_class.setAdapter(adapter);
+
+        account.loadBids(this);
 
         menu = (Button) findViewById(R.id.menuButton);
         add = (Button) findViewById(R.id.addButton);
@@ -48,9 +56,5 @@ public class BieteActivity extends Activity {
                 add.show(getFragmentManager(), "Biete Dialog");
             }
         });
-
-        bieteList_class = (ListView) findViewById(R.id.bieteList);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bieteItems);
-        bieteList_class.setAdapter(adapter);
     }
 }

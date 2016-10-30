@@ -15,30 +15,34 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.regex.Pattern;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**
  * Created by Yannick on 29.10.2016.
  */
 
-public class SearchDB extends AsyncTask<String, Void, String>{
+public class LoadBids extends AsyncTask<Void, Void, String>{
 
     Activity callingActivity;
     private boolean connectionEstablished = true;
+    private String email;
 
-    public SearchDB(Activity callingActivity){
+    public LoadBids(Activity callingActivity, String email){
 
         this.callingActivity = callingActivity;
+        this.email = email;
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected String doInBackground(Void... params) {
 
         StringBuilder sb = new StringBuilder();
 
         try {
-            String link = Constants.DBSEARCH + "?table=" + params[0] + "&where=" + params[1] + "&email=" + params[2];
+            String link = Constants.DBLOADBID + "?email=" + email;
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
@@ -66,12 +70,16 @@ public class SearchDB extends AsyncTask<String, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         if (connectionEstablished) {
-            if(result.equals("User not found"))
-                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+            if(result.equals("No entries"));
+                //Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
             else {
-                Intent profile = new Intent(callingActivity, ProfileActivity.class);
-                profile.putExtra("searchedUser", result);
-                callingActivity.startActivity(profile);
+                String[] s = result.split(Pattern.quote(":"));
+                StringBuilder sb = new StringBuilder();
+                for(int i = 0; i < s.length; i++) {
+                    String[] arr = s[i].split(Pattern.quote("|"));
+                    ((BieteActivity)callingActivity).bieteItems.add(arr[1]);
+                }
+                ((BieteActivity)callingActivity).adapter.notifyDataSetChanged();
             }
         }
     }
