@@ -11,6 +11,7 @@ public class Constants {
     public static final String DBSEARCHBID = "http://change-together.spdns.org/app/searchBid.php";
     public static final String DBADDBID = "http://change-together.spdns.org/app/addBid.php";
     public static final String DBLOADBID = "http://change-together.spdns.org/app/loadBids.php";
+    public static final String DBADDUSERINFO = "http://change-together.spdns.org/app/addUserInfo.php";
 
     public static final String USERTABLE = "User";
     public static final String SUPPLYTABLE = "Supply";

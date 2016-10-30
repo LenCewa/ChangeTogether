@@ -65,14 +65,15 @@ public class SearchActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
 
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("onlineStatus", account.getOnlineStatus());
-        editor.putString("email", account.getEmail());
-        editor.putString("password", account.getPassword());
-        editor.commit();
+        if(sp.getBoolean("stayLoggedIn", false)) {
+            editor.putString("email", account.getEmail());
+            editor.putString("password", account.getPassword());
+            editor.commit();
+        }
     }
 }

@@ -66,17 +66,4 @@ public class RegisterActivity extends Activity {
             }
         });
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("onlineStatus", account.getOnlineStatus());
-        editor.putString("email", account.getEmail());
-        editor.putString("password", account.getPassword());
-        editor.commit();
-    }
-
 }

@@ -45,31 +45,18 @@ public class SettingsActivity extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (password.getText().toString().length() != 0 && passwordConfirm.getText().toString().length() != 0) {
-                    if (password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                        Intent OwnprofileActivity = new Intent(SettingsActivity.this, OwnProfileActivity.class);
-                        startActivity(OwnprofileActivity);
-                        finish();
-                    } else
+
+                if(password.getText().toString().length() == 0 && passwordConfirm.getText().toString().length() == 0)
+                    account.addUserInfo(SettingsActivity.this, account.getPassword(), location.getText().toString(), language.getText().toString());
+
+                else {
+                    if (password.getText().toString().equals(passwordConfirm.getText().toString()))
+                        account.addUserInfo(SettingsActivity.this, password.getText().toString(), location.getText().toString(), language.getText().toString());
+                    else
                         Toast.makeText(SettingsActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 }
-                else
-                    Toast.makeText(SettingsActivity.this, "Passwords can not be empty", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("onlineStatus", account.getOnlineStatus());
-        editor.putString("email", account.getEmail());
-        editor.putString("password", account.getPassword());
-        editor.commit();
-    }
-
 }

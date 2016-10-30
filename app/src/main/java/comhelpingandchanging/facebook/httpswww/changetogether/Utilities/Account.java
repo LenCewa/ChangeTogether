@@ -11,7 +11,6 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.LoginAc
 
 public class Account extends Application {
 
-    private boolean onlineStatus = false;
     private UserProfile self = null;
     //private UserProfile searchedUserInfo = null;
 
@@ -19,17 +18,18 @@ public class Account extends Application {
 
         Login login = new Login(callingActivity, email, password);
         login.execute();
-        onlineStatus = true;
     }
 
     public void logout(){
 
-        onlineStatus = false;
+        self = null;
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("onlineStatus", this.getOnlineStatus());
-        editor.commit();
-        //self = null;
+        editor.putBoolean("stayLoggedIn", false);
+        editor.remove("onlineStatus");
+        editor.remove("email");
+        editor.remove("password");
+        editor.apply();
     }
 
     public void loadBids(Activity callingActivity){
@@ -50,7 +50,12 @@ public class Account extends Application {
         a.execute();
     }
 
-    public boolean getOnlineStatus(){return onlineStatus;}
+    public void addUserInfo(Activity callingActivity, String password, String location, String language){
+
+        setSelfInfo(getEmail(), password, location, language);
+        AddUserInfo a = new AddUserInfo(callingActivity, password, location, language);
+        a.execute();
+    }
 
     public String getEmail(){
         return self.getUsername();
@@ -67,8 +72,6 @@ public class Account extends Application {
     public String getLanguage(){
         return self.getLanguage();
     }
-
-    public void setOnlineStatus(boolean onlineStatus){ this.onlineStatus = onlineStatus;}
 
     public void setLocation(String location){
         self.setLocation(location);
