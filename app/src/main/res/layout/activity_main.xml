@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:srcCompat="@drawable/logo"
+        android:src="@drawable/logo"
         android:id="@+id/imageView3"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

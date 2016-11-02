@@ -4,13 +4,14 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageButton
-        app:srcCompat="@drawable/blank_profile_pic"
+        android:src="@drawable/blank_profile_pic"
         android:layout_marginTop="35dp"
         android:id="@+id/changeProfilePic"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_width="150dp"
-        android:layout_height="150dp" />
+        android:layout_height="150dp"
+        android:scaleType="fitCenter" />
 
     <EditText
         android:layout_width="200dp"
