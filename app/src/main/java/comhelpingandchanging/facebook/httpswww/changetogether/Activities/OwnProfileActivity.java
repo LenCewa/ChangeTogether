@@ -23,6 +23,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class OwnProfileActivity extends Activity {
     Button settings;
+    Button menu;
     Account account;
     TextView username;
     TextView location;
@@ -47,6 +48,15 @@ public class OwnProfileActivity extends Activity {
             public void onClick(View v) {
                 Intent SettingsActivity = new Intent(OwnProfileActivity.this, SettingsActivity.class);
                 startActivity(SettingsActivity);
+                finish();
+            }
+        });
+        menu = (Button) findViewById(R.id.menuButton);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent MenuActivity = new Intent(OwnProfileActivity.this, MenuActivity.class);
+                startActivity(MenuActivity);
                 finish();
             }
         });
