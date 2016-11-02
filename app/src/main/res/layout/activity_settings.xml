@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageButton
+    <ImageView
         android:src="@drawable/blank_profile_pic"
         android:layout_marginTop="35dp"
         android:id="@+id/changeProfilePic"
