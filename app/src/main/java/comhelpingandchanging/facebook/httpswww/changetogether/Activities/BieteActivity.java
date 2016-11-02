@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class BieteActivity extends Activity {
     public ArrayList<String> bieteItems = new ArrayList<>();
     ListView bieteList_class;
     public ArrayAdapter<String> adapter;
+    TextView profileInfo;
     Account account;
 
     @Override
@@ -30,6 +32,9 @@ public class BieteActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biete);
         account = (Account) getApplication();
+
+        profileInfo = (TextView) findViewById(R.id.textView2);
+        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
 
         bieteList_class = (ListView) findViewById(R.id.bieteList);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bieteItems);
