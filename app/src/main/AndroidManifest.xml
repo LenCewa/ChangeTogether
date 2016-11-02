@@ -5,65 +5,42 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".Utilities.Account"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".Utilities.Account">
+        android:theme="@style/AppTheme">
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        </activity>
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
 
         <activity
             android:name=".Activities.SearchActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-
-        <activity
-            android:name=".Activities.RegisterActivity">
-        </activity>
-
-        <activity
-            android:name=".Activities.LoginActivity">
-        </activity>
-
-        <activity
-            android:name=".Activities.MenuActivity">
-        </activity>
-
-        <activity
-            android:name=".Activities.BieteActivity">
-        </activity>
-
-        <activity
-            android:name=".Activities.InboxActivity">
-        </activity>
-
-        <activity
-            android:name=".Activities.ProfileActivity">
-        </activity>
-
-        <activity
-            android:name=".Activities.FeedbackActivity">
-        </activity>
-
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".Activities.RegisterActivity"></activity>
+        <activity android:name=".Activities.LoginActivity"></activity>
+        <activity android:name=".Activities.MenuActivity"></activity>
+        <activity android:name=".Activities.BieteActivity"></activity>
+        <activity android:name=".Activities.InboxActivity"></activity>
+        <activity android:name=".Activities.ProfileActivity"></activity>
+        <activity android:name=".Activities.FeedbackActivity"></activity>
         <activity android:name=".Activities.OwnProfileActivity" />
         <activity android:name=".Activities.SettingsActivity" />
-
-        <activity
-            android:name=".Activities.HelpingLocationsActivity">
-        </activity>
-
+        <activity android:name=".Activities.HelpingLocationsActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

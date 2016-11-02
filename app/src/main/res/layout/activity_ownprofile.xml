@@ -14,15 +14,17 @@
         android:layout_height="150dp" />
 
     <Button
-        android:text="Set"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
         android:id="@+id/settingsButton"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp" />
+        android:layout_marginStart="15dp"
+        android:elevation="0dp"
+        android:layout_alignBottom="@+id/menuButton"
+        android:text="SET"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
     <TextView
         android:text="Username"
@@ -57,7 +59,6 @@
         android:layout_alignStart="@+id/ownLoaction" />
 
     <Button
-        android:text="M"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/menuButton"
@@ -65,5 +66,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp" />
+        android:layout_marginEnd="14dp"
+        android:background="@android:drawable/btn_dropdown" />
 </RelativeLayout>
