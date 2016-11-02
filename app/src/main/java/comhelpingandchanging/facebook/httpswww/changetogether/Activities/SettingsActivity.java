@@ -3,7 +3,10 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +23,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  */
 
 public class SettingsActivity extends Activity {
+    private static final int PICK_IMAGE = 1;
     Button save;
     Account account;
     EditText location;
@@ -48,9 +52,14 @@ public class SettingsActivity extends Activity {
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingsActivity.this, "Dicks blowen", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
+
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,5 +77,14 @@ public class SettingsActivity extends Activity {
             }
         });
 
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE) {
+                Uri selectedImageUri = data.getData();
+                profilePic.setImageURI(selectedImageUri);
+            }
+        }
     }
 }
