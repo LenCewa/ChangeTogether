@@ -20,7 +20,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by len13 on 26.10.2016.
  */
 
-public class AddBidDialog extends DialogFragment {
+public class BidDialog extends DialogFragment {
 
     Button done;
     CheckBox cb_sprachkurs, cb_wohnungsscuhe, cb_freizeit, cb_nachhilfe, cb_orga, cb_sport, cb_kochen, cb_bewerbung, cb_freelancer, cb_sonstiges;

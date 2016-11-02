@@ -49,6 +49,12 @@ public class Account extends Application {
         a.execute();
     }
 
+    public void deleteBid(String tag, String description){
+
+        DeleteBid d = new DeleteBid(getEmail(), tag, description);
+        d.execute();
+    }
+
     public void addUserInfo(Activity callingActivity, String password, String location, String language){
 
         setSelfInfo(getEmail(), password, location, language);

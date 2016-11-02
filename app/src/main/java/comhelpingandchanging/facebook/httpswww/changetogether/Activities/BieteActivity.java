@@ -53,15 +53,18 @@ public class BieteActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                AddBidDialog add = new AddBidDialog();
+                BidDialog add = new BidDialog();
                 add.show(getFragmentManager(), "Biete Dialog");
             }
         });
 
-        bieteList_class.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        bieteList_class.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                account.deleteBid(adapter.getItem(position), "");
+                bieteItems.remove(adapter.getItem(position));
+                adapter.notifyDataSetChanged();
+                return true;
             }
         });
     }
