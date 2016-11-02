@@ -48,7 +48,7 @@ public class SettingsActivity extends Activity {
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Toast.makeText(SettingsActivity.this, "Dicks blowen", Toast.LENGTH_SHORT).show();
             }
         });
 
