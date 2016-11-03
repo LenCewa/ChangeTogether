@@ -14,13 +14,13 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:text="M"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/menuButton"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@android:drawable/btn_dropdown" />
 
     <TextView
         android:layout_height="wrap_content"
