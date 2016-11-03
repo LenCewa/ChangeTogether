@@ -1,10 +1,9 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +25,22 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 public class HelpingLocationsFragment extends Fragment {
 
+    MainAppActivity callingActivity;
     View view;
-    Button menu;
     Account account;
+    Button addLocation;
+    TextView locationName, addedLocations;
+    ListView addedLocationsList;
+    ArrayAdapter adapter;
+    ArrayList<String> usersHelpingLocations = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_helping_locations, container, false);
         account = (Account) getActivity().getApplication();
+        callingActivity = (MainAppActivity) getActivity();
+
         AutoCompleteTextView autocompleteView = (AutoCompleteTextView) view.findViewById(R.id.autocomplete);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this
 
@@ -47,6 +53,40 @@ public class HelpingLocationsFragment extends Fragment {
                 //Toast.makeText(this, description, Toast.LENGTH_SHORT).show(); // TODO vorher getActivity() anstelle von this
             }
         });
+
+
+        locationName = (TextView) view.findViewById(R.id.autocomplete);
+        addLocation = (Button) view.findViewById(R.id.addLocationBtn);
+        addedLocations = (TextView) view.findViewById(R.id.addedLocationsTextView);
+
+        //ListView vorbereiten
+        addedLocationsList = (ListView) view.findViewById(R.id.addedLocationsListView);
+        adapter = new ArrayAdapter<String>(callingActivity, android.R.layout.simple_list_item_1, usersHelpingLocations);
+        addedLocationsList.setAdapter(adapter);
+        //ListView vorbereitet
+
+        addLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String location = locationName.getText().toString();
+                if (!isDuplicate(location)) {
+                    usersHelpingLocations.add(location);
+                    Log.e("autocomplete", location);
+                    adapter.notifyDataSetChanged();
+                }
+                else
+                    Log.e("adding a dupl. location", location);
+            }
+        });
+
+        // Ret view Statement
         return view;
+    }
+
+    public boolean isDuplicate(String location) {
+        for (String loc : usersHelpingLocations)
+            if (loc.equals(location))
+                return true;
+        return false;
     }
 }
