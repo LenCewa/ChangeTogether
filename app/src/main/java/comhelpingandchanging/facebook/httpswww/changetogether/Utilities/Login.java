@@ -83,7 +83,6 @@ public class Login extends AsyncTask<Void, Void, String> {
                 byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-                Log.e("string", results[2]);
                 account.setSelfInfo(email, password, location, language, decodedByte);
                 Intent search = new Intent(callingActivity, MainAppActivity.class);
                 callingActivity.startActivity(search);
