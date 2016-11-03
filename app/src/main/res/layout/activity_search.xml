@@ -4,15 +4,6 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/menuButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@android:drawable/btn_dropdown" />
-
     <TextView
         android:layout_height="wrap_content"
         android:id="@+id/textView"
@@ -20,7 +11,8 @@
         android:layout_alignBaseline="@+id/menuButton"
         android:layout_alignBottom="@+id/menuButton"
         android:layout_toLeftOf="@+id/menuButton"
-        android:layout_toStartOf="@+id/menuButton" />
+        android:layout_toStartOf="@+id/menuButton"
+        android:textSize="18sp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -45,7 +37,8 @@
         android:layout_toRightOf="@+id/editText3"
         android:layout_toEndOf="@+id/editText3"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_marginStart="16dp"
+        android:textSize="12sp" />
 
     <ListView
         android:layout_width="match_parent"
@@ -54,6 +47,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:layout_marginBottom="34dp" />
+        android:layout_marginBottom="34dp"
+        android:layout_below="@+id/editText3" />
 
 </RelativeLayout>

@@ -39,8 +39,6 @@ public class SettingsActivity extends Activity {
     ImageView profilePic;
     private Bitmap bitmap;
 
-    private GoogleApiClient client;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

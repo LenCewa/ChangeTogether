@@ -24,14 +24,5 @@ public class InboxActivity extends Activity {
         setContentView(R.layout.activity_inbox);
 
         account = (Account) getApplication();
-        menu = (Button) findViewById(R.id.menuButton);
-        menu.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent menuActivity = new Intent(InboxActivity.this, MenuActivity.class);
-                startActivity(menuActivity);
-            }
-        });
     }
 }

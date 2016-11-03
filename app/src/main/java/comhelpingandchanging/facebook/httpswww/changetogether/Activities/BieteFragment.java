@@ -1,9 +1,15 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,49 +22,43 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
- * Created by len13 on 17.10.2016.
+ * Created by Yannick on 03.11.2016.
  */
 
-public class BieteActivity extends Activity {
-    Button menu, add;
+public class BieteFragment extends Fragment {
+
+    View view;
+    MainAppActivity callingActivity;
     public ArrayList<String> bieteItems = new ArrayList<>();
     ListView bieteList_class;
     public ArrayAdapter<String> adapter;
     TextView profileInfo;
     Account account;
+    FloatingActionButton fab;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_biete);
-        account = (Account) getApplication();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_biete, container, false);
+        callingActivity = (MainAppActivity) getActivity();
 
-        profileInfo = (TextView) findViewById(R.id.textView2);
+        account = (Account) callingActivity.getApplication();
+
+        profileInfo = (TextView) view.findViewById(R.id.textView2);
         profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
 
-        bieteList_class = (ListView) findViewById(R.id.bieteList);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bieteItems);
+        bieteList_class = (ListView) view.findViewById(R.id.bieteList);
+        adapter = new ArrayAdapter<String>(callingActivity, android.R.layout.simple_list_item_1, bieteItems);
         bieteList_class.setAdapter(adapter);
 
         account.loadBids(this);
 
-        menu = (Button) findViewById(R.id.menuButton);
-        add = (Button) findViewById(R.id.addButton);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent menuActivity = new Intent(BieteActivity.this, MenuActivity.class);
-                startActivity(menuActivity);
-            }
-        });
-
-        add.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 BidDialog add = new BidDialog();
+                add.setTargetFragment(BieteFragment.this, 0);
                 add.show(getFragmentManager(), "Biete Dialog");
             }
         });
@@ -72,5 +72,6 @@ public class BieteActivity extends Activity {
                 return true;
             }
         });
+        return view;
     }
 }
