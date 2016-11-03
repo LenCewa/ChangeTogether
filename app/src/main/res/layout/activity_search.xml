@@ -37,7 +37,8 @@
         android:layout_toRightOf="@+id/editText3"
         android:layout_toEndOf="@+id/editText3"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_marginStart="16dp"
+        android:textSize="12sp" />
 
     <ListView
         android:layout_width="match_parent"

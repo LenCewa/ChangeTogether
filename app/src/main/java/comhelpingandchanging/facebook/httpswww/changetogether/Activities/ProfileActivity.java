@@ -48,16 +48,6 @@ public class ProfileActivity extends Activity {
         String userInfo = getIntent().getStringExtra("searchedUser");
         searchedUser = stringToUserProfile(userInfo);
 
-        menu = (Button) findViewById(R.id.menuButton);
-        menu.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent menuActivity = new Intent(ProfileActivity.this, MenuActivity.class);
-                startActivity(menuActivity);
-            }
-        });
-
         profileInfo = (TextView) findViewById(R.id.textView4);
         profileInfo.setText(searchedUser.getUsername() + " - " + searchedUser.getLocation() + " - " + searchedUser.getLanguage());
 
@@ -97,6 +87,5 @@ public class ProfileActivity extends Activity {
         });
 
         //if(adapter.getCount() == 0)
-
     }
 }
