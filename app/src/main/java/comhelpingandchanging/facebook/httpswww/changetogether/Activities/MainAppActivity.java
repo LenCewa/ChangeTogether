@@ -36,13 +36,11 @@ public class MainAppActivity extends AppCompatActivity
 
         account = (Account) getApplication();
         if (savedInstanceState != null) {
-            Log.e("Null","NULL");
             searchFragment = (SearchFragment) getFragmentManager().getFragment(savedInstanceState, "search");
             bieteFragment = (BieteFragment) getFragmentManager().getFragment(savedInstanceState, "biete");
             ownProfileFragment = (OwnProfileFragment) getFragmentManager().getFragment(savedInstanceState, "ownprofile");
         }
         else {
-            Log.e("not null","not null");
             searchFragment = new SearchFragment();
             bieteFragment = new BieteFragment();
             ownProfileFragment = new OwnProfileFragment();
