@@ -43,90 +43,12 @@ public class BidDialog extends DialogFragment {
         cb_sprachkurs = (CheckBox) rootView.findViewById(R.id.sprachkurs);
         cb_wohnungsscuhe = (CheckBox) rootView.findViewById(R.id.wohnungssuche);
 
-        cb_bewerbung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_bewerbung.isChecked() && !bieteItems.contains(cb_bewerbung.getText().toString()) && !callingFragment.bieteItems.contains(cb_bewerbung.getText().toString()))
-                    bieteItems.add(cb_bewerbung.getText().toString());
-            }
-        });
-
-        cb_freelancer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_freelancer.isChecked() && !bieteItems.contains(cb_freelancer.getText().toString()) && !callingFragment.bieteItems.contains(cb_freelancer.getText().toString()))
-                    bieteItems.add(cb_freelancer.getText().toString());
-            }
-        });
-
-        cb_freizeit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_freizeit.isChecked() && !bieteItems.contains(cb_freizeit.getText().toString()) && !callingFragment.bieteItems.contains(cb_freizeit.getText().toString()))
-                    bieteItems.add(cb_freizeit.getText().toString());
-            }
-        });
-
-        cb_kochen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_kochen.isChecked() && !bieteItems.contains(cb_kochen.getText().toString()) && !callingFragment.bieteItems.contains(cb_kochen.getText().toString()))
-                    bieteItems.add(cb_kochen.getText().toString());
-            }
-        });
-
-        cb_nachhilfe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_nachhilfe.isChecked() && !bieteItems.contains(cb_nachhilfe.getText().toString()) && !callingFragment.bieteItems.contains(cb_nachhilfe.getText().toString()))
-                    bieteItems.add(cb_nachhilfe.getText().toString());
-            }
-        });
-
-        cb_orga.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_orga.isChecked() && !bieteItems.contains(cb_orga.getText().toString()) && !callingFragment.bieteItems.contains(cb_orga.getText().toString()))
-                    bieteItems.add(cb_orga.getText().toString());
-            }
-        });
-
-        cb_sonstiges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_sonstiges.isChecked() && !bieteItems.contains(cb_sonstiges.getText().toString()) && !callingFragment.bieteItems.contains(cb_sonstiges.getText().toString()))
-                    bieteItems.add(cb_sonstiges.getText().toString());
-            }
-        });
-
-        cb_sport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_sport.isChecked() && !bieteItems.contains(cb_sport.getText().toString()) && !callingFragment.bieteItems.contains(cb_sport.getText().toString()))
-                    bieteItems.add(cb_sport.getText().toString());
-            }
-        });
-
-        cb_sprachkurs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_sprachkurs.isChecked() && !bieteItems.contains(cb_sprachkurs.getText().toString()) && !callingFragment.bieteItems.contains(cb_sprachkurs.getText().toString()))
-                    bieteItems.add(cb_sprachkurs.getText().toString());
-            }
-        });
-
-        cb_wohnungsscuhe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cb_wohnungsscuhe.isChecked() && !bieteItems.contains(cb_wohnungsscuhe.getText().toString()) && !callingFragment.bieteItems.contains(cb_wohnungsscuhe.getText().toString()))
-                    bieteItems.add(cb_wohnungsscuhe.getText().toString());
-            }
-        });
-
         done = (Button) rootView.findViewById(R.id.doneBtn);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                addClickedItems();
                 for(String s : bieteItems) {
                     ((Account) callingFragment.getActivity().getApplication()).addBid(s, "");
                 }
@@ -137,5 +59,39 @@ public class BidDialog extends DialogFragment {
         });
 
         return rootView;
+    }
+
+    void addClickedItems(){
+
+        if (cb_bewerbung.isChecked() && !callingFragment.bieteItems.contains(cb_bewerbung.getText().toString()))
+            bieteItems.add(cb_bewerbung.getText().toString());
+
+        if (cb_freelancer.isChecked() && !callingFragment.bieteItems.contains(cb_freelancer.getText().toString()))
+            bieteItems.add(cb_freelancer.getText().toString());
+
+        if (cb_freizeit.isChecked() && !callingFragment.bieteItems.contains(cb_freizeit.getText().toString()))
+            bieteItems.add(cb_freizeit.getText().toString());
+
+        if (cb_kochen.isChecked() && !callingFragment.bieteItems.contains(cb_kochen.getText().toString()))
+            bieteItems.add(cb_kochen.getText().toString());
+
+        if (cb_nachhilfe.isChecked() && !callingFragment.bieteItems.contains(cb_nachhilfe.getText().toString()))
+            bieteItems.add(cb_nachhilfe.getText().toString());
+
+        if (cb_orga.isChecked() && !callingFragment.bieteItems.contains(cb_orga.getText().toString()))
+            bieteItems.add(cb_orga.getText().toString());
+
+        if (cb_sonstiges.isChecked() && !callingFragment.bieteItems.contains(cb_sonstiges.getText().toString()))
+            bieteItems.add(cb_sonstiges.getText().toString());
+
+        if (cb_sport.isChecked() && !callingFragment.bieteItems.contains(cb_sport.getText().toString()))
+            bieteItems.add(cb_sport.getText().toString());
+
+        if (cb_sprachkurs.isChecked() && !callingFragment.bieteItems.contains(cb_sprachkurs.getText().toString()))
+            bieteItems.add(cb_sprachkurs.getText().toString());
+
+        if (cb_wohnungsscuhe.isChecked() && !callingFragment.bieteItems.contains(cb_wohnungsscuhe.getText().toString()))
+            bieteItems.add(cb_wohnungsscuhe.getText().toString());
+
     }
 }

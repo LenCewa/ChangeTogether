@@ -58,6 +58,7 @@ public class MainAppActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -111,6 +112,12 @@ public class MainAppActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").commit();
         } else if (id == R.id.nav_helping) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").commit();
+        }
+        else if (id == R.id.nav_logout){
+            account.logout();
+            Intent main = new Intent(MainAppActivity.this, MainActivity.class);
+            startActivity(main);
+            finishAffinity();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
