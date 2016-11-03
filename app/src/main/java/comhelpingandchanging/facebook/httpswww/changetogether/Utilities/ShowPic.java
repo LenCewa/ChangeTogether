@@ -15,11 +15,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.regex.Pattern;
-
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.OwnProfileActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 
 /**
  * Created by Yannick on 03.11.2016.

@@ -1,7 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,9 +12,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.OwnProfileActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 
 /**
  * Created by Yannick on 30.10.2016.
@@ -71,12 +67,9 @@ public class AddUserInfo extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        if(s.equals("Success")) {
-            Intent OwnprofileActivity = new Intent(callingActivity, OwnProfileActivity.class);
-            callingActivity.startActivity(OwnprofileActivity);
+        if(s.equals("Success"))
             callingActivity.finish();
-        }
         if(s.equals("Error"))
-            Toast.makeText(callingActivity, s, Toast.LENGTH_SHORT).show();;
+            Toast.makeText(callingActivity, s, Toast.LENGTH_SHORT).show();
     }
 }

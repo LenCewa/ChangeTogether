@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_action_search"
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_biete"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Biete" />
+        <item
+            android:id="@+id/nav_own_profile"
+            android:icon="@drawable/ic_person"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tools" />
+    </group>
+
+</menu>

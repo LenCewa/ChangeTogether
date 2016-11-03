@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 import android.app.Activity;
 import android.app.Application;
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
@@ -32,15 +33,15 @@ public class Account extends Application {
         editor.apply();
     }
 
-    public void loadBids(Activity callingActivity){
+    public void loadBids(Fragment callingFragment){
 
-        LoadBids l = new LoadBids(callingActivity, getEmail());
+        LoadBids l = new LoadBids(callingFragment, getEmail());
         l.execute();
     }
 
-    public void searchBid(Activity callingActivity, String tag){
+    public void searchBid(Fragment callingFragment, String tag){
 
-        SearchBid s = new SearchBid(callingActivity, tag);
+        SearchBid s = new SearchBid(callingFragment, tag);
         s.execute();
     }
 

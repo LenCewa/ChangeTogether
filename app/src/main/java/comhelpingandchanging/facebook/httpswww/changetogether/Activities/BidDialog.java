@@ -1,10 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
-import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +21,14 @@ public class BidDialog extends DialogFragment {
 
     Button done;
     CheckBox cb_sprachkurs, cb_wohnungsscuhe, cb_freizeit, cb_nachhilfe, cb_orga, cb_sport, cb_kochen, cb_bewerbung, cb_freelancer, cb_sonstiges;
-    BieteActivity callingActivity;
+    BieteFragment callingFragment;
     ArrayList<String> bieteItems;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_select_biete, container, false);
 
-        callingActivity = (BieteActivity) getActivity();
+        callingFragment = (BieteFragment) getTargetFragment();
 
         bieteItems = new ArrayList<>();
 
@@ -49,7 +46,7 @@ public class BidDialog extends DialogFragment {
         cb_bewerbung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_bewerbung.isChecked() && !callingActivity.bieteItems.contains(cb_bewerbung.getText().toString()))
+                if (cb_bewerbung.isChecked() && !callingFragment.bieteItems.contains(cb_bewerbung.getText().toString()))
                     bieteItems.add(cb_bewerbung.getText().toString());
             }
         });
@@ -57,7 +54,7 @@ public class BidDialog extends DialogFragment {
         cb_freelancer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_freelancer.isChecked() && !callingActivity.bieteItems.contains(cb_freelancer.getText().toString()))
+                if (cb_freelancer.isChecked() && !callingFragment.bieteItems.contains(cb_freelancer.getText().toString()))
                     bieteItems.add(cb_freelancer.getText().toString());
             }
         });
@@ -65,7 +62,7 @@ public class BidDialog extends DialogFragment {
         cb_freizeit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_freizeit.isChecked() && !callingActivity.bieteItems.contains(cb_freizeit.getText().toString()))
+                if (cb_freizeit.isChecked() && !callingFragment.bieteItems.contains(cb_freizeit.getText().toString()))
                     bieteItems.add(cb_freizeit.getText().toString());
             }
         });
@@ -73,7 +70,7 @@ public class BidDialog extends DialogFragment {
         cb_kochen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_kochen.isChecked() && !callingActivity.bieteItems.contains(cb_kochen.getText().toString()))
+                if (cb_kochen.isChecked() && !callingFragment.bieteItems.contains(cb_kochen.getText().toString()))
                     bieteItems.add(cb_kochen.getText().toString());
             }
         });
@@ -81,7 +78,7 @@ public class BidDialog extends DialogFragment {
         cb_nachhilfe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_nachhilfe.isChecked() && !callingActivity.bieteItems.contains(cb_nachhilfe.getText().toString()))
+                if (cb_nachhilfe.isChecked() && !callingFragment.bieteItems.contains(cb_nachhilfe.getText().toString()))
                     bieteItems.add(cb_nachhilfe.getText().toString());
             }
         });
@@ -89,7 +86,7 @@ public class BidDialog extends DialogFragment {
         cb_orga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_orga.isChecked() && !callingActivity.bieteItems.contains(cb_orga.getText().toString()))
+                if (cb_orga.isChecked() && !callingFragment.bieteItems.contains(cb_orga.getText().toString()))
                     bieteItems.add(cb_orga.getText().toString());
             }
         });
@@ -97,7 +94,7 @@ public class BidDialog extends DialogFragment {
         cb_sonstiges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_sonstiges.isChecked() && !callingActivity.bieteItems.contains(cb_sonstiges.getText().toString()))
+                if (cb_sonstiges.isChecked() && !callingFragment.bieteItems.contains(cb_sonstiges.getText().toString()))
                     bieteItems.add(cb_sonstiges.getText().toString());
             }
         });
@@ -105,7 +102,7 @@ public class BidDialog extends DialogFragment {
         cb_sport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_sport.isChecked() && !callingActivity.bieteItems.contains(cb_sport.getText().toString()))
+                if (cb_sport.isChecked() && !callingFragment.bieteItems.contains(cb_sport.getText().toString()))
                     bieteItems.add(cb_sport.getText().toString());
             }
         });
@@ -113,7 +110,7 @@ public class BidDialog extends DialogFragment {
         cb_sprachkurs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_sprachkurs.isChecked() && !callingActivity.bieteItems.contains(cb_sprachkurs.getText().toString()))
+                if (cb_sprachkurs.isChecked() && !callingFragment.bieteItems.contains(cb_sprachkurs.getText().toString()))
                     bieteItems.add(cb_sprachkurs.getText().toString());
             }
         });
@@ -121,7 +118,7 @@ public class BidDialog extends DialogFragment {
         cb_wohnungsscuhe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cb_wohnungsscuhe.isChecked() && !callingActivity.bieteItems.contains(cb_wohnungsscuhe.getText().toString()))
+                if (cb_wohnungsscuhe.isChecked() && !callingFragment.bieteItems.contains(cb_wohnungsscuhe.getText().toString()))
                     bieteItems.add(cb_wohnungsscuhe.getText().toString());
             }
         });
@@ -131,10 +128,10 @@ public class BidDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 for(String s : bieteItems) {
-                    ((Account) callingActivity.getApplication()).addBid(s, "");
+                    ((Account) callingFragment.getActivity().getApplication()).addBid(s, "");
                 }
-                callingActivity.bieteItems.addAll(bieteItems);
-                callingActivity.adapter.notifyDataSetChanged();
+                callingFragment.bieteItems.addAll(bieteItems);
+                callingFragment.adapter.notifyDataSetChanged();
                 getDialog().dismiss();
             }
         });

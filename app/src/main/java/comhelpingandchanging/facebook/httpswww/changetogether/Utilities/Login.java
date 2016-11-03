@@ -18,7 +18,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 
 /**
  * Created by Yannick on 29.10.2016.
@@ -84,7 +84,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                 account.setSelfInfo(email, password, location, language, decodedByte);
-                Intent search = new Intent(callingActivity, SearchActivity.class);
+                Intent search = new Intent(callingActivity, MainAppActivity.class);
                 callingActivity.startActivity(search);
                 callingActivity.finishAffinity();
             }

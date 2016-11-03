@@ -23,24 +23,23 @@
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
         -->
 
-        <activity
-            android:name=".Activities.SearchActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".Activities.RegisterActivity"></activity>
-        <activity android:name=".Activities.LoginActivity"></activity>
-        <activity android:name=".Activities.MenuActivity"></activity>
-        <activity android:name=".Activities.BieteActivity"></activity>
-        <activity android:name=".Activities.InboxActivity"></activity>
-        <activity android:name=".Activities.ProfileActivity"></activity>
-        <activity android:name=".Activities.FeedbackActivity"></activity>
-        <activity android:name=".Activities.OwnProfileActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.MenuActivity" />
+        <activity android:name=".Activities.InboxActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.HelpingLocationsActivity"></activity>
+        <activity android:name=".Activities.HelpingLocationsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity
+            android:name=".Activities.MainAppActivity"
+            android:label="@string/title_activity_main_app"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

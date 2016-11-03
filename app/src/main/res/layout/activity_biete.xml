@@ -3,51 +3,31 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/menuButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@android:drawable/btn_dropdown" />
-
     <TextView
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_alignBaseline="@+id/menuButton"
         android:layout_alignBottom="@+id/menuButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="ADD"
-        android:layout_height="50dp"
-        android:id="@+id/addButton"
-        android:layout_width="60dp"
-        android:layout_below="@+id/menuButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addButton"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp"
-        android:id="@+id/textView13"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textSize="18sp" />
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/textView13"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/bieteList" />
+        android:layout_height="wrap_content"
+        android:id="@+id/bieteList"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView2" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_action_add"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp" />
 
 </RelativeLayout>
