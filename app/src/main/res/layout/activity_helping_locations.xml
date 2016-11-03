@@ -13,15 +13,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Add Location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/autocomplete"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:id="@+id/addLocationBtn" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,5 +28,25 @@
         android:layout_alignTop="@+id/addedLocationsTextView"
         android:layout_alignParentStart="true"
         android:id="@+id/addedLocationsListView" />
+
+    <Button
+        android:text="Add Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:id="@+id/addLocationBtn"
+        android:layout_below="@+id/autocomplete"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp" />
+
+    <Button
+        android:text="Delete Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteLocationBtn"
+        android:layout_alignBaseline="@+id/addLocationBtn"
+        android:layout_alignBottom="@+id/addLocationBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp" />
 
 </RelativeLayout>
