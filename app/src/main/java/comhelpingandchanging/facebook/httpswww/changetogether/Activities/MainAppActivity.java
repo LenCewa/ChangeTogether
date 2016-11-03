@@ -41,7 +41,6 @@ public class MainAppActivity extends AppCompatActivity
             ownProfileFragment = (OwnProfileFragment) getFragmentManager().getFragment(savedInstanceState, "ownprofile");
         }
         else {
-            Log.e("not null","not null");
             searchFragment = new SearchFragment();
             bieteFragment = new BieteFragment();
             ownProfileFragment = new OwnProfileFragment();
