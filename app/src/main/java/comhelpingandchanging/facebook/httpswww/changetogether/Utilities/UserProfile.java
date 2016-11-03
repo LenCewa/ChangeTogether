@@ -1,5 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
 /**
@@ -12,6 +14,7 @@ public class UserProfile {
     private String password;
     private String location;
     private String language;
+    private Bitmap profilePic;
     //private ArrayList<String[]> feedback;
 
     public UserProfile(String username, String password){
@@ -30,12 +33,13 @@ public class UserProfile {
         this.language = "N/A";
     }
 
-    public UserProfile(String username, String password, String location, String language){
+    public UserProfile(String username, String password, String location, String language, Bitmap profilePic){
 
         this.username = username;
         this.password = password;
         this.location = location;
         this.language = language;
+        this.profilePic = profilePic;
     }
 
     public String getUsername(){
@@ -51,6 +55,8 @@ public class UserProfile {
     public String getLanguage(){
         return language;
     }
+
+    public Bitmap getProfilePic(){ return profilePic; }
 
     public void setLocation(String location){
         this.location = location;

@@ -13,6 +13,8 @@ public class Constants {
     public static final String DBLOADBID = "http://change-together.spdns.org/app/loadBids.php";
     public static final String DBADDUSERINFO = "http://change-together.spdns.org/app/addUserInfo.php";
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";
+    public static final String DBUPLOADPIC = "http://change-together.spdns.org/app/uploadPic.php";
+    public static final String DBUSHOWPIC = "http://change-together.spdns.org/app/showPic.php";
 
     public static final String USERTABLE = "User";
     public static final String SUPPLYTABLE = "Supply";

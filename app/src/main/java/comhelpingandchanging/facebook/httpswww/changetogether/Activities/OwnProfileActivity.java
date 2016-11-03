@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -14,6 +15,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.ShowPic;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -28,6 +30,7 @@ public class OwnProfileActivity extends Activity {
     TextView username;
     TextView location;
     TextView language;
+    public ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class OwnProfileActivity extends Activity {
         username = (TextView) findViewById(R.id.ownUsername);
         location = (TextView) findViewById(R.id.ownLoaction);
         language = (TextView) findViewById(R.id.ownLanguage);
+        profilePic = (ImageView) findViewById(R.id.ownProfilePic);
+
+        profilePic.setImageBitmap(account.getProfilePic());
 
         username.setText(account.getEmail());
         location.setText(account.getLocation());
@@ -46,8 +52,8 @@ public class OwnProfileActivity extends Activity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent SettingsActivity = new Intent(OwnProfileActivity.this, SettingsActivity.class);
-                startActivity(SettingsActivity);
+                Intent settingsActivity = new Intent(OwnProfileActivity.this, SettingsActivity.class);
+                startActivity(settingsActivity);
                 finish();
             }
         });

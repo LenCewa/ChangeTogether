@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.LoginActivity;
 
@@ -55,9 +56,21 @@ public class Account extends Application {
         d.execute();
     }
 
-    public void addUserInfo(Activity callingActivity, String password, String location, String language){
+    public void uploadProfilePic(Activity callingActivity, Bitmap pic){
 
-        setSelfInfo(getEmail(), password, location, language);
+        UploadImage u = new UploadImage(callingActivity, getEmail(), pic);
+        u.execute();
+    }
+
+    public void showPic(Activity callingActivity){
+
+        ShowPic s = new ShowPic(callingActivity, getEmail());
+        s.execute();
+    }
+
+    public void addUserInfo(Activity callingActivity, String password, String location, String language, Bitmap bitmap){
+
+        setSelfInfo(getEmail(), password, location, language, bitmap);
         AddUserInfo a = new AddUserInfo(callingActivity, password, location, language);
         a.execute();
     }
@@ -78,15 +91,9 @@ public class Account extends Application {
         return self.getLanguage();
     }
 
-    public void setLocation(String location){
-        self.setLocation(location);
-    }
+    public Bitmap getProfilePic(){ return self.getProfilePic(); }
 
-    public void setLanguage(String language){
-        self.setLanguage(language);
-    }
-
-    public void setSelfInfo(String email, String password, String location, String language){
-        self = new UserProfile(email, password, location, language);
+    public void setSelfInfo(String email, String password, String location, String language, Bitmap profilePic){
+        self = new UserProfile(email, password, location, language, profilePic);
     }
 }
