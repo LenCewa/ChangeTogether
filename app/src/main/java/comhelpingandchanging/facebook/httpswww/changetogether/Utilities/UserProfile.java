@@ -2,8 +2,6 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.graphics.Bitmap;
 
-import java.util.ArrayList;
-
 /**
  * Created by Yannick on 29.10.2016.
  */

@@ -1,7 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

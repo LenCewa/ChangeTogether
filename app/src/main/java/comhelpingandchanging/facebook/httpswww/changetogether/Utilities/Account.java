@@ -1,12 +1,11 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+
 import android.app.Activity;
 import android.app.Application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.LoginActivity;
 
 /**
  * Created by Yannick on 26.10.2016.
