@@ -20,4 +20,12 @@
             android:title="Add Helping Locations" />
     </group>
 
+    <group android:>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_action_search"
+        android:title="Logout" />
+</group>
+
 </menu>
+
