@@ -30,7 +30,6 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
     ProgressDialog loading;
     Bitmap pic;
     String email;
-    boolean connectionEstablished = false;
     RequestHandler rh = new RequestHandler();
 
     public UploadImage(Activity callingActivity, String email, Bitmap pic){

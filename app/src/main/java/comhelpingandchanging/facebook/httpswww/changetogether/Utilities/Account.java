@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
@@ -14,6 +15,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.LoginAc
 public class Account extends Application {
 
     private UserProfile self = null;
+    public FragmentManager fm;
     //private UserProfile searchedUserInfo = null;
 
     public void login(Activity callingActivity, String email, String password) {
@@ -94,7 +96,15 @@ public class Account extends Application {
 
     public Bitmap getProfilePic(){ return self.getProfilePic(); }
 
+    public FragmentManager getFragmentManager(){
+        return fm;
+    }
+
     public void setSelfInfo(String email, String password, String location, String language, Bitmap profilePic){
         self = new UserProfile(email, password, location, language, profilePic);
+    }
+
+    public void setFragmentManager(FragmentManager fm){
+        this.fm = fm;
     }
 }

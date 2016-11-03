@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
@@ -30,7 +31,7 @@ public class Login extends AsyncTask<Void, Void, String> {
     private Activity callingActivity;
     private String email;
     private String password;
-    private boolean connectionEstablished = false;
+   RequestHandler rh = new RequestHandler();
 
     public Login(Activity callingActivity, String email, String password) {
 
@@ -42,52 +43,31 @@ public class Login extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        StringBuilder sb = new StringBuilder();
+        HashMap<String,String> data = new HashMap<>();
 
-        try {
-            String link = Constants.DBLOGIN + "?email=" + email + "&username=" + email + "&password=" + password;
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
+        data.put("email", email);
+        data.put("password", password);
+        String result = rh.sendPostRequest(Constants.DBLOGIN,data);
 
-            InputStream in = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            in.close();
-            connectionEstablished = true;
-
-        } catch (MalformedURLException e) {
-            Log.e("stacktrace", "MalformedURLException", e);
-            connectionEstablished = false;
-        } catch (IOException e) {
-            Log.e("stacktrace", "IOException", e);
-            connectionEstablished = false;
-        }
-
-        return sb.toString();
+        return result;
     }
 
     @Override
     protected void onPostExecute(String result) {
-        if (connectionEstablished) {
-            if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
-                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
-            else {
-                String[] results = result.split(Pattern.quote("|"));
-                String location = results[0];
-                String language = results[1];
+        if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
+            Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+        else {
+            String[] results = result.split(Pattern.quote("|"));
+            String location = results[0];
+            String language = results[1];
 
-                byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-                account.setSelfInfo(email, password, location, language, decodedByte);
-                Intent search = new Intent(callingActivity, MainAppActivity.class);
-                callingActivity.startActivity(search);
-                callingActivity.finishAffinity();
-            }
+            account.setSelfInfo(email, password, location, language, decodedByte);
+            Intent search = new Intent(callingActivity, MainAppActivity.class);
+            callingActivity.startActivity(search);
+            callingActivity.finishAffinity();
         }
     }
 }

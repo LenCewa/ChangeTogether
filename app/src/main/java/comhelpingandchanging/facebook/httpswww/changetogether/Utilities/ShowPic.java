@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -23,7 +24,7 @@ import java.net.URLConnection;
 public class ShowPic extends AsyncTask<Void, Void, String>{
 
     Activity callingActivity;
-    private boolean connectionEstablished = true;
+    RequestHandler rh = new RequestHandler();
     private String email;
 
     public ShowPic(Activity callingActivity, String email){
@@ -35,32 +36,12 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
     @Override
     protected String doInBackground(Void... params) {
 
-        StringBuilder sb = new StringBuilder();
+        HashMap<String,String> data = new HashMap<>();
 
-        try {
-            String link = Constants.DBUSHOWPIC + "?email=" + email;
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
+        data.put("email", email);
+        String result = rh.sendPostRequest(Constants.DBUSHOWPIC,data);
 
-            InputStream in = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            in.close();
-            connectionEstablished = true;
-
-        } catch (MalformedURLException e) {
-            Log.e("stacktrace", "MalformedURLException", e);
-            connectionEstablished = false;
-        } catch (IOException e) {
-            Log.e("stacktrace", "IOException", e);
-            connectionEstablished = false;
-        }
-
-        return sb.toString();
+        return result;
     }
 
     @Override

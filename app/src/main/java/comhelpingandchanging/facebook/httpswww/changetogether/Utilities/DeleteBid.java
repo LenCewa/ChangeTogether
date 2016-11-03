@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 /**
  * Created by Yannick on 02.11.2016.
@@ -20,7 +21,7 @@ public class DeleteBid extends AsyncTask<Void, Void, String > {
     private String email;
     private String tag;
     private String description;
-    private boolean connectionEstablished = false;
+    RequestHandler rh = new RequestHandler();
 
     public DeleteBid(String email, String tag, String description){
 
@@ -31,31 +32,13 @@ public class DeleteBid extends AsyncTask<Void, Void, String > {
 
     @Override
     protected String doInBackground(Void... params) {
-        StringBuilder sb = new StringBuilder();
+        HashMap<String,String> data = new HashMap<>();
 
-        try {
-            String link = Constants.DBDELETEBID + "?email=" + email + "&tag=" + tag + "&description=" + description;
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
+        data.put("email", email);
+        data.put("tag", tag);
+        data.put("description", description);
+        String result = rh.sendPostRequest(Constants.DBDELETEBID,data);
 
-            InputStream in = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            in.close();
-            connectionEstablished = true;
-
-        } catch (MalformedURLException e) {
-            Log.e("stacktrace", "MalformedURLException", e);
-            connectionEstablished = false;
-        } catch (IOException e) {
-            Log.e("stacktrace", "IOException", e);
-            connectionEstablished = false;
-        }
-
-        return sb.toString();
+        return result;
     }
 }

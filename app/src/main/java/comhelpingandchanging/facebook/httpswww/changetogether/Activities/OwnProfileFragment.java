@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,11 +40,7 @@ public class OwnProfileFragment extends Fragment {
         language = (TextView) view.findViewById(R.id.ownLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
-        profilePic.setImageBitmap(account.getProfilePic());
-
-        username.setText(account.getEmail());
-        location.setText(account.getLocation());
-        language.setText(account.getLanguage());
+        setElements();
 
         settings = (Button) view.findViewById(R.id.settingsButton);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -54,5 +51,12 @@ public class OwnProfileFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    public void setElements() {
+        profilePic.setImageBitmap(account.getProfilePic());
+        username.setText(account.getEmail());
+        location.setText(account.getLocation());
+        language.setText(account.getLanguage());
     }
 }

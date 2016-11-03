@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
@@ -23,7 +24,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchF
 public class SearchBid extends AsyncTask<Void, Void, String>{
 
     Fragment callingFragment;
-    private boolean connectionEstablished = true;
+    RequestHandler rh = new RequestHandler();
     private String tag;
 
     public SearchBid(Fragment callingFragment, String tag){
@@ -35,48 +36,26 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
     @Override
     protected String doInBackground(Void... params) {
 
-        StringBuilder sb = new StringBuilder();
+        HashMap<String,String> data = new HashMap<>();
 
-        try {
-            String link = Constants.DBSEARCHBID + "?tag=" + tag;
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
+        data.put("tag", tag);
+        String result = rh.sendPostRequest(Constants.DBSEARCHBID,data);
 
-            InputStream in = conn.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            in.close();
-            connectionEstablished = true;
-
-        } catch (MalformedURLException e) {
-            Log.e("stacktrace", "MalformedURLException", e);
-            connectionEstablished = false;
-        } catch (IOException e) {
-            Log.e("stacktrace", "IOException", e);
-            connectionEstablished = false;
-        }
-
-        return sb.toString();
+        return result;
     }
 
     @Override
     protected void onPostExecute(String result) {
-        if (connectionEstablished) {
-            if(result.equals("No entries"));
-                //Toast.makeText(callingFragment, result, Toast.LENGTH_SHORT).show();
-            else {
-                String[] s = result.split(Pattern.quote(":"));
-                StringBuilder sb = new StringBuilder();
-                for(int i = 0; i < s.length; i++) {
-                    String[] arr = s[i].split(Pattern.quote("|"));
-                    if(!arr[0].equals(((Account) callingFragment.getActivity().getApplication()).getEmail())){
-                        ((SearchFragment) callingFragment).listItems.add(0, new String[]{ arr[0], arr[1] });
-                        ((SearchFragment) callingFragment).adapter.notifyDataSetChanged();
-                    }
+        if(result.equals("No entries"));
+            //Toast.makeText(callingFragment, result, Toast.LENGTH_SHORT).show();
+        else {
+            String[] s = result.split(Pattern.quote(":"));
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < s.length; i++) {
+                String[] arr = s[i].split(Pattern.quote("|"));
+                if(!arr[0].equals(((Account) callingFragment.getActivity().getApplication()).getEmail())){
+                    ((SearchFragment) callingFragment).listItems.add(0, new String[]{ arr[0], arr[1] });
+                    ((SearchFragment) callingFragment).adapter.notifyDataSetChanged();
                 }
             }
         }
