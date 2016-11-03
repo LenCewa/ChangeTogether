@@ -33,7 +33,7 @@ public class HelpingLocationsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_biete, container, false);
+        view = inflater.inflate(R.layout.activity_helping_locations, container, false);
         account = (Account) getActivity().getApplication();
         AutoCompleteTextView autocompleteView = (AutoCompleteTextView) view.findViewById(R.id.autocomplete);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this

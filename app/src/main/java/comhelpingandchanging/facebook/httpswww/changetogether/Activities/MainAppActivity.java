@@ -2,19 +2,18 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -25,6 +24,10 @@ public class MainAppActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Account account;
+    SearchFragment searchFragment;
+    BieteFragment bieteFragment;
+    OwnProfileFragment ownProfileFragment;
+    HelpingLocationsFragment helpingLocationsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,19 @@ public class MainAppActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_app);
 
         account = (Account) getApplication();
+        if (savedInstanceState != null) {
+            Log.e("Null","NULL");
+            searchFragment = (SearchFragment) getFragmentManager().getFragment(savedInstanceState, "search");
+            bieteFragment = (BieteFragment) getFragmentManager().getFragment(savedInstanceState, "biete");
+            ownProfileFragment = (OwnProfileFragment) getFragmentManager().getFragment(savedInstanceState, "ownprofile");
+        }
+        else {
+            Log.e("not null","not null");
+            searchFragment = new SearchFragment();
+            bieteFragment = new BieteFragment();
+            ownProfileFragment = new OwnProfileFragment();
+            helpingLocationsFragment = new HelpingLocationsFragment();
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,13 +106,13 @@ public class MainAppActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_search) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new SearchFragment(), "search").addToBackStack(null).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").commit();
         } else if (id == R.id.nav_biete) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new BieteFragment(), "biete").addToBackStack(null).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").commit();
         } else if (id == R.id.nav_own_profile) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new OwnProfileFragment(), "ownprofile").addToBackStack(null).commit();
-        } else if (id == R.id.nav_manage) {
-
+            fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").commit();
+        } else if (id == R.id.nav_helping) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -114,15 +130,5 @@ public class MainAppActivity extends AppCompatActivity
             editor.putString("password", account.getPassword());
             editor.commit();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Fragment search = getFragmentManager().findFragmentByTag("search");
-        Fragment biete = getFragmentManager().findFragmentByTag("biete");
-        Fragment ownprofile = getFragmentManager().findFragmentByTag("ownprofile");
-
-
     }
 }

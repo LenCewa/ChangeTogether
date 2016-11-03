@@ -15,9 +15,9 @@
             android:icon="@drawable/ic_person"
             android:title="Profile" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_helping"
             android:icon="@drawable/ic_menu_manage"
-            android:title="NOT USED" />
+            android:title="Add Helping Locations" />
     </group>
 
 </menu>
