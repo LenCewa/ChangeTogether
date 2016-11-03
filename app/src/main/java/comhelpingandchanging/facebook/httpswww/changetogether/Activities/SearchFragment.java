@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,10 @@ public class SearchFragment extends Fragment {
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
     public CustomAdapterSearch adapter;
 
+    public SearchFragment(){
+        setArguments(new Bundle());
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +54,10 @@ public class SearchFragment extends Fragment {
         adapter = new CustomAdapterSearch(callingActivity, listItems);
         searches.setAdapter(adapter);
 
+        Log.e("hallo", getArguments().getString("searchText"));
         searchField = (EditText) view.findViewById(R.id.editText3);
+        searchField.setText(getArguments().getString("searchText"));
+
         searchBtn = (Button) view.findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,5 +69,12 @@ public class SearchFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        getArguments().putString("searchText", searchField.getText().toString());
     }
 }

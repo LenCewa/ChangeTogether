@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -89,11 +90,11 @@ public class MainAppActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_search) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new SearchFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new SearchFragment(), "search").addToBackStack(null).commit();
         } else if (id == R.id.nav_biete) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new BieteFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new BieteFragment(), "biete").addToBackStack(null).commit();
         } else if (id == R.id.nav_own_profile) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new OwnProfileFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new OwnProfileFragment(), "ownprofile").addToBackStack(null).commit();
         } else if (id == R.id.nav_manage) {
 
         }
@@ -113,5 +114,15 @@ public class MainAppActivity extends AppCompatActivity
             editor.putString("password", account.getPassword());
             editor.commit();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Fragment search = getFragmentManager().findFragmentByTag("search");
+        Fragment biete = getFragmentManager().findFragmentByTag("biete");
+        Fragment ownprofile = getFragmentManager().findFragmentByTag("ownprofile");
+
+
     }
 }
