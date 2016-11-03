@@ -2,7 +2,6 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -120,7 +119,4 @@ public class HelpingLocationsFragment extends Fragment {
         return false;
     }
 
-    public boolean deleteLocationFromList(String toDelete) {
-        return false;
-    }
 }
