@@ -54,7 +54,6 @@ public class SearchFragment extends Fragment {
         adapter = new CustomAdapterSearch(callingActivity, listItems);
         searches.setAdapter(adapter);
 
-        Log.e("hallo", getArguments().getString("searchText"));
         searchField = (EditText) view.findViewById(R.id.editText3);
         searchField.setText(getArguments().getString("searchText"));
 
