@@ -72,7 +72,8 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
                 StringBuilder sb = new StringBuilder();
                 for(int i = 0; i < s.length; i++) {
                     String[] arr = s[i].split(Pattern.quote("|"));
-                    ((BieteFragment)callingFragment).bieteItems.add(arr[1]);
+                    if(!((BieteFragment)callingFragment).bieteItems.contains(arr[1]))
+                        ((BieteFragment)callingFragment).bieteItems.add(arr[1]);
                 }
                 ((BieteFragment)callingFragment).adapter.notifyDataSetChanged();
             }
