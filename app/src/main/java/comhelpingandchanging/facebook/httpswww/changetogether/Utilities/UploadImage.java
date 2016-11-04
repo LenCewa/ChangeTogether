@@ -30,14 +30,15 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
 
     @Override
     protected void onPreExecute() {
-        //super.onPreExecute();
+        super.onPreExecute();
         loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
 
     @Override
     protected void onPostExecute(String s) {
-        //super.onPostExecute(s);
+        super.onPostExecute(s);
         loading.dismiss();
+        callingActivity.finish();
     }
 
     @Override

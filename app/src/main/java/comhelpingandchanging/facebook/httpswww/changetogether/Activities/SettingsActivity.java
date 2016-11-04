@@ -64,23 +64,11 @@ public class SettingsActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if(password.getText().toString().length() == 0 && passwordConfirm.getText().toString().length() == 0) {
-                    if (bitmap != null) {
-                        account.addUserInfo(SettingsActivity.this, account.getPassword(), location.getText().toString(), language.getText().toString(), bitmap);
-                        account.uploadProfilePic(SettingsActivity.this, bitmap);
-                    }
-                    else
-                        account.addUserInfo(SettingsActivity.this, account.getPassword(), location.getText().toString(), language.getText().toString(), ((BitmapDrawable)profilePic.getDrawable()).getBitmap());
-                }
+                if(password.getText().toString().length() == 0 && passwordConfirm.getText().toString().length() == 0)
+                    account.addUserInfo(SettingsActivity.this, account.getPassword(), location.getText().toString(), language.getText().toString(), ((BitmapDrawable)profilePic.getDrawable()).getBitmap());
                 else {
-                    if (password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                        if (bitmap != null) {
-                            account.addUserInfo(SettingsActivity.this, password.getText().toString(), location.getText().toString(), language.getText().toString(), bitmap);
-                            account.uploadProfilePic(SettingsActivity.this, bitmap);
-                        }
-                        else
-                            account.addUserInfo(SettingsActivity.this, password.getText().toString(), location.getText().toString(), language.getText().toString(), ((BitmapDrawable) profilePic.getDrawable()).getBitmap());
-                    }
+                    if (password.getText().toString().equals(passwordConfirm.getText().toString()))
+                        account.addUserInfo(SettingsActivity.this, password.getText().toString(), location.getText().toString(), language.getText().toString(), ((BitmapDrawable) profilePic.getDrawable()).getBitmap());
                     else
                         Toast.makeText(SettingsActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 }
@@ -96,6 +84,8 @@ public class SettingsActivity extends Activity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
                     profilePic.setImageBitmap(bitmap);
+                    account.setSelfInfo(account.getEmail(), account.getPassword(), account.getLocation(), account.getLanguage(), bitmap);
+                    account.uploadProfilePic(SettingsActivity.this, bitmap);
                 }catch (IOException e){
                     e.printStackTrace();
                 }
