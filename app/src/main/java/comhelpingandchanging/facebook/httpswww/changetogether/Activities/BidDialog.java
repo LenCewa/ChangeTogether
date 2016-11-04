@@ -20,7 +20,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 public class BidDialog extends DialogFragment {
 
     Button done;
-    CheckBox cb_sprachkurs, cb_wohnungsscuhe, cb_freizeit, cb_nachhilfe, cb_orga, cb_sport, cb_kochen, cb_bewerbung, cb_freelancer, cb_sonstiges;
+    CheckBox cb_sprachkurs, cb_wohnungsscuhe, cb_freizeit, cb_nachhilfe, cb_orga, cb_sport, cb_kochen, cb_bewerbung, cb_freelancer, cb_sonstiges, cb_job;
     BieteFragment callingFragment;
     ArrayList<String> bieteItems;
 
@@ -42,6 +42,7 @@ public class BidDialog extends DialogFragment {
         cb_sport = (CheckBox) rootView.findViewById(R.id.sport);
         cb_sprachkurs = (CheckBox) rootView.findViewById(R.id.sprachkurs);
         cb_wohnungsscuhe = (CheckBox) rootView.findViewById(R.id.wohnungssuche);
+        cb_job = (CheckBox) rootView.findViewById((R.id.jobCheckBox));
 
         done = (Button) rootView.findViewById(R.id.doneBtn);
         done.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +93,9 @@ public class BidDialog extends DialogFragment {
 
         if (cb_wohnungsscuhe.isChecked() && !callingFragment.bieteItems.contains(cb_wohnungsscuhe.getText().toString()))
             bieteItems.add(cb_wohnungsscuhe.getText().toString());
+
+        if(cb_job.isChecked() && !callingFragment.bieteItems.contains(cb_job.getText().toString()))
+            bieteItems.add(cb_job.getText().toString());
 
     }
 }

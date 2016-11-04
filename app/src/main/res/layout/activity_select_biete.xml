@@ -168,7 +168,7 @@
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/freelancerBtnDetails"
+        android:id="@+id/jobBtnDetails"
         android:layout_below="@+id/bewerbungBtnDetails"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -183,14 +183,49 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <CheckBox
+        android:text="Job"
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/jobCheckBox"
+        android:layout_alignBaseline="@+id/jobBtnDetails"
+        android:layout_alignBottom="@+id/jobBtnDetails"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <Button
         android:text="Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button14"
-        android:layout_below="@+id/freelancerBtnDetails"
-        android:layout_alignParentRight="true"
+        android:id="@+id/button4"
+        android:layout_below="@+id/freelancer"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/freelancerBtnDetails"
+        android:layout_below="@+id/jobCheckBox"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="DONE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doneBtn"
+        android:layout_below="@+id/freelancerBtnDetails"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp" />
+
+    <CheckBox
+        android:text="Sonstiges"
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/sonstiges"
+        android:layout_alignBaseline="@+id/button4"
+        android:layout_alignBottom="@+id/button4"
+        android:layout_alignParentStart="true" />
 
     <CheckBox
         android:text="Freelancer"
@@ -199,25 +234,6 @@
         android:id="@+id/freelancer"
         android:layout_alignBaseline="@+id/freelancerBtnDetails"
         android:layout_alignBottom="@+id/freelancerBtnDetails"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:text="Sonstiges"
-        android:layout_width="305dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/sonstiges"
-        android:layout_alignBaseline="@+id/button14"
-        android:layout_alignBottom="@+id/button14"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="DONE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/doneBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
