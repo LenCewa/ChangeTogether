@@ -4,23 +4,46 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:id="@+id/profileInfo"
-        android:layout_width="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/imageView"
-        android:layout_below="@+id/profileInfo"
-        android:layout_centerHorizontal="true" />
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
         android:id="@+id/list" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:id="@+id/imageView"
+        android:scaleType="centerCrop"
+        android:layout_height="150dp"
+        android:layout_marginStart="11dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/profileName"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_marginStart="24dp"
+        android:layout_height="30dp"
+        android:layout_width="170dp"
+        android:text="Name" />
+
+    <TextView
+        android:text="Location"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="11dp"
+        android:id="@+id/profileLocation"
+        android:layout_below="@+id/profileName"
+        android:layout_alignStart="@+id/profileName" />
+
+    <TextView
+        android:text="Language"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:id="@+id/profileLanguage"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/profileLocation"
+        android:layout_alignStart="@+id/profileLocation" />
 </RelativeLayout>
