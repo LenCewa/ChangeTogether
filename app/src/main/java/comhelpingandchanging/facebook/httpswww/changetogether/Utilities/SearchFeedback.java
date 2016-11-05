@@ -45,12 +45,14 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
+
         if(result.equals("No entries"))
             Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
         else {
             String[] s = result.split(Pattern.quote(":"));
+            ((ShowBidFeedback) callingActivity).setStars(Float.parseFloat(s[0]));
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < s.length; i++) {
+            for(int i = 1; i < s.length; i++) {
                 String[] arr = s[i].split(Pattern.quote("|"));
                 ((ShowBidFeedback) callingActivity).feedbacks.add(0, new String[]{arr[0], arr[1], arr[2]});
                 ((ShowBidFeedback) callingActivity).adapter.notifyDataSetChanged();

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -26,6 +27,7 @@ public class ShowBidFeedback extends Activity {
     TextView bid;
     Button rateBtn;
     ListView feedbackList;
+    RatingBar ratingBar;
     public CustomAdapter adapter;
     public ArrayList<String[]> feedbacks = new ArrayList<>();
     Account account;
@@ -39,6 +41,7 @@ public class ShowBidFeedback extends Activity {
         bid = (TextView) findViewById(R.id.bidType);
         rateBtn = (Button) findViewById(R.id.rateBtn);
         feedbackList = (ListView) findViewById(R.id.listFeedback);
+        ratingBar = (RatingBar) findViewById(R.id.avergageRating);
 
         bid.setText(getIntent().getStringExtra("tag"));
         adapter = new CustomAdapter(this, feedbacks);
@@ -55,5 +58,9 @@ public class ShowBidFeedback extends Activity {
         });
 
         account.searchFeedback(this, getIntent().getStringExtra("tag"));
+    }
+
+    public void setStars(float stars){
+        ratingBar.setRating(stars);
     }
 }
