@@ -43,7 +43,6 @@ public class OwnProfileFragment extends Fragment {
         language = (TextView) view.findViewById(R.id.ownLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
-
         setElements();
 
         settings = (Button) view.findViewById(R.id.settingsButton);

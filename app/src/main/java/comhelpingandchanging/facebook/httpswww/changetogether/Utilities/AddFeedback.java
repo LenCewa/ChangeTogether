@@ -52,6 +52,7 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
+        Log.e("result", result);
         callingDialog.dismiss();
         ((ShowBidFeedback)callingDialog.getActivity()).feedbacks.clear();
         account.searchFeedback(callingDialog.getActivity(), tag);
