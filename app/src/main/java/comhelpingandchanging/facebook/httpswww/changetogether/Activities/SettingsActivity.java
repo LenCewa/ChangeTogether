@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UploadImage;
 
 /**
  * Created by Ludwig on 29.10.2016.
@@ -63,15 +65,30 @@ public class SettingsActivity extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String loc = location.getText().toString();
+                String lang = language.getText().toString();
+                String pw = password.getText().toString();
+                String pwConfirm = passwordConfirm.getText().toString();
 
-                if(password.getText().toString().length() == 0 && passwordConfirm.getText().toString().length() == 0)
-                    account.addUserInfo(SettingsActivity.this, account.getPassword(), location.getText().toString(), language.getText().toString(), ((BitmapDrawable)profilePic.getDrawable()).getBitmap());
-                else {
-                    if (password.getText().toString().equals(passwordConfirm.getText().toString()))
-                        account.addUserInfo(SettingsActivity.this, password.getText().toString(), location.getText().toString(), language.getText().toString(), ((BitmapDrawable) profilePic.getDrawable()).getBitmap());
-                    else
+                if(loc.length() > 0 && !loc.equals(account.getLocation())){
+                    account.setLocation(loc);
+                    account.editLocation(SettingsActivity.this, loc);
+                }
+
+                if(lang.length() > 0 && !lang.equals(account.getLanguage())){
+                    account.setLanguage(lang);
+                    account.editLanguage(SettingsActivity.this, lang);
+                }
+
+                if(pw.length() > 0 && pwConfirm.length() > 0) {
+                    if (pw.equals(pwConfirm) && !pw.equals(account.getPassword())) {
+                        account.setPassword(pw);
+                        account.editPassword(SettingsActivity.this, pw);
+                    } else
                         Toast.makeText(SettingsActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 }
+                if(loc.equals(account.getLocation()) && lang.equals(account.getLanguage()) && ((pw.length() == 0 && pwConfirm.length() == 0) || pw.equals(account.getPassword()) && pwConfirm.equals(account.getPassword())))
+                    finish();
             }
         });
 
@@ -84,8 +101,10 @@ public class SettingsActivity extends Activity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
                     profilePic.setImageBitmap(bitmap);
-                    account.setSelfInfo(account.getEmail(), account.getPassword(), account.getLocation(), account.getLanguage(), bitmap);
-                    account.uploadProfilePic(SettingsActivity.this, bitmap);
+                    account.setProfilePic(bitmap);
+
+                    UploadImage u = new UploadImage(this, account.getEmail(), bitmap);
+                    u.execute();
                 }catch (IOException e){
                     e.printStackTrace();
                 }

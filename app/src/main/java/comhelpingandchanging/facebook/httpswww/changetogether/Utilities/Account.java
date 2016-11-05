@@ -19,6 +19,7 @@ public class Account extends Application {
 
     public void login(Activity callingActivity, String email, String password) {
 
+        self = new UserProfile();
         Login login = new Login(callingActivity, email, password);
         login.execute();
     }
@@ -70,12 +71,24 @@ public class Account extends Application {
         s.execute();
     }
 
-    public void addUserInfo(Activity callingActivity, String password, String location, String language, Bitmap bitmap){
+    public void editPassword(Activity callingActivity, String password){
 
-        setSelfInfo(getEmail(), password, location, language, bitmap);
-        AddUserInfo a = new AddUserInfo(callingActivity, password, location, language);
+        AddInfo a = new AddInfo(callingActivity, getEmail(), "password", password);
         a.execute();
     }
+
+    public void editLocation(Activity callingActivity, String location){
+
+        AddInfo a = new AddInfo(callingActivity, getEmail(), "location", location);
+        a.execute();
+    }
+
+    public void editLanguage(Activity callingActivity, String language){
+
+        AddInfo a = new AddInfo(callingActivity, getEmail(), "language", language);
+        a.execute();
+    }
+
 
     public String getEmail(){
         return self.getUsername();
@@ -99,8 +112,24 @@ public class Account extends Application {
         return fm;
     }
 
-    public void setSelfInfo(String email, String password, String location, String language, Bitmap profilePic){
-        self = new UserProfile(email, password, location, language, profilePic);
+    public void setEmail(String email){
+        self.setEmail(email);
+    }
+
+    public void setPassword(String password){
+        self.setPassword(password);
+    }
+
+    public void setLocation(String location){
+        self.setLocation(location);
+    }
+
+    public void setLanguage(String language){
+        self.setLanguage(language);
+    }
+
+    public void setProfilePic(Bitmap profilePic){
+        self.setProfilePic(profilePic);
     }
 
     public void setFragmentManager(FragmentManager fm){

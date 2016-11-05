@@ -8,40 +8,15 @@ import android.graphics.Bitmap;
 
 public class UserProfile {
 
-    private String username;
-    private String password;
-    private String location;
-    private String language;
+    private String email = "";
+    private String password = "";
+    private String location = "";
+    private String language = "";
     private Bitmap profilePic;
     //private ArrayList<String[]> feedback;
 
-    public UserProfile(String username, String password){
-
-        this.username = username;
-        this.password = password;
-        this.location = "N/A";
-        this.language = "N/A";
-    }
-
-    public UserProfile(String username, String password, String location){
-
-        this.username = username;
-        this.password = password;
-        this.location = location;
-        this.language = "N/A";
-    }
-
-    public UserProfile(String username, String password, String location, String language, Bitmap profilePic){
-
-        this.username = username;
-        this.password = password;
-        this.location = location;
-        this.language = language;
-        this.profilePic = profilePic;
-    }
-
     public String getUsername(){
-        return username;
+        return email;
     }
 
     public String getPassword() { return password; }
@@ -56,6 +31,14 @@ public class UserProfile {
 
     public Bitmap getProfilePic(){ return profilePic; }
 
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
     public void setLocation(String location){
         this.location = location;
     }
@@ -63,5 +46,8 @@ public class UserProfile {
     public void setLanguage(String language){
         this.language = language;
     }
+
+    public void setProfilePic(Bitmap profilePic){ this.profilePic = profilePic; }
+
 }
 

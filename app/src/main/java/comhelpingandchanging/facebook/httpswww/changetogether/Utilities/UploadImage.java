@@ -9,6 +9,8 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.OwnProfileFragment;
+
 /**
  * Created by Yannick on 02.11.2016.
  */
@@ -38,7 +40,6 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         loading.dismiss();
-        callingActivity.finish();
     }
 
     @Override

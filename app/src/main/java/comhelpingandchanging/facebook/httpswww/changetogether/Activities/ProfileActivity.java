@@ -31,11 +31,11 @@ public class ProfileActivity extends Activity {
     UserProfile searchedUser;
     Account account;
 
-    private UserProfile stringToUserProfile(String s){
+    private UserProfile StringToUserProfile(String s){
 
         String[] info = s.split(Pattern.quote("|"));
-        UserProfile u = new UserProfile(info[0], info[1], info[2]);
-        return u;
+        //UserProfile u = new UserProfile(info[0], info[1], info[2]);
+        return new UserProfile();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ProfileActivity extends Activity {
 
         account =(Account)getApplication();
         String userInfo = getIntent().getStringExtra("searchedUser");
-        searchedUser = stringToUserProfile(userInfo);
+        //searchedUser = stringToUserProfile(userInfo);
 
         profileInfo = (TextView) findViewById(R.id.textView4);
         profileInfo.setText(searchedUser.getUsername() + " - " + searchedUser.getLocation() + " - " + searchedUser.getLanguage());

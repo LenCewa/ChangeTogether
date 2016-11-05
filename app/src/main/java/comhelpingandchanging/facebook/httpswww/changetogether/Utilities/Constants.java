@@ -15,6 +15,9 @@ public class Constants {
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";
     public static final String DBUPLOADPIC = "http://change-together.spdns.org/app/uploadPic.php";
     public static final String DBUSHOWPIC = "http://change-together.spdns.org/app/showPic.php";
+    public static final String DBEDITPASSWORD = "http://change-together.spdns.org/app/editPassword.php";
+    public static final String DBEDITLOCATION = "http://change-together.spdns.org/app/editLocation.php";
+    public static final String DBEDITLANGUAGE = "http://change-together.spdns.org/app/editLanguage.php";
 
     public static final String USERTABLE = "User";
     public static final String SUPPLYTABLE = "Supply";
