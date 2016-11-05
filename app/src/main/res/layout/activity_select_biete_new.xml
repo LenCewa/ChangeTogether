@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:text="DONE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/doneBtn"
+        android:layout_marginBottom="26dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/bidTypes"
+        android:entries="@array/country_arrays"
+        android:prompt="@string/country_prompt"
+        android:spinnerMode="dialog"
+        android:layout_marginTop="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_marginTop="21dp"
+        android:id="@+id/date"
+        android:hint="Datum"
+        android:layout_below="@+id/bidTypes"
+        android:layout_alignStart="@+id/bidTypes" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/time"
+        android:hint="Zeit"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/date"
+        android:layout_alignStart="@+id/date" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/description"
+        android:textAlignment="center"
+        android:layout_height="175dp"
+        android:layout_above="@+id/doneBtn"
+        android:layout_alignStart="@+id/location"
+        android:layout_marginBottom="15dp"
+        android:hint="Beschreibung" />
+
+    <AutoCompleteTextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:id="@+id/location"
+        android:text="Ort"
+        android:layout_above="@+id/description"
+        android:layout_alignStart="@+id/time"
+        android:layout_marginBottom="11dp" />
+
+</RelativeLayout>

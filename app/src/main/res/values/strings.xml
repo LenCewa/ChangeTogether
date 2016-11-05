@@ -7,4 +7,20 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main_app">MainAppActivity</string>
+
+    <string name="country_prompt">Was wollen Sie anbieten?</string>
+
+    <string-array name="country_arrays">
+        <item>Sprachkurs</item>
+        <item>Nachhilfe</item>
+        <item>Kochen</item>
+        <item>Freelancer</item>
+        <item>Sonstiges</item>
+        <item>Wohnungssuche</item>
+        <item>Organisatorisches</item>
+        <item>Bewerbungsschreiben/Lebenslauf</item>
+        <item>Freizeitaktivitäten</item>
+        <item>Sport</item>
+        <item>Job</item>
+    </string-array>
 </resources>
