@@ -30,7 +30,7 @@ public class OwnProfileFragment extends Fragment {
     TextView location;
     TextView language;
     public ImageView profilePic;
-   
+
 
     @Nullable
     @Override
@@ -38,9 +38,9 @@ public class OwnProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_ownprofile, container, false);
 
         account = (Account) getActivity().getApplication();
-        username = (TextView) view.findViewById(R.id.ownUsername);
-        location = (TextView) view.findViewById(R.id.ownLoaction);
-        language = (TextView) view.findViewById(R.id.ownLanguage);
+        username = (TextView) view.findViewById(R.id.ownProfileName);
+        location = (TextView) view.findViewById(R.id.ownProfileLocation);
+        language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
 
