@@ -11,11 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProfile;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -38,7 +36,7 @@ public class ProfileActivity extends Activity {
 
         account =(Account)getApplication();
 
-        profileInfo = (TextView) findViewById(R.id.textView4);
+        profileInfo = (TextView) findViewById(R.id.bidType);
         profileInfo.setText(account.getSearchEmail() + " - " + account.getSearchLocation() + " - " + account.getSearchLocation());
 
         profilePic = (ImageView) findViewById(R.id.imageView);

@@ -30,6 +30,7 @@
         <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.SettingsActivity" />
         <activity android:name=".Activities.SearchItemActivity" />
+        <activity android:name=".Activities.ShowBidFeedback" />
 
         <meta-data
             android:name="com.google.android.gms.version"
