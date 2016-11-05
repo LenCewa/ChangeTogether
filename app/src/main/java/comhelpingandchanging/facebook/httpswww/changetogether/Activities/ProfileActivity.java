@@ -20,7 +20,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  */
 
 public class ProfileActivity extends Activity {
-    Button rate;
+
     TextView profileInfo;
     ImageView profilePic;
     ListView bidList;
@@ -36,7 +36,7 @@ public class ProfileActivity extends Activity {
 
         account =(Account)getApplication();
 
-        profileInfo = (TextView) findViewById(R.id.bidType);
+        profileInfo = (TextView) findViewById(R.id.profileInfo);
         profileInfo.setText(account.getSearchEmail() + " - " + account.getSearchLocation() + " - " + account.getSearchLocation());
 
         profilePic = (ImageView) findViewById(R.id.imageView);
@@ -56,21 +56,10 @@ public class ProfileActivity extends Activity {
                 String tag = arr[0];
                 String description = arr[1];
 
-                Intent intent = new Intent(ProfileActivity.this, FeedbackActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, ShowBidFeedback.class);
                 intent.putExtra("tag", tag);
                 intent.putExtra("description", description);
                 startActivity(intent);
-            }
-        });
-
-        rate = (Button) findViewById(R.id.rateBtn);
-        rate.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                FeedbackDialog dialog = new FeedbackDialog();
-                dialog.show(getFragmentManager(), "Dialog Fragment");
             }
         });
     }
