@@ -1,30 +1,32 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.os.AsyncTask;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HelpingLocationsFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 
 /**
- * Created by len13 on 04.11.2016.
+ * Created by len13 on 05.11.2016.
  */
 
-public class LoadHelpingLocations extends AsyncTask<Void, Void, String> {
+public class LoadHelpingLocationsActivity extends AsyncTask<Void, Void, String> {
 
-    Fragment callingFragment;
+    Activity callingActivity;
     RequestHandler rh = new RequestHandler();
     private String email;
 
-    public LoadHelpingLocations(Fragment callingFragment, String email) {
-        this.callingFragment = callingFragment;
+    public LoadHelpingLocationsActivity(Activity callingActivity, String email){
+
+        this.callingActivity = callingActivity;
         this.email = email;
     }
 
     @Override
     protected String doInBackground(Void... params) {
+
         HashMap<String,String> data = new HashMap<>();
 
         data.put("email", email);
@@ -42,10 +44,10 @@ public class LoadHelpingLocations extends AsyncTask<Void, Void, String> {
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < s.length; i++) {
                 String[] arr = s[i].split(Pattern.quote("|"));
-                if(!((HelpingLocationsFragment)callingFragment).usersHelpingLocations.contains(arr[1]))
-                    ((HelpingLocationsFragment)callingFragment).usersHelpingLocations.add(arr[1]);
+                if(!((ProfileActivity)callingActivity).helpingLocations.contains(arr[1]))
+                    ((ProfileActivity)callingActivity).helpingLocations.add(new String[]{arr[1], arr[2]});
             }
-            ((HelpingLocationsFragment)callingFragment).adapter.notifyDataSetChanged();
+            ((ProfileActivity)callingActivity).adapter.notifyDataSetChanged();
         }
     }
 }

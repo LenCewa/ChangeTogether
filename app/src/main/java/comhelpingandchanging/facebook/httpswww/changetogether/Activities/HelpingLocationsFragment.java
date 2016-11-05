@@ -33,8 +33,8 @@ public class HelpingLocationsFragment extends Fragment {
     Button addLocation, deleteLocation;
     TextView locationName, addedLocations;
     ListView addedLocationsList;
-    ArrayAdapter adapter;
-    ArrayList<String> usersHelpingLocations = new ArrayList<>();
+    public ArrayAdapter<String> adapter;
+    public ArrayList<String> usersHelpingLocations = new ArrayList<>();
 
     @Nullable
     @Override
@@ -67,12 +67,15 @@ public class HelpingLocationsFragment extends Fragment {
         addedLocationsList.setAdapter(adapter);
         //ListView vorbereitet
 
+        account.loadHelpingLocations(this);
+
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String location = locationName.getText().toString();
                 if (!isDuplicate(location)) {
                     usersHelpingLocations.add(location);
+                    // TODO in DB hinzufügen
                     Log.e("autocomplete", location);
                     adapter.notifyDataSetChanged();
                 }
@@ -101,7 +104,8 @@ public class HelpingLocationsFragment extends Fragment {
         addedLocationsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                usersHelpingLocations.remove(adapter.getItem(position));
+                account.deleteHelpingLocations(adapter.getItem(position), "");
+                //usersHelpingLocations.remove(adapter.getItem(position));
                 adapter.notifyDataSetChanged();
                 return true;
             }

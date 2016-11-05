@@ -64,6 +64,8 @@ public class SearchFragment extends Fragment {
                 listItems.clear();
                 adapter.notifyDataSetChanged();
                 account.searchBid(SearchFragment.this, searchField.getText().toString());
+                // Eingefügt
+                //account.searchHelpingLocation(SearchFragment.this, searchField.getText().toString());
             }
         });
 

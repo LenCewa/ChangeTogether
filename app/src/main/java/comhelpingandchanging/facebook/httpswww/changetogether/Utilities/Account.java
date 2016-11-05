@@ -8,8 +8,6 @@ import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
-
 /**
  * Created by Yannick on 26.10.2016.
  */
@@ -55,9 +53,19 @@ public class Account extends Application {
         l.execute();
     }
 
+    public void loadHelpingLocations(Fragment callingFragment) {
+        LoadHelpingLocations l = new LoadHelpingLocations(callingFragment, getEmail());
+        l.execute();
+    }
+
     public void loadBidsActivity(Activity callingActivity){
 
         LoadBidsActivity l = new LoadBidsActivity(callingActivity, getSearchEmail());
+        l.execute();
+    }
+
+    public void loadHelpingLocationsActivity(Activity callingActivity) {
+        LoadHelpingLocationsActivity l = new LoadHelpingLocationsActivity(callingActivity, getSearchEmail());
         l.execute();
     }
 
@@ -67,15 +75,31 @@ public class Account extends Application {
         s.execute();
     }
 
+    public void searchHelpingLocation(Fragment callingFragment, String tag){
+        SearchHelpingLocation s = new SearchHelpingLocation(callingFragment, tag);
+        s.execute();
+    }
+
     public void addBid(Fragment callingFragment, String tag, String description){
 
         AddBid a = new AddBid(callingFragment, getEmail(), tag, description);
         a.execute();
     }
 
+    public void addHelpingLocation(Fragment callingFragment, String tag, String description){
+
+        AddHelpingLocation a = new AddHelpingLocation(callingFragment, getEmail(), tag, description);
+        a.execute();
+    }
+
     public void deleteBid(String tag, String description){
 
         DeleteBid d = new DeleteBid(getEmail(), tag, description);
+        d.execute();
+    }
+
+    public void deleteHelpingLocations(String tag, String description) {
+        DeleteHelpingLocations d = new DeleteHelpingLocations(getEmail(), tag, description);
         d.execute();
     }
 

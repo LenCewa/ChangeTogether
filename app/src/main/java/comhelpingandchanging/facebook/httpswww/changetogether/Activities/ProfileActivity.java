@@ -27,6 +27,7 @@ public class ProfileActivity extends Activity {
     ImageView profilePic;
     ListView bidList;
     public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
+    public ArrayList<String[]> helpingLocations = new ArrayList<String[]>(); // TODO: Benutzen, wegen LoadHelpingLocationsActivity.java
     public CustomAdapterProfile adapter;
     Account account;
 
@@ -55,6 +56,7 @@ public class ProfileActivity extends Activity {
         bidList.setAdapter(adapter);
 
         account.loadBidsActivity(this);
+        account.loadHelpingLocationsActivity(this);
 
         bidList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

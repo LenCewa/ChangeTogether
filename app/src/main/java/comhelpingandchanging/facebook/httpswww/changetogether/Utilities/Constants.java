@@ -12,6 +12,12 @@ public class Constants {
     public static final String DBADDBID = "http://change-together.spdns.org/app/addBid.php";
     public static final String DBLOADBID = "http://change-together.spdns.org/app/loadBids.php";
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";
+
+    public static final String DBLOADHELPINGLOCATION = "http://change-together.spdns.org/app/XYZ.php";
+    public static final String DBDELETEHELPINGLOCATION = "http://change-together.spdns.org/app/deleteHelpingLocation.php.php";
+    public static final String DBADDHELPINGLOCATION = "http://change-together.spdns.org/app/addHelpingLocation.php.php";
+    public static final String DBSEARCHHELPINGLOCATION = "http://change-together.spdns.org/app/XYZ.php";
+
     public static final String DBUPLOADPIC = "http://change-together.spdns.org/app/uploadPic.php";
     public static final String DBSHOWPIC = "http://change-together.spdns.org/app/showPic.php";
     public static final String DBEDITPASSWORD = "http://change-together.spdns.org/app/editPassword.php";
