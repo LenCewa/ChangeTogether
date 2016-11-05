@@ -26,7 +26,8 @@
         style="@style/Widget.AppCompat.RatingBar"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:isIndicator="true" />
+        android:isIndicator="true"
+        android:clickable="false" />
 
 
 </RelativeLayout>
