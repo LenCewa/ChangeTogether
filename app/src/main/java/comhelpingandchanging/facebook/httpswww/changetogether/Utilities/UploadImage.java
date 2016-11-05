@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.OwnProf
 
 public class UploadImage extends AsyncTask<Void,Void,String>{
 
+    Account account;
     Activity callingActivity;
     ProgressDialog loading;
     Bitmap pic;
@@ -25,6 +27,7 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
 
     public UploadImage(Activity callingActivity, String email, Bitmap pic){
 
+        account = (Account)callingActivity.getApplication();
         this.callingActivity = callingActivity;
         this.email = email;
         this.pic = pic;
@@ -40,6 +43,7 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         loading.dismiss();
+        ((OwnProfileFragment)account.getFragmentManager().findFragmentByTag("ownprofile")).setElements();
     }
 
     @Override
@@ -57,7 +61,7 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
 
     public String getStringImage(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;

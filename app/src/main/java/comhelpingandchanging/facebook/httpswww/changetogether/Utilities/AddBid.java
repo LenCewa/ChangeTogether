@@ -1,8 +1,12 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
+import android.app.Fragment;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.HashMap;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
 
 /**
  * Created by Yannick on 30.10.2016.
@@ -10,13 +14,15 @@ import java.util.HashMap;
 
 public class AddBid extends AsyncTask<Void, Void, String > {
 
+    private Fragment callingFragment;
     private String email;
     private String tag;
     private String description;
     RequestHandler rh = new RequestHandler();
 
-    public AddBid(String email, String tag, String description){
+    public AddBid(Fragment callingFragment, String email, String tag, String description){
 
+        this.callingFragment = callingFragment;
         this.email = email;
         this.tag = tag;
         this.description = description;
@@ -32,5 +38,11 @@ public class AddBid extends AsyncTask<Void, Void, String > {
         String result = rh.sendPostRequest(Constants.DBADDBID,data);
 
         return result;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+
+        ((Account)callingFragment.getActivity().getApplication()).loadBids(callingFragment);
     }
 }

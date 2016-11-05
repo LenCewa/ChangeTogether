@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,11 +51,8 @@ public class BidDialog extends DialogFragment {
             public void onClick(View view) {
 
                 addClickedItems();
-                for(String s : bieteItems) {
-                    ((Account) callingFragment.getActivity().getApplication()).addBid(s, "");
-                }
-                callingFragment.bieteItems.addAll(bieteItems);
-                callingFragment.adapter.notifyDataSetChanged();
+                for(String s : bieteItems)
+                    ((Account) callingFragment.getActivity().getApplication()).addBid(callingFragment, s, "");
                 getDialog().dismiss();
             }
         });

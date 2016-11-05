@@ -67,9 +67,9 @@ public class Account extends Application {
         s.execute();
     }
 
-    public void addBid(String tag, String description){
+    public void addBid(Fragment callingFragment, String tag, String description){
 
-        AddBid a = new AddBid(getEmail(), tag, description);
+        AddBid a = new AddBid(callingFragment, getEmail(), tag, description);
         a.execute();
     }
 

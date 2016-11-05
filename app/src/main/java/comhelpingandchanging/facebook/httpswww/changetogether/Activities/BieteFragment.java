@@ -63,8 +63,7 @@ public class BieteFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 account.deleteBid(adapter.getItem(position), "");
-                bieteItems.remove(adapter.getItem(position));
-                adapter.notifyDataSetChanged();
+                account.loadBids(BieteFragment.this);
                 return true;
             }
         });
