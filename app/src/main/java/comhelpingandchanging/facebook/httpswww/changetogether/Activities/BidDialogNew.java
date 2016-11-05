@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,8 +25,9 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 public class BidDialogNew extends DialogFragment {
     BieteFragment callingFragment;
+    String city;
     Spinner bidTypes;
-    TextView description, locationName;
+    TextView description;
     Button done;
     ArrayList<String> usersHelpingLocations = new ArrayList<>();
 
@@ -44,13 +47,13 @@ public class BidDialogNew extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get data associated with the specified position
                 // in the list (AdapterView)
-                String description = (String) parent.getItemAtPosition(position);
-                //Toast.makeText(this, description, Toast.LENGTH_SHORT).show(); // TODO vorher getActivity() anstelle von this
+                city = (String) parent.getItemAtPosition(position);
+                city = city.split(",")[0];
+                Toast.makeText(getActivity(), city, Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        locationName = (TextView) rootView.findViewById(R.id.location);
 
         description = (TextView) rootView.findViewById(R.id.description);
 
@@ -58,7 +61,6 @@ public class BidDialogNew extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 ((Account) callingFragment.getActivity().getApplication()).
                         addBid(callingFragment, bidTypes.getSelectedItem().toString(), description.getText().toString());
                 getDialog().dismiss();
