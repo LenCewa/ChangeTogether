@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -28,15 +31,16 @@ public class OwnProfileFragment extends Fragment {
     TextView language;
     public ImageView profilePic;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_ownprofile, container, false);
 
         account = (Account) getActivity().getApplication();
-        username = (TextView) view.findViewById(R.id.ownUsername);
-        location = (TextView) view.findViewById(R.id.ownLoaction);
-        language = (TextView) view.findViewById(R.id.ownLanguage);
+        username = (TextView) view.findViewById(R.id.ownProfileName);
+        location = (TextView) view.findViewById(R.id.ownProfileLocation);
+        language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
         setElements();

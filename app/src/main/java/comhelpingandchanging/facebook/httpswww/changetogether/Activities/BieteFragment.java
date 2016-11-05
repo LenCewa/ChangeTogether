@@ -53,7 +53,7 @@ public class BieteFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BidDialog add = new BidDialog();
+                BidDialogNew add = new BidDialogNew();
                 add.setTargetFragment(BieteFragment.this, 0);
                 add.show(getFragmentManager(), "Biete Dialog");
             }

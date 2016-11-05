@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/avergageRating"
         android:layout_below="@+id/bidType"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:isIndicator="true" />
 
 </RelativeLayout>

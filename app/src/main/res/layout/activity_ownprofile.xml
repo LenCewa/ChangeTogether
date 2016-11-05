@@ -4,59 +4,61 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:src="@drawable/blank_profile_pic"
-        android:id="@+id/ownProfilePic"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop" />
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:elevation="0dp"
-        android:layout_alignBottom="@+id/menuButton"
-        android:text="SET"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
-
     <TextView
-        android:text="Username"
-        android:layout_width="200dp"
-        android:layout_below="@+id/ownProfilePic"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:id="@+id/ownUsername"
+        android:id="@+id/ownProfileName"
+        android:layout_alignTop="@+id/ownProfilePic"
+        android:layout_toEndOf="@+id/ownProfilePic"
+        android:layout_marginStart="24dp"
         android:layout_height="30dp"
-        android:textAlignment="center" />
+        android:layout_width="170dp"
+        android:text="Name" />
 
     <TextView
         android:text="Location"
-        android:layout_width="200dp"
+        android:layout_width="170dp"
         android:layout_height="30dp"
-        android:id="@+id/ownLoaction"
-        android:textAlignment="center"
-        android:layout_below="@+id/ownUsername"
-        android:layout_alignLeft="@+id/ownUsername"
-        android:layout_alignStart="@+id/ownUsername"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="11dp"
+        android:id="@+id/ownProfileLocation"
+        android:layout_below="@+id/ownProfileName"
+        android:layout_alignStart="@+id/ownProfileName" />
 
     <TextView
         android:text="Language"
-        android:layout_width="200dp"
+        android:layout_width="170dp"
         android:layout_height="30dp"
-        android:layout_marginTop="11dp"
-        android:id="@+id/ownLanguage"
-        android:textAlignment="center"
-        android:layout_below="@+id/ownLoaction"
-        android:layout_alignLeft="@+id/ownLoaction"
-        android:layout_alignStart="@+id/ownLoaction" />
+        android:id="@+id/ownProfileLanguage"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/ownProfileLocation"
+        android:layout_alignStart="@+id/ownProfileLocation" />
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ownList"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/settingsButton"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_marginLeft="15dp"
+        android:elevation="0dp"
+        android:text="Update Profile"
+        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:layout_below="@+id/ownProfileLanguage"
+        android:layout_toEndOf="@+id/ownProfilePic"
+        android:typeface="monospace"
+        android:textAllCaps="false"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:id="@+id/ownProfilePic"
+        android:scaleType="centerCrop"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
