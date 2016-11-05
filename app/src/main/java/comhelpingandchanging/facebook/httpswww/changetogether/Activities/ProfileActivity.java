@@ -21,7 +21,9 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 public class ProfileActivity extends Activity {
 
-    TextView profileInfo;
+    TextView profileName;
+    TextView profileLocation;
+    TextView profileLanguage;
     ImageView profilePic;
     ListView bidList;
     public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
@@ -36,8 +38,14 @@ public class ProfileActivity extends Activity {
 
         account =(Account)getApplication();
 
-        profileInfo = (TextView) findViewById(R.id.profileInfo);
-        profileInfo.setText(account.getSearchEmail() + " - " + account.getSearchLocation() + " - " + account.getSearchLocation());
+        profileName = (TextView) findViewById(R.id.profileName);
+        profileName.setText(account.getSearchEmail());
+
+        profileLocation = (TextView) findViewById(R.id.profileLocation);
+        profileLocation.setText(account.getLocation());
+
+        profileLanguage = (TextView) findViewById(R.id.profileLanguage);
+        profileLanguage.setText(account.getLanguage());
 
         profilePic = (ImageView) findViewById(R.id.imageView);
         profilePic.setImageBitmap(account.getSearchProfilePic());
