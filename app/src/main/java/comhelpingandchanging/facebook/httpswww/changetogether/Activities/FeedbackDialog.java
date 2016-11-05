@@ -38,12 +38,9 @@ public class FeedbackDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 float rating = ratingBar.getRating();
-                Editable feedbackText = feedback.getText();
+                String feedbackText = feedback.getText().toString();
 
-                ProfileActivity callingActivity = (ProfileActivity) getActivity();
-                callingActivity.listItems.add(0,new String[]{account.getEmail(), feedbackText.toString(), String.valueOf(rating)});
-                callingActivity.adapter.notifyDataSetChanged();
-                getDialog().dismiss();
+                account.addFeddback(FeedbackDialog.this, feedbackText, rating);
             }
         });
 

@@ -31,7 +31,7 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
         HashMap<String,String> data = new HashMap<>();
 
         data.put("email", email);
-        String result = rh.sendPostRequest(Constants.DBUSHOWPIC,data);
+        String result = rh.sendPostRequest(Constants.DBSHOWPIC,data);
 
         return result;
     }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/userProfile"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:text="Len13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/userEmail"
+        android:textSize="18sp"
+        android:layout_below="@+id/userProfile"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Sprachkurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:id="@+id/userBid"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="Desceription muss noch hinzugefügt werden"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="39dp"
+        android:id="@+id/userDescription"
+        android:layout_below="@+id/userBid"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

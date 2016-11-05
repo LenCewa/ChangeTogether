@@ -9,26 +9,25 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
 
 /**
- * Created by Yannick on 29.10.2016.
+ * Created by Yannick on 05.11.2016.
  */
 
-public class SearchBid extends AsyncTask<Void, Void, String>{
+public class SearchFeedback extends AsyncTask <Void, Void, String>{
 
     Account account;
     Activity callingActivity;
-    Fragment callingFragment;
     RequestHandler rh = new RequestHandler();
-    private String tag;
+    private String email;
 
-    public SearchBid(Fragment callingFragment, String tag){
+    public SearchFeedback(Activity callingActivity, String email){
 
-        account = (Account) callingFragment.getActivity().getApplication();
-        callingActivity = callingFragment.getActivity();
-        this.callingFragment = callingFragment;
-        this.tag = tag;
+        account = (Account) callingActivity.getApplication();
+        this.callingActivity = callingActivity;
+        this.email = email;
     }
 
     @Override
@@ -36,8 +35,8 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
         HashMap<String,String> data = new HashMap<>();
 
-        data.put("tag", tag);
-        String result = rh.sendPostRequest(Constants.DBSEARCHBID,data);
+        data.put("email", email);
+        String result = rh.sendPostRequest(Constants.DBSEARCHFEEDBACK,data);
 
         return result;
     }
@@ -51,10 +50,8 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < s.length; i++) {
                 String[] arr = s[i].split(Pattern.quote("|"));
-                if(!arr[0].equals(account.getEmail())) {
-                    ((SearchFragment) callingFragment).listItems.add(0, new String[]{arr[0], arr[1], arr[2]});
-                    ((SearchFragment) callingFragment).adapter.notifyDataSetChanged();
-                }
+                ((ProfileActivity) callingActivity).listItems.add(0, new String[]{arr[0], arr[1], arr[2]});
+                ((ProfileActivity) callingActivity).adapter.notifyDataSetChanged();
             }
         }
     }

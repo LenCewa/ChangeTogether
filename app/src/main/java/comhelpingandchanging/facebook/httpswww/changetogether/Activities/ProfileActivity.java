@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,22 +22,14 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProf
  */
 
 public class ProfileActivity extends Activity {
-    Button menu;
     Button rate;
-    Button feedbackButton;
     TextView profileInfo;
+    ImageView profilePic;
     ListView feedbackList;
-    ArrayList<String[]> listItems = new ArrayList<String[]>();
-    CustomAdapter adapter;
-    UserProfile searchedUser;
+    public ArrayList<String[]> listItems = new ArrayList<String[]>();
+    public CustomAdapter adapter;
     Account account;
 
-    private UserProfile StringToUserProfile(String s){
-
-        String[] info = s.split(Pattern.quote("|"));
-        //UserProfile u = new UserProfile(info[0], info[1], info[2]);
-        return new UserProfile();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +37,18 @@ public class ProfileActivity extends Activity {
         setContentView(R.layout.activity_profile);
 
         account =(Account)getApplication();
-        String userInfo = getIntent().getStringExtra("searchedUser");
-        //searchedUser = stringToUserProfile(userInfo);
 
         profileInfo = (TextView) findViewById(R.id.textView4);
-        profileInfo.setText(searchedUser.getUsername() + " - " + searchedUser.getLocation() + " - " + searchedUser.getLanguage());
+        profileInfo.setText(account.getSearchEmail() + " - " + account.getSearchLocation() + " - " + account.getSearchLocation());
+
+        profilePic = (ImageView) findViewById(R.id.imageView);
+        profilePic.setImageBitmap(account.getSearchProfilePic());
 
         feedbackList = (ListView) findViewById(R.id.list);
         adapter = new CustomAdapter(this, listItems);
-                //new ArrayAdapter<String>(this,
-                //R.layout.feedback_list_item,
-                //listItems);
         feedbackList.setAdapter(adapter);
+
+        account.searchFeedback(this);
 
         feedbackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,7 +77,5 @@ public class ProfileActivity extends Activity {
                 dialog.show(getFragmentManager(), "Dialog Fragment");
             }
         });
-
-        //if(adapter.getCount() == 0)
     }
 }

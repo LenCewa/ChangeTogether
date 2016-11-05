@@ -2,10 +2,13 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 
 /**
  * Created by Yannick on 26.10.2016.
@@ -14,8 +17,8 @@ import android.graphics.Bitmap;
 public class Account extends Application {
 
     private UserProfile self = null;
+    private SearchedItem searchedItem = null;
     public FragmentManager fm;
-    //private UserProfile searchedUserInfo = null;
 
     public void login(Activity callingActivity, String email, String password) {
 
@@ -33,6 +36,17 @@ public class Account extends Application {
         editor.remove("email");
         editor.remove("password");
         editor.apply();
+    }
+
+    public void searchUser(Activity callingActivity, String email, String tag, String description){
+
+        SearchUser s = new SearchUser(callingActivity, email, tag, description);
+        s.execute();
+    }
+
+    public void setSearchedItem(UserProfile userProfile, String tag, String description){
+
+        searchedItem = new SearchedItem(userProfile, tag, description);
     }
 
     public void loadBids(Fragment callingFragment){
@@ -57,6 +71,17 @@ public class Account extends Application {
 
         DeleteBid d = new DeleteBid(getEmail(), tag, description);
         d.execute();
+    }
+
+    public void searchFeedback(Activity callingActivity) {
+
+        SearchFeedback s = new SearchFeedback(callingActivity, getSearchEmail());
+        s.execute();
+    }
+
+    public void addFeddback(DialogFragment callingDialog, String text, float rating){
+        AddFeedback a = new AddFeedback(callingDialog, getSearchEmail(), getEmail(), text, rating);
+        a.execute();
     }
 
     public void uploadProfilePic(Activity callingActivity, Bitmap pic){
@@ -107,6 +132,30 @@ public class Account extends Application {
     }
 
     public Bitmap getProfilePic(){ return self.getProfilePic(); }
+
+
+    public String getSearchTag(){
+        return searchedItem.getTag();
+    }
+
+    public String getSearchDescription(){
+        return searchedItem.getDescription();
+    }
+
+    public String getSearchEmail(){
+        return searchedItem.getUsername();
+    }
+
+    public String getSearchLocation(){
+        return searchedItem.getLocation();
+    }
+
+    public String getSearchLanguage(){
+        return searchedItem.getLanguage();
+    }
+
+    public Bitmap getSearchProfilePic(){ return searchedItem.getProfilePic(); }
+
 
     public FragmentManager getFragmentManager(){
         return fm;

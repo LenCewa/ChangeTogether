@@ -11,13 +11,15 @@ public class Constants {
     public static final String DBSEARCHBID = "http://change-together.spdns.org/app/searchBid.php";
     public static final String DBADDBID = "http://change-together.spdns.org/app/addBid.php";
     public static final String DBLOADBID = "http://change-together.spdns.org/app/loadBids.php";
-    public static final String DBADDUSERINFO = "http://change-together.spdns.org/app/addUserInfo.php";
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";
     public static final String DBUPLOADPIC = "http://change-together.spdns.org/app/uploadPic.php";
-    public static final String DBUSHOWPIC = "http://change-together.spdns.org/app/showPic.php";
+    public static final String DBSHOWPIC = "http://change-together.spdns.org/app/showPic.php";
     public static final String DBEDITPASSWORD = "http://change-together.spdns.org/app/editPassword.php";
     public static final String DBEDITLOCATION = "http://change-together.spdns.org/app/editLocation.php";
     public static final String DBEDITLANGUAGE = "http://change-together.spdns.org/app/editLanguage.php";
+    public static final String DBSEARCHUSER = "http://change-together.spdns.org/app/searchUser.php";
+    public static final String DBSEARCHFEEDBACK = "http://change-together.spdns.org/app/searchFeedback.php";
+    public static final String DBADDFEEDBACK = "http://change-together.spdns.org/app/addFeedback.php";
 
     public static final String USERTABLE = "User";
     public static final String SUPPLYTABLE = "Supply";
