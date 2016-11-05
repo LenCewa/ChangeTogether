@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -27,6 +30,7 @@ public class OwnProfileFragment extends Fragment {
     TextView location;
     TextView language;
     public ImageView profilePic;
+   
 
     @Nullable
     @Override
@@ -38,6 +42,7 @@ public class OwnProfileFragment extends Fragment {
         location = (TextView) view.findViewById(R.id.ownLoaction);
         language = (TextView) view.findViewById(R.id.ownLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
+
 
         setElements();
 
