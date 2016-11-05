@@ -47,7 +47,7 @@ public class BieteFragment extends Fragment {
         adapter = new ArrayAdapter<String>(callingActivity, android.R.layout.simple_list_item_1, bieteItems);
         bieteList_class.setAdapter(adapter);
 
-        account.loadBids(this, account.getEmail());
+        account.loadBids(this);
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

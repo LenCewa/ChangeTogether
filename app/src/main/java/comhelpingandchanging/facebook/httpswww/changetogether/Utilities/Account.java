@@ -49,9 +49,15 @@ public class Account extends Application {
         searchedItem = new SearchedItem(userProfile, tag, description);
     }
 
-    public void loadBids(Fragment callingFragment, String email){
+    public void loadBids(Fragment callingFragment){
 
-        LoadBids l = new LoadBids(callingFragment, email);
+        LoadBids l = new LoadBids(callingFragment, getEmail());
+        l.execute();
+    }
+
+    public void loadBidsActivity(Activity callingActivity){
+
+        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getSearchEmail());
         l.execute();
     }
 

@@ -1,12 +1,9 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 
@@ -51,7 +48,7 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         callingDialog.dismiss();
-        ((ProfileActivity)callingDialog.getActivity()).listItems.clear();
+        ((ProfileActivity)callingDialog.getActivity()).bieteItems.clear();
         account.searchFeedback(callingDialog.getActivity());
     }
 }

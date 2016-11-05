@@ -11,11 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProfile;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -25,9 +23,9 @@ public class ProfileActivity extends Activity {
     Button rate;
     TextView profileInfo;
     ImageView profilePic;
-    ListView feedbackList;
-    public ArrayList<String[]> listItems = new ArrayList<String[]>();
-    public CustomAdapter adapter;
+    ListView bidList;
+    public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
+    public CustomAdapterProfile adapter;
     Account account;
 
 
@@ -44,25 +42,23 @@ public class ProfileActivity extends Activity {
         profilePic = (ImageView) findViewById(R.id.imageView);
         profilePic.setImageBitmap(account.getSearchProfilePic());
 
-        feedbackList = (ListView) findViewById(R.id.list);
-        adapter = new CustomAdapter(this, listItems);
-        feedbackList.setAdapter(adapter);
+        bidList = (ListView) findViewById(R.id.list);
+        adapter = new CustomAdapterProfile(this, bieteItems);
+        bidList.setAdapter(adapter);
 
-        account.searchFeedback(this);
+        account.loadBidsActivity(this);
 
-        feedbackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        bidList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String[] arr = (String[]) adapter.getItem(position);
-                String profileName = arr[0];
-                String feedbackText = arr[1];
-                float rating = Float.parseFloat(arr[2]);
+                String tag = arr[0];
+                String description = arr[1];
 
                 Intent intent = new Intent(ProfileActivity.this, FeedbackActivity.class);
-                intent.putExtra("profileName", profileName);
-                intent.putExtra("feedbackText", feedbackText);
-                intent.putExtra("rating", rating);
+                intent.putExtra("tag", tag);
+                intent.putExtra("description", description);
                 startActivity(intent);
             }
         });
