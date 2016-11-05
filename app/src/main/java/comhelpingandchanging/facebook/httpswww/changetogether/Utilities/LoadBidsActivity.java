@@ -3,6 +3,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;

@@ -6,42 +6,21 @@
 
     <TextView
         android:layout_height="wrap_content"
-        android:id="@+id/bidType"
+        android:id="@+id/profileInfo"
         android:layout_width="match_parent"
-        android:layout_alignBaseline="@+id/menuButton"
-        android:layout_alignBottom="@+id/menuButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/profileInfo"
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/list"
-        android:layout_below="@+id/rateBtn" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/rateBtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="RATE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rateBtn"
         android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
-
-    <ImageView
-        android:layout_width="150dp"
-        android:id="@+id/imageView"
-        android:scaleType="centerCrop"
-        android:layout_below="@+id/bidType"
-        android:layout_centerHorizontal="true"
-        android:layout_height="150dp" />
-
+        android:id="@+id/list" />
 </RelativeLayout>
