@@ -13,6 +13,8 @@ public class Constants {
     public static final String DBLOADBID = "http://change-together.spdns.org/app/loadBids.php";
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";
 
+
+    // Mögliche Fehler in PHPs?
     public static final String DBLOADHELPINGLOCATION = "http://change-together.spdns.org/app/loadHelpingLocation.php";
     public static final String DBDELETEHELPINGLOCATION = "http://change-together.spdns.org/app/deleteHelpingLocation.php";
     public static final String DBADDHELPINGLOCATION = "http://change-together.spdns.org/app/addHelpingLocation.php";
