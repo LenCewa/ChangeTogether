@@ -36,7 +36,7 @@ public class ProfileActivity extends Activity {
 
         account =(Account)getApplication();
 
-        profileInfo = (TextView) findViewById(R.id.textView4);
+        profileInfo = (TextView) findViewById(R.id.bidType);
         profileInfo.setText(account.getSearchEmail() + " - " + account.getSearchLocation() + " - " + account.getSearchLocation());
 
         profilePic = (ImageView) findViewById(R.id.imageView);
