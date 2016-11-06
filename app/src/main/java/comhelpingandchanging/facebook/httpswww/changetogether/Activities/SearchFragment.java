@@ -3,6 +3,8 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,7 +16,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -63,7 +67,9 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 listItems.clear();
                 adapter.notifyDataSetChanged();
-                account.searchBid(SearchFragment.this, searchField.getText().toString());
+
+                Double[] latLong = getLocationFromAddress(account.getLocation());
+                account.searchBid(SearchFragment.this, searchField.getText().toString(), latLong[0], latLong[1]);
                 // Eingefügt
                 //account.searchHelpingLocation(SearchFragment.this, searchField.getText().toString());
             }
@@ -86,5 +92,26 @@ public class SearchFragment extends Fragment {
         super.onPause();
 
         getArguments().putString("searchText", searchField.getText().toString());
+    }
+
+    public Double[] getLocationFromAddress(String strAddress){
+
+        Double[] latLong = new Double[2];
+        Geocoder coder = new Geocoder(getActivity());
+        List<Address> address;
+
+        try {
+            address = coder.getFromLocationName(strAddress,1);
+            if (address==null) {
+                return null;
+            }
+            Address location=address.get(0);
+            latLong[0] = location.getLatitude();
+            latLong[1] = location.getLongitude();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return latLong;
     }
 }

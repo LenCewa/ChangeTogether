@@ -18,14 +18,20 @@ public class AddBid extends AsyncTask<Void, Void, String > {
     private String email;
     private String tag;
     private String description;
+    private String location;
+    double lat;
+    double lng;
     RequestHandler rh = new RequestHandler();
 
-    public AddBid(Fragment callingFragment, String email, String tag, String description){
+    public AddBid(Fragment callingFragment, String email, String tag, String description, String location, double lat, double lng){
 
         this.callingFragment = callingFragment;
         this.email = email;
         this.tag = tag;
         this.description = description;
+        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     @Override
@@ -35,6 +41,9 @@ public class AddBid extends AsyncTask<Void, Void, String > {
         data.put("email", email);
         data.put("tag", tag);
         data.put("description", description);
+        data.put("location", location);
+        data.put("latitude", String.valueOf(lat));
+        data.put("longitude", String.valueOf(lng));
         String result = rh.sendPostRequest(Constants.DBADDBID,data);
 
         return result;

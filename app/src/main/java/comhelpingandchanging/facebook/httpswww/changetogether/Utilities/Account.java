@@ -69,9 +69,9 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void searchBid(Fragment callingFragment, String tag){
+    public void searchBid(Fragment callingFragment, String tag, double lat, double lng){
 
-        SearchBid s = new SearchBid(callingFragment, tag);
+        SearchBid s = new SearchBid(callingFragment, tag, lat, lng);
         s.execute();
     }
 
@@ -80,9 +80,9 @@ public class Account extends Application {
         s.execute();
     }
 
-    public void addBid(Fragment callingFragment, String tag, String description){
+    public void addBid(Fragment callingFragment, String tag, String description, String location, double lat, double lng){
 
-        AddBid a = new AddBid(callingFragment, getEmail(), tag, description);
+        AddBid a = new AddBid(callingFragment, getEmail(), tag, description, location, lat, lng);
         a.execute();
     }
 

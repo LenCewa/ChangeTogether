@@ -4,9 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView android:layout_width="match_parent"
+    <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/profileNameSearch" />
+        android:id="@+id/profileNameSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,6 +19,13 @@
         android:layout_below="@+id/profileNameSearch"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchLocation"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/profileNameSearch"/>
 
 
 </RelativeLayout>

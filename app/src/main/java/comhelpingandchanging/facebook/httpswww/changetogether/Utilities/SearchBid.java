@@ -22,13 +22,17 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
     Fragment callingFragment;
     RequestHandler rh = new RequestHandler();
     private String tag;
+    private double lat;
+    private double lng;
 
-    public SearchBid(Fragment callingFragment, String tag){
+    public SearchBid(Fragment callingFragment, String tag, double lat, double lng){
 
         account = (Account) callingFragment.getActivity().getApplication();
         callingActivity = callingFragment.getActivity();
         this.callingFragment = callingFragment;
         this.tag = tag;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     @Override
@@ -37,6 +41,8 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
         HashMap<String,String> data = new HashMap<>();
 
         data.put("tag", tag);
+        data.put("latitude", String.valueOf(lat));
+        data.put("longitude", String.valueOf(lng));
         String result = rh.sendPostRequest(Constants.DBSEARCHBID,data);
 
         return result;
@@ -44,15 +50,16 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        if(result.equals("No entries"))
-            Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+        String[] str = result.split(Pattern.quote("|"));
+        if(str[0].equals("No entries"))
+            Toast.makeText(callingActivity, str[1], Toast.LENGTH_SHORT).show();
         else {
             String[] s = result.split(Pattern.quote(":"));
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < s.length; i++) {
                 String[] arr = s[i].split(Pattern.quote("|"));
                 if(!arr[0].equals(account.getEmail())) {
-                    ((SearchFragment) callingFragment).listItems.add(0, new String[]{arr[0], arr[1], arr[2]});
+                    ((SearchFragment) callingFragment).listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3]});
                     ((SearchFragment) callingFragment).adapter.notifyDataSetChanged();
                 }
             }

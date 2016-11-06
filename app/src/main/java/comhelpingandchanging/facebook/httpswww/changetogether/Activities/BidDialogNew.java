@@ -1,6 +1,8 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.DialogFragment;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,14 +16,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-
-/**
- * Created by Ludwig on 05.11.2016.
- */
 
 public class BidDialogNew extends DialogFragment {
     BieteFragment callingFragment;
@@ -39,7 +39,7 @@ public class BidDialogNew extends DialogFragment {
 
         bidTypes = (Spinner) rootView.findViewById(R.id.bidTypes);
 
-        AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
+        final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this
 
         autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,12 +61,36 @@ public class BidDialogNew extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Double[] latLong = getLocationFromAddress(autocompleteView.getText().toString());
+
                 ((Account) callingFragment.getActivity().getApplication()).
-                        addBid(callingFragment, bidTypes.getSelectedItem().toString(), description.getText().toString());
+                        addBid(callingFragment, bidTypes.getSelectedItem().toString(), description.getText().toString(),
+                                autocompleteView.getText().toString(), latLong[0], latLong[1]);
                 getDialog().dismiss();
             }
         });
 
         return rootView;
+    }
+
+    public Double[] getLocationFromAddress(String strAddress){
+
+        Double[] latLong = new Double[2];
+        Geocoder coder = new Geocoder(getActivity());
+        List<Address> address;
+
+        try {
+            address = coder.getFromLocationName(strAddress,1);
+            if (address==null) {
+                return null;
+            }
+            Address location=address.get(0);
+            latLong[0] = location.getLatitude();
+            latLong[1] = location.getLongitude();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return latLong;
     }
 }

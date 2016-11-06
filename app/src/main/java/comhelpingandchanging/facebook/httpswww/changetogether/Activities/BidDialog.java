@@ -51,8 +51,8 @@ public class BidDialog extends DialogFragment {
             public void onClick(View view) {
 
                 addClickedItems();
-                for(String s : bieteItems)
-                    ((Account) callingFragment.getActivity().getApplication()).addBid(callingFragment, s, "");
+                for(String s : bieteItems);
+                    //((Account) callingFragment.getActivity().getApplication()).addBid(callingFragment, s, "");
                 getDialog().dismiss();
             }
         });
