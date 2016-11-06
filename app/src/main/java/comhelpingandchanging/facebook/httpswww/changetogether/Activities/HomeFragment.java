@@ -106,7 +106,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void refresh(){
-        account.homeShowBids(this, latLong[0], latLong[1]);
+        if(!account.getLocation().equals("N/A")) {
+            latLong = getLocationFromAddress(account.getLocation());
+            account.homeShowBids(this, latLong[0], latLong[1]);
+        }
     }
 
     @Override

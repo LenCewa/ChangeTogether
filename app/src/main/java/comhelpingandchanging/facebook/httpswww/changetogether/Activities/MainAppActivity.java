@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -50,6 +51,7 @@ public class MainAppActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_app);
 
         account = (Account) getApplication();
+
         if (savedInstanceState != null) {
             searchFragment = (SearchFragment) getFragmentManager().getFragment(savedInstanceState, "search");
             bieteFragment = (BieteFragment) getFragmentManager().getFragment(savedInstanceState, "biete");
@@ -63,10 +65,10 @@ public class MainAppActivity extends AppCompatActivity
             helpingLocationsFragment = new HelpingLocationsFragment();
         }
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Change Together");
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,6 +84,8 @@ public class MainAppActivity extends AppCompatActivity
         ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
         ((TextView) header.findViewById(R.id.profEmail)).setText(account.getEmail());
         ((TextView) header.findViewById(R.id.profLocation)).setText(account.getLocation());
+
+        getFragmentManager().beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
     }
 
     @Override
