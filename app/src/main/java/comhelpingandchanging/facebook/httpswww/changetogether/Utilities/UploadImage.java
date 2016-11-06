@@ -43,7 +43,6 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         loading.dismiss();
-        ((OwnProfileFragment)account.getFragmentManager().findFragmentByTag("ownprofile")).setElements();
     }
 
     @Override

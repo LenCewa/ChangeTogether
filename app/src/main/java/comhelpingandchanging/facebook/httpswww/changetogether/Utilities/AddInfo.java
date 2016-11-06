@@ -56,7 +56,6 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
     @Override
     protected void onPostExecute(String s) {
         if(s.equals("Success")) {
-            ((OwnProfileFragment)account.getFragmentManager().findFragmentByTag("ownprofile")).setElements();
             callingActivity.finish();
         }
         if(s.equals("Error")) {

@@ -1,9 +1,11 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Yannick on 03.11.2016.
  */
 
-public class BieteFragment extends Fragment {
+public class BieteFragment extends Fragment implements  MyDialogCloseListener{
 
     View view;
     MainAppActivity callingActivity;
@@ -54,8 +56,7 @@ public class BieteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 BidDialogNew add = new BidDialogNew();
-                add.setTargetFragment(BieteFragment.this, 0);
-                add.show(getFragmentManager(), "Biete Dialog");
+                add.show(getChildFragmentManager(), "Biete Dialog");
             }
         });
 
@@ -68,5 +69,21 @@ public class BieteFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void refresh(){
+        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
+        account.loadBids(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialog) {
+        refresh();
     }
 }

@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Ludwig on 05.11.2016.
  */
 
-public class ShowBidFeedback extends Activity {
+public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
 
     TextView bid;
     Button rateBtn;
@@ -53,7 +54,7 @@ public class ShowBidFeedback extends Activity {
                 FeedbackDialog add = new FeedbackDialog();
                 add.setArguments(new Bundle());
                 add.getArguments().putString("tag", getIntent().getStringExtra("tag"));
-                add.show(getFragmentManager(), "Biete Dialog");
+                add.show(getFragmentManager(), "Feedback Dialog");
             }
         });
 
@@ -62,5 +63,27 @@ public class ShowBidFeedback extends Activity {
 
     public void setStars(float stars){
         ratingBar.setRating(stars);
+    }
+
+    private void refresh(){
+        feedbacks.clear();
+        account.searchFeedback(this, getIntent().getStringExtra("tag"));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refresh();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialog) {
+        refresh();
     }
 }

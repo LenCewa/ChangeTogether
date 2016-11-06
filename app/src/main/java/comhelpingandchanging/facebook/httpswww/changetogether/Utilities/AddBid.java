@@ -48,10 +48,4 @@ public class AddBid extends AsyncTask<Void, Void, String > {
 
         return result;
     }
-
-    @Override
-    protected void onPostExecute(String s) {
-
-        ((Account)callingFragment.getActivity().getApplication()).loadBids(callingFragment);
-    }
 }

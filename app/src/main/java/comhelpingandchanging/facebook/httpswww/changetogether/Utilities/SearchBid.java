@@ -2,7 +2,9 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -50,9 +52,9 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        String[] str = result.split(Pattern.quote("|"));
-        if(str[0].equals("No entries"))
-            Toast.makeText(callingActivity, str[1], Toast.LENGTH_SHORT).show();
+        if(result.equals("No entries"))
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                    .show();
         else {
             String[] s = result.split(Pattern.quote(":"));
             StringBuilder sb = new StringBuilder();
@@ -62,6 +64,9 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
                     ((SearchFragment) callingFragment).listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3]});
                     ((SearchFragment) callingFragment).adapter.notifyDataSetChanged();
                 }
+                if(((SearchFragment) callingFragment).listItems.isEmpty())
+                    Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                            .show();
             }
         }
     }

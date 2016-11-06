@@ -43,7 +43,7 @@ public class OwnProfileFragment extends Fragment {
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
-        setElements();
+        refresh();
 
         settings = (Button) view.findViewById(R.id.settingsButton);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +56,16 @@ public class OwnProfileFragment extends Fragment {
         return view;
     }
 
-    public void setElements() {
+    private void refresh() {
         profilePic.setImageBitmap(account.getProfilePic());
         username.setText(account.getEmail());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 }
