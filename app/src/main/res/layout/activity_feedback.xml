@@ -17,7 +17,7 @@
         android:id="@+id/ratingBar3"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:isIndicator="true" />
+        android:isIndicator="true"></RatingBar>
 
     <TextView
         android:layout_width="match_parent"
