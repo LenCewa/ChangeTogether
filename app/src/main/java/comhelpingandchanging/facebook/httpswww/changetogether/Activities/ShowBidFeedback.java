@@ -53,12 +53,14 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
             public void onClick(View v) {
                 FeedbackDialog add = new FeedbackDialog();
                 add.setArguments(new Bundle());
+                add.getArguments().putInt("id", getIntent().getIntExtra("id", -1));
                 add.getArguments().putString("tag", getIntent().getStringExtra("tag"));
                 add.show(getFragmentManager(), "Feedback Dialog");
             }
         });
 
-        account.searchFeedback(this, getIntent().getStringExtra("tag"));
+        feedbacks.clear();
+        account.searchFeedback(this, getIntent().getIntExtra("id", -1), getIntent().getStringExtra("tag"));
     }
 
     public void setStars(float stars){
@@ -67,7 +69,7 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
 
     private void refresh(){
         feedbacks.clear();
-        account.searchFeedback(this, getIntent().getStringExtra("tag"));
+        account.searchFeedback(this, getIntent().getIntExtra("id", -1), getIntent().getStringExtra("tag"));
     }
 
     @Override
