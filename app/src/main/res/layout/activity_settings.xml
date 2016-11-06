@@ -13,7 +13,7 @@
         android:layout_height="150dp"
         android:scaleType="centerCrop" />
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="200dp"
         android:inputType="textPersonName"
         android:ems="10"
