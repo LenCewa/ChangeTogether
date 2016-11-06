@@ -1,8 +1,11 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -18,12 +21,12 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBid
 public class SearchFeedback extends AsyncTask <Void, Void, String>{
 
     Account account;
-    Activity callingActivity;
+    ShowBidFeedback callingActivity;
     RequestHandler rh = new RequestHandler();
     private String tag;
     private String email;
 
-    public SearchFeedback(Activity callingActivity, String tag, String email){
+    public SearchFeedback(ShowBidFeedback callingActivity, String tag, String email){
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
@@ -46,16 +49,28 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
 
-        if(result.equals("No entries"))
-            Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+        if(result.equals("connection error"))
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            rh.retry();
+                        }
+                    })
+                    .setActionTextColor(Color.RED)
+                    .show();
         else {
-            String[] s = result.split(Pattern.quote(":"));
-            ((ShowBidFeedback) callingActivity).setStars(Float.parseFloat(s[0]));
-            StringBuilder sb = new StringBuilder();
-            for(int i = 1; i < s.length; i++) {
-                String[] arr = s[i].split(Pattern.quote("|"));
-                ((ShowBidFeedback) callingActivity).feedbacks.add(0, new String[]{arr[0], arr[1], arr[2]});
-                ((ShowBidFeedback) callingActivity).adapter.notifyDataSetChanged();
+            if (result.equals("No entries"))
+                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+            else {
+                String[] s = result.split(Pattern.quote(":"));
+                callingActivity.setStars(Float.parseFloat(s[0]));
+                StringBuilder sb = new StringBuilder();
+                for (int i = 1; i < s.length; i++) {
+                    String[] arr = s[i].split(Pattern.quote("|"));
+                    callingActivity.feedbacks.add(0, new String[]{arr[0], arr[1], arr[2]});
+                    callingActivity.adapter.notifyDataSetChanged();
+                }
             }
         }
     }

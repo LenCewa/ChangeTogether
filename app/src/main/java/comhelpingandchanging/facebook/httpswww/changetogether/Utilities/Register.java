@@ -1,7 +1,10 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -41,10 +44,20 @@ public class Register extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
 
-        if(result.equals("User added, logging in...") || result.equals("User already exists, logging in instead...")) {
-            account.login(callingActivity, email, password);
+        if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rh.retry();
+                    }
+                })
+                .setActionTextColor(Color.RED)
+                .show();
+        else {
+            if (result.equals("User added, logging in...") || result.equals("User already exists, logging in instead...")) {
+                account.login(callingActivity, email, password);
+            }
+            Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
-
     }
 }

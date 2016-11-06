@@ -34,4 +34,9 @@ public class DeleteHelpingLocations  extends AsyncTask<Void, Void, String> {
 
         return result;
     }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if(result.equals("connection error"));
+    }
 }

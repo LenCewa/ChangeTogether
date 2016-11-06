@@ -1,6 +1,9 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -35,7 +38,7 @@ public class BidDialogNew extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_select_biete_new, container, false);
 
-        callingFragment = (BieteFragment) getTargetFragment();
+        callingFragment = (BieteFragment) getParentFragment();
 
         bidTypes = (Spinner) rootView.findViewById(R.id.bidTypes);
 
@@ -92,5 +95,16 @@ public class BidDialogNew extends DialogFragment {
             e.printStackTrace();
         }
         return latLong;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Activity activity = getActivity();
+        if(callingFragment instanceof MyDialogCloseListener)
+            ((MyDialogCloseListener)callingFragment).handleDialogClose(dialog);
+        else if(activity instanceof MyDialogCloseListener)
+            ((MyDialogCloseListener)activity).handleDialogClose(dialog);
     }
 }

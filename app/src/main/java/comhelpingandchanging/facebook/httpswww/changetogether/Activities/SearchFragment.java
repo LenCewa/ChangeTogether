@@ -3,10 +3,12 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,14 +64,29 @@ public class SearchFragment extends Fragment {
         searchField.setText(getArguments().getString("searchText"));
 
         searchBtn = (Button) view.findViewById(R.id.searchBtn);
+
+        final View.OnClickListener setLocation = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent setLocation = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(setLocation);
+            }
+        };
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listItems.clear();
                 adapter.notifyDataSetChanged();
 
-                Double[] latLong = getLocationFromAddress(account.getLocation());
-                account.searchBid(SearchFragment.this, searchField.getText().toString(), latLong[0], latLong[1]);
+                if(account.getLocation().equals("N/A"))
+                    Snackbar.make(v, "Please set your location first", Snackbar.LENGTH_INDEFINITE)
+                            .setAction("Set location", setLocation)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                else {
+                    Double[] latLong = getLocationFromAddress(account.getLocation());
+                    account.searchBid(SearchFragment.this, searchField.getText().toString(), latLong[0], latLong[1]);
+                }
                 // Eingefügt
                 //account.searchHelpingLocation(SearchFragment.this, searchField.getText().toString());
             }
@@ -113,5 +130,15 @@ public class SearchFragment extends Fragment {
             e.printStackTrace();
         }
         return latLong;
+    }
+
+    private void refresh(){
+        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 }

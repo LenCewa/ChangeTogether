@@ -1,6 +1,8 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -45,5 +47,14 @@ public class FeedbackDialog extends DialogFragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Activity activity = getActivity();
+        if(activity instanceof MyDialogCloseListener)
+            ((MyDialogCloseListener)activity).handleDialogClose(dialog);
     }
 }

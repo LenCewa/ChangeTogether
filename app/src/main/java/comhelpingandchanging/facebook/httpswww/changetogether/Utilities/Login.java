@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -46,20 +49,32 @@ public class Login extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
-            Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+        if(result.equals("connection error"))
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            rh.retry();
+                        }
+                    })
+                    .setActionTextColor(Color.RED)
+                    .show();
         else {
-            String[] results = result.split(Pattern.quote("|"));
-            String location = results[0];
-            String language = results[1];
+            if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
+                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+            else {
+                String[] results = result.split(Pattern.quote("|"));
+                String location = results[0];
+                String language = results[1];
 
-            byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-            setSelfInfo(email, password, location, language, decodedByte);
-            Intent search = new Intent(callingActivity, MainAppActivity.class);
-            callingActivity.startActivity(search);
-            callingActivity.finishAffinity();
+                setSelfInfo(email, password, location, language, decodedByte);
+                Intent search = new Intent(callingActivity, MainAppActivity.class);
+                callingActivity.startActivity(search);
+                callingActivity.finishAffinity();
+            }
         }
     }
 

@@ -1,8 +1,11 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -54,14 +57,17 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        if(s.equals("Success")) {
-            ((OwnProfileFragment)account.getFragmentManager().findFragmentByTag("ownprofile")).setElements();
+    protected void onPostExecute(String result) {
+        if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rh.retry();
+                    }
+                })
+                .setActionTextColor(Color.RED)
+                .show();
+        else
             callingActivity.finish();
-        }
-        if(s.equals("Error")) {
-            Toast.makeText(callingActivity, s, Toast.LENGTH_SHORT).show();
-            callingActivity.finish();
-        }
     }
 }
