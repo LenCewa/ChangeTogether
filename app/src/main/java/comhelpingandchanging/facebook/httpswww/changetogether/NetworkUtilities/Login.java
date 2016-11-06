@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class Login extends AsyncTask<Void, Void, String> {
 
+    ProgressDialog loading;
     private Account account;
     private Activity callingActivity;
     private String email;
@@ -39,6 +41,12 @@ public class Login extends AsyncTask<Void, Void, String> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+    }
+
+    @Override
     protected String doInBackground(Void... params) {
         HashMap<String,String> data = new HashMap<>();
 
@@ -51,6 +59,7 @@ public class Login extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {

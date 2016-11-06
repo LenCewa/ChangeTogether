@@ -58,12 +58,13 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
+        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            rh.retry();
+                            new SearchUser(callingActivity, email, tag, description).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
@@ -78,7 +79,6 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
             account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
-            loading.dismiss();
             callingActivity.setElements();
         }
     }
