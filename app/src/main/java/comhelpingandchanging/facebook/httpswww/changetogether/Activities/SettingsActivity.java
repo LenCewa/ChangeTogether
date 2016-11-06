@@ -29,7 +29,7 @@ public class SettingsActivity extends Activity {
     Button save;
     String city;
     Account account;
-    EditText location;
+    AutoCompleteTextView location;
     EditText language;
     EditText password;
     EditText passwordConfirm;
