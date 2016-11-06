@@ -13,7 +13,6 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:text="Len13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -23,7 +22,6 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Sprachkurs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userEmail"
@@ -33,7 +31,6 @@
         android:textSize="18sp" />
 
     <TextView
-        android:text="Desceription muss noch hinzugefügt werden"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="39dp"

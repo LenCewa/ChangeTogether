@@ -79,7 +79,7 @@ public class SearchFragment extends Fragment {
                 adapter.notifyDataSetChanged();
 
                 if(account.getLocation().equals("N/A"))
-                    Snackbar.make(v, "Please set your location first", Snackbar.LENGTH_INDEFINITE)
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_INDEFINITE)
                             .setAction("Set location", setLocation)
                             .setActionTextColor(Color.RED)
                             .show();
