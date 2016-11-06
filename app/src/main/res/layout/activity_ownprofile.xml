@@ -8,29 +8,42 @@
         android:id="@+id/ownProfileName"
         android:layout_alignTop="@+id/ownProfilePic"
         android:layout_toEndOf="@+id/ownProfilePic"
-        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_height="30dp"
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:text="Name" />
 
     <TextView
         android:text="Location"
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/ownProfileLocation"
         android:layout_below="@+id/ownProfileName"
         android:layout_alignStart="@+id/ownProfileName" />
 
     <TextView
         android:text="Language"
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:id="@+id/ownProfileLanguage"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/ownProfileLocation"
-        android:layout_alignStart="@+id/ownProfileLocation" />
+        android:layout_alignStart="@+id/ownProfileName"/>
 
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:elevation="0dp"
+        android:text="Update Profile"
+        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:layout_below="@+id/ownProfileLanguage"
+        android:layout_alignStart="@+id/ownProfileName"
+        android:typeface="monospace"
+        android:textAllCaps="false"
+        android:textSize="12sp" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -40,25 +53,13 @@
         android:layout_below="@+id/settingsButton"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_marginLeft="15dp"
-        android:elevation="0dp"
-        android:text="Update Profile"
-        android:layout_height="50dp"
-        android:layout_width="150dp"
-        android:layout_below="@+id/ownProfileLanguage"
-        android:layout_toEndOf="@+id/ownProfilePic"
-        android:typeface="monospace"
-        android:textAllCaps="false"
-        android:textSize="12sp" />
-
     <ImageView
-        android:layout_width="150dp"
         android:id="@+id/ownProfilePic"
-        android:scaleType="centerCrop"
+        android:layout_width="150dp"
         android:layout_height="150dp"
+        android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
 </RelativeLayout>
