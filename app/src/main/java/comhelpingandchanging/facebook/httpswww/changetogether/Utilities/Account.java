@@ -8,6 +8,12 @@ import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+
 /**
  * Created by Yannick on 26.10.2016.
  */
@@ -36,7 +42,7 @@ public class Account extends Application {
         editor.apply();
     }
 
-    public void searchUser(Activity callingActivity, String email, String tag, String description){
+    public void searchUser(SearchItemActivity callingActivity, String email, String tag, String description){
 
         SearchUser s = new SearchUser(callingActivity, email, tag, description);
         s.execute();
@@ -47,7 +53,7 @@ public class Account extends Application {
         searchedItem = new SearchedItem(userProfile, tag, description);
     }
 
-    public void loadBids(Fragment callingFragment){
+    public void loadBids(BieteFragment callingFragment){
 
         LoadBids l = new LoadBids(callingFragment, getEmail());
         l.execute();
@@ -58,7 +64,7 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void loadBidsActivity(Activity callingActivity){
+    public void loadBidsActivity(ProfileActivity callingActivity){
 
         LoadBidsActivity l = new LoadBidsActivity(callingActivity, getSearchEmail());
         l.execute();
@@ -69,7 +75,7 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void searchBid(Fragment callingFragment, String tag, double lat, double lng){
+    public void searchBid(SearchFragment callingFragment, String tag, double lat, double lng){
 
         SearchBid s = new SearchBid(callingFragment, tag, lat, lng);
         s.execute();
@@ -103,7 +109,7 @@ public class Account extends Application {
         d.execute();
     }
 
-    public void searchFeedback(Activity callingActivity, String tag) {
+    public void searchFeedback(ShowBidFeedback callingActivity, String tag) {
 
         SearchFeedback s = new SearchFeedback(callingActivity, tag, getSearchEmail());
         s.execute();

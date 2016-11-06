@@ -20,14 +20,14 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchI
 public class SearchUser extends AsyncTask<Void, Void, String>{
 
     Account account;
-    Activity callingActivity;
+    SearchItemActivity callingActivity;
     String email;
     String tag;
     String description;
     ProgressDialog loading;
     RequestHandler rh = new RequestHandler();
 
-    public SearchUser(Activity callingActivity, String email, String tag, String description){
+    public SearchUser(SearchItemActivity callingActivity, String email, String tag, String description){
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
@@ -64,7 +64,7 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
 
         account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
         loading.dismiss();
-        ((SearchItemActivity) callingActivity).setElements();
+        callingActivity.setElements();
     }
 
     private UserProfile getUserProfile(String location, String language, Bitmap bitmap){

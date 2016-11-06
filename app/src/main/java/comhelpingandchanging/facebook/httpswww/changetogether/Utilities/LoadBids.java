@@ -14,11 +14,11 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFr
 
 public class LoadBids extends AsyncTask<Void, Void, String>{
 
-    Fragment callingFragment;
+    BieteFragment callingFragment;
     RequestHandler rh = new RequestHandler();
     private String email;
 
-    public LoadBids(Fragment callingFragment, String email){
+    public LoadBids(BieteFragment callingFragment, String email){
 
         this.callingFragment = callingFragment;
         this.email = email;
@@ -44,10 +44,10 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < s.length; i++) {
                 String[] arr = s[i].split(Pattern.quote("|"));
-                if(!((BieteFragment)callingFragment).bieteItems.contains(arr[1]))
-                    ((BieteFragment)callingFragment).bieteItems.add(arr[1]);
+                if(!callingFragment.bieteItems.contains(arr[1]))
+                    callingFragment.bieteItems.add(arr[1]);
             }
-            ((BieteFragment)callingFragment).adapter.notifyDataSetChanged();
+            callingFragment.adapter.notifyDataSetChanged();
         }
     }
 }

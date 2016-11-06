@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 
 import java.util.HashMap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
+
 /**
  * Created by len13 on 05.11.2016.
  */
@@ -40,6 +42,6 @@ public class AddHelpingLocation extends AsyncTask<Void, Void, String > {
     @Override
     protected void onPostExecute(String s) {
 
-        ((Account)callingFragment.getActivity().getApplication()).loadBids(callingFragment);
+        ((Account)callingFragment.getActivity().getApplication()).loadBids((BieteFragment)callingFragment);
     }
 }

@@ -17,11 +17,11 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.Profile
 
 public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
 
-    Activity callingActivity;
+    ProfileActivity callingActivity;
     RequestHandler rh = new RequestHandler();
     private String email;
 
-    public LoadBidsActivity(Activity callingActivity, String email){
+    public LoadBidsActivity(ProfileActivity callingActivity, String email){
 
         this.callingActivity = callingActivity;
         this.email = email;
@@ -47,10 +47,10 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < s.length; i++) {
                 String[] arr = s[i].split(Pattern.quote("|"));
-                if(!((ProfileActivity)callingActivity).bieteItems.contains(arr[1]))
-                    ((ProfileActivity)callingActivity).bieteItems.add(new String[]{arr[1], arr[2]});
+                if(!callingActivity.bieteItems.contains(arr[1]))
+                    callingActivity.bieteItems.add(new String[]{arr[1], arr[2]});
             }
-            ((ProfileActivity)callingActivity).adapter.notifyDataSetChanged();
+            callingActivity.adapter.notifyDataSetChanged();
         }
     }
 }

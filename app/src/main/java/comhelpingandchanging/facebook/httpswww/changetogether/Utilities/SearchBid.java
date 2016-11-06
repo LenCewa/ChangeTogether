@@ -21,13 +21,13 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
     Account account;
     Activity callingActivity;
-    Fragment callingFragment;
+    SearchFragment callingFragment;
     RequestHandler rh = new RequestHandler();
     private String tag;
     private double lat;
     private double lng;
 
-    public SearchBid(Fragment callingFragment, String tag, double lat, double lng){
+    public SearchBid(SearchFragment callingFragment, String tag, double lat, double lng){
 
         account = (Account) callingFragment.getActivity().getApplication();
         callingActivity = callingFragment.getActivity();
@@ -61,10 +61,10 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
             for(int i = 0; i < s.length; i++) {
                 String[] arr = s[i].split(Pattern.quote("|"));
                 if(!arr[0].equals(account.getEmail())) {
-                    ((SearchFragment) callingFragment).listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3]});
-                    ((SearchFragment) callingFragment).adapter.notifyDataSetChanged();
+                    callingFragment.listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3]});
+                    callingFragment.adapter.notifyDataSetChanged();
                 }
-                if(((SearchFragment) callingFragment).listItems.isEmpty())
+                if(callingFragment.listItems.isEmpty())
                     Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                             .show();
             }
