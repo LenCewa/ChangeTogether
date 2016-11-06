@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,13 +7,13 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.OwnProfileFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by Yannick on 02.11.2016.

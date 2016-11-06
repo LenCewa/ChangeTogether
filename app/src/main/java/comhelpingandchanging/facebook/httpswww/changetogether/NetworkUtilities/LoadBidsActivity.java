@@ -1,6 +1,5 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
-import android.app.Fragment;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -10,21 +9,22 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by Yannick on 29.10.2016.
  */
 
-public class LoadBids extends AsyncTask<Void, Void, String>{
+public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
 
-    BieteFragment callingFragment;
+    ProfileActivity callingActivity;
     RequestHandler rh = new RequestHandler();
     private String email;
 
-    public LoadBids(BieteFragment callingFragment, String email){
+    public LoadBidsActivity(ProfileActivity callingActivity, String email){
 
-        this.callingFragment = callingFragment;
+        this.callingActivity = callingActivity;
         this.email = email;
     }
 
@@ -42,7 +42,7 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         if(result.equals("connection error"))
-            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -53,16 +53,16 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
                     .show();
         else {
             if (result.equals("No entries"))
-                Toast.makeText(callingFragment.getActivity(), result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
             else {
                 String[] s = result.split(Pattern.quote(":"));
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < s.length; i++) {
                     String[] arr = s[i].split(Pattern.quote("|"));
-                    if (!callingFragment.bieteItems.contains(arr[1]))
-                        callingFragment.bieteItems.add(arr[1]);
+                    if (!callingActivity.bieteItems.contains(arr[1]))
+                        callingActivity.bieteItems.add(new String[]{arr[1], arr[2]});
                 }
-                callingFragment.adapter.notifyDataSetChanged();
+                callingActivity.adapter.notifyDataSetChanged();
             }
         }
     }
