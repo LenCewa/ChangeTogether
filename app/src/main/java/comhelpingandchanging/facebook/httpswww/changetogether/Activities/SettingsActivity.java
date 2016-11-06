@@ -82,28 +82,28 @@ public class SettingsActivity extends Activity {
                     String pw = password.getText().toString();
                     String pwConfirm = passwordConfirm.getText().toString();
 
-                    if (loc.equals(account.getLocation()) && lang.equals(account.getLanguage()) && ((pw.length() == 0 && pwConfirm.length() == 0) || pw.equals(account.getPassword()) && pwConfirm.equals(account.getPassword())))
-                        finish();
-                    else {
-                        if (loc.length() > 0 && city.equals(location.getText().toString())) {
+                    if (loc.length() > 0 && city.equals(location.getText().toString())) {
                             account.setLocation(loc);
                             account.editLocation(SettingsActivity.this, loc);
-                        } else
+                    } else
                             location.setError("Select existing location");
 
-                        if (lang.length() > 0) {
+                    if (lang.length() > 0) {
                             account.setLanguage(lang);
                             account.editLanguage(SettingsActivity.this, lang);
-                        }
+                    }
 
-                        if (pw.length() > 0 && pwConfirm.length() > 0) {
-                            if (pw.equals(pwConfirm) && !pw.equals(account.getPassword())) {
+                    if (pw.length() > 0 && pwConfirm.length() > 0) {
+                        if (pw.equals(pwConfirm) && !pw.equals(account.getPassword())) {
                                 account.setPassword(pw);
                                 account.editPassword(SettingsActivity.this, pw);
-                            } else
+                        } else
                                 passwordConfirm.setError("Passwords do not match");
-                        }
                     }
+
+                    if(city.equals(location.getText().toString()) && pw.equals(pwConfirm))
+                        finish();
+
 
                 }
             });

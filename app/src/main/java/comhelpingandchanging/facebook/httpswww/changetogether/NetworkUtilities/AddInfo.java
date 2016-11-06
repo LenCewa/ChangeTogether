@@ -76,7 +76,5 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
                 })
                 .setActionTextColor(Color.RED)
                 .show();
-        else
-            callingActivity.finish();
     }
 }
