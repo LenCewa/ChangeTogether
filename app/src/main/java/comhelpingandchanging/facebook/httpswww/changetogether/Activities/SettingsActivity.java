@@ -28,9 +28,8 @@ public class SettingsActivity extends Activity {
     private static final int PICK_IMAGE = 1;
     Button save;
     String city;
-    boolean rightCity = false;
     Account account;
-    EditText location;
+    AutoCompleteTextView location;
     EditText language;
     EditText password;
     EditText passwordConfirm;
@@ -74,6 +73,7 @@ public class SettingsActivity extends Activity {
             }
         });
 
+
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,31 +82,32 @@ public class SettingsActivity extends Activity {
                     String pw = password.getText().toString();
                     String pwConfirm = passwordConfirm.getText().toString();
 
-                    if (loc.length() > 0 && !loc.equals(account.getLocation()) &&
-                            city.equals(location.getText().toString())) {
-                        account.setLocation(loc);
-                        account.editLocation(SettingsActivity.this, loc);
-                    }
-                    else
-                        Toast.makeText(SettingsActivity.this, "Select existing location", Toast.LENGTH_SHORT).show();
+                    if (loc.length() > 0 && city.equals(location.getText().toString())) {
+                            account.setLocation(loc);
+                            account.editLocation(SettingsActivity.this, loc);
+                    } else
+                            location.setError("Select existing location");
 
-                    if (lang.length() > 0 && !lang.equals(account.getLanguage())) {
-                        account.setLanguage(lang);
-                        account.editLanguage(SettingsActivity.this, lang);
+                    if (lang.length() > 0) {
+                            account.setLanguage(lang);
+                            account.editLanguage(SettingsActivity.this, lang);
                     }
 
                     if (pw.length() > 0 && pwConfirm.length() > 0) {
                         if (pw.equals(pwConfirm) && !pw.equals(account.getPassword())) {
-                            account.setPassword(pw);
-                            account.editPassword(SettingsActivity.this, pw);
+                                account.setPassword(pw);
+                                account.editPassword(SettingsActivity.this, pw);
                         } else
-                            Toast.makeText(SettingsActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                                passwordConfirm.setError("Passwords do not match");
                     }
-                    if (loc.equals(account.getLocation()) && lang.equals(account.getLanguage()) && ((pw.length() == 0 && pwConfirm.length() == 0) || pw.equals(account.getPassword()) && pwConfirm.equals(account.getPassword())))
+
+                    if(city.equals(location.getText().toString()) && pw.equals(pwConfirm))
                         finish();
+
+
                 }
             });
-        }
+        };
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {

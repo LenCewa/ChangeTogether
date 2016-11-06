@@ -27,6 +27,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 public class BidDialogNew extends DialogFragment {
+    AutoCompleteTextView location;
     BieteFragment callingFragment;
     String city;
     Spinner bidTypes;
@@ -40,6 +41,8 @@ public class BidDialogNew extends DialogFragment {
 
         callingFragment = (BieteFragment) getParentFragment();
 
+        location = (AutoCompleteTextView) rootView.findViewById(R.id.location);
+
         bidTypes = (Spinner) rootView.findViewById(R.id.bidTypes);
 
         final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
@@ -50,9 +53,7 @@ public class BidDialogNew extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get data associated with the specified position
                 // in the list (AdapterView)
-                city = (String) parent.getItemAtPosition(position);
-                city = city.split(",")[0];
-                Toast.makeText(getActivity(), city, Toast.LENGTH_SHORT).show();
+                city = parent.getItemAtPosition(position).toString();
             }
         });
 
@@ -64,12 +65,16 @@ public class BidDialogNew extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Double[] latLong = getLocationFromAddress(autocompleteView.getText().toString());
+                if (city.equals(location.getText().toString())) {
+                    Double[] latLong = getLocationFromAddress(autocompleteView.getText().toString());
 
-                ((Account) callingFragment.getActivity().getApplication()).
-                        addBid(callingFragment, bidTypes.getSelectedItem().toString(), description.getText().toString(),
-                                autocompleteView.getText().toString(), latLong[0], latLong[1]);
-                getDialog().dismiss();
+                    ((Account) callingFragment.getActivity().getApplication()).
+                            addBid(callingFragment, bidTypes.getSelectedItem().toString(), description.getText().toString(),
+                                    autocompleteView.getText().toString(), latLong[0], latLong[1]);
+                    getDialog().dismiss();
+                }
+                else
+                    location.setError("Location doesn't exist");
             }
         });
 
