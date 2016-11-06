@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class AddFeedback extends AsyncTask <Void, Void, String>{
 
+    ProgressDialog loading;
     Account account;
     DialogFragment callingDialog;
     RequestHandler rh = new RequestHandler();
@@ -39,6 +41,12 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        loading = ProgressDialog.show(callingDialog.getActivity(), "Uploading...", null,true,true);
+    }
+
+    @Override
     protected String doInBackground(Void... params) {
 
         HashMap<String,String> data = new HashMap<>();
@@ -54,14 +62,16 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(final String result) {
         Activity callingActivity = callingDialog.getActivity();
-        callingDialog.dismiss();
+        loading.dismiss();
+        if(callingDialog != null)
+            callingDialog.dismiss();
         if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        rh.retry();
+                        new AddFeedback(callingDialog, tag, toUser, fromUser, text, rating).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

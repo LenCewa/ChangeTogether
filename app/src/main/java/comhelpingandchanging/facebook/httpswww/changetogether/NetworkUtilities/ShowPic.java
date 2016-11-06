@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class ShowPic extends AsyncTask<Void, Void, String>{
 
+    ProgressDialog loading;
     Activity callingActivity;
     RequestHandler rh = new RequestHandler();
     private String email;
@@ -28,6 +30,12 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
 
         this.callingActivity = callingActivity;
         this.email = email;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
 
     @Override
@@ -43,12 +51,13 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
+        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            rh.retry();
+                            new ShowPic(callingActivity, email).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

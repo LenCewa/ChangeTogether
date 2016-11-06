@@ -44,14 +44,13 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
 
     @Override
     protected void onPostExecute(String s) {
-        super.onPostExecute(s);
         loading.dismiss();
         if(s.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            rh.retry();
+                            new UploadImage(callingActivity, email, pic).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

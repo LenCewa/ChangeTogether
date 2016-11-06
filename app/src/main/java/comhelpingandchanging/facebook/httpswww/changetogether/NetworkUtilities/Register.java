@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class Register extends AsyncTask<Void, Void, String>{
 
+    ProgressDialog loading;
     Account account;
     private Activity callingActivity;
     private String email;
@@ -32,6 +34,11 @@ public class Register extends AsyncTask<Void, Void, String>{
         this.password = password;
     }
 
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+    }
 
     @Override
     protected String doInBackground(Void... params) {
@@ -46,12 +53,12 @@ public class Register extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-
+        loading.dismiss();
         if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        rh.retry();
+                        new Register(callingActivity, email, password).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

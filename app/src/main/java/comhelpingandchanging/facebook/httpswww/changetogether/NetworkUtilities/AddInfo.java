@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class AddInfo extends AsyncTask<Void, Void, String > {
 
+    ProgressDialog loading;
     Account account;
     Activity callingActivity;
     String email;
@@ -32,6 +34,13 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
         this.key = key;
         this.value = value;
     }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+    }
+
     @Override
     protected String doInBackground(Void... params) {
         HashMap<String,String> data = new HashMap<>();
@@ -57,11 +66,12 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
 
     @Override
     protected void onPostExecute(String result) {
+        loading.dismiss();
         if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        rh.retry();
+                        new AddInfo(callingActivity, email, key, value).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)
