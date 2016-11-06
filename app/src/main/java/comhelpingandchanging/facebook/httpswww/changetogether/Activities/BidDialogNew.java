@@ -40,6 +40,7 @@ public class BidDialogNew extends DialogFragment {
 
         callingFragment = (BieteFragment) getParentFragment();
 
+
         bidTypes = (Spinner) rootView.findViewById(R.id.bidTypes);
 
         final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
@@ -50,9 +51,7 @@ public class BidDialogNew extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get data associated with the specified position
                 // in the list (AdapterView)
-                city = (String) parent.getItemAtPosition(position);
-                city = city.split(",")[0];
-                Toast.makeText(getActivity(), city, Toast.LENGTH_SHORT).show();
+                city = parent.getItemAtPosition(position).toString();
             }
         });
 
