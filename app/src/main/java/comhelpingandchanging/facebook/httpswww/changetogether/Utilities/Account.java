@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HomeFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemActivity;
@@ -19,6 +21,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.A
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddInfo;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteHelpingLocations;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.HomeShowBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBidsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocations;
@@ -68,6 +71,12 @@ public class Account extends Application {
     public void setSearchedItem(UserProfile userProfile, String tag, String description){
 
         searchedItem = new SearchedItem(userProfile, tag, description);
+    }
+
+    public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
+
+        HomeShowBids h = new HomeShowBids(callingFragment, lat, lng);
+        h.execute();
     }
 
     public void loadBids(BieteFragment callingFragment){

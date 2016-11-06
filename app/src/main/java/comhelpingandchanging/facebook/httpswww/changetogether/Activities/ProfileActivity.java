@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,7 +47,7 @@ public class ProfileActivity extends Activity {
         profileLanguage = (TextView) findViewById(R.id.profileLanguage);
         profileLanguage.setText(account.getLanguage());
 
-        profilePic = (ImageView) findViewById(R.id.imageView);
+        profilePic = (ImageView) findViewById(R.id.profPic);
         profilePic.setImageBitmap(account.getSearchProfilePic());
 
         bidList = (ListView) findViewById(R.id.list);

@@ -7,12 +7,12 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/profPic"
         android:id="@+id/list" />
 
     <ImageView
         android:layout_width="150dp"
-        android:id="@+id/imageView"
+        android:id="@+id/profPic"
         android:scaleType="centerCrop"
         android:layout_height="150dp"
         android:layout_marginStart="11dp"
@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/profileName"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_alignTop="@+id/profPic"
+        android:layout_toEndOf="@+id/profPic"
         android:layout_marginStart="24dp"
         android:layout_height="30dp"
         android:layout_width="170dp"

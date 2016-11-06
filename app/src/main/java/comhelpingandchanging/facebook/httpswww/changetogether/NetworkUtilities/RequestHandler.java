@@ -38,8 +38,8 @@ public class RequestHandler {
             url = new URL(requestURL);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(3000);
-            conn.setConnectTimeout(3000);
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(10000);
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
