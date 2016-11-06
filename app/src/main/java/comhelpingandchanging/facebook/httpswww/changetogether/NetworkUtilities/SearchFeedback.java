@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,14 +26,14 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
     ShowBidFeedback callingActivity;
     RequestHandler rh = new RequestHandler();
     private String tag;
-    private String email;
+    private int id;
 
-    public SearchFeedback(ShowBidFeedback callingActivity, String tag, String email){
+    public SearchFeedback(ShowBidFeedback callingActivity, int id, String tag){
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
         this.tag = tag;
-        this.email = email;
+        this.id = id;
     }
 
     @Override
@@ -46,8 +47,8 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
 
         HashMap<String,String> data = new HashMap<>();
 
+        data.put("id", String.valueOf(id));
         data.put("tag", tag);
-        data.put("email", email);
         String result = rh.sendPostRequest(Constants.DBSEARCHFEEDBACK,data);
 
         return result;
@@ -62,7 +63,7 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new SearchFeedback(callingActivity, tag, email).execute();
+                            new SearchFeedback(callingActivity, id, tag).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

@@ -23,18 +23,18 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     Account account;
     DialogFragment callingDialog;
     RequestHandler rh = new RequestHandler();
+    private int id;
     private String tag;
-    private String toUser;
     private String fromUser;
     private String text;
     private float rating;
 
-    public AddFeedback(DialogFragment callingDialog, String tag, String toUser, String fromUser, String text, float rating){
+    public AddFeedback(DialogFragment callingDialog, int id, String tag, String fromUser, String text, float rating){
 
         account = (Account) callingDialog.getActivity().getApplication();
         this.callingDialog = callingDialog;
+        this.id = id;
         this.tag = tag;
-        this.toUser = toUser;
         this.fromUser = fromUser;
         this.text = text;
         this.rating = rating;
@@ -51,8 +51,8 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
 
         HashMap<String,String> data = new HashMap<>();
 
+        data.put("id", String.valueOf(id));
         data.put("tag", tag);
-        data.put("toUser", toUser);
         data.put("fromUser", fromUser);
         data.put("text", text);
         data.put("rating", String.valueOf(rating));
@@ -71,7 +71,7 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AddFeedback(callingDialog, tag, toUser, fromUser, text, rating).execute();
+                        new AddFeedback(callingDialog, id, tag, fromUser, text, rating).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

@@ -135,14 +135,14 @@ public class Account extends Application {
         d.execute();
     }
 
-    public void searchFeedback(ShowBidFeedback callingActivity, String tag) {
+    public void searchFeedback(ShowBidFeedback callingActivity, int id, String tag) {
 
-        SearchFeedback s = new SearchFeedback(callingActivity, tag, getSearchEmail());
+        SearchFeedback s = new SearchFeedback(callingActivity, id, tag);
         s.execute();
     }
 
-    public void addFeedback(DialogFragment callingDialog, String tag, String text, float rating){
-        AddFeedback a = new AddFeedback(callingDialog, tag, getSearchEmail(), getEmail(), text, rating);
+    public void addFeedback(DialogFragment callingDialog, int id,String tag, String text, float rating){
+        AddFeedback a = new AddFeedback(callingDialog, id, tag, getEmail(), text, rating);
         a.execute();
     }
 

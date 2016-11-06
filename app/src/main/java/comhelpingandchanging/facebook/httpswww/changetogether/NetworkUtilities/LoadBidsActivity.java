@@ -69,7 +69,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                 for (int i = 0; i < s.length; i++) {
                     String[] arr = s[i].split(Pattern.quote("|"));
                     if (!callingActivity.bieteItems.contains(arr[1]))
-                        callingActivity.bieteItems.add(new String[]{arr[1], arr[2]});
+                        callingActivity.bieteItems.add(new String[]{arr[1], arr[2], arr[3]});
                 }
                 callingActivity.adapter.notifyDataSetChanged();
             }

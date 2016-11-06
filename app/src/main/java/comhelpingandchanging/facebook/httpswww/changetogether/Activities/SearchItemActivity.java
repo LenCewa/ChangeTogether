@@ -3,9 +3,12 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Arrays;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -42,6 +45,7 @@ public class SearchItemActivity extends Activity {
         });
 
         String[] info = (String[]) getIntent().getExtras().get("searchInfo");
+        Log.e("info", Arrays.toString(info));
         account.searchUser(this, info[0], info[1], info[2]);
     }
 

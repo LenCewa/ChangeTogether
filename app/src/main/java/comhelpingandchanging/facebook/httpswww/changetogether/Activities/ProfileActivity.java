@@ -3,6 +3,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -61,13 +63,14 @@ public class ProfileActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 String[] arr = (String[]) adapter.getItem(position);
                 String tag = arr[0];
-                String description = arr[1];
+                int ID = Integer.parseInt(arr[2]);
 
                 Intent intent = new Intent(ProfileActivity.this, ShowBidFeedback.class);
+                intent.putExtra("id", ID);
                 intent.putExtra("tag", tag);
-                intent.putExtra("description", description);
                 startActivity(intent);
             }
         });

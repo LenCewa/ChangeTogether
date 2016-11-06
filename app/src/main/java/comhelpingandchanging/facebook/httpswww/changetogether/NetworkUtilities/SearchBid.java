@@ -80,7 +80,7 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
                 for (int i = 0; i < s.length; i++) {
                     String[] arr = s[i].split(Pattern.quote("|"));
                     if (!arr[0].equals(account.getEmail())) {
-                        callingFragment.listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3]});
+                        callingFragment.listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3], arr[4]});
                         callingFragment.adapter.notifyDataSetChanged();
                     }
                     if (callingFragment.listItems.isEmpty())
