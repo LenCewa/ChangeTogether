@@ -3,13 +3,9 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -22,7 +18,7 @@ import java.io.IOException;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UploadImage;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 
 /**
  * Created by Ludwig on 29.10.2016.

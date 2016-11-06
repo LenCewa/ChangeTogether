@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Fragment;
 import android.os.AsyncTask;
@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import java.util.HashMap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by len13 on 05.11.2016.

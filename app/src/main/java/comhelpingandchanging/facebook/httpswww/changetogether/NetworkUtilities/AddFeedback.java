@@ -1,17 +1,16 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by Yannick on 05.11.2016.

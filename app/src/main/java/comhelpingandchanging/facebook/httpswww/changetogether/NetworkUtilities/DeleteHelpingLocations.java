@@ -1,8 +1,10 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.os.AsyncTask;
 
 import java.util.HashMap;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by len13 on 04.11.2016.

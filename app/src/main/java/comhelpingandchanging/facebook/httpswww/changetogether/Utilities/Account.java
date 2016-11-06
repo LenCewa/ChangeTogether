@@ -13,6 +13,23 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.Profile
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddBid;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddHelpingLocation;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddInfo;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteBid;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteHelpingLocations;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBids;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBidsActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocations;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocationsActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Login;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchBid;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchUser;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.ShowPic;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 
 /**
  * Created by Yannick on 26.10.2016.

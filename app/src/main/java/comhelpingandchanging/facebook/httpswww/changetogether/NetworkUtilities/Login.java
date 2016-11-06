@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by Yannick on 29.10.2016.
@@ -54,7 +56,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            rh.retry();
+                            new Login(callingActivity, email, password).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

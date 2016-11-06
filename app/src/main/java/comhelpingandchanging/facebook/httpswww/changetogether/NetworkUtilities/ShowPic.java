@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by Yannick on 03.11.2016.

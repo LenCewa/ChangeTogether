@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
+package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by len13 on 05.11.2016.
