@@ -7,8 +7,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,6 +31,8 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UploadIm
 public class SettingsActivity extends Activity {
     private static final int PICK_IMAGE = 1;
     Button save;
+    String city;
+    boolean rightCity = false;
     Account account;
     EditText location;
     EditText language;
@@ -41,16 +47,26 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
         account = (Account) getApplication();
         save = (Button) findViewById(R.id.Save);
-        location = (EditText) findViewById(R.id.changeLocation);
+        location = (AutoCompleteTextView) findViewById(R.id.changeLocation);
         language = (EditText) findViewById(R.id.changeLanguage);
         password = (EditText) findViewById(R.id.changePassword);
         passwordConfirm = (EditText) findViewById(R.id.ConfirmPassword);
         profilePic = (ImageView) findViewById(R.id.changeProfilePic);
 
         profilePic.setImageBitmap(account.getProfilePic());
-
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
+        city = account.getLocation();
+
+        final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) findViewById(R.id.changeLocation);
+        autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(this, R.layout.autocomplete_list_item));
+
+        autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                city = parent.getItemAtPosition(position).toString();
+            }
+        });
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,37 +78,39 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String loc = location.getText().toString();
-                String lang = language.getText().toString();
-                String pw = password.getText().toString();
-                String pwConfirm = passwordConfirm.getText().toString();
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String loc = location.getText().toString();
+                    String lang = language.getText().toString();
+                    String pw = password.getText().toString();
+                    String pwConfirm = passwordConfirm.getText().toString();
 
-                if(loc.length() > 0 && !loc.equals(account.getLocation())){
-                    account.setLocation(loc);
-                    account.editLocation(SettingsActivity.this, loc);
+                    if (loc.length() > 0 && !loc.equals(account.getLocation()) &&
+                            city.equals(location.getText().toString())) {
+                        account.setLocation(loc);
+                        account.editLocation(SettingsActivity.this, loc);
+                    }
+                    else
+                        Toast.makeText(SettingsActivity.this, "Select existing location", Toast.LENGTH_SHORT).show();
+
+                    if (lang.length() > 0 && !lang.equals(account.getLanguage())) {
+                        account.setLanguage(lang);
+                        account.editLanguage(SettingsActivity.this, lang);
+                    }
+
+                    if (pw.length() > 0 && pwConfirm.length() > 0) {
+                        if (pw.equals(pwConfirm) && !pw.equals(account.getPassword())) {
+                            account.setPassword(pw);
+                            account.editPassword(SettingsActivity.this, pw);
+                        } else
+                            Toast.makeText(SettingsActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    }
+                    if (loc.equals(account.getLocation()) && lang.equals(account.getLanguage()) && ((pw.length() == 0 && pwConfirm.length() == 0) || pw.equals(account.getPassword()) && pwConfirm.equals(account.getPassword())))
+                        finish();
                 }
-
-                if(lang.length() > 0 && !lang.equals(account.getLanguage())){
-                    account.setLanguage(lang);
-                    account.editLanguage(SettingsActivity.this, lang);
-                }
-
-                if(pw.length() > 0 && pwConfirm.length() > 0) {
-                    if (pw.equals(pwConfirm) && !pw.equals(account.getPassword())) {
-                        account.setPassword(pw);
-                        account.editPassword(SettingsActivity.this, pw);
-                    } else
-                        Toast.makeText(SettingsActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                }
-                if(loc.equals(account.getLocation()) && lang.equals(account.getLanguage()) && ((pw.length() == 0 && pwConfirm.length() == 0) || pw.equals(account.getPassword()) && pwConfirm.equals(account.getPassword())))
-                    finish();
-            }
-        });
-
-    }
+            });
+        }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
