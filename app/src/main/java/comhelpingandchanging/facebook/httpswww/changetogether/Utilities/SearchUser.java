@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -54,17 +57,29 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
+        if(result.equals("connection error"))
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            rh.retry();
+                        }
+                    })
+                    .setActionTextColor(Color.RED)
+                    .show();
+        else {
 
-        String[] results = result.split(Pattern.quote("|"));
-        String location = results[0];
-        String language = results[1];
+            String[] results = result.split(Pattern.quote("|"));
+            String location = results[0];
+            String language = results[1];
 
-        byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-        account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
-        loading.dismiss();
-        callingActivity.setElements();
+            account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
+            loading.dismiss();
+            callingActivity.setElements();
+        }
     }
 
     private UserProfile getUserProfile(String location, String language, Bitmap bitmap){

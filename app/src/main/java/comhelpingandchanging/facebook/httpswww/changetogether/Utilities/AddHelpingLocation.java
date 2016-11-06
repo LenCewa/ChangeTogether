@@ -40,8 +40,10 @@ public class AddHelpingLocation extends AsyncTask<Void, Void, String > {
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String result) {
 
+        if(result.equals("connection error"));
+        else
         ((Account)callingFragment.getActivity().getApplication()).loadBids((BieteFragment)callingFragment);
     }
 }

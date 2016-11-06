@@ -20,8 +20,16 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class RequestHandler {
 
-    public String sendPostRequest(String requestURL,
-                                  HashMap<String, String> postDataParams) {
+    String requestURL;
+    HashMap<String, String> postDataParams;
+
+    public String sendPostRequest(String URL,
+                                  HashMap<String, String> params) {
+
+        if(URL == null || params == null)
+            return "connection error";
+        requestURL = URL;
+        postDataParams = params;
 
         URL url;
 
@@ -58,7 +66,7 @@ public class RequestHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "error";
+            return "connection error";
         }
         return sb.toString();
     }
@@ -78,5 +86,9 @@ public class RequestHandler {
         }
 
         return result.toString();
+    }
+
+    public void retry(){
+        sendPostRequest(requestURL, postDataParams);
     }
 }

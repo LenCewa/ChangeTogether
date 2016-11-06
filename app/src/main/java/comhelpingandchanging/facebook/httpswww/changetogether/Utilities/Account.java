@@ -98,9 +98,9 @@ public class Account extends Application {
         a.execute();
     }
 
-    public void deleteBid(String tag, String description){
+    public void deleteBid(Fragment callingFragment, String tag, String description){
 
-        DeleteBid d = new DeleteBid(getEmail(), tag, description);
+        DeleteBid d = new DeleteBid(callingFragment, getEmail(), tag, description);
         d.execute();
     }
 

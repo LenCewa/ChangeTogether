@@ -3,9 +3,12 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -43,6 +46,16 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         loading.dismiss();
+        if(s.equals("connection error"))
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            rh.retry();
+                        }
+                    })
+                    .setActionTextColor(Color.RED)
+                    .show();
     }
 
     @Override

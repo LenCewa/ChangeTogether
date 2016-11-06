@@ -3,8 +3,11 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -38,12 +41,22 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-
-        if(!result.equals("error")) {
-            byte[] decodedString = Base64.decode(result, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        if(result.equals("connection error"))
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            rh.retry();
+                        }
+                    })
+                    .setActionTextColor(Color.RED)
+                    .show();
+        else {
+            if (!result.equals("error")) {
+                byte[] decodedString = Base64.decode(result, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            } else
+                Toast.makeText(callingActivity, "Error retrieving picture", Toast.LENGTH_SHORT).show();
         }
-        else
-            Toast.makeText(callingActivity, "Error retrieving picture", Toast.LENGTH_SHORT).show();
     }
 }

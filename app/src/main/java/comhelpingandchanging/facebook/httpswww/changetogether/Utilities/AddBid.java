@@ -1,8 +1,11 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 
 import java.util.HashMap;
 
@@ -47,5 +50,19 @@ public class AddBid extends AsyncTask<Void, Void, String > {
         String result = rh.sendPostRequest(Constants.DBADDBID,data);
 
         return result;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if(result.equals("connection error"))
+            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rh.retry();
+                    }
+                })
+                .setActionTextColor(Color.RED)
+                .show();
     }
 }

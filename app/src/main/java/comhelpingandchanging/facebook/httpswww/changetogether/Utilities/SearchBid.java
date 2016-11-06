@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -52,21 +53,32 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        if(result.equals("No entries"))
-            Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
-                    .show();
+        if(result.equals("connection error"))Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rh.retry();
+                    }
+                })
+                .setActionTextColor(Color.RED)
+                .show();
         else {
-            String[] s = result.split(Pattern.quote(":"));
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < s.length; i++) {
-                String[] arr = s[i].split(Pattern.quote("|"));
-                if(!arr[0].equals(account.getEmail())) {
-                    callingFragment.listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3]});
-                    callingFragment.adapter.notifyDataSetChanged();
+            if (result.equals("No entries"))
+                Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                        .show();
+            else {
+                String[] s = result.split(Pattern.quote(":"));
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < s.length; i++) {
+                    String[] arr = s[i].split(Pattern.quote("|"));
+                    if (!arr[0].equals(account.getEmail())) {
+                        callingFragment.listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3]});
+                        callingFragment.adapter.notifyDataSetChanged();
+                    }
+                    if (callingFragment.listItems.isEmpty())
+                        Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                                .show();
                 }
-                if(callingFragment.listItems.isEmpty())
-                    Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
-                            .show();
             }
         }
     }

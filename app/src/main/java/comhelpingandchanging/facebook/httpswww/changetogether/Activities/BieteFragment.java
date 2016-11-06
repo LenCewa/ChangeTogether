@@ -63,7 +63,7 @@ public class BieteFragment extends Fragment implements  MyDialogCloseListener{
         bieteList_class.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                account.deleteBid(adapter.getItem(position), "");
+                account.deleteBid(BieteFragment.this, adapter.getItem(position), "");
                 account.loadBids(BieteFragment.this);
                 return true;
             }
