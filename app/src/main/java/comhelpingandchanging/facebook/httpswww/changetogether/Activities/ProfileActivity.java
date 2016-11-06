@@ -57,7 +57,7 @@ public class ProfileActivity extends Activity {
         bidList.setAdapter(adapter);
 
         account.loadBidsActivity(this);
-        account.loadHelpingLocationsActivity(this);
+        //account.loadHelpingLocationsActivity(this);
 
         bidList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
