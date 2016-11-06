@@ -60,7 +60,6 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         loading.dismiss();
-        Log.e("search", result);
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {

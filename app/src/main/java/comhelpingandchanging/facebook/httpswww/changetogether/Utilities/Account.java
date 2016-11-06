@@ -42,7 +42,7 @@ public class Account extends Application {
 
     private UserProfile self = null;
     private SearchedItem searchedItem = null;
-    public FragmentManager fm;
+    //private FragmentManager fm;
 
     public void login(Activity callingActivity, String email, String password) {
 
@@ -219,9 +219,9 @@ public class Account extends Application {
     public Bitmap getSearchProfilePic(){ return searchedItem.getProfilePic(); }
 
 
-    public FragmentManager getFragmentManager(){
+    /*public FragmentManager getFragmentManager(){
         return fm;
-    }
+    }*/
 
     public void setEmail(String email){
         self.setEmail(email);
@@ -243,7 +243,7 @@ public class Account extends Application {
         self.setProfilePic(profilePic);
     }
 
-    public void setFragmentManager(FragmentManager fm){
+    /*public void setFragmentManager(FragmentManager fm){
         this.fm = fm;
-    }
+    }*/
 }

@@ -59,7 +59,6 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
             }
         });
 
-        feedbacks.clear();
         account.searchFeedback(this, getIntent().getIntExtra("id", -1), getIntent().getStringExtra("tag"));
     }
 
@@ -72,17 +71,6 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
         account.searchFeedback(this, getIntent().getIntExtra("id", -1), getIntent().getStringExtra("tag"));
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        refresh();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refresh();
-    }
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {

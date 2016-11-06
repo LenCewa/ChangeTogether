@@ -45,7 +45,6 @@ public class SearchItemActivity extends Activity {
         });
 
         String[] info = (String[]) getIntent().getExtras().get("searchInfo");
-        Log.e("info", Arrays.toString(info));
         account.searchUser(this, info[0], info[1], info[2]);
     }
 
