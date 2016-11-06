@@ -50,7 +50,6 @@ public class MainAppActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_app);
 
         account = (Account) getApplication();
-        account.setFragmentManager(getFragmentManager());
         if (savedInstanceState != null) {
             searchFragment = (SearchFragment) getFragmentManager().getFragment(savedInstanceState, "search");
             bieteFragment = (BieteFragment) getFragmentManager().getFragment(savedInstanceState, "biete");
