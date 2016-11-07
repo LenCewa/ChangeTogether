@@ -44,10 +44,10 @@ public class ProfileActivity extends Activity {
         profileName.setText(account.getSearchEmail());
 
         profileLocation = (TextView) findViewById(R.id.profileLocation);
-        profileLocation.setText(account.getLocation());
+        profileLocation.setText(account.getSearchLocation());
 
         profileLanguage = (TextView) findViewById(R.id.profileLanguage);
-        profileLanguage.setText(account.getLanguage());
+        profileLanguage.setText(account.getSearchLanguage());
 
         profilePic = (ImageView) findViewById(R.id.profPic);
         profilePic.setImageBitmap(account.getSearchProfilePic());

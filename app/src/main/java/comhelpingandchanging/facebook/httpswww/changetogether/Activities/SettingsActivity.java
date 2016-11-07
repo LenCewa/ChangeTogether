@@ -115,16 +115,7 @@ public class SettingsActivity extends Activity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
                 Uri selectedImageUri = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
-                    profilePic.setImageBitmap(bitmap);
-                    account.setProfilePic(bitmap);
-
-                    UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
-                    u.execute();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
+                profilePic.setImageURI(selectedImageUri);
             }
         }
     }

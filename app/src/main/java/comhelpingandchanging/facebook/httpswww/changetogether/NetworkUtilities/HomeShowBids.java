@@ -76,7 +76,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                 .setActionTextColor(Color.RED)
                 .show();
         else {
-            if (result.equals("No entries"))
+            if (result.equals("No entries") || result.equals(""))
                 Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                         .show();
             else {
