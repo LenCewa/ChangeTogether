@@ -4,17 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HomeFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddFeedback;
@@ -87,7 +83,7 @@ public class Account extends Application {
         self = null;
     }
 
-    public void searchUser(SearchItemActivity callingActivity, String email, String tag, String description){
+    public void searchUser(SearchItemFragment callingActivity, String email, String tag, String description){
 
         SearchUser s = new SearchUser(callingActivity, getEmail(), getSessionId(), email, tag, description);
         s.execute();

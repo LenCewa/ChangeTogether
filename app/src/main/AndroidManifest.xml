@@ -29,7 +29,6 @@
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.SearchItemActivity" />
         <activity android:name=".Activities.ShowBidFeedback" />
 
         <meta-data

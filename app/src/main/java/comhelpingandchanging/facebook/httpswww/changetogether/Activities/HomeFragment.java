@@ -13,10 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,9 +63,9 @@ public class HomeFragment extends Fragment {
         searches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent searchItem = new Intent(getActivity(), SearchItemActivity.class);
-                searchItem.putExtra("searchInfo", (String[]) adapter.getItem(position));
-                startActivity(searchItem);
+                SearchItemFragment f = new SearchItemFragment();
+                f.getArguments().putStringArray("searchInfo", (String[]) adapter.getItem(position));
+                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").commit();
             }
         });
 

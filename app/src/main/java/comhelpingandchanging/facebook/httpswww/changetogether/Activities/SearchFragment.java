@@ -95,7 +95,7 @@ public class SearchFragment extends Fragment {
         searches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent searchItem = new Intent(getActivity(), SearchItemActivity.class);
+                Intent searchItem = new Intent(getActivity(), SearchItemFragment.class);
                 searchItem.putExtra("searchInfo", (String[]) adapter.getItem(position));
                 startActivity(searchItem);
             }
