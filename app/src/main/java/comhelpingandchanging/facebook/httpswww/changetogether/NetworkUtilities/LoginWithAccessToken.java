@@ -43,7 +43,6 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPreExecute() {
-        Log.e("login", "login");
         super.onPreExecute();
         loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }

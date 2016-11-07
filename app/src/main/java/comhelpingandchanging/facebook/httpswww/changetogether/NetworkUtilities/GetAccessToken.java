@@ -78,7 +78,6 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
             if(result.equals("error"))
                ;
             else {
-                Log.e("hallo", "hallo: " + result);
                 SharedPreferences sp = callingActivity.getSharedPreferences("login_state", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("email", email);

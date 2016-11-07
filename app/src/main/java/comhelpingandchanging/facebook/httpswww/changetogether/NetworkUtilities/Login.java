@@ -43,7 +43,6 @@ public class Login extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPreExecute() {
-        Log.e("login", "login");
         super.onPreExecute();
         loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
@@ -84,7 +83,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                 setSelfInfo(results[3], email, password, location, language, decodedByte);
-                //account.getAccessToken(callingActivity);
+                account.getAccessToken(callingActivity);
                 Intent search = new Intent(callingActivity, MainAppActivity.class);
                 callingActivity.startActivity(search);
                 callingActivity.finishAffinity();

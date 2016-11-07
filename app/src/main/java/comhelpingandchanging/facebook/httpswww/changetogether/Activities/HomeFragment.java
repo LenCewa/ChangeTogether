@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
     public CustomAdapterSearch adapter;
+    View.OnClickListener setLocation;
 
     public HomeFragment(){
         setArguments(new Bundle());
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
         adapter = new CustomAdapterSearch(callingActivity, listItems);
         searches.setAdapter(adapter);
 
-        final View.OnClickListener setLocation = new View.OnClickListener() {
+        setLocation = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent setLocation = new Intent(getActivity(), SettingsActivity.class);
@@ -70,16 +71,6 @@ public class HomeFragment extends Fragment {
                 startActivity(searchItem);
             }
         });
-
-        if(account.getLocation().equals("N/A"))
-            Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Set location", setLocation)
-                    .setActionTextColor(Color.RED)
-                    .show();
-        else {
-            latLong = getLocationFromAddress(account.getLocation());
-            account.homeShowBids(this, latLong[0], latLong[1]);
-        }
 
         return view;
     }
@@ -106,7 +97,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void refresh(){
-        if(!account.getLocation().equals("N/A")) {
+
+        if(account.getLocation().equals("N/A"))
+            Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)
+                    .setAction("Set location", setLocation)
+                    .setActionTextColor(Color.RED)
+                    .show();
+        else {
             latLong = getLocationFromAddress(account.getLocation());
             account.homeShowBids(this, latLong[0], latLong[1]);
         }
@@ -115,6 +112,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //refresh();
+        refresh();
     }
 }

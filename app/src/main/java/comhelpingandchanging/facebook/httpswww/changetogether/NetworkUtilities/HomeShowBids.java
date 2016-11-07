@@ -83,6 +83,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
             else {
                 String[] s = result.split(Pattern.quote(":"));
                 StringBuilder sb = new StringBuilder();
+                callingFragment.listItems.clear();
                 for (int i = 0; i < s.length; i++) {
                     String[] arr = s[i].split(Pattern.quote("|"));
                     if (!arr[0].equals(account.getEmail())) {
