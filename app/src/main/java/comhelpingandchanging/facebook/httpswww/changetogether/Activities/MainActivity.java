@@ -43,8 +43,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        if(stayLoggedIn.isChecked() && !sp.getString("email", "").equals("") && !sp.getString("password", "").equals(""))
-            account.login(this, sp.getString("email",""), sp.getString("password",""));
+        if(stayLoggedIn.isChecked() && !sp.getString("email","").equals("") && !sp.getString("accessToken","").equals(""))
+            account.loginWithAccessToken(this, sp.getString("email",""), sp.getString("accessToken",""));
 
         login = (Button) findViewById(R.id.loginBtn);
         register = (Button) findViewById(R.id.registerBtn);

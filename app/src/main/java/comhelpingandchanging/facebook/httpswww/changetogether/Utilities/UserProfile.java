@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 public class UserProfile {
 
     private String email = "";
-    private String password = "";
     private String location = "";
     private String language = "";
     private Bitmap profilePic;
@@ -18,8 +17,6 @@ public class UserProfile {
     public String getUsername(){
         return email;
     }
-
-    public String getPassword() { return password; }
 
     public String getLocation(){
         return location;
@@ -33,10 +30,6 @@ public class UserProfile {
 
     public void setEmail(String email){
         this.email = email;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
     }
 
     public void setLocation(String location){

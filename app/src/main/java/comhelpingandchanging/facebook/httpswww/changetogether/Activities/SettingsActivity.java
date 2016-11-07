@@ -94,8 +94,7 @@ public class SettingsActivity extends Activity {
                     }
 
                     if (pw.length() > 0 && pwConfirm.length() > 0) {
-                        if (pw.equals(pwConfirm) && !pw.equals(account.getPassword())) {
-                                account.setPassword(pw);
+                        if (pw.equals(pwConfirm)) {
                                 account.editPassword(SettingsActivity.this, pw);
                         } else
                                 passwordConfirm.setError("Passwords do not match");

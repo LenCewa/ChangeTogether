@@ -8,6 +8,8 @@ public class Constants {
 
     public static final String DBREGISTER = "http://change-together.spdns.org/app/register.php";
     public static final String DBLOGIN = "http://change-together.spdns.org/app/login.php";
+    public static final String DBGETACCESTOKEN = "http://change-together.spdns.org/app/getAccessToken.php";
+    public static final String DBLOGINWITHACCESSTOKEN = "http://change-together.spdns.org/app/loginWithAccessToken.php";
 
     public static final String DBHOMESHOWBIDS = "http://change-together.spdns.org/app/homeShowBids.php";
     public static final String DBSEARCHBID = "http://change-together.spdns.org/app/searchBid.php";

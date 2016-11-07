@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,21 +24,21 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
  * Created by Yannick on 29.10.2016.
  */
 
-public class Login extends AsyncTask<Void, Void, String> {
+public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
 
     ProgressDialog loading;
     private Account account;
     private Activity callingActivity;
     private String email;
-    private String password;
+    private String accessToken;
     RequestHandler rh = new RequestHandler();
 
-    public Login(Activity callingActivity, String email, String password) {
+    public LoginWithAccessToken(Activity callingActivity, String email, String accessToken) {
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
         this.email = email;
-        this.password = password;
+        this.accessToken = accessToken;
     }
 
     @Override
@@ -51,8 +52,8 @@ public class Login extends AsyncTask<Void, Void, String> {
         HashMap<String,String> data = new HashMap<>();
 
         data.put("email", email);
-        data.put("password", password);
-        String result = rh.sendPostRequest(Constants.DBLOGIN,data);
+        data.put("token", accessToken);
+        String result = rh.sendPostRequest(Constants.DBLOGINWITHACCESSTOKEN,data);
 
         return result;
     }
@@ -65,14 +66,14 @@ public class Login extends AsyncTask<Void, Void, String> {
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new Login(callingActivity, email, password).execute();
+                            new LoginWithAccessToken(callingActivity, email, accessToken).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
                     .show();
         else {
-            if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
-                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+            if(result.equals("error"))
+                ;
             else {
                 String[] results = result.split(Pattern.quote("|"));
                 String location = results[0];
@@ -81,7 +82,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                 byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-                setSelfInfo(email, password, location, language, decodedByte);
+                setSelfInfo(email, location, language, decodedByte);
                 Intent search = new Intent(callingActivity, MainAppActivity.class);
                 callingActivity.startActivity(search);
                 callingActivity.finishAffinity();
@@ -89,7 +90,7 @@ public class Login extends AsyncTask<Void, Void, String> {
         }
     }
 
-    private void setSelfInfo(String email, String password, String location, String language, Bitmap profilePic){
+    private void setSelfInfo(String email, String location, String language, Bitmap profilePic){
 
         account.setEmail(email);
         account.setLocation(location);

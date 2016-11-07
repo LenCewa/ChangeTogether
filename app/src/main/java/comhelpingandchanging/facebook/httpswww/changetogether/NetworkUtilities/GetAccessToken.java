@@ -3,12 +3,14 @@ package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,21 +25,17 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
  * Created by Yannick on 29.10.2016.
  */
 
-public class Login extends AsyncTask<Void, Void, String> {
+public class GetAccessToken extends AsyncTask<Void, Void, String> {
 
     ProgressDialog loading;
-    private Account account;
     private Activity callingActivity;
     private String email;
-    private String password;
     RequestHandler rh = new RequestHandler();
 
-    public Login(Activity callingActivity, String email, String password) {
+    public GetAccessToken(Activity callingActivity, String email) {
 
-        account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
         this.email = email;
-        this.password = password;
     }
 
     @Override
@@ -51,8 +49,7 @@ public class Login extends AsyncTask<Void, Void, String> {
         HashMap<String,String> data = new HashMap<>();
 
         data.put("email", email);
-        data.put("password", password);
-        String result = rh.sendPostRequest(Constants.DBLOGIN,data);
+        String result = rh.sendPostRequest(Constants.DBGETACCESTOKEN,data);
 
         return result;
     }
@@ -65,35 +62,21 @@ public class Login extends AsyncTask<Void, Void, String> {
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new Login(callingActivity, email, password).execute();
+                            new GetAccessToken(callingActivity, email).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
                     .show();
         else {
-            if (result.equals("Password incorrect") || result.equals("User doesnt exist, please register"))
-                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+            if(result.equals("error"))
+               ;
             else {
-                String[] results = result.split(Pattern.quote("|"));
-                String location = results[0];
-                String language = results[1];
-
-                byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                setSelfInfo(email, password, location, language, decodedByte);
-                Intent search = new Intent(callingActivity, MainAppActivity.class);
-                callingActivity.startActivity(search);
-                callingActivity.finishAffinity();
+                SharedPreferences sp = callingActivity.getSharedPreferences("login_state", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("email", email);
+                editor.putString("accessToken", result);
+                editor.commit();
             }
         }
-    }
-
-    private void setSelfInfo(String email, String password, String location, String language, Bitmap profilePic){
-
-        account.setEmail(email);
-        account.setLocation(location);
-        account.setLanguage(language);
-        account.setProfilePic(profilePic);
     }
 }

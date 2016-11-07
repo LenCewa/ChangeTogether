@@ -158,12 +158,8 @@ public class MainAppActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        if(sp.getBoolean("stayLoggedIn", false)) {
-            editor.putString("email", account.getEmail());
-            editor.putString("password", account.getPassword());
-            editor.commit();
-        }
+        if(sp.getBoolean("stayLoggedIn", false))
+            account.getAccessToken(this);
     }
 
     public Double[] getLocationFromAddress(String strAddress){

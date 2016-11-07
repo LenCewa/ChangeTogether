@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HomeFragment;
@@ -21,12 +22,14 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.A
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddInfo;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteHelpingLocations;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.GetAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.HomeShowBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBidsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocations;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocationsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Login;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoginWithAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
@@ -48,6 +51,19 @@ public class Account extends Application {
 
         self = new UserProfile();
         Login login = new Login(callingActivity, email, password);
+        login.execute();
+    }
+
+    public void getAccessToken(Activity callingActivity){
+
+        GetAccessToken token = new GetAccessToken(callingActivity, getEmail());
+        token.execute();
+    }
+
+    public void loginWithAccessToken(Activity callingActivity, String email, String token){
+
+        self = new UserProfile();
+        LoginWithAccessToken login = new LoginWithAccessToken(callingActivity, email, token);
         login.execute();
     }
 
@@ -181,10 +197,6 @@ public class Account extends Application {
         return self.getUsername();
     }
 
-    public String getPassword(){
-        return self.getPassword();
-    }
-
     public String getLocation(){
         return self.getLocation();
     }
@@ -225,10 +237,6 @@ public class Account extends Application {
 
     public void setEmail(String email){
         self.setEmail(email);
-    }
-
-    public void setPassword(String password){
-        self.setPassword(password);
     }
 
     public void setLocation(String location){
