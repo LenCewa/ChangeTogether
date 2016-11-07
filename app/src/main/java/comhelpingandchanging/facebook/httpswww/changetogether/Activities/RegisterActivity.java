@@ -7,9 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Register;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Register;
 
 /**
  * Created by Yannick on 28.10.2016.

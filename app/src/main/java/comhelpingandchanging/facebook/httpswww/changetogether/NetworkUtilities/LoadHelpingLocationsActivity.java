@@ -1,6 +1,5 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.AsyncTask;
 

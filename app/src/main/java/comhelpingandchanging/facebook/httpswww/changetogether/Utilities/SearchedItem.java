@@ -2,8 +2,6 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.graphics.Bitmap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
-
 /**
  * Created by Yannick on 05.11.2016.
  */

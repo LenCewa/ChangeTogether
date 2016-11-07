@@ -12,13 +12,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 
 /**
  * Created by Ludwig on 29.10.2016.
