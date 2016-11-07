@@ -81,7 +81,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                 byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-                setSelfInfo(email, password, location, language, decodedByte);
+                setSelfInfo(results[3], email, password, location, language, decodedByte);
                 Intent search = new Intent(callingActivity, MainAppActivity.class);
                 callingActivity.startActivity(search);
                 callingActivity.finishAffinity();
@@ -89,8 +89,9 @@ public class Login extends AsyncTask<Void, Void, String> {
         }
     }
 
-    private void setSelfInfo(String email, String password, String location, String language, Bitmap profilePic){
+    private void setSelfInfo(String sessionId, String email, String password, String location, String language, Bitmap profilePic){
 
+        account.setSessionId(sessionId);
         account.setEmail(email);
         account.setLocation(location);
         account.setLanguage(language);

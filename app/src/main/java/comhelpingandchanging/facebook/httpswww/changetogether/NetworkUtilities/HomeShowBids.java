@@ -26,13 +26,17 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
     Account account;
     HomeFragment callingFragment;
     RequestHandler rh = new RequestHandler();
+    private String emailAuth;
+    private String sessionId;
     private double lat;
     private double lng;
 
-    public HomeShowBids(HomeFragment callingFragment, double lat, double lng){
+    public HomeShowBids(HomeFragment callingFragment, String emailAuth, String sessionId, double lat, double lng){
 
         account = (Account) callingFragment.getActivity().getApplication();
         this.callingFragment = callingFragment;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.lat = lat;
         this.lng = lng;
     }
@@ -48,6 +52,9 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
 
         HashMap<String,String> data = new HashMap<>();
 
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
+
         data.put("latitude", String.valueOf(lat));
         data.put("longitude", String.valueOf(lng));
         String result = rh.sendPostRequest(Constants.DBHOMESHOWBIDS,data);
@@ -62,7 +69,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new HomeShowBids(callingFragment, lat, lng).execute();
+                        new HomeShowBids(callingFragment, emailAuth, sessionId, lat, lng).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

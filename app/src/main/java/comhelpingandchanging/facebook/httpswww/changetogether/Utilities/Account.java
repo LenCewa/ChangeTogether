@@ -45,6 +45,7 @@ public class Account extends Application {
 
     private UserProfile self = null;
     private SearchedItem searchedItem = null;
+    private String sessionId;
     //private FragmentManager fm;
 
     public void login(Activity callingActivity, String email, String password) {
@@ -54,9 +55,17 @@ public class Account extends Application {
         login.execute();
     }
 
+    public void setSessionId(String sessionId){
+        this.sessionId = sessionId;
+    }
+
+    public String getSessionId(){
+       return sessionId;
+    }
+
     public void getAccessToken(Activity callingActivity){
 
-        GetAccessToken token = new GetAccessToken(callingActivity, getEmail());
+        GetAccessToken token = new GetAccessToken(callingActivity, getEmail(), getSessionId(), getEmail());
         token.execute();
     }
 
@@ -80,7 +89,7 @@ public class Account extends Application {
 
     public void searchUser(SearchItemActivity callingActivity, String email, String tag, String description){
 
-        SearchUser s = new SearchUser(callingActivity, email, tag, description);
+        SearchUser s = new SearchUser(callingActivity, getEmail(), getSessionId(), email, tag, description);
         s.execute();
     }
 
@@ -91,13 +100,13 @@ public class Account extends Application {
 
     public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
 
-        HomeShowBids h = new HomeShowBids(callingFragment, lat, lng);
+        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), lat, lng);
         h.execute();
     }
 
     public void loadBids(BieteFragment callingFragment){
 
-        LoadBids l = new LoadBids(callingFragment, getEmail());
+        LoadBids l = new LoadBids(callingFragment, getEmail(), getSessionId(), getEmail());
         l.execute();
     }
 
@@ -108,7 +117,7 @@ public class Account extends Application {
 
     public void loadBidsActivity(ProfileActivity callingActivity){
 
-        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getSearchEmail());
+        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), getSearchEmail());
         l.execute();
     }
 
@@ -119,7 +128,7 @@ public class Account extends Application {
 
     public void searchBid(SearchFragment callingFragment, String tag, double lat, double lng){
 
-        SearchBid s = new SearchBid(callingFragment, tag, lat, lng);
+        SearchBid s = new SearchBid(callingFragment, getEmail(), getSessionId(), tag, lat, lng);
         s.execute();
     }
 
@@ -130,7 +139,7 @@ public class Account extends Application {
 
     public void addBid(Fragment callingFragment, String tag, String description, String location, double lat, double lng){
 
-        AddBid a = new AddBid(callingFragment, getEmail(), tag, description, location, lat, lng);
+        AddBid a = new AddBid(callingFragment, getEmail(), getSessionId(), getEmail(), tag, description, location, lat, lng);
         a.execute();
     }
 
@@ -153,42 +162,42 @@ public class Account extends Application {
 
     public void searchFeedback(ShowBidFeedback callingActivity, int id, String tag) {
 
-        SearchFeedback s = new SearchFeedback(callingActivity, id, tag);
+        SearchFeedback s = new SearchFeedback(callingActivity, getEmail(), getSessionId(), id, tag);
         s.execute();
     }
 
     public void addFeedback(DialogFragment callingDialog, int id,String tag, String text, float rating){
-        AddFeedback a = new AddFeedback(callingDialog, id, tag, getEmail(), text, rating);
+        AddFeedback a = new AddFeedback(callingDialog, getEmail(), getSessionId(), id, tag, getEmail(), text, rating);
         a.execute();
     }
 
     public void uploadProfilePic(Activity callingActivity, Bitmap pic){
 
-        UploadImage u = new UploadImage(callingActivity, getEmail(), pic);
+        UploadImage u = new UploadImage(callingActivity, getEmail(), getSessionId(), getEmail(), pic);
         u.execute();
     }
 
     public void showPic(Activity callingActivity){
 
-        ShowPic s = new ShowPic(callingActivity, getEmail());
+        ShowPic s = new ShowPic(callingActivity, getEmail(), getSessionId(), getEmail());
         s.execute();
     }
 
-    public void editPassword(Activity callingActivity, String password){
+    public void editPassword(Activity callingActivity, String oldPw, String newPw){
 
-        AddInfo a = new AddInfo(callingActivity, getEmail(), "password", password);
+        AddInfo a = new AddInfo(callingActivity, getEmail(), getSessionId(), getEmail(), "password", oldPw, newPw);
         a.execute();
     }
 
     public void editLocation(Activity callingActivity, String location){
 
-        AddInfo a = new AddInfo(callingActivity, getEmail(), "location", location);
+        AddInfo a = new AddInfo(callingActivity, getEmail(), getSessionId(), getEmail(), "location", location);
         a.execute();
     }
 
     public void editLanguage(Activity callingActivity, String language){
 
-        AddInfo a = new AddInfo(callingActivity, getEmail(), "language", language);
+        AddInfo a = new AddInfo(callingActivity, getEmail(), getSessionId(), getEmail(), "language", language);
         a.execute();
     }
 

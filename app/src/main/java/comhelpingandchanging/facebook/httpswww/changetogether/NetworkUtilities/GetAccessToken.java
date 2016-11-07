@@ -29,12 +29,16 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
 
     ProgressDialog loading;
     private Activity callingActivity;
+    private String emailAuth;
+    private String sessionId;
     private String email;
     RequestHandler rh = new RequestHandler();
 
-    public GetAccessToken(Activity callingActivity, String email) {
+    public GetAccessToken(Activity callingActivity, String emailAuth, String sessionId, String email) {
 
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
     }
 
@@ -48,6 +52,8 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         HashMap<String,String> data = new HashMap<>();
 
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
         data.put("email", email);
         String result = rh.sendPostRequest(Constants.DBGETACCESTOKEN,data);
 
@@ -62,7 +68,7 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new GetAccessToken(callingActivity, email).execute();
+                            new GetAccessToken(callingActivity, emailAuth, sessionId, email).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

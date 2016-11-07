@@ -31,6 +31,7 @@ public class SettingsActivity extends Activity {
     Account account;
     AutoCompleteTextView location;
     EditText language;
+    EditText currentPassword;
     EditText password;
     EditText passwordConfirm;
     ImageView profilePic;
@@ -44,6 +45,7 @@ public class SettingsActivity extends Activity {
         save = (Button) findViewById(R.id.Save);
         location = (AutoCompleteTextView) findViewById(R.id.changeLocation);
         language = (EditText) findViewById(R.id.changeLanguage);
+        currentPassword = (EditText)findViewById(R.id.password);
         password = (EditText) findViewById(R.id.changePassword);
         passwordConfirm = (EditText) findViewById(R.id.ConfirmPassword);
         profilePic = (ImageView) findViewById(R.id.changeProfilePic);
@@ -79,6 +81,7 @@ public class SettingsActivity extends Activity {
                 public void onClick(View v) {
                     String loc = location.getText().toString();
                     String lang = language.getText().toString();
+                    String currentPw = currentPassword.getText().toString();
                     String pw = password.getText().toString();
                     String pwConfirm = passwordConfirm.getText().toString();
 
@@ -93,9 +96,9 @@ public class SettingsActivity extends Activity {
                             account.editLanguage(SettingsActivity.this, lang);
                     }
 
-                    if (pw.length() > 0 && pwConfirm.length() > 0) {
+                    if (currentPw.length() > 0 && pw.length() > 0 && pwConfirm.length() > 0) {
                         if (pw.equals(pwConfirm)) {
-                                account.editPassword(SettingsActivity.this, pw);
+                                account.editPassword(SettingsActivity.this, currentPw, pw);
                         } else
                                 passwordConfirm.setError("Passwords do not match");
                     }
@@ -117,7 +120,7 @@ public class SettingsActivity extends Activity {
                     profilePic.setImageBitmap(bitmap);
                     account.setProfilePic(bitmap);
 
-                    UploadImage u = new UploadImage(this, account.getEmail(), bitmap);
+                    UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
                     u.execute();
                 }catch (IOException e){
                     e.printStackTrace();

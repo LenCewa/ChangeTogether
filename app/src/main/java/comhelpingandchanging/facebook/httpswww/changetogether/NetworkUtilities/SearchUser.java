@@ -26,16 +26,20 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
 
     Account account;
     SearchItemActivity callingActivity;
+    String emailAuth;
+    String sessionId;
     String email;
     String tag;
     String description;
     ProgressDialog loading;
     RequestHandler rh = new RequestHandler();
 
-    public SearchUser(SearchItemActivity callingActivity, String email, String tag, String description){
+    public SearchUser(SearchItemActivity callingActivity, String emailAuth, String sessionId, String email, String tag, String description){
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
         this.tag = tag;
         this.description = description;
@@ -51,6 +55,9 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
     protected String doInBackground(Void... params) {
         HashMap<String,String> data = new HashMap<>();
 
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
+
         data.put("email", email);
         String result = rh.sendPostRequest(Constants.DBSEARCHUSER,data);
 
@@ -65,7 +72,7 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new SearchUser(callingActivity, email, tag, description).execute();
+                            new SearchUser(callingActivity, emailAuth, sessionId, email, tag, description).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

@@ -25,13 +25,17 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
     Account account;
     ShowBidFeedback callingActivity;
     RequestHandler rh = new RequestHandler();
+    private String emailAuth;
+    private String sessionId;
     private String tag;
     private int id;
 
-    public SearchFeedback(ShowBidFeedback callingActivity, int id, String tag){
+    public SearchFeedback(ShowBidFeedback callingActivity, String emailAuth, String sessionId, int id, String tag){
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.tag = tag;
         this.id = id;
     }
@@ -46,6 +50,9 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
     protected String doInBackground(Void... params) {
 
         HashMap<String,String> data = new HashMap<>();
+
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
 
         data.put("id", String.valueOf(id));
         data.put("tag", tag);
@@ -63,7 +70,7 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new SearchFeedback(callingActivity, id, tag).execute();
+                            new SearchFeedback(callingActivity, emailAuth, sessionId, id, tag).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

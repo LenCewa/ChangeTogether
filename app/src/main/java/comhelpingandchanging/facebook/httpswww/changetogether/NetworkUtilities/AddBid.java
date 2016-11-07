@@ -20,6 +20,8 @@ public class AddBid extends AsyncTask<Void, Void, String > {
 
     ProgressDialog loading;
     private Fragment callingFragment;
+    private String emailAuth;
+    private String sessionId;
     private String email;
     private String tag;
     private String description;
@@ -28,9 +30,11 @@ public class AddBid extends AsyncTask<Void, Void, String > {
     double lng;
     RequestHandler rh = new RequestHandler();
 
-    public AddBid(Fragment callingFragment, String email, String tag, String description, String location, double lat, double lng){
+    public AddBid(Fragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description, String location, double lat, double lng){
 
         this.callingFragment = callingFragment;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
         this.tag = tag;
         this.description = description;
@@ -48,6 +52,9 @@ public class AddBid extends AsyncTask<Void, Void, String > {
     @Override
     protected String doInBackground(Void... params) {
         HashMap<String,String> data = new HashMap<>();
+
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
 
         data.put("email", email);
         data.put("tag", tag);
@@ -68,7 +75,7 @@ public class AddBid extends AsyncTask<Void, Void, String > {
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AddBid(callingFragment, email, tag, description, location, lat, lng).execute();
+                        new AddBid(callingFragment, emailAuth, sessionId, email, tag, description, location, lat, lng).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

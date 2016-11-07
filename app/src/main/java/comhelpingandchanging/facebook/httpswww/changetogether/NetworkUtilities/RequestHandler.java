@@ -20,22 +20,14 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class RequestHandler {
 
-    String requestURL;
-    HashMap<String, String> postDataParams;
-
     public String sendPostRequest(String URL,
                                   HashMap<String, String> params) {
-
-        if(URL == null || params == null)
-            return "connection error";
-        requestURL = URL;
-        postDataParams = params;
 
         URL url;
 
         StringBuilder sb = new StringBuilder();
         try {
-            url = new URL(requestURL);
+            url = new URL(URL);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000);
@@ -48,7 +40,7 @@ public class RequestHandler {
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString(postDataParams));
+            writer.write(getPostDataString(params));
 
             writer.flush();
             writer.close();
@@ -86,9 +78,5 @@ public class RequestHandler {
         }
 
         return result.toString();
-    }
-
-    public void retry(){
-        sendPostRequest(requestURL, postDataParams);
     }
 }

@@ -24,11 +24,15 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
     ProgressDialog loading;
     Activity callingActivity;
     RequestHandler rh = new RequestHandler();
+    private String emailAuth;
+    private String sessionId;
     private String email;
 
-    public ShowPic(Activity callingActivity, String email){
+    public ShowPic(Activity callingActivity, String emailAuth, String sessionId, String email){
 
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
     }
 
@@ -42,6 +46,9 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
     protected String doInBackground(Void... params) {
 
         HashMap<String,String> data = new HashMap<>();
+
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
 
         data.put("email", email);
         String result = rh.sendPostRequest(Constants.DBSHOWPIC,data);
@@ -57,7 +64,7 @@ public class ShowPic extends AsyncTask<Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new ShowPic(callingActivity, email).execute();
+                            new ShowPic(callingActivity, emailAuth, sessionId, email).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

@@ -23,16 +23,22 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     Account account;
     DialogFragment callingDialog;
     RequestHandler rh = new RequestHandler();
+    private String emailAuth;
+    private String sessionId;
+    private String email;
     private int id;
     private String tag;
     private String fromUser;
     private String text;
     private float rating;
 
-    public AddFeedback(DialogFragment callingDialog, int id, String tag, String fromUser, String text, float rating){
+    public AddFeedback(DialogFragment callingDialog, String emailAuth, String sessionId, int id, String tag, String fromUser, String text, float rating){
 
         account = (Account) callingDialog.getActivity().getApplication();
         this.callingDialog = callingDialog;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
+        this.email = email;
         this.id = id;
         this.tag = tag;
         this.fromUser = fromUser;
@@ -50,6 +56,9 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     protected String doInBackground(Void... params) {
 
         HashMap<String,String> data = new HashMap<>();
+
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
 
         data.put("id", String.valueOf(id));
         data.put("tag", tag);
@@ -71,7 +80,7 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AddFeedback(callingDialog, id, tag, fromUser, text, rating).execute();
+                        new AddFeedback(callingDialog, emailAuth, sessionId, id, tag, fromUser, text, rating).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

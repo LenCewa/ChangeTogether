@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
@@ -21,18 +22,35 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
     ProgressDialog loading;
     Account account;
     Activity callingActivity;
+    String emailAuth;
+    String sessionId;
     String email;
     String key;
     String value;
+    String oldPw;
     RequestHandler rh = new RequestHandler();
 
-    public AddInfo(Activity callingActivity, String email, String key, String value){
+    public AddInfo(Activity callingActivity, String emailAuth, String sessionId, String email, String key, String value){
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
         this.key = key;
         this.value = value;
+    }
+
+    public AddInfo(Activity callingActivity, String emailAuth, String sessionId, String email, String key, String oldPw, String newPw){
+
+        account = (Account) callingActivity.getApplication();
+        this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
+        this.email = email;
+        this.key = key;
+        this.oldPw = oldPw;
+        this.value = newPw;
     }
 
     @Override
@@ -45,11 +63,15 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
     protected String doInBackground(Void... params) {
         HashMap<String,String> data = new HashMap<>();
 
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
+
         data.put("email", email);
         data.put(key, value);
         String link = "";
         switch (key){
             case("password"):
+                data.put("oldPw", oldPw);
                 link = Constants.DBEDITPASSWORD;
                 break;
             case("location"):
@@ -71,7 +93,10 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AddInfo(callingActivity, email, key, value).execute();
+                        if(key.equals("password"))
+                            new AddInfo(callingActivity, emailAuth, sessionId, email, key, oldPw, value).execute();
+                        else
+                            new AddInfo(callingActivity, emailAuth, sessionId, email, key, value).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

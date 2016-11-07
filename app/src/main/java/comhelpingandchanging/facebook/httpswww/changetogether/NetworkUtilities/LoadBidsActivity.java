@@ -22,11 +22,15 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
     ProgressDialog loading;
     ProfileActivity callingActivity;
     RequestHandler rh = new RequestHandler();
+    private String emailAuth;
+    private String sessionId;
     private String email;
 
-    public LoadBidsActivity(ProfileActivity callingActivity, String email){
+    public LoadBidsActivity(ProfileActivity callingActivity, String emailAuth, String sessionId, String email){
 
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
     }
 
@@ -40,6 +44,9 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
     protected String doInBackground(Void... params) {
 
         HashMap<String,String> data = new HashMap<>();
+
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
 
         data.put("email", email);
         String result = rh.sendPostRequest(Constants.DBLOADBID,data);
@@ -55,7 +62,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new LoadBidsActivity(callingActivity, email).execute();
+                            new LoadBidsActivity(callingActivity, emailAuth, sessionId, email).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)

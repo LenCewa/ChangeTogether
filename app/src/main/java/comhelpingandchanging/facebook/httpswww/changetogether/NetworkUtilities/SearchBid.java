@@ -25,15 +25,19 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
     Activity callingActivity;
     SearchFragment callingFragment;
     RequestHandler rh = new RequestHandler();
+    private String emailAuth;
+    private String sessionId;
     private String tag;
     private double lat;
     private double lng;
 
-    public SearchBid(SearchFragment callingFragment, String tag, double lat, double lng){
+    public SearchBid(SearchFragment callingFragment, String emailAuth, String sessionId, String tag, double lat, double lng){
 
         account = (Account) callingFragment.getActivity().getApplication();
         callingActivity = callingFragment.getActivity();
         this.callingFragment = callingFragment;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.tag = tag;
         this.lat = lat;
         this.lng = lng;
@@ -50,6 +54,9 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
         HashMap<String,String> data = new HashMap<>();
 
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
+
         data.put("tag", tag);
         data.put("latitude", String.valueOf(lat));
         data.put("longitude", String.valueOf(lng));
@@ -65,7 +72,7 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new SearchBid(callingFragment, tag, lat, lng).execute();
+                        new SearchBid(callingFragment, emailAuth, sessionId, tag, lat, lng).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

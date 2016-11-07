@@ -25,13 +25,17 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
     Activity callingActivity;
     ProgressDialog loading;
     Bitmap pic;
+    String emailAuth;
+    String sessionId;
     String email;
     RequestHandler rh = new RequestHandler();
 
-    public UploadImage(Activity callingActivity, String email, Bitmap pic){
+    public UploadImage(Activity callingActivity, String emailAuth, String sessionId, String email, Bitmap pic){
 
         account = (Account)callingActivity.getApplication();
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
         this.pic = pic;
     }
@@ -50,7 +54,7 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new UploadImage(callingActivity, email, pic).execute();
+                            new UploadImage(callingActivity, emailAuth, sessionId, email, pic).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
@@ -62,6 +66,9 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
         String uploadImage = getStringImage(pic);
 
         HashMap<String,String> data = new HashMap<>();
+
+        data.put("emailAuth", emailAuth);
+        data.put("sessionId", sessionId);
 
         data.put("email", email);
         data.put("pic", uploadImage);
