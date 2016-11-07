@@ -123,4 +123,10 @@ public class HelpingLocationsFragment extends Fragment {
         return false;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_helping);
+    }
+
 }

@@ -67,5 +67,6 @@ public class OwnProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
+        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_own_profile);
     }
 }

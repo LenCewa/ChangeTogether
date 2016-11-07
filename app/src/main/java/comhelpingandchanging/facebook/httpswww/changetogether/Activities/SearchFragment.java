@@ -140,5 +140,6 @@ public class SearchFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
+        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_search);
     }
 }

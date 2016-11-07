@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SearchItemFragment f = new SearchItemFragment();
                 f.getArguments().putStringArray("searchInfo", (String[]) adapter.getItem(position));
-                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").commit();
+                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
             }
         });
 
@@ -110,5 +111,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
+        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_home);
     }
 }

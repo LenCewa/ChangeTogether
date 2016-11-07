@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,6 +42,7 @@ public class MainAppActivity extends AppCompatActivity
     BieteFragment bieteFragment;
     OwnProfileFragment ownProfileFragment;
     HelpingLocationsFragment helpingLocationsFragment;
+    public NavigationView navigationView;
 
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
@@ -77,7 +79,7 @@ public class MainAppActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
@@ -94,6 +96,9 @@ public class MainAppActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
         } else {
             //super.onBackPressed();
         }
@@ -126,15 +131,15 @@ public class MainAppActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if(id == R.id.nav_home){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack(null).commit();
         } else if (id == R.id.nav_search) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack(null).commit();
         } else if (id == R.id.nav_biete) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack(null).commit();
         } else if (id == R.id.nav_own_profile) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").addToBackStack(null).commit();
         } else if (id == R.id.nav_helping) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").addToBackStack(null).commit();
         }
         else if (id == R.id.nav_logout){
             account.logout(this);

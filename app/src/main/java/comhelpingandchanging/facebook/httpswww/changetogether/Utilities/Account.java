@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HomeFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
@@ -111,13 +111,13 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void loadBidsActivity(ProfileActivity callingActivity){
+    public void loadBidsActivity(ProfileFragment callingActivity){
 
         LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), getSearchEmail());
         l.execute();
     }
 
-    public void loadHelpingLocationsActivity(Activity callingActivity) {
+    public void loadHelpingLocationsActivity(Fragment callingActivity) {
         LoadHelpingLocationsActivity l = new LoadHelpingLocationsActivity(callingActivity, getSearchEmail());
         l.execute();
     }

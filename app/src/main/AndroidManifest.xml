@@ -26,7 +26,7 @@
         <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.InboxActivity" />
-        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.ProfileFragment" />
         <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.SettingsActivity" />
         <activity android:name=".Activities.ShowBidFeedback" />

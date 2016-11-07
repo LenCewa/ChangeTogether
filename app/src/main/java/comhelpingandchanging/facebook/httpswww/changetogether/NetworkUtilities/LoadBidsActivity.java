@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
@@ -20,13 +20,13 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
 
     ProgressDialog loading;
-    ProfileActivity callingActivity;
+    ProfileFragment callingActivity;
     RequestHandler rh = new RequestHandler();
     private String emailAuth;
     private String sessionId;
     private String email;
 
-    public LoadBidsActivity(ProfileActivity callingActivity, String emailAuth, String sessionId, String email){
+    public LoadBidsActivity(ProfileFragment callingActivity, String emailAuth, String sessionId, String email){
 
         this.callingActivity = callingActivity;
         this.emailAuth = emailAuth;
@@ -37,7 +37,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+        loading = ProgressDialog.show(callingActivity.getActivity(), "Uploading...", null,true,true);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
     protected void onPostExecute(String result) {
         loading.dismiss();
         if(result.equals("connection error"))
-            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(callingActivity.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -69,7 +69,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                     .show();
         else {
             if (result.equals("No entries"))
-                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(callingActivity.getActivity(), result, Toast.LENGTH_SHORT).show();
             else {
                 String[] s = result.split(Pattern.quote(":"));
                 StringBuilder sb = new StringBuilder();

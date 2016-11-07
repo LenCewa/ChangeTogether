@@ -48,8 +48,8 @@ public class SearchItemFragment extends Fragment {
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent profile = new Intent(SearchItemFragment.this, ProfileActivity.class);
-                //startActivity(profile);
+                ProfileFragment f = new ProfileFragment();
+                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
             }
         });
 
