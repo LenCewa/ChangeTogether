@@ -30,6 +30,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.L
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocationsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Login;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoginWithAccessToken;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Logout;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
@@ -76,15 +77,14 @@ public class Account extends Application {
         login.execute();
     }
 
-    public void logout(){
+    public void logout(Activity callingActivity){
 
+        Logout l = new Logout(callingActivity, getEmail(), getSessionId());
+        l.execute();
+    }
+
+    public void deleteInfo(){
         self = null;
-        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.remove("stayLoggedIn");
-        editor.remove("email");
-        editor.remove("password");
-        editor.apply();
     }
 
     public void searchUser(SearchItemActivity callingActivity, String email, String tag, String description){

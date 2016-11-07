@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Logout;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -113,13 +114,6 @@ public class MainAppActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            account.logout();
-            Intent main = new Intent(MainAppActivity.this, MainActivity.class);
-            startActivity(main);
-            finishAffinity();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -143,23 +137,12 @@ public class MainAppActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").commit();
         }
         else if (id == R.id.nav_logout){
-            account.logout();
-            Intent main = new Intent(MainAppActivity.this, MainActivity.class);
-            startActivity(main);
-            finishAffinity();
+            account.logout(this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
-        if(sp.getBoolean("stayLoggedIn", false))
-            account.getAccessToken(this);
     }
 
     public Double[] getLocationFromAddress(String strAddress){

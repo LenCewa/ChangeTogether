@@ -66,7 +66,8 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         loading.dismiss();
-        if(result.equals("connection error"))Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+        if(result.equals("connection error"))
+            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

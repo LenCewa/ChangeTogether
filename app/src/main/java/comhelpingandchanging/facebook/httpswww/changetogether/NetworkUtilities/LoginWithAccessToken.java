@@ -43,6 +43,7 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPreExecute() {
+        Log.e("login", "login");
         super.onPreExecute();
         loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
@@ -72,7 +73,7 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
                     .setActionTextColor(Color.RED)
                     .show();
         else {
-            if(result.equals("error"))
+            if(result.equals("error") || result.equals("log in first"))
                 ;
             else {
                 String[] results = result.split(Pattern.quote("|"));
