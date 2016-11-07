@@ -38,7 +38,7 @@ public class SearchedItem {
     }
 
     public String getLanguage(){
-        return userProfile.getLocation();
+        return userProfile.getLanguage();
     }
 
     public Bitmap getProfilePic(){ return userProfile.getProfilePic(); }
