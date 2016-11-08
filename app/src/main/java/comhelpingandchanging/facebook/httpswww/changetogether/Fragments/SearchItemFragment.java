@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;

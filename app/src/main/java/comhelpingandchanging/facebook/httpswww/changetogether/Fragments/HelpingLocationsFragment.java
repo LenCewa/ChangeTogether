@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.PlacesAutoCompleteAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 

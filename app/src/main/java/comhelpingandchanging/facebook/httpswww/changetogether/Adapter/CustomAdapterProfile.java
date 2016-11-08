@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import java.util.HashMap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 

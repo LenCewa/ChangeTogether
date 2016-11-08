@@ -8,7 +8,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 

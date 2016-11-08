@@ -1,11 +1,10 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,12 +15,12 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
  * Created by Yannick on 18.10.2016.
  */
 
-public class CustomAdapter extends BaseAdapter {
+public class CustomAdapterSearch extends BaseAdapter {
     Context context;
     ArrayList<String[]> data;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapter(Context context, ArrayList<String[]> data) {
+    public CustomAdapterSearch(Context context, ArrayList<String[]> data) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.data = data;
@@ -37,7 +36,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub (ignore this text in brackets, habe ich nur geschrieben um was comitten zu können)
+        // TODO Auto-generated method stub
         return data.get(position);
     }
 
@@ -52,16 +51,16 @@ public class CustomAdapter extends BaseAdapter {
         // TODO Auto-generated method stub
         View vi = convertView;
         if (vi == null)
-            vi = inflater.inflate(R.layout.feedback_list_item, null);
+            vi = inflater.inflate(R.layout.search_list_item, null);
 
-        TextView profileName = (TextView) vi.findViewById(R.id.profileNameListItem);
-        TextView text = (TextView) vi.findViewById(R.id.text);
+        TextView profileName = (TextView) vi.findViewById(R.id.profileNameSearch);
+        TextView text = (TextView) vi.findViewById(R.id.searchTag);
+        TextView location = (TextView) vi.findViewById(R.id.searchLocation);
 
-        profileName.setText(data.get(position)[0]);
-        text.setText(data.get(position)[1]);
+        profileName.setText("Von: " + data.get(position)[0]);
+        text.setText("Bietet: " + data.get(position)[1]);
+        location.setText("In: " + data.get(position)[3]);
 
-        RatingBar ratingBar = (RatingBar) vi.findViewById(R.id.ratingBar2);
-        ratingBar.setRating(Float.parseFloat(data.get(position)[2]));
         return vi;
     }
 }

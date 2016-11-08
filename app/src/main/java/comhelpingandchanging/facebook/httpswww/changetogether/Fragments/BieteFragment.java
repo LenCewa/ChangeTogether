@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.BidDialogNew;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.MyDialogCloseListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -22,7 +24,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Yannick on 03.11.2016.
  */
 
-public class BieteFragment extends Fragment implements  MyDialogCloseListener{
+public class BieteFragment extends Fragment implements MyDialogCloseListener {
 
     View view;
     MainAppActivity callingActivity;

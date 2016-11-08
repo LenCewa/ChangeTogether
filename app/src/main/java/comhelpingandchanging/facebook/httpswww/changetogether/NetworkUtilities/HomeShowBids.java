@@ -9,7 +9,7 @@ import android.view.View;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HomeFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 

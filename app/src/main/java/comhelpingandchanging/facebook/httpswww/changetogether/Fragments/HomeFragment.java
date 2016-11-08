@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -13,15 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -29,64 +29,39 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Yannick on 03.11.2016.
  */
 
-public class SearchFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     View view;
     Activity callingActivity;
-    Button menu;
-    EditText searchField;
-    Button searchBtn;
     Account account;
+    Double[] latLong;
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
     public CustomAdapterSearch adapter;
+    View.OnClickListener setLocation;
 
-    public SearchFragment(){
+    public HomeFragment(){
         setArguments(new Bundle());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_search, container, false);
+        view = inflater.inflate(R.layout.activity_home, container, false);
         callingActivity = getActivity();
         account = (Account) callingActivity.getApplication();
 
-        searches = (ListView) view.findViewById(R.id.searchList);
+        searches = (ListView) view.findViewById(R.id.homeList);
         adapter = new CustomAdapterSearch(callingActivity, listItems);
         searches.setAdapter(adapter);
 
-        searchField = (EditText) view.findViewById(R.id.editText3);
-        searchField.setText(getArguments().getString("searchText"));
-
-        searchBtn = (Button) view.findViewById(R.id.searchBtn);
-
-        final View.OnClickListener setLocation = new View.OnClickListener() {
+        setLocation = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent setLocation = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(setLocation);
             }
         };
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listItems.clear();
-                adapter.notifyDataSetChanged();
-
-                if(account.getLocation().equals("N/A"))
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("Set location", setLocation)
-                            .setActionTextColor(Color.RED)
-                            .show();
-                else {
-                    Double[] latLong = getLocationFromAddress(account.getLocation());
-                    account.searchBid(SearchFragment.this, searchField.getText().toString(), latLong[0], latLong[1]);
-                }
-                // Eingefügt
-                //account.searchHelpingLocation(SearchFragment.this, searchField.getText().toString());
-            }
-        });
 
         searches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,13 +73,6 @@ public class SearchFragment extends Fragment {
         });
 
         return view;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        getArguments().putString("searchText", searchField.getText().toString());
     }
 
     public Double[] getLocationFromAddress(String strAddress){
@@ -129,12 +97,22 @@ public class SearchFragment extends Fragment {
     }
 
     private void refresh(){
+
+        if(account.getLocation().equals("N/A"))
+            Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)
+                    .setAction("Set location", setLocation)
+                    .setActionTextColor(Color.RED)
+                    .show();
+        else {
+            latLong = getLocationFromAddress(account.getLocation());
+            account.homeShowBids(this, latLong[0], latLong[1]);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         refresh();
-        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_search);
+        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_home);
     }
 }

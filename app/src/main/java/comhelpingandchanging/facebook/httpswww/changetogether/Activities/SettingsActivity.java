@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.PlacesAutoCompleteAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
