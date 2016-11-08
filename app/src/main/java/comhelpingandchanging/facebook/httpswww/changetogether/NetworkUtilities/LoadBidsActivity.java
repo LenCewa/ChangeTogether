@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**

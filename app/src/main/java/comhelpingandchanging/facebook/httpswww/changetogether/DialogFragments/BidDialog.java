@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 
 import java.util.ArrayList;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 /**

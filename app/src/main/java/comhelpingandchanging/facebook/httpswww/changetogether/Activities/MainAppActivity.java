@@ -21,6 +21,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HelpingLocationsFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.OwnProfileFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 

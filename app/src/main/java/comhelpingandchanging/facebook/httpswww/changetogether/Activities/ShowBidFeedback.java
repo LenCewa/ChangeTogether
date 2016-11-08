@@ -5,13 +5,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.FeedbackDialog;
+import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.MyDialogCloseListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -19,7 +21,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Ludwig on 05.11.2016.
  */
 
-public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
+public class ShowBidFeedback extends Activity implements MyDialogCloseListener {
 
     TextView bid;
     FloatingActionButton rateBtn;
