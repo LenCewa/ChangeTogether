@@ -11,16 +11,16 @@
     <string name="country_prompt">Was wollen Sie anbieten?</string>
 
     <string-array name="country_arrays">
-        <item>Sprachkurs</item>
-        <item>Nachhilfe</item>
-        <item>Kochen</item>
-        <item>Freelancer</item>
-        <item>Sonstiges</item>
-        <item>Wohnungssuche</item>
-        <item>Organisatorisches</item>
         <item>Bewerbungsschreiben/Lebenslauf</item>
+        <item>Freelancer</item>
         <item>Freizeitaktivitäten</item>
-        <item>Sport</item>
         <item>Job</item>
+        <item>Kochen</item>
+        <item>Nachhilfe</item>
+        <item>Organisatorisches</item>
+        <item>Sonstiges</item>
+        <item>Sprachkurs</item>
+        <item>Sport</item>
+        <item>Wohnungssuche</item>
     </string-array>
 </resources>

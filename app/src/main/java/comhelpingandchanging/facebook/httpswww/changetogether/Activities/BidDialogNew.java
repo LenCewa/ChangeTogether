@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -29,7 +28,6 @@ public class BidDialogNew extends DialogFragment {
     Spinner bidTypes;
     TextView description;
     Button done;
-    ArrayList<String> usersHelpingLocations = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +38,13 @@ public class BidDialogNew extends DialogFragment {
         location = (AutoCompleteTextView) rootView.findViewById(R.id.location);
 
         bidTypes = (Spinner) rootView.findViewById(R.id.bidTypes);
+
+        SpinnerAdapter adapter = new SpinnerAdapter(getActivity(), android.R.layout.simple_list_item_1);
+        adapter.addAll(getResources().getStringArray(R.array.country_arrays));
+        adapter.add("Wähle dein Angebot");
+        bidTypes.setAdapter(adapter);
+        bidTypes.setSelection(adapter.getCount());
+
 
         final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this
@@ -61,7 +66,7 @@ public class BidDialogNew extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (city.equals(location.getText().toString())) {
+                if (city.equals(location.getText().toString()) && !bidTypes.getSelectedItem().toString().equals("Wähle")) {
                     Double[] latLong = getLocationFromAddress(autocompleteView.getText().toString());
 
                     ((Account) callingFragment.getActivity().getApplication()).
