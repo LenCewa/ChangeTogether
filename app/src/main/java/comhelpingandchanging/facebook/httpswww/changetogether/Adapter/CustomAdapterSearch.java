@@ -57,9 +57,9 @@ public class CustomAdapterSearch extends BaseAdapter {
         TextView text = (TextView) vi.findViewById(R.id.searchTag);
         TextView location = (TextView) vi.findViewById(R.id.searchLocation);
 
-        profileName.setText("Von: " + data.get(position)[0]);
-        text.setText("Bietet: " + data.get(position)[1]);
-        location.setText("In: " + data.get(position)[3]);
+        profileName.setText("Von: " + data.get(position)[1]);
+        text.setText("Bietet: " + data.get(position)[2]);
+        location.setText("In: " + data.get(position)[4]);
 
         return vi;
     }

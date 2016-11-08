@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -8,10 +9,16 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
@@ -77,16 +84,24 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
                     .setActionTextColor(Color.RED)
                     .show();
         else {
+            try {
+                JSONObject jsonObj = new JSONObject(result);
+                JSONArray user = jsonObj.getJSONArray("user");
+                JSONObject userInfo = user.getJSONObject(0);
 
-            String[] results = result.split(Pattern.quote("|"));
-            String location = results[0];
-            String language = results[1];
+                String location = userInfo.getString("location");
+                String language = userInfo.getString("language");
+                String encodedPic = userInfo.getString("profilePic");
 
-            byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-            account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
-            callingFragment.setElements();
+                account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
+                callingFragment.setElements();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(callingFragment.getActivity(), "Couldnt get User Info", Toast.LENGTH_LONG);
+            }
         }
     }
 

@@ -78,22 +78,14 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
                     .setActionTextColor(Color.RED)
                     .show();
         else {
-            try {
-                JSONObject jsonObj = new JSONObject(result);
-                JSONArray tokenArr = jsonObj.getJSONArray("token");
-                JSONObject token = tokenArr.getJSONObject(0);
-
-                String accessToken = token.getString("token");
-
+            if(result.equals("error"))
+                Toast.makeText(callingActivity, "Couldnt get Access Token", Toast.LENGTH_LONG).show();
+            else{
                 SharedPreferences sp = callingActivity.getSharedPreferences("login_state", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("email", email);
-                editor.putString("accessToken", accessToken);
+                editor.putString("accessToken", result);
                 editor.commit();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(callingActivity, "Couldnt get Access Token", Toast.LENGTH_LONG);
             }
         }
     }

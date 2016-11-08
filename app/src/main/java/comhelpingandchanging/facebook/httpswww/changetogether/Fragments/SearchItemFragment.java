@@ -50,7 +50,7 @@ public class SearchItemFragment extends Fragment {
         });
 
         String[] info = (String[]) getArguments().get("searchInfo");
-        account.searchUser(this, info[0], info[1], info[2]);
+        account.searchUser(this, info[1], info[2], info[3]);
 
         return view;
     }

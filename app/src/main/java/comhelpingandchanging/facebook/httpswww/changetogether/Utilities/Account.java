@@ -173,7 +173,7 @@ public class Account extends Application {
         u.execute();
     }
 
-    public void showPic(Activity callingActivity){
+    public void shoPic(Activity callingActivity){
 
         ShowPic s = new ShowPic(callingActivity, getEmail(), getSessionId(), getEmail());
         s.execute();

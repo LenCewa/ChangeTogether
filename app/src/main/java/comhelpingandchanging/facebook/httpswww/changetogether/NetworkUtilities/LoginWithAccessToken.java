@@ -10,6 +10,11 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -73,17 +78,28 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
             if(result.equals("error") || result.equals("log in first"))
                 ;
             else {
-                String[] results = result.split(Pattern.quote("|"));
-                String location = results[0];
-                String language = results[1];
+                try {
+                    JSONObject jsonObj = new JSONObject(result);
+                    JSONArray user = jsonObj.getJSONArray("user");
+                    JSONObject userInfo = user.getJSONObject(0);
 
-                byte[] decodedString = Base64.decode(results[2], Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    String sessionId = userInfo.getString("sessionId");
+                    String location = userInfo.getString("location");
+                    String language = userInfo.getString("language");
+                    String encodedPic = userInfo.getString("profilePic");
 
-                setSelfInfo(results[3], email, location, language, decodedByte);
-                Intent search = new Intent(callingActivity, MainAppActivity.class);
-                callingActivity.startActivity(search);
-                callingActivity.finishAffinity();
+                    byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                    setSelfInfo(sessionId, email, location, language, decodedByte);
+                    account.getAccessToken(callingActivity);
+                    Intent search = new Intent(callingActivity, MainAppActivity.class);
+                    callingActivity.startActivity(search);
+                    callingActivity.finishAffinity();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(callingActivity, "Couldnt get User Info", Toast.LENGTH_LONG);
+                }
             }
         }
     }

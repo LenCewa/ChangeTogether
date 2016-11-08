@@ -7,6 +7,10 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -78,6 +82,30 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
             if (result.equals("No entries"))
                 Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
             else {
+                try {
+                    JSONObject jsonObj = new JSONObject(result);
+                    JSONArray bids = jsonObj.getJSONArray("bids");
+                    String averageRating;
+                    callingActivity.feedbacks.clear();
+                    for (int i = 0; i < bids.length(); i++) {
+                        JSONObject bidsInfo = bids.getJSONObject(i);
+
+                        String fromUser = bidsInfo.getString("fromUser");
+                        String text = bidsInfo.getString("text");
+                        String rating = bidsInfo.getString("rating");
+
+                        String[] arr = new String[]{fromUser, text, rating};
+                        callingActivity.feedbacks.add(arr);
+                    }
+                    callingActivity.adapter.notifyDataSetChanged();
+
+                    if (callingActivity.feedbacks.isEmpty())
+                        Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                                .show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(callingActivity, "Couldnt find bids", Toast.LENGTH_LONG).show();
+                }
                 String[] s = result.split(Pattern.quote(":"));
                 callingActivity.setStars(Float.parseFloat(s[0]));
                 StringBuilder sb = new StringBuilder();
