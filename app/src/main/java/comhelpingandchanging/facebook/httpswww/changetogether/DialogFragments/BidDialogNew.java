@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -27,7 +29,6 @@ public class BidDialogNew extends DialogFragment {
     AutoCompleteTextView location;
     BieteFragment callingFragment;
     String city;
-    Spinner bidTypes;
     TextView description;
     Button done;
 
@@ -37,10 +38,8 @@ public class BidDialogNew extends DialogFragment {
 
         callingFragment = (BieteFragment) getParentFragment();
 
+
         location = (AutoCompleteTextView) rootView.findViewById(R.id.location);
-
-        bidTypes = (Spinner) rootView.findViewById(R.id.bidTypes);
-
 
         final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this
@@ -48,12 +47,10 @@ public class BidDialogNew extends DialogFragment {
         autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get data associated with the specified position
-                // in the list (AdapterView)
+                if(parent.getItemAtPosition(position) != null)
                 city = parent.getItemAtPosition(position).toString();
             }
         });
-
 
 
         description = (TextView) rootView.findViewById(R.id.description);
@@ -62,11 +59,12 @@ public class BidDialogNew extends DialogFragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (description != null && location != null && city.equals(location.getText().toString())) {
+                if (city != null && description.getText().toString().length() != 0 && location.getText().toString().length() != 0 &&
+                 city.equals(location.getText().toString())) {
                     Double[] latLong = getLocationFromAddress(autocompleteView.getText().toString());
 
                     ((Account) callingFragment.getActivity().getApplication()).
-                            addBid(callingFragment, bidTypes.getSelectedItem().toString(), description.getText().toString(),
+                            addBid(callingFragment, "BidType", description.getText().toString(),
                                     autocompleteView.getText().toString(), latLong[0], latLong[1]);
                     getDialog().dismiss();
                 }
