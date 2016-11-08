@@ -46,6 +46,6 @@ public class AddHelpingLocation extends AsyncTask<Void, Void, String > {
 
         if(result.equals("connection error"));
         else
-        ((Account)callingFragment.getActivity().getApplication()).loadBids((BieteFragment)callingFragment);
+            ((Account)callingFragment.getActivity().getApplication()).loadBids((BieteFragment)callingFragment);
     }
 }

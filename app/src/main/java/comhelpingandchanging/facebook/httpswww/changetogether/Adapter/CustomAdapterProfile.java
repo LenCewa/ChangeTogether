@@ -56,8 +56,8 @@ public class CustomAdapterProfile extends BaseAdapter {
         TextView tag = (TextView) vi.findViewById(R.id.tag);
         TextView description = (TextView) vi.findViewById(R.id.description);
 
-        tag.setText(data.get(position)[0]);
-        description.setText(data.get(position)[1]);
+        tag.setText(data.get(position)[2]);
+        description.setText(data.get(position)[3]);
 
         return vi;
     }

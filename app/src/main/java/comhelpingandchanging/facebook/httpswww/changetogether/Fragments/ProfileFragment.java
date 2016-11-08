@@ -67,8 +67,8 @@ public class ProfileFragment extends Fragment {
 
 
                 String[] arr = (String[]) adapter.getItem(position);
-                String tag = arr[0];
-                int ID = Integer.parseInt(arr[2]);
+                int ID = Integer.parseInt(arr[0]);
+                String tag = arr[1];
 
                 Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
                 intent.putExtra("id", ID);

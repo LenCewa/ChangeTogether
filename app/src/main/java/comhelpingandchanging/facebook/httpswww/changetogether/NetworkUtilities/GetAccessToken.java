@@ -2,15 +2,26 @@ package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
@@ -67,14 +78,22 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
                     .setActionTextColor(Color.RED)
                     .show();
         else {
-            if(result.equals("error"))
-               ;
-            else {
+            try {
+                JSONObject jsonObj = new JSONObject(result);
+                JSONArray tokenArr = jsonObj.getJSONArray("token");
+                JSONObject token = tokenArr.getJSONObject(0);
+
+                String accessToken = token.getString("token");
+
                 SharedPreferences sp = callingActivity.getSharedPreferences("login_state", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("email", email);
-                editor.putString("accessToken", result);
+                editor.putString("accessToken", accessToken);
                 editor.commit();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(callingActivity, "Couldnt get Access Token", Toast.LENGTH_LONG);
             }
         }
     }

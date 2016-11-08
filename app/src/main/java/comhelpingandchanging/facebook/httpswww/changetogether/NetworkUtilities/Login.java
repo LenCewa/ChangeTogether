@@ -98,6 +98,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                     callingActivity.finishAffinity();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(callingActivity, "Couldnt get User Info", Toast.LENGTH_LONG);
                 }
             }
         }

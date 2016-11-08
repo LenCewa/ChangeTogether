@@ -5,6 +5,11 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -77,18 +82,30 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                 Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                         .show();
             else {
-                String[] s = result.split(Pattern.quote(":"));
-                StringBuilder sb = new StringBuilder();
-                callingFragment.listItems.clear();
-                for (int i = 0; i < s.length; i++) {
-                    String[] arr = s[i].split(Pattern.quote("|"));
-                    if (!arr[0].equals(account.getEmail())) {
-                        callingFragment.listItems.add(0, new String[]{arr[0], arr[1], arr[2], arr[3], arr[4]});
-                        callingFragment.adapter.notifyDataSetChanged();
+                try {
+                    JSONObject jsonObj = new JSONObject(result);
+                    JSONArray bids = jsonObj.getJSONArray("bids");
+                    callingFragment.listItems.clear();
+                    for (int i = 0; i < bids.length(); i++) {
+                        JSONObject bidsInfo = bids.getJSONObject(i);
+
+                        String id = bidsInfo.getString("id");
+                        String email = bidsInfo.getString("email");
+                        String tag = bidsInfo.getString("tag");
+                        String description = bidsInfo.getString("description");
+                        String location = bidsInfo.getString("location");
+
+                        if (!email.equals(account.getEmail())) {
+                            callingFragment.listItems.add(0, new String[]{email, tag, description, location, id});
+                            callingFragment.adapter.notifyDataSetChanged();
+                        }
                     }
                     if (callingFragment.listItems.isEmpty())
                         Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(callingFragment.getActivity(), "Couldnt load bids", Toast.LENGTH_LONG).show();
                 }
             }
         }
