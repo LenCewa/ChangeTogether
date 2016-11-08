@@ -3,7 +3,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
-public class SpinnerAdapter extends ArrayAdapter<String> {
+class SpinnerAdapter extends ArrayAdapter<String> {
 
     public SpinnerAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
