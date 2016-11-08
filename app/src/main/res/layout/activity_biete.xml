@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/bieteList"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView2" />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -33,8 +33,7 @@
             android:ellipsize="none"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:textColorLink="@color/colorList"
-            android:textSize="20sp" />
+            android:textColorLink="@color/colorList" />
 
         <TextView android:layout_width="match_parent"
             android:layout_height="wrap_content"

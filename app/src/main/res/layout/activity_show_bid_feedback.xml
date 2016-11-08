@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listFeedback"
-        android:layout_below="@+id/rateBtn" />
+        android:layout_below="@+id/avergageRating" />
 
     <TextView
         android:id="@+id/bidType"
@@ -19,14 +20,16 @@
         android:textAlignment="center"
         android:textSize="30sp" />
 
-    <Button
-        android:text="RATE"
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/rateBtn"
-        android:layout_marginTop="54dp"
-        android:layout_below="@+id/bidType"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_action_add"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/rateBtn" />
 
     <RatingBar
         android:layout_width="wrap_content"

@@ -3,6 +3,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,7 +22,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
 
     TextView bid;
-    Button rateBtn;
+    FloatingActionButton rateBtn;
     ListView feedbackList;
     RatingBar ratingBar;
     public CustomAdapter adapter;
@@ -35,7 +36,7 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener{
         account = (Account) getApplication();
 
         bid = (TextView) findViewById(R.id.bidType);
-        rateBtn = (Button) findViewById(R.id.rateBtn);
+        rateBtn = (FloatingActionButton) findViewById(R.id.rateBtn);
         feedbackList = (ListView) findViewById(R.id.listFeedback);
         ratingBar = (RatingBar) findViewById(R.id.avergageRating);
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,7 +17,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Yannick on 28.10.2016.
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     Button login;
     Button register;
@@ -26,12 +27,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         account = (Account) getApplication();
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sp.edit();
-
-        setContentView(R.layout.activity_main);
 
         if(!sp.getString("email","").equals("") && !sp.getString("accessToken","").equals(""))
             account.loginWithAccessToken(this, sp.getString("email",""), sp.getString("accessToken",""));
