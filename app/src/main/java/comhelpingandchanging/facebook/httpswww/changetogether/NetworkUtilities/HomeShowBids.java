@@ -96,7 +96,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                         String location = bidsInfo.getString("location");
 
                         if (!email.equals(account.getEmail())) {
-                            callingFragment.listItems.add(0, new String[]{email, tag, description, location, id});
+                            callingFragment.listItems.add(0, new String[]{id, email, tag, description, location});
                             callingFragment.adapter.notifyDataSetChanged();
                         }
                     }
