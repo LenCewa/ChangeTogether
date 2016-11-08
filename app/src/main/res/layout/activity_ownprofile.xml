@@ -64,24 +64,25 @@
         android:layout_alignTop="@+id/imageView5"
         android:layout_toEndOf="@+id/imageView4" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/settingsButton"
-        android:textSize="12sp"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_menu_manage"
-        app:backgroundTint="@color/colorAccent"
-        app:elevation="10dp"
-        app:rippleColor="@android:color/white"
-        android:layout_above="@+id/imageView4"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="15dp" />
-
-        <ListView
+    <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/ownList"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/ownProfileLanguage"
             android:layout_alignParentStart="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/settingsButton"
+        android:textSize="12sp"
+        android:src="@drawable/ic_menu_manage"
+        app:backgroundTint="@color/colorAccent"
+        app:elevation="10dp"
+        app:rippleColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView4"
+        android:layout_alignEnd="@+id/ownProfileName"
+        android:layout_marginBottom="11dp"
+        android:tint="@android:color/white" />
 </RelativeLayout>

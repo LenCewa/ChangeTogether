@@ -9,33 +9,40 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainActivity">
+    tools:context="comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainActivity"
+    android:background="@android:color/holo_blue_dark">
 
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/logo"
-        android:id="@+id/imageView3"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginBtn"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignLeft="@+id/registerBtn"
-        android:layout_alignStart="@+id/registerBtn" />
 
     <Button
         android:text="Register"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/registerBtn"
-        android:layout_below="@+id/loginBtn"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <Button
+        android:text="Login"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginBtn"
+        android:layout_width="150dp"
+        android:layout_above="@+id/registerBtn"
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:src="@drawable/ic_action_name"
+        android:id="@+id/imageView3"
+        android:layout_above="@+id/loginBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
 
 </RelativeLayout>
