@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +79,7 @@ public class BieteFragment extends Fragment implements  MyDialogCloseListener{
     public void onResume() {
         super.onResume();
         refresh();
+        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_biete);
     }
 
     @Override

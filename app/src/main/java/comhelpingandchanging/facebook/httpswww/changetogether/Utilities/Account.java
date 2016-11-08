@@ -4,17 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HomeFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddFeedback;
@@ -30,6 +26,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.L
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocationsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Login;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoginWithAccessToken;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Logout;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
@@ -76,18 +73,17 @@ public class Account extends Application {
         login.execute();
     }
 
-    public void logout(){
+    public void logout(Activity callingActivity){
 
-        self = null;
-        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.remove("stayLoggedIn");
-        editor.remove("email");
-        editor.remove("password");
-        editor.apply();
+        Logout l = new Logout(callingActivity, getEmail(), getSessionId());
+        l.execute();
     }
 
-    public void searchUser(SearchItemActivity callingActivity, String email, String tag, String description){
+    public void deleteInfo(){
+        self = null;
+    }
+
+    public void searchUser(SearchItemFragment callingActivity, String email, String tag, String description){
 
         SearchUser s = new SearchUser(callingActivity, getEmail(), getSessionId(), email, tag, description);
         s.execute();
@@ -115,13 +111,13 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void loadBidsActivity(ProfileActivity callingActivity){
+    public void loadBidsActivity(ProfileFragment callingActivity){
 
         LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), getSearchEmail());
         l.execute();
     }
 
-    public void loadHelpingLocationsActivity(Activity callingActivity) {
+    public void loadHelpingLocationsActivity(Fragment callingActivity) {
         LoadHelpingLocationsActivity l = new LoadHelpingLocationsActivity(callingActivity, getSearchEmail());
         l.execute();
     }

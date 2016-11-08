@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -83,6 +82,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                 setSelfInfo(results[3], email, password, location, language, decodedByte);
+                account.getAccessToken(callingActivity);
                 Intent search = new Intent(callingActivity, MainAppActivity.class);
                 callingActivity.startActivity(search);
                 callingActivity.finishAffinity();

@@ -1,22 +1,15 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
-import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +33,7 @@ public class MainAppActivity extends AppCompatActivity
     BieteFragment bieteFragment;
     OwnProfileFragment ownProfileFragment;
     HelpingLocationsFragment helpingLocationsFragment;
+    public NavigationView navigationView;
 
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
@@ -76,7 +70,7 @@ public class MainAppActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
@@ -93,6 +87,9 @@ public class MainAppActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
         } else {
             //super.onBackPressed();
         }
@@ -113,13 +110,6 @@ public class MainAppActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            account.logout();
-            Intent main = new Intent(MainAppActivity.this, MainActivity.class);
-            startActivity(main);
-            finishAffinity();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -132,34 +122,23 @@ public class MainAppActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if(id == R.id.nav_home){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack(null).commit();
         } else if (id == R.id.nav_search) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack(null).commit();
         } else if (id == R.id.nav_biete) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack(null).commit();
         } else if (id == R.id.nav_own_profile) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").addToBackStack(null).commit();
         } else if (id == R.id.nav_helping) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").addToBackStack(null).commit();
         }
         else if (id == R.id.nav_logout){
-            account.logout();
-            Intent main = new Intent(MainAppActivity.this, MainActivity.class);
-            startActivity(main);
-            finishAffinity();
+            account.logout(this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
-        if(sp.getBoolean("stayLoggedIn", false))
-            account.getAccessToken(this);
     }
 
     public Double[] getLocationFromAddress(String strAddress){

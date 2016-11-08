@@ -12,13 +12,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 
 /**
  * Created by Ludwig on 29.10.2016.
@@ -115,7 +114,16 @@ public class SettingsActivity extends Activity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
                 Uri selectedImageUri = data.getData();
-                profilePic.setImageURI(selectedImageUri);
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                    profilePic.setImageBitmap(bitmap);
+                    account.setProfilePic(bitmap);
+
+                    UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
+                    u.execute();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
             }
         }
     }

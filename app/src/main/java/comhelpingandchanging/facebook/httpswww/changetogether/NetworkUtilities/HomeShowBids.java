@@ -1,19 +1,15 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.HomeFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
@@ -66,7 +62,8 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         loading.dismiss();
-        if(result.equals("connection error"))Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+        if(result.equals("connection error"))
+            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,6 +79,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
             else {
                 String[] s = result.split(Pattern.quote(":"));
                 StringBuilder sb = new StringBuilder();
+                callingFragment.listItems.clear();
                 for (int i = 0; i < s.length; i++) {
                     String[] arr = s[i].split(Pattern.quote("|"));
                     if (!arr[0].equals(account.getEmail())) {

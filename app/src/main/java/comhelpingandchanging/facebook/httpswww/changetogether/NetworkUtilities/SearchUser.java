@@ -7,13 +7,12 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProfile;
@@ -25,7 +24,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProf
 public class SearchUser extends AsyncTask<Void, Void, String>{
 
     Account account;
-    SearchItemActivity callingActivity;
+    SearchItemFragment callingFragment;
     String emailAuth;
     String sessionId;
     String email;
@@ -34,10 +33,10 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
     ProgressDialog loading;
     RequestHandler rh = new RequestHandler();
 
-    public SearchUser(SearchItemActivity callingActivity, String emailAuth, String sessionId, String email, String tag, String description){
+    public SearchUser(SearchItemFragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description){
 
-        account = (Account) callingActivity.getApplication();
-        this.callingActivity = callingActivity;
+        account = (Account) callingFragment.getActivity().getApplication();
+        this.callingFragment = callingFragment;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
         this.email = email;
@@ -48,7 +47,7 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Loading profile...", null,true,true);
+        loading = ProgressDialog.show(callingFragment.getActivity(), "Loading profile...", null,true,true);
     }
 
     @Override
@@ -68,11 +67,11 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
     protected void onPostExecute(String result) {
         loading.dismiss();
         if(result.equals("connection error"))
-            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new SearchUser(callingActivity, emailAuth, sessionId, email, tag, description).execute();
+                            new SearchUser(callingFragment, emailAuth, sessionId, email, tag, description).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
@@ -87,7 +86,7 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
             account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
-            callingActivity.setElements();
+            callingFragment.setElements();
         }
     }
 

@@ -2,8 +2,6 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.graphics.Bitmap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SearchFragment;
-
 /**
  * Created by Yannick on 05.11.2016.
  */
@@ -38,7 +36,7 @@ public class SearchedItem {
     }
 
     public String getLanguage(){
-        return userProfile.getLocation();
+        return userProfile.getLanguage();
     }
 
     public Bitmap getProfilePic(){ return userProfile.getProfilePic(); }

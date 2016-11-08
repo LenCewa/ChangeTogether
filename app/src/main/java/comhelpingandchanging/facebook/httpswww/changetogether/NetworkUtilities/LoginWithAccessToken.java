@@ -9,9 +9,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -72,7 +70,7 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
                     .setActionTextColor(Color.RED)
                     .show();
         else {
-            if(result.equals("error"))
+            if(result.equals("error") || result.equals("log in first"))
                 ;
             else {
                 String[] results = result.split(Pattern.quote("|"));

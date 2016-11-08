@@ -1,17 +1,17 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -20,8 +20,9 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by len13 on 17.10.2016.
  */
 
-public class ProfileActivity extends Activity {
+public class ProfileFragment extends Fragment {
 
+    View view;
     TextView profileName;
     TextView profileLocation;
     TextView profileLanguage;
@@ -34,26 +35,25 @@ public class ProfileActivity extends Activity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        account =(Account)getApplication();
+        view = inflater.inflate(R.layout.activity_profile, container, false);
+        account =(Account) getActivity().getApplication();
 
-        profileName = (TextView) findViewById(R.id.profileName);
+        profileName = (TextView) view.findViewById(R.id.profileName);
         profileName.setText(account.getSearchEmail());
 
-        profileLocation = (TextView) findViewById(R.id.profileLocation);
+        profileLocation = (TextView) view.findViewById(R.id.profileLocation);
         profileLocation.setText(account.getSearchLocation());
 
-        profileLanguage = (TextView) findViewById(R.id.profileLanguage);
+        profileLanguage = (TextView) view.findViewById(R.id.profileLanguage);
         profileLanguage.setText(account.getSearchLanguage());
 
-        profilePic = (ImageView) findViewById(R.id.profPic);
+        profilePic = (ImageView) view.findViewById(R.id.profPic);
         profilePic.setImageBitmap(account.getSearchProfilePic());
 
-        bidList = (ListView) findViewById(R.id.list);
-        adapter = new CustomAdapterProfile(this, bieteItems);
+        bidList = (ListView) view.findViewById(R.id.list);
+        adapter = new CustomAdapterProfile(getActivity(), bieteItems);
         bidList.setAdapter(adapter);
 
         account.loadBidsActivity(this);
@@ -68,11 +68,13 @@ public class ProfileActivity extends Activity {
                 String tag = arr[0];
                 int ID = Integer.parseInt(arr[2]);
 
-                Intent intent = new Intent(ProfileActivity.this, ShowBidFeedback.class);
+                Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
                 intent.putExtra("id", ID);
                 intent.putExtra("tag", tag);
                 startActivity(intent);
             }
         });
+
+        return view;
     }
 }

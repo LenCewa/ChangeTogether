@@ -13,10 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +35,7 @@ public class HomeFragment extends Fragment {
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
     public CustomAdapterSearch adapter;
+    View.OnClickListener setLocation;
 
     public HomeFragment(){
         setArguments(new Bundle());
@@ -54,7 +52,7 @@ public class HomeFragment extends Fragment {
         adapter = new CustomAdapterSearch(callingActivity, listItems);
         searches.setAdapter(adapter);
 
-        final View.OnClickListener setLocation = new View.OnClickListener() {
+        setLocation = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent setLocation = new Intent(getActivity(), SettingsActivity.class);
@@ -65,21 +63,11 @@ public class HomeFragment extends Fragment {
         searches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent searchItem = new Intent(getActivity(), SearchItemActivity.class);
-                searchItem.putExtra("searchInfo", (String[]) adapter.getItem(position));
-                startActivity(searchItem);
+                SearchItemFragment f = new SearchItemFragment();
+                f.getArguments().putStringArray("searchInfo", (String[]) adapter.getItem(position));
+                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
             }
         });
-
-        if(account.getLocation().equals("N/A"))
-            Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Set location", setLocation)
-                    .setActionTextColor(Color.RED)
-                    .show();
-        else {
-            latLong = getLocationFromAddress(account.getLocation());
-            account.homeShowBids(this, latLong[0], latLong[1]);
-        }
 
         return view;
     }
@@ -106,7 +94,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void refresh(){
-        if(!account.getLocation().equals("N/A")) {
+
+        if(account.getLocation().equals("N/A"))
+            Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)
+                    .setAction("Set location", setLocation)
+                    .setActionTextColor(Color.RED)
+                    .show();
+        else {
             latLong = getLocationFromAddress(account.getLocation());
             account.homeShowBids(this, latLong[0], latLong[1]);
         }
@@ -116,5 +110,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
+        ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_home);
     }
 }

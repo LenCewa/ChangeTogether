@@ -2,7 +2,6 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.CheckBox;
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by len13 on 26.10.2016.
