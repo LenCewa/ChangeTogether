@@ -14,8 +14,7 @@
         android:fontFamily="serif"
         android:radius="5dp"
         android:textAllCaps="false"
-        android:elevation="2dp"
-        android:background="@color/colorList" />
+        android:elevation="0dp" />
 
     <TextView
         android:layout_width="match_parent"

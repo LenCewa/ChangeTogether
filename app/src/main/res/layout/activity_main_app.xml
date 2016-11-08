@@ -20,9 +20,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main_app"
-        app:menu="@menu/activity_main_app_drawer"
-        android:background="@color/colorAccent">
-
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/activity_main_app_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
