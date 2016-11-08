@@ -84,11 +84,14 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
             else {
                 try {
                     JSONObject jsonObj = new JSONObject(result);
-                    JSONArray bids = jsonObj.getJSONArray("feedback");
-                    String averageRating;
+                    JSONArray feedback = jsonObj.getJSONArray("feedback");
+                    double averageRating = feedback.getJSONObject(0).getDouble("averageRating");
+                    callingActivity.setStars(averageRating);
+
+                    JSONArray allFeedback = feedback.getJSONObject(0).getJSONArray("allFeedback");
                     callingActivity.feedbacks.clear();
-                    for (int i = 0; i < bids.length(); i++) {
-                        JSONObject bidsInfo = bids.getJSONObject(i);
+                    for (int i = 0; i < allFeedback.length(); i++) {
+                        JSONObject bidsInfo = allFeedback.getJSONObject(i);
 
                         String fromUser = bidsInfo.getString("fromUser");
                         String text = bidsInfo.getString("text");
@@ -104,15 +107,7 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
                                 .show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(callingActivity, "Couldnt find bids", Toast.LENGTH_LONG).show();
-                }
-                String[] s = result.split(Pattern.quote(":"));
-                callingActivity.setStars(Float.parseFloat(s[0]));
-                StringBuilder sb = new StringBuilder();
-                for (int i = 1; i < s.length; i++) {
-                    String[] arr = s[i].split(Pattern.quote("|"));
-                    callingActivity.feedbacks.add(0, new String[]{arr[0], arr[1], arr[2]});
-                    callingActivity.adapter.notifyDataSetChanged();
+                    Toast.makeText(callingActivity, "Couldnt load feedback", Toast.LENGTH_LONG).show();
                 }
             }
         }

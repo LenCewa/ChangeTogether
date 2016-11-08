@@ -60,8 +60,8 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener {
         account.searchFeedback(this, getIntent().getIntExtra("id", -1), getIntent().getStringExtra("tag"));
     }
 
-    public void setStars(float stars){
-        ratingBar.setRating(stars);
+    public void setStars(double stars){
+        ratingBar.setRating((float)stars);
     }
 
     private void refresh(){
