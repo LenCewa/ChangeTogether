@@ -7,6 +7,10 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -71,14 +75,26 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
             if (result.equals("No entries"))
                 Toast.makeText(callingFragment.getActivity(), result, Toast.LENGTH_SHORT).show();
             else {
-                String[] s = result.split(Pattern.quote(":"));
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < s.length; i++) {
-                    String[] arr = s[i].split(Pattern.quote("|"));
-                    if (!callingFragment.bieteItems.contains(arr[1]))
-                        callingFragment.bieteItems.add(arr[1]);
+                try {
+                    JSONObject jsonObj = new JSONObject(result);
+                    JSONArray bids = jsonObj.getJSONArray("bids");
+                    callingFragment.bieteItems.clear();
+                    for (int i = 0; i < bids.length(); i++) {
+                        JSONObject bidsInfo = bids.getJSONObject(i);
+
+                        String tag = bidsInfo.getString("tag");
+
+                        if (!callingFragment.bieteItems.contains(tag))
+                            callingFragment.bieteItems.add(tag);
+                    }
+                    callingFragment.adapter.notifyDataSetChanged();
+                    if (callingFragment.bieteItems.isEmpty())
+                        Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                                .show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(callingFragment.getActivity(), "Couldnt load bids", Toast.LENGTH_LONG).show();
                 }
-                callingFragment.adapter.notifyDataSetChanged();
             }
         }
     }

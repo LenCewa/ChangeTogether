@@ -87,7 +87,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                         String description = bidsInfo.getString("description");
 
                         String[] arr = new String[]{id, tag, description};
-                        if (callingFragment.bieteItems.contains(arr))
+                        if (!callingFragment.bieteItems.contains(arr))
                             callingFragment.bieteItems.add(arr);
                     }
                     callingFragment.adapter.notifyDataSetChanged();
