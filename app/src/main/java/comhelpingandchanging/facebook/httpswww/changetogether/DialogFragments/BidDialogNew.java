@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.PlacesAutoCompleteAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.SpinnerAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;

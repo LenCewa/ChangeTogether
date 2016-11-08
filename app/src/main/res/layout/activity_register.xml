@@ -61,7 +61,7 @@
         android:textSize="18sp" />
 
     <ImageView
-        android:src="@drawable/ic_action_name"
+        android:src="@drawable/logo"
         android:id="@+id/imageView3"
         android:layout_width="150dp"
         android:layout_height="150dp"

@@ -37,7 +37,7 @@
         android:textSize="18sp" />
 
     <ImageView
-        android:src="@drawable/ic_action_name"
+        android:src="@drawable/logo"
         android:id="@+id/imageView3"
         android:layout_above="@+id/loginBtn"
         android:layout_centerHorizontal="true"
