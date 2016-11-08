@@ -21,7 +21,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 public class OwnProfileFragment extends Fragment {
 
     View view;
-    Button settings;
+    ImageView settings;
     Account account;
     TextView username;
     TextView location;
@@ -42,7 +42,7 @@ public class OwnProfileFragment extends Fragment {
 
         refresh();
 
-        settings = (Button) view.findViewById(R.id.settingsButton);
+        settings = (ImageView) view.findViewById(R.id.settingsButton);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
