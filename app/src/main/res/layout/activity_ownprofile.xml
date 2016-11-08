@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ownProfilePic"
@@ -26,15 +25,7 @@
         android:layout_above="@+id/ownProfileLocation"
         android:layout_centerHorizontal="true" />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ownList"
-        android:layout_marginTop="39dp"
-        android:layout_below="@+id/ownProfileLanguage"
-        android:layout_alignStart="@+id/ownProfileName" />
-
-    <ImageView
+        <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:srcCompat="@android:drawable/ic_menu_mylocation"
@@ -86,5 +77,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="15dp" />
 
-
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ownList"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/ownProfileLanguage"
+            android:layout_alignParentStart="true" />
 </RelativeLayout>
