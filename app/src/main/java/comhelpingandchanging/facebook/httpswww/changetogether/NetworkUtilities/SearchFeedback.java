@@ -84,7 +84,7 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
             else {
                 try {
                     JSONObject jsonObj = new JSONObject(result);
-                    JSONArray bids = jsonObj.getJSONArray("bids");
+                    JSONArray bids = jsonObj.getJSONArray("feedback");
                     String averageRating;
                     callingActivity.feedbacks.clear();
                     for (int i = 0; i < bids.length(); i++) {
