@@ -34,7 +34,6 @@ public class SearchFragment extends Fragment {
     View view;
     Activity callingActivity;
     Button menu;
-    TextView profileInfo;
     EditText searchField;
     Button searchBtn;
     Account account;
@@ -52,9 +51,6 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_search, container, false);
         callingActivity = getActivity();
         account = (Account) callingActivity.getApplication();
-
-        profileInfo = (TextView) view.findViewById(R.id.textView);
-        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
 
         searches = (ListView) view.findViewById(R.id.searchList);
         adapter = new CustomAdapterSearch(callingActivity, listItems);
@@ -133,7 +129,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void refresh(){
-        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
     }
 
     @Override

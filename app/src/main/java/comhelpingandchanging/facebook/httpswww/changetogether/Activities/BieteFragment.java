@@ -29,7 +29,6 @@ public class BieteFragment extends Fragment implements  MyDialogCloseListener{
     public ArrayList<String> bieteItems = new ArrayList<>();
     ListView bieteList_class;
     public ArrayAdapter<String> adapter;
-    TextView profileInfo;
     Account account;
     FloatingActionButton fab;
 
@@ -40,9 +39,6 @@ public class BieteFragment extends Fragment implements  MyDialogCloseListener{
         callingActivity = (MainAppActivity) getActivity();
 
         account = (Account) callingActivity.getApplication();
-
-        profileInfo = (TextView) view.findViewById(R.id.textView2);
-        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
 
         bieteList_class = (ListView) view.findViewById(R.id.bieteList);
         adapter = new ArrayAdapter<String>(callingActivity, android.R.layout.simple_list_item_1, bieteItems);
@@ -71,7 +67,6 @@ public class BieteFragment extends Fragment implements  MyDialogCloseListener{
     }
 
     private void refresh(){
-        profileInfo.setText(account.getEmail() + " - " + account.getLocation() + " - " + account.getLanguage());
         account.loadBids(this);
     }
 

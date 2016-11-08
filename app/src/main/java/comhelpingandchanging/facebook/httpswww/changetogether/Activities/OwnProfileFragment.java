@@ -1,5 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +8,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -21,12 +27,14 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 public class OwnProfileFragment extends Fragment {
 
     View view;
+    ListView ownlist;
     ImageView settings;
     Account account;
     TextView username;
     TextView location;
     TextView language;
     public ImageView profilePic;
+    ArrayList<String> myArray = new ArrayList<String>();
 
 
     @Nullable
@@ -35,10 +43,20 @@ public class OwnProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_ownprofile, container, false);
 
         account = (Account) getActivity().getApplication();
+
+        ownlist = (ListView) view.findViewById(R.id.ownList);
         username = (TextView) view.findViewById(R.id.ownProfileName);
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
+
+        myArray.add("Hallo");
+        myArray.add("Hallo");
+        myArray.add("Hallo");
+        myArray.add("Hallo");
+        myArray.add("Hallo");
+
+        ownlist.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, myArray));
 
         refresh();
 
