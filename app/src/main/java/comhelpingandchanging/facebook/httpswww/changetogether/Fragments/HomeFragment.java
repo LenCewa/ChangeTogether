@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,9 +102,9 @@ public class HomeFragment extends Fragment {
 
     private void refresh(){
 
-        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(false);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Change Together");
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
+        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(false);
+        //((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
 
         if(account.getLocation().equals("N/A"))
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)

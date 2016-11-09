@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
+
 
 import java.util.ArrayList;
 
@@ -48,8 +50,6 @@ public class OwnProfileFragment extends Fragment {
 
         account = (Account) getActivity().getApplication();
 
-        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
-
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
@@ -69,9 +69,9 @@ public class OwnProfileFragment extends Fragment {
 
     private void refresh() {
 
-        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getProfilePic());
+        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
+        //((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getProfilePic());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
     }
