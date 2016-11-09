@@ -138,8 +138,8 @@ public class SearchFragment extends Fragment {
     private void refresh(){
 
 
-        //((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(false);
-        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Change Together");
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
+        ((Toolbar)getActivity().findViewById(R.id.toolbar)).setTitle("Suche Angebote");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
     }
 

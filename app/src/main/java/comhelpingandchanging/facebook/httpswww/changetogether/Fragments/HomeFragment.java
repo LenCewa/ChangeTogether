@@ -102,9 +102,9 @@ public class HomeFragment extends Fragment {
 
     private void refresh(){
 
-        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Change Together");
-        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(false);
-        //((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
+        ((Toolbar)getActivity().findViewById(R.id.toolbar)).setTitle("Home");
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
 
         if(account.getLocation().equals("N/A"))
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)

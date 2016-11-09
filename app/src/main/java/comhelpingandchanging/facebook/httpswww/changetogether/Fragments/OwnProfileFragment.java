@@ -69,9 +69,10 @@ public class OwnProfileFragment extends Fragment {
 
     private void refresh() {
 
+        ((Toolbar)getActivity().findViewById(R.id.toolbar)).setTitle("");
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());
-        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
-        //((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getProfilePic());
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getProfilePic());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
     }
