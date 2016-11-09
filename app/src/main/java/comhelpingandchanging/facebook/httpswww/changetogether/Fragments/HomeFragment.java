@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class HomeFragment extends Fragment {
     private void refresh(){
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
-        ((Toolbar)getActivity().findViewById(R.id.toolbar)).setTitle("Home");
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Home");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
 
         if(account.getLocation().equals("N/A"))

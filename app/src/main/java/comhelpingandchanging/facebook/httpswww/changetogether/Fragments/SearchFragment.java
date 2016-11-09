@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,7 +140,7 @@ public class SearchFragment extends Fragment {
 
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
-        ((Toolbar)getActivity().findViewById(R.id.toolbar)).setTitle("Suche Angebote");
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Suche Angebote");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
     }
 

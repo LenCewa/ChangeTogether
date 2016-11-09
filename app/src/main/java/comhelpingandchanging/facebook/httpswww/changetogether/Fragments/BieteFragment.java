@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
     private void refresh(){
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
-        ((Toolbar)getActivity().findViewById(R.id.toolbar)).setTitle("Deine Angebote");
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Deine Angebote");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
         account.loadBids(this);
     }
