@@ -43,22 +43,20 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_profile, container, false);
+        view = inflater.inflate(R.layout.activity_ownprofile, container, false);
         account =(Account) getActivity().getApplication();
 
         profileName = (TextView) view.findViewById(R.id.profileName);
-        profileName.setText(account.getSearchEmail());
 
-        profileLocation = (TextView) view.findViewById(R.id.profileLocation);
+        profileLocation = (TextView) view.findViewById(R.id.ownProfileLocation);
         profileLocation.setText(account.getSearchLocation());
 
-        profileLanguage = (TextView) view.findViewById(R.id.profileLanguage);
+        profileLanguage = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profileLanguage.setText(account.getSearchLanguage());
 
-        profilePic = (ImageView) view.findViewById(R.id.profPic);
-        profilePic.setImageBitmap(account.getSearchProfilePic());
+        profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
-        bidList = (ListView) view.findViewById(R.id.list);
+        bidList = (ListView) view.findViewById(R.id.cardList);
         adapter = new CustomAdapterProfile(getActivity(), bieteItems);
         bidList.setAdapter(adapter);
 
@@ -81,9 +79,10 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        //((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(false);
-        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Change Together");
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchEmail() + "'s Profil");
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getSearchProfilePic());
 
         return view;
     }
