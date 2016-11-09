@@ -2,6 +2,8 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.ViewCompat;
 import android.widget.Button;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -18,8 +20,8 @@ public class InboxActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inbox);
+        setContentView(R.layout.test);
 
-        account = (Account) getApplication();
+        ((CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar)).setTitle("PROFILE NAME");
     }
 }

@@ -54,7 +54,7 @@ public class CustomAdapterProfile extends BaseAdapter {
             vi = inflater.inflate(R.layout.profile_list_item, null);
 
         TextView tag = (TextView) vi.findViewById(R.id.tag);
-        TextView description = (TextView) vi.findViewById(R.id.description);
+        TextView description = (TextView) vi.findViewById(R.id.ownProfileLanguage);
 
         tag.setText(data.get(position)[1]);
         description.setText(data.get(position)[2]);

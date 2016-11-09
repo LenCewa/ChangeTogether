@@ -23,9 +23,9 @@
         android:layout_marginTop="21dp"
         android:id="@+id/date"
         android:hint="Datum"
-        android:layout_below="@+id/bidTypes"
-        android:layout_alignStart="@+id/bidTypes"
-        android:layout_alignEnd="@+id/bidTypes"/>
+        android:layout_below="@+id/bidType"
+        android:layout_alignStart="@+id/bidType"
+        android:layout_alignEnd="@+id/bidType"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -36,14 +36,14 @@
         android:hint="Zeit"
         android:layout_marginTop="14dp"
         android:layout_below="@+id/date"
-        android:layout_alignStart="@+id/bidTypes"
-        android:layout_alignEnd="@+id/bidTypes" />
+        android:layout_alignStart="@+id/bidType"
+        android:layout_alignEnd="@+id/bidType" />
 
     <EditText
         android:layout_width="match_parent"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/description"
+        android:id="@+id/ownProfileLanguage"
         android:textAlignment="center"
         android:layout_height="175dp"
         android:layout_marginBottom="13dp"
@@ -57,7 +57,7 @@
         android:id="@+id/location"
         android:layout_marginBottom="29dp"
         android:hint="Ort"
-        android:layout_above="@+id/description"
+        android:layout_above="@+id/ownProfileLanguage"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

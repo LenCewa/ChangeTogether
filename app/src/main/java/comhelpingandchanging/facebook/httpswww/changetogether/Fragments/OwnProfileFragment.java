@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -29,10 +32,9 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 public class OwnProfileFragment extends Fragment {
 
     View view;
-    ListView ownlist;
+    AppBarLayout toolbar;
     ImageView settings;
     Account account;
-    TextView username;
     TextView location;
     TextView language;
     public ImageView profilePic;
@@ -46,19 +48,10 @@ public class OwnProfileFragment extends Fragment {
 
         account = (Account) getActivity().getApplication();
 
-        ownlist = (ListView) view.findViewById(R.id.ownList);
-        username = (TextView) view.findViewById(R.id.ownProfileName);
+        toolbar = (AppBarLayout) view.findViewById(R.id.test);
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
-
-        myArray.add("Hallo");
-        myArray.add("Hallo");
-        myArray.add("Hallo");
-        myArray.add("Hallo");
-        myArray.add("Hallo");
-
-        ownlist.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, myArray));
 
         refresh();
 
@@ -74,8 +67,9 @@ public class OwnProfileFragment extends Fragment {
     }
 
     private void refresh() {
+
+        ((android.support.v7.widget.Toolbar)view.findViewById(R.id.toolbar2)).setTitle(account.getEmail());
         profilePic.setImageBitmap(account.getProfilePic());
-        username.setText(account.getEmail());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
     }

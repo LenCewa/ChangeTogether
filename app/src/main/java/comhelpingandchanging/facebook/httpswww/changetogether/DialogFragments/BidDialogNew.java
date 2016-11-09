@@ -10,11 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -53,7 +50,7 @@ public class BidDialogNew extends DialogFragment {
         });
 
 
-        description = (TextView) rootView.findViewById(R.id.description);
+        description = (TextView) rootView.findViewById(R.id.ownProfileLanguage);
 
         done = (Button) rootView.findViewById(R.id.doneBtn);
         done.setOnClickListener(new View.OnClickListener() {
