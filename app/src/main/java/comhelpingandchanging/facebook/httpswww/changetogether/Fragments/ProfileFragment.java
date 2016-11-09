@@ -3,6 +3,8 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +78,10 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(false);
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Change Together");
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
 
         return view;
     }

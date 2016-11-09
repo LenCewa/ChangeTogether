@@ -48,14 +48,15 @@ public class OwnProfileFragment extends Fragment {
 
         account = (Account) getActivity().getApplication();
 
-        toolbar = (AppBarLayout) view.findViewById(R.id.test);
+        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
+
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
-        profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
+        profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
 
         refresh();
 
-        settings = (ImageView) view.findViewById(R.id.settingsButton);
+        settings = (ImageView) getActivity().findViewById(R.id.fab);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,8 +69,9 @@ public class OwnProfileFragment extends Fragment {
 
     private void refresh() {
 
-        ((android.support.v7.widget.Toolbar)view.findViewById(R.id.toolbar2)).setTitle(account.getEmail());
-        profilePic.setImageBitmap(account.getProfilePic());
+        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getProfilePic());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
     }

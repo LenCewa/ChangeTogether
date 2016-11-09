@@ -4,6 +4,8 @@ import android.app.FragmentManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -40,6 +42,7 @@ public class MainAppActivity extends AppCompatActivity
     OwnProfileFragment ownProfileFragment;
     HelpingLocationsFragment helpingLocationsFragment;
     public NavigationView navigationView;
+    AppBarLayout appBarLayout;
 
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
@@ -69,6 +72,8 @@ public class MainAppActivity extends AppCompatActivity
         toolbar.setTitle("Change Together");
         setSupportActionBar(toolbar);
 
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        appBarLayout.setExpanded(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

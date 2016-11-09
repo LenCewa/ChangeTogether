@@ -8,6 +8,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -131,6 +134,10 @@ public class SearchFragment extends Fragment {
     }
 
     private void refresh(){
+
+        ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(false);
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Change Together");
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
     }
 
     @Override

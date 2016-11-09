@@ -20,7 +20,6 @@ public class InboxActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
 
         ((CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar)).setTitle("PROFILE NAME");
     }
