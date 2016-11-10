@@ -36,18 +36,12 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Yannick on 03.11.2016.
  */
 
-public class OwnProfileFragment extends Fragment {
+public class OwnProfileFragment extends SuperProfileFragment {
 
-    View view;
-    AppBarLayout toolbar;
     ImageView settings;
-    Account account;
     TextView location;
     TextView language;
     public ImageView profilePic;
-    RecyclerView bidList;
-    public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
-    public CustomRecyclerViewAdapter adapter;
 
 
     @Nullable
@@ -84,6 +78,8 @@ public class OwnProfileFragment extends Fragment {
                     }
                 })
         );
+
+        account.loadBidsActivity(this, account.getEmail());
 
         refresh();
 

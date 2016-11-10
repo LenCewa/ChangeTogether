@@ -50,7 +50,7 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
     protected void onPostExecute(String s) {
         loading.dismiss();
         if(s.equals("connection error"))
-            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

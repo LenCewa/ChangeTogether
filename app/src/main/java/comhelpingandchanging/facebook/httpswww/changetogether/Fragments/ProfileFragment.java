@@ -30,19 +30,13 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by len13 on 17.10.2016.
  */
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends SuperProfileFragment {
 
-    View view;
     TextView profileName;
     TextView profileLocation;
     TextView profileLanguage;
     ImageView profilePic;
-    RecyclerView bidList;
-    public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
     public ArrayList<String[]> helpingLocations = new ArrayList<String[]>(); // TODO: Benutzen, wegen LoadHelpingLocationsActivity.java
-    public CustomRecyclerViewAdapter adapter;
-    Account account;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,7 +78,7 @@ public class ProfileFragment extends Fragment {
                 })
         );
 
-        account.loadBidsActivity(this);
+        account.loadBidsActivity(this, account.getSearchEmail());
 
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);

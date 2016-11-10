@@ -76,7 +76,7 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
         loading.dismiss();
         if(callingDialog != null)
             callingDialog.dismiss();
-        if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+        if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
