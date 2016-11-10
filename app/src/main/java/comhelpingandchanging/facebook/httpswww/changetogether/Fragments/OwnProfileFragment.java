@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +26,9 @@ import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -40,7 +45,9 @@ public class OwnProfileFragment extends Fragment {
     TextView location;
     TextView language;
     public ImageView profilePic;
-    ArrayList<String> myArray = new ArrayList<String>();
+    RecyclerView bidList;
+    public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
+    public CustomRecyclerViewAdapter adapter;
 
 
     @Nullable
@@ -53,6 +60,30 @@ public class OwnProfileFragment extends Fragment {
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
+
+        adapter = new CustomRecyclerViewAdapter(bieteItems);
+        bidList = (RecyclerView) view.findViewById(R.id.cardList);
+        bidList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        bidList.setLayoutManager(llm);
+        bidList.setAdapter(adapter);
+
+        bidList.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+
+                        String[] arr = (String[]) adapter.getItem(position);
+                        int ID = Integer.parseInt(arr[0]);
+                        String tag = arr[1];
+
+                        Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                        intent.putExtra("id", ID);
+                        intent.putExtra("tag", tag);
+                        startActivity(intent);
+                    }
+                })
+        );
 
         refresh();
 

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
@@ -91,6 +92,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                             callingFragment.bieteItems.add(arr);
                     }
                     callingFragment.adapter.notifyDataSetChanged();
+                    ((CustomRecyclerViewAdapter)callingFragment.adapter).getItemCount();
                     if (callingFragment.bieteItems.isEmpty())
                         Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterProfile;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -33,10 +37,10 @@ public class ProfileFragment extends Fragment {
     TextView profileLocation;
     TextView profileLanguage;
     ImageView profilePic;
-    ListView bidList;
+    RecyclerView bidList;
     public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
     public ArrayList<String[]> helpingLocations = new ArrayList<String[]>(); // TODO: Benutzen, wegen LoadHelpingLocationsActivity.java
-    public CustomAdapterProfile adapter;
+    public CustomRecyclerViewAdapter adapter;
     Account account;
 
 
@@ -56,28 +60,31 @@ public class ProfileFragment extends Fragment {
 
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
-        bidList = (ListView) view.findViewById(R.id.cardList);
-        adapter = new CustomAdapterProfile(getActivity(), bieteItems);
+        adapter = new CustomRecyclerViewAdapter(bieteItems);
+        bidList = (RecyclerView) view.findViewById(R.id.cardList);
+        bidList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
 
+        bidList.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+
+                        String[] arr = (String[]) adapter.getItem(position);
+                        int ID = Integer.parseInt(arr[0]);
+                        String tag = arr[1];
+
+                        Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                        intent.putExtra("id", ID);
+                        intent.putExtra("tag", tag);
+                        startActivity(intent);
+                    }
+                })
+        );
+
         account.loadBidsActivity(this);
-        //account.loadHelpingLocationsActivity(this);
-
-        bidList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                String[] arr = (String[]) adapter.getItem(position);
-                int ID = Integer.parseInt(arr[0]);
-                String tag = arr[1];
-
-                Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
-                intent.putExtra("id", ID);
-                intent.putExtra("tag", tag);
-                startActivity(intent);
-            }
-        });
 
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);

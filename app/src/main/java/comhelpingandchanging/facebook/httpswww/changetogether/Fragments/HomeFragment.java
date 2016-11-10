@@ -12,6 +12,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        refresh();
+
         return view;
     }
 
@@ -103,6 +106,8 @@ public class HomeFragment extends Fragment {
 
     private void refresh(){
 
+
+        Log.e("hallo", "2");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Home");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
@@ -121,7 +126,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        Log.e("hallo", "1");
+        if(isVisible())
+            refresh();
         ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_home);
     }
 }
