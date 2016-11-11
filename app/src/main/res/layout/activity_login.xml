@@ -22,7 +22,10 @@
         android:textAlignment="center"
         android:hint="example@gmail.com"
         android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textColorHint="@android:color/white" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -35,7 +38,10 @@
         android:elevation="1dp"
         android:layout_below="@+id/emailTxt"
         android:layout_alignStart="@+id/emailTxt"
-        android:layout_marginTop="18dp" />
+        android:layout_marginTop="18dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColorLink="@android:color/white" />
 
     <Button
         android:text="Login"
