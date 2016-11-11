@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -19,6 +17,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ProfileInfoViewHolder> {
 
     ArrayList<String[]> data;
+    ProfileInfoViewHolder holder;
 
     public CustomRecyclerViewAdapter(ArrayList<String[]> data) {
         this.data = data;
@@ -29,7 +28,8 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
 
         View itemView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.profile_list_item, parent, false);
-        return new ProfileInfoViewHolder(itemView);
+        holder = new ProfileInfoViewHolder(itemView);
+        return holder;
     }
 
     @Override
@@ -45,6 +45,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     }
 
     public String[] getItem(int position){
+        
         return data.get(position);
     }
 

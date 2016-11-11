@@ -1,25 +1,20 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterProfile;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
@@ -66,6 +61,7 @@ public class ProfileFragment extends SuperProfileFragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
+
                         String[] arr = (String[]) adapter.getItem(position);
                         int ID = Integer.parseInt(arr[0]);
                         String tag = arr[1];
@@ -83,7 +79,10 @@ public class ProfileFragment extends SuperProfileFragment {
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchEmail() + "'s Profil");
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getSearchProfilePic());
+
+        //Anpassung für andere Display Densities
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, getActivity().getResources().getDisplayMetrics());
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getSearchProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
 
         return view;
     }

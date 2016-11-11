@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
-import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SuperProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 

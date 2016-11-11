@@ -8,10 +8,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +23,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -106,8 +104,6 @@ public class HomeFragment extends Fragment {
 
     private void refresh(){
 
-
-        Log.e("hallo", "2");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Home");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
@@ -119,14 +115,14 @@ public class HomeFragment extends Fragment {
                     .show();
         else {
             latLong = getLocationFromAddress(account.getLocation());
-            account.homeShowBids(this, latLong[0], latLong[1]);
+            if(latLong != null)
+                account.homeShowBids(this, latLong[0], latLong[1]);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("hallo", "1");
         if(isVisible())
             refresh();
         ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_home);

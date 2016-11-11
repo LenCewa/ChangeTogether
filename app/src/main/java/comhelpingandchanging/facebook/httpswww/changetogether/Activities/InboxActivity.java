@@ -3,7 +3,6 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.ViewCompat;
 import android.widget.Button;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;

@@ -7,4 +7,7 @@
     <color name="colorListItem">#ffffff</color>
     <color name="colorStars">#e5e500</color>
     <color name="primary_material_light_1">#d80000</color>
+    <color name="selectedItem">#808080</color>
 </resources>
+
+
