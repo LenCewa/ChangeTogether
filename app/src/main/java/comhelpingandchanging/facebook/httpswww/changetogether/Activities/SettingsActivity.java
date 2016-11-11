@@ -115,11 +115,9 @@ public class SettingsActivity extends Activity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
                 Uri selectedImageUri = data.getData();
-                
-                    String s = getRealPathFromURI(selectedImageUri);
                     BitmapFactory.Options o = new BitmapFactory.Options();
                     o.inSampleSize = 2;
-                    bitmap = BitmapFactory.decodeFile(s, o);
+                    bitmap = BitmapFactory.decodeFile(selectedImageUri.getPath(), o);
                     profilePic.setImageBitmap(bitmap);
                     account.setProfilePic(bitmap);
 
