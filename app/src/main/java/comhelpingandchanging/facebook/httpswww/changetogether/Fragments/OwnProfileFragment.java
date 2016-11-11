@@ -89,6 +89,7 @@ public class OwnProfileFragment extends SuperProfileFragment {
 
     private void refresh() {
 
+        ((ImageView)getActivity().findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());

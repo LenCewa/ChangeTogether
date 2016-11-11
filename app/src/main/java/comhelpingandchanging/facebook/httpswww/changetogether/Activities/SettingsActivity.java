@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -121,7 +122,7 @@ public class SettingsActivity extends Activity {
                     bitmap = BitmapFactory.decodeFile(getImagePath(selectedImageUri), o);
                     profilePic.setImageBitmap(bitmap);
                     account.setProfilePic(bitmap);
-
+                Log.e(String.valueOf(bitmap.getHeight()), String.valueOf(bitmap.getWidth()));
                     UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
                     u.execute();
             }
