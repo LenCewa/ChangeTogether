@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "828490251442-7nq118igq682s9unj9rhce1febi0nhfq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "comhelpingandchanging.facebook.httpswww.changetogether",
+            "certificate_hash": "A0732126F696B02631E62E8C3F9471957D5F6549"
+          }
+        },
+        {
           "client_id": "828490251442-n1k55qs9v3a2g161upm4g4p3iaqgn2c4.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828490251442-n1k55qs9v3a2g161upm4g4p3iaqgn2c4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
