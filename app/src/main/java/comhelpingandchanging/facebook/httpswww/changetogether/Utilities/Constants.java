@@ -43,4 +43,5 @@ public class Constants {
 
     // Auto Fill Location Name Google API Key String Constant
     public static final String PRIVATE_GOOGLE_API_KEY = "AIzaSyCDLrf4wg0oCpzYepocnaBMoXvoYws1cpw";
+    public static final String PRIVATE_GOOGLE_FIREBASE_API_KEY = "";
 }
