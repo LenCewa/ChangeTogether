@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "828490251442",
+    "firebase_url": "https://change-together-149218.firebaseio.com",
+    "project_id": "change-together-149218",
+    "storage_bucket": "change-together-149218.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828490251442:android:4ddcd7a140b74fbc",
+        "android_client_info": {
+          "package_name": "comhelpingandchanging.facebook.httpswww.changetogether"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828490251442-n1k55qs9v3a2g161upm4g4p3iaqgn2c4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv6qs5HJPIbDak7R-HrDgjd0GOQVLjxnE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
