@@ -13,6 +13,8 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by len13 on 11.11.2016.
+ *
+ * https://codelabs.developers.google.com/codelabs/firebase-android/#0
  */
 
 public class InboxFragment extends Fragment {
