@@ -42,5 +42,5 @@ public class Constants {
     public static final String BIDDINGTAG = "tag";
 
     // Auto Fill Location Name Google API Key String Constant
-    public static final String PRIVATE_GOOGLE_API_KEY = "AIzaSyAECQJPDEuhvmWHsxFCY3R3vNrdW0kQya8";
+    public static final String PRIVATE_GOOGLE_API_KEY = "AIzaSyCDLrf4wg0oCpzYepocnaBMoXvoYws1cpw";
 }
