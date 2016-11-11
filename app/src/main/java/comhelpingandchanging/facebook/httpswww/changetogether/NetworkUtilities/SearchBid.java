@@ -13,7 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -73,7 +72,7 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         loading.dismiss();
-        if(result.equals("connection error"))Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+        if(result.equals("connection error"))Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

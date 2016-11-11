@@ -3,43 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@android:color/holo_blue_dark"
+    android:background="@android:color/holo_blue_light"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/profPic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:scaleType="centerCrop"
+        android:alpha="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:id="@+id/profEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@+id/profLocation"
+        android:text="EMAIL"
+        android:textSize="26sp"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/profLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profEmail"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="24dp"
-        android:layout_alignStart="@+id/profEmail" />
-
-    <ImageView
-        android:id="@+id/profPic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
-        android:scaleType="centerCrop"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/profEmail"
-        android:layout_alignTop="@+id/profPic"
-        android:layout_toEndOf="@+id/profPic"
-        android:layout_marginStart="27dp"
-        android:textSize="18sp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true"
+        android:text="LOCATION"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="20sp"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

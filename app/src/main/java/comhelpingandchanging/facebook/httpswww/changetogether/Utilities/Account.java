@@ -6,12 +6,12 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchItemFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SuperProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddHelpingLocation;
@@ -111,9 +111,9 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void loadBidsActivity(ProfileFragment callingActivity){
+    public void loadBidsActivity(SuperProfileFragment callingActivity, String searchedEmail){
 
-        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), getSearchEmail());
+        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), searchedEmail);
         l.execute();
     }
 

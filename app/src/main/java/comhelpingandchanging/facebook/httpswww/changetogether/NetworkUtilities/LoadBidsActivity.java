@@ -13,7 +13,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SuperProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
@@ -23,13 +24,13 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
 
     ProgressDialog loading;
-    ProfileFragment callingFragment;
+    SuperProfileFragment callingFragment;
     RequestHandler rh = new RequestHandler();
     private String emailAuth;
     private String sessionId;
     private String email;
 
-    public LoadBidsActivity(ProfileFragment callingActivity, String emailAuth, String sessionId, String email){
+    public LoadBidsActivity(SuperProfileFragment callingActivity, String emailAuth, String sessionId, String email){
 
         this.callingFragment = callingActivity;
         this.emailAuth = emailAuth;
@@ -61,7 +62,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
     protected void onPostExecute(String result) {
         loading.dismiss();
         if(result.equals("connection error"))
-            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -91,6 +92,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                             callingFragment.bieteItems.add(arr);
                     }
                     callingFragment.adapter.notifyDataSetChanged();
+                    ((CustomRecyclerViewAdapter)callingFragment.adapter).getItemCount();
                     if (callingFragment.bieteItems.isEmpty())
                         Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();

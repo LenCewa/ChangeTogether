@@ -9,9 +9,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center"
     tools:context="comhelpingandchanging.facebook.httpswww.changetogether.Activities.LoginActivity"
     android:background="@android:color/holo_blue_dark">
 
+
+    <ImageView
+        android:src="@drawable/logo"
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -54,14 +63,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:textColor="@android:color/white" />
-
-    <ImageView
-        android:src="@drawable/logo"
-        android:id="@+id/imageView2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="88dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

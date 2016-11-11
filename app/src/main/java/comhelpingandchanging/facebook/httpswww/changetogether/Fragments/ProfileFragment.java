@@ -1,24 +1,23 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterProfile;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -26,19 +25,13 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by len13 on 17.10.2016.
  */
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends SuperProfileFragment {
 
-    View view;
     TextView profileName;
     TextView profileLocation;
     TextView profileLanguage;
     ImageView profilePic;
-    ListView bidList;
-    public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
     public ArrayList<String[]> helpingLocations = new ArrayList<String[]>(); // TODO: Benutzen, wegen LoadHelpingLocationsActivity.java
-    public CustomAdapterProfile adapter;
-    Account account;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,33 +49,40 @@ public class ProfileFragment extends Fragment {
 
         profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
 
-        bidList = (ListView) view.findViewById(R.id.cardList);
-        adapter = new CustomAdapterProfile(getActivity(), bieteItems);
+        adapter = new CustomRecyclerViewAdapter(bieteItems);
+        bidList = (RecyclerView) view.findViewById(R.id.cardList);
+        bidList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
 
-        account.loadBidsActivity(this);
-        //account.loadHelpingLocationsActivity(this);
-
-        bidList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        bidList.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
 
 
-                String[] arr = (String[]) adapter.getItem(position);
-                int ID = Integer.parseInt(arr[0]);
-                String tag = arr[1];
+                        String[] arr = (String[]) adapter.getItem(position);
+                        int ID = Integer.parseInt(arr[0]);
+                        String tag = arr[1];
 
-                Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
-                intent.putExtra("id", ID);
-                intent.putExtra("tag", tag);
-                startActivity(intent);
-            }
-        });
+                        Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                        intent.putExtra("id", ID);
+                        intent.putExtra("tag", tag);
+                        startActivity(intent);
+                    }
+                })
+        );
+
+        account.loadBidsActivity(this, account.getSearchEmail());
 
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchEmail() + "'s Profil");
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(account.getSearchProfilePic());
+
+        //Anpassung für andere Display Densities
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, getActivity().getResources().getDisplayMetrics());
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getSearchProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
 
         return view;
     }

@@ -3,5 +3,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:id="@+id/autocompleteText" />
+        android:id="@+id/autocompleteText"
+        android:textColor="@android:color/black" />
 
