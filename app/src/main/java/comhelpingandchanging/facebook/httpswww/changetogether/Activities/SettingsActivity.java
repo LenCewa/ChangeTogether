@@ -118,7 +118,7 @@ public class SettingsActivity extends Activity {
                 Uri selectedImageUri = data.getData();
                     BitmapFactory.Options o = new BitmapFactory.Options();
                     o.inSampleSize = 2;
-                    bitmap = BitmapFactory.decodeFile(getRealPathFromURI(this,selectedImageUri), o);
+                    bitmap = BitmapFactory.decodeFile(getImagePath(selectedImageUri), o);
                     profilePic.setImageBitmap(bitmap);
                     account.setProfilePic(bitmap);
 
@@ -128,19 +128,21 @@ public class SettingsActivity extends Activity {
         }
     }
 
-    public String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
+    public String getImagePath(Uri uri){
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":")+1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+        return path;
     }
 
 }
