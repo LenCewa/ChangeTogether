@@ -33,17 +33,20 @@ public class InboxFragment extends Fragment {
         account = (Account) callingActivity.getApplication();
         return view;
     }
-/*
+
     @Override
     public void onPause() {
+        super.onPause();
     }
 
     private void refresh(){
-
+        // TODO
     }
 
     @Override
     public void onResume() {
+        super.onResume();
+        refresh();
     }
-*/
+
 }
