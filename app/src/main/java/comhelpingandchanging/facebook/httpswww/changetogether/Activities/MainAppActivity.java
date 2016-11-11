@@ -142,6 +142,8 @@ public class MainAppActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").addToBackStack(null).commit();
         } else if (id == R.id.nav_helping) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").addToBackStack(null).commit();
+        } else if (id == R.id.nav_inbox) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, inboxFragment, "helping").addToBackStack(null).commit();
         }
         else if (id == R.id.nav_logout){
             account.logout(this);

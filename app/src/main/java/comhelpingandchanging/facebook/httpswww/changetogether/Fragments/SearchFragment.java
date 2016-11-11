@@ -38,7 +38,6 @@ public class SearchFragment extends Fragment {
 
     View view;
     Activity callingActivity;
-    Button menu;
     EditText searchField;
     Button searchBtn;
     Account account;
