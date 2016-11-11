@@ -2,7 +2,9 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -105,8 +107,6 @@ public class SettingsActivity extends Activity {
 
                     if(city.equals(location.getText().toString()) && pw.equals(pwConfirm))
                         finish();
-
-
                 }
             });
         };
@@ -115,17 +115,27 @@ public class SettingsActivity extends Activity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
                 Uri selectedImageUri = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                
+                    String s = getRealPathFromURI(selectedImageUri);
+                    BitmapFactory.Options o = new BitmapFactory.Options();
+                    o.inSampleSize = 2;
+                    bitmap = BitmapFactory.decodeFile(s, o);
                     profilePic.setImageBitmap(bitmap);
                     account.setProfilePic(bitmap);
 
                     UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
                     u.execute();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
             }
         }
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        @SuppressWarnings("deprecation")
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 }
