@@ -52,7 +52,7 @@ public class SettingsActivity extends Activity {
         passwordConfirm = (EditText) findViewById(R.id.ConfirmPassword);
         profilePic = (ImageView) findViewById(R.id.changeProfilePic);
 
-        profilePic.setImageBitmap(account.getProfilePic());
+        /*profilePic.setImageBitmap(account.getProfilePic());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
         city = account.getLocation();
@@ -66,7 +66,7 @@ public class SettingsActivity extends Activity {
                 city = parent.getItemAtPosition(position).toString();
             }
         });
-
+*/
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,25 +115,9 @@ public class SettingsActivity extends Activity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
                 Uri selectedImageUri = data.getData();
-                    BitmapFactory.Options o = new BitmapFactory.Options();
-                    o.inSampleSize = 2;
-                    bitmap = BitmapFactory.decodeFile(selectedImageUri.getPath(), o);
-                    profilePic.setImageBitmap(bitmap);
-                    account.setProfilePic(bitmap);
+                profilePic.setImageURI(selectedImageUri);
 
-                    UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
-                    u.execute();
             }
         }
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        @SuppressWarnings("deprecation")
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        int column_index = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
     }
 }
