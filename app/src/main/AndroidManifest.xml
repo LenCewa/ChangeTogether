@@ -7,6 +7,7 @@
     <application
         android:name=".Utilities.Account"
         android:allowBackup="true"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/ownTheme2"

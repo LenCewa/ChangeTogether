@@ -98,8 +98,6 @@ public class OwnProfileFragment extends SuperProfileFragment {
         //Anpassung für andere Display Densities
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getActivity().getResources().getDisplayMetrics());
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
-
-
     }
 
     @Override
