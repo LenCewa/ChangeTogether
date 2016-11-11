@@ -23,7 +23,10 @@
         android:hint="example@gmail.com"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColorLink="@android:color/white" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -35,7 +38,10 @@
         android:textAlignment="center"
         android:layout_below="@+id/emailTxt2"
         android:layout_alignLeft="@+id/emailTxt2"
-        android:layout_alignStart="@+id/emailTxt2" />
+        android:layout_alignStart="@+id/emailTxt2"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColorLink="@android:color/white" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -43,11 +49,14 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/passwordConfirmTxt"
-        android:hint="Password"
+        android:hint="Confirm Password"
         android:textAlignment="center"
         android:layout_below="@+id/passwordTxt2"
         android:layout_alignLeft="@+id/passwordTxt2"
-        android:layout_alignStart="@+id/passwordTxt2" />
+        android:layout_alignStart="@+id/passwordTxt2"
+        android:textColor="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textColorHint="@android:color/white" />
 
     <Button
         android:text="Register"
