@@ -20,9 +20,8 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main_app"
         app:menu="@menu/activity_main_app_drawer"
-        android:background="@android:color/holo_blue_dark"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white">
+        app:itemIconTint="@android:color/black"
+        app:itemTextColor="@android:color/black">
 
     </android.support.design.widget.NavigationView>
 
