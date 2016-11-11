@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -52,7 +53,7 @@ public class SettingsActivity extends Activity {
         passwordConfirm = (EditText) findViewById(R.id.ConfirmPassword);
         profilePic = (ImageView) findViewById(R.id.changeProfilePic);
 
-        /*profilePic.setImageBitmap(account.getProfilePic());
+        profilePic.setImageBitmap(account.getProfilePic());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
         city = account.getLocation();
@@ -66,7 +67,7 @@ public class SettingsActivity extends Activity {
                 city = parent.getItemAtPosition(position).toString();
             }
         });
-*/
+
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,9 +116,31 @@ public class SettingsActivity extends Activity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
                 Uri selectedImageUri = data.getData();
-                profilePic.setImageURI(selectedImageUri);
+                    BitmapFactory.Options o = new BitmapFactory.Options();
+                    o.inSampleSize = 2;
+                    bitmap = BitmapFactory.decodeFile(getRealPathFromURI(this,selectedImageUri), o);
+                    profilePic.setImageBitmap(bitmap);
+                    account.setProfilePic(bitmap);
 
+                    UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
+                    u.execute();
             }
         }
     }
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
 }
