@@ -107,16 +107,16 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(Auth.GOOGLE_SIGN_IN_API).build();
 
         // Initialize ProgressBar and RecyclerView.
-        mProgressBar = (ProgressBar) callingActivity.findViewById(R.id.progressBar);
-        mMessageRecyclerView = (RecyclerView) callingActivity.findViewById(R.id.messageRecyclerView);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.messageRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
-        mMessageEditText = (EditText) callingActivity.findViewById(R.id.messageEditText);
-        mMessageEditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(mSharedPreferences.getInt("friendly_msg_length", DEFAULT_MSG_LENGTH_LIMIT))});
+        mMessageEditText = (EditText) view.findViewById(R.id.messageEditText);
+        //mMessageEditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(mSharedPreferences.getInt("friendly_msg_length", DEFAULT_MSG_LENGTH_LIMIT))});
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -136,7 +136,7 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
             }
         });
 
-        mSendButton = (Button) callingActivity.findViewById(R.id.sendButton);
+        mSendButton = (Button) view.findViewById(R.id.sendButton);
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
