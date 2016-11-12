@@ -1,10 +1,10 @@
-<!-- WAHRSCHEINLICH UNNÖTIG-->
-
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <!-- WAHRSCHEINLICH UNNÖTIG :: DAS GANEZE XML DOKUMENT!!! -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,11 +12,11 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!--<de.hdodenhof.circleimageview.CircleImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/messengerImageView"
             android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_account_circle_black_36dp"/>-->
+            android:layout_height="36dp"/>
+            <!--android:src="@drawable/ic_account_circle_black_36dp"-->
 
         <LinearLayout
             android:layout_width="match_parent"
