@@ -2,6 +2,7 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -36,12 +37,16 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SignInActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 //Tutorial Impoprts
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by len13 on 11.11.2016.
@@ -81,6 +86,9 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
     private ProgressBar mProgressBar;
     private EditText mMessageEditText;
 
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+
 
     // My classical declarations
     View view;
@@ -103,6 +111,20 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUsername = ANONYMOUS;
+
+        // Inititalize Firebase Auth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser == null) {
+            startActivity(new Intent(getActivity(), SignInActivity.class));
+            callingActivity.finish();
+            return view; // Todo mögl. error!
+        } else {
+            mUsername = mFirebaseUser.getDisplayName();
+            if (mFirebaseUser.getPhotoUrl() != null) {
+                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+            }
+        }
 
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(Auth.GOOGLE_SIGN_IN_API).build();
 
@@ -179,18 +201,27 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
         super.onDestroy();
     }
 
-    /*// Egal=?
-    @Override
+    // Egal=?
+    //@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = callingActivity.getMenuInflater();
-        inflater.inflate(R.menu.activity_main_app_drawer /*vs .main_menu/, menu);
+        inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }*/
+        switch (item.getItemId()) {
+            case R.id.sign_out_menu:
+                mFirebaseAuth.signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+                mUsername = ANONYMOUS;
+                startActivity(new Intent(getActivity(), SignInActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     // Interface...
     @Override
