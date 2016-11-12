@@ -10,8 +10,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -100,6 +106,44 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
 
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(Auth.GOOGLE_SIGN_IN_API).build();
 
+        // Initialize ProgressBar and RecyclerView.
+        mProgressBar = (ProgressBar) callingActivity.findViewById(R.id.progressBar);
+        mMessageRecyclerView = (RecyclerView) callingActivity.findViewById(R.id.messageRecyclerView);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mLinearLayoutManager.setStackFromEnd(true);
+        mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+
+        mMessageEditText = (EditText) callingActivity.findViewById(R.id.messageEditText);
+        mMessageEditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(mSharedPreferences.getInt("friendly_msg_length", DEFAULT_MSG_LENGTH_LIMIT))});
+        mMessageEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() > 0) {
+                    mSendButton.setEnabled(true);
+                } else {
+                    mSendButton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        mSendButton = (Button) callingActivity.findViewById(R.id.sendButton);
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Send messages on click.
+            }
+        });
+
         return view;
     }
 
@@ -124,10 +168,29 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
         mGoogleApiClient.connect();
     }
 
+    @Override
     public void onStop() {
         super.onStop();
         mGoogleApiClient.disconnect();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    /*// Egal=?
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = callingActivity.getMenuInflater();
+        inflater.inflate(R.menu.activity_main_app_drawer /*vs .main_menu/, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }*/
 
     // Interface...
     @Override
