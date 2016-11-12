@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -46,7 +47,12 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.FirebaseDatabase;
+import com.bumptech.glide.Glide;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.FriendlyMessage;
 import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by len13 on 11.11.2016.
@@ -88,6 +94,8 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder> mFirebaseAdapter;
 
 
     // My classical declarations
@@ -135,7 +143,48 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+        // mProgressBar.setVisibility(ProgressBar.INVISIBLE); Replaced by:
+        //New child entries
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>(
+                FriendlyMessage.class,
+                R.layout.item_message,
+                MessageViewHolder.class,
+                mFirebaseDatabaseReference.child(MESSAGES_CHILD)) {
+            @Override
+            protected void populateViewHolder(MessageViewHolder viewHolder, FriendlyMessage model, int position) {
+                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                viewHolder.messageTextView.setText(model.getText());
+                viewHolder.messengerTextView.setText(model.getName());
+                if (model.getPhotoUrl() == null) {
+                    viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(getActivity() /*.this*/,
+                            R.drawable.ic_action_arrow_left /*.ic_account_circle_black_36dp*/));
+                } else {
+                    Glide.with(getActivity() /*.this*/).load(model.getPhotoUrl()).into(viewHolder.messengerImageView);
+                }
+            }
+        };
+
+        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+           @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+               super.onItemRangeInserted(positionStart, itemCount);
+               int friendlyMessageCount = mFirebaseAdapter.getItemCount();
+               int lastVisiblePosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+
+               // If the recycler view is initially being loaded or the
+               // user is at the bottom of the list, scroll to the bottom
+               // of the list to show the newly added message.
+               if (lastVisiblePosition == -1 ||
+                       (positionStart >= (friendlyMessageCount - 1) &&
+                               lastVisiblePosition == (positionStart - 1))) {
+                   mMessageRecyclerView.scrollToPosition(positionStart);
+               }
+           }
+        });
+
+        mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mMessageRecyclerView.setAdapter(mFirebaseAdapter);
 
         mMessageEditText = (EditText) view.findViewById(R.id.messageEditText);
         mMessageEditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(mSharedPreferences.getInt("friendly_msg_length", DEFAULT_MSG_LENGTH_LIMIT))});
