@@ -10,12 +10,15 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
@@ -35,6 +38,7 @@ public class OwnProfileFragment extends SuperProfileFragment {
     TextView location;
     TextView language;
     public ImageView profilePic;
+    int n = 0;
 
 
     @Nullable
@@ -74,7 +78,10 @@ public class OwnProfileFragment extends SuperProfileFragment {
 
         account.loadBidsActivity(this, account.getEmail());
 
-        refresh();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getActivity().getResources().getDisplayMetrics());
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
+
+        //refresh();
 
         settings = (ImageView) getActivity().findViewById(R.id.fab);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -89,22 +96,39 @@ public class OwnProfileFragment extends SuperProfileFragment {
 
     private void refresh() {
 
-        ((ImageView)getActivity().findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
+        Log.e("hallo", "hall");
+        //((ImageView)getActivity().findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
+        Picasso
+                .with(getActivity())
+                .load(account.uri)
+                .fit()
+                .centerCrop()
+                .into((ImageView)getActivity().findViewById(R.id.profPic));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
 
+
+        Picasso
+                .with(getActivity())
+                .load(account.uri)
+                .fit()
+                .centerCrop()
+                .into(profilePic);
         //Anpassung für andere Display Densities
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getActivity().getResources().getDisplayMetrics());
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
+        //float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getActivity().getResources().getDisplayMetrics());
+        //((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if(n == 1)
         refresh();
+        n++;
         ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_own_profile);
     }
 }

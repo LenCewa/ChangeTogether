@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.PlacesAutoCompleteAdapter;
@@ -116,15 +118,15 @@ public class SettingsActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
-                Uri selectedImageUri = data.getData();
+                account.uri = data.getData();
+
                     BitmapFactory.Options o = new BitmapFactory.Options();
                     o.inSampleSize = 2;
-                    bitmap = BitmapFactory.decodeFile(getImagePath(selectedImageUri), o);
-                    profilePic.setImageBitmap(bitmap);
-                    account.setProfilePic(bitmap);
-                Log.e(String.valueOf(bitmap.getHeight()), String.valueOf(bitmap.getWidth()));
-                    UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
-                    u.execute();
+                    //bitmap = BitmapFactory.decodeFile(getImagePath(selectedImageUri), o);
+                    //profilePic.setImageBitmap(bitmap);
+                    //account.setProfilePic(bitmap);
+                    //UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
+                    //u.execute();
             }
         }
     }

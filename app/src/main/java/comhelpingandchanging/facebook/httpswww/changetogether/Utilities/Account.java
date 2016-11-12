@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
@@ -43,6 +44,7 @@ public class Account extends Application {
     private UserProfile self = null;
     private SearchedItem searchedItem = null;
     private String sessionId;
+    public Uri uri;
     //private FragmentManager fm;
 
     public void login(Activity callingActivity, String email, String password) {
