@@ -126,7 +126,7 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
             }
         }
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(Auth.GOOGLE_SIGN_IN_API).build();
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(Auth.GOOGLE_SIGN_IN_API).build(); // Todo vs onStart
 
         // Initialize ProgressBar and RecyclerView.
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
@@ -138,7 +138,7 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
         mMessageEditText = (EditText) view.findViewById(R.id.messageEditText);
-        //mMessageEditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(mSharedPreferences.getInt("friendly_msg_length", DEFAULT_MSG_LENGTH_LIMIT))});
+        mMessageEditText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(mSharedPreferences.getInt("friendly_msg_length", DEFAULT_MSG_LENGTH_LIMIT))});
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -187,13 +187,13 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
     @Override
     public void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+        //mGoogleApiClient.connect();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
+        //mGoogleApiClient.disconnect();
     }
 
     @Override
