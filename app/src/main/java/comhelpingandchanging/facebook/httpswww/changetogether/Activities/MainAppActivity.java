@@ -26,6 +26,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdap
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HelpingLocationsFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.InboxFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.OwnProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -40,6 +41,8 @@ public class MainAppActivity extends AppCompatActivity
     BieteFragment bieteFragment;
     OwnProfileFragment ownProfileFragment;
     HelpingLocationsFragment helpingLocationsFragment;
+    InboxFragment inboxFragment;
+
     public NavigationView navigationView;
     AppBarLayout appBarLayout;
 
@@ -58,6 +61,7 @@ public class MainAppActivity extends AppCompatActivity
             searchFragment = (SearchFragment) getFragmentManager().getFragment(savedInstanceState, "search");
             bieteFragment = (BieteFragment) getFragmentManager().getFragment(savedInstanceState, "biete");
             ownProfileFragment = (OwnProfileFragment) getFragmentManager().getFragment(savedInstanceState, "ownprofile");
+            inboxFragment = (InboxFragment) getFragmentManager().getFragment(savedInstanceState, "inbox");
         }
         else {
             homeFragment = new HomeFragment();
@@ -65,6 +69,7 @@ public class MainAppActivity extends AppCompatActivity
             bieteFragment = new BieteFragment();
             ownProfileFragment = new OwnProfileFragment();
             helpingLocationsFragment = new HelpingLocationsFragment();
+            inboxFragment = new InboxFragment();
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -137,6 +142,8 @@ public class MainAppActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").addToBackStack(null).commit();
         } else if (id == R.id.nav_helping) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").addToBackStack(null).commit();
+        } else if (id == R.id.nav_inbox) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, inboxFragment, "helping").addToBackStack(null).commit();
         }
         else if (id == R.id.nav_logout){
             account.logout(this);
