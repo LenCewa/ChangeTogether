@@ -57,7 +57,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by len13 on 11.11.2016.
  *
- * https://codelabs.developers.google.com/codelabs/firebase-android/#0
+ * https://codelabs.developers.google.com/codelabs/firebase-android/#7
+ * https://github.com/firebase/friendlychat
+ * https://console.firebase.google.com/
  */
 
 public class InboxFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
