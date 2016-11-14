@@ -54,6 +54,9 @@ import com.bumptech.glide.Glide;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.FriendlyMessage;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static de.hdodenhof.circleimageview.R.styleable.CircleImageView;
+
 /**
  * Created by len13 on 11.11.2016.
  *

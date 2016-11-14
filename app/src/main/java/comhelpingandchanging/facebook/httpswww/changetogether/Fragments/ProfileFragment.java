@@ -85,8 +85,8 @@ public class ProfileFragment extends SuperProfileFragment {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent message = new Intent(getActivity(), InboxActivity.class);
-                startActivity(message);
+                InboxFragment f = new InboxFragment();
+                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "inbox").addToBackStack(null).commit();
             }
         });
 
