@@ -55,7 +55,7 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+//        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
 
     @Override
     protected void onPostExecute(String result) {
-        loading.dismiss();
+       // loading.dismiss();
         if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override

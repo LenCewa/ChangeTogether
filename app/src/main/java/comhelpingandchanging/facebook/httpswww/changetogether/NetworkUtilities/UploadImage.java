@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.View;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
@@ -21,7 +23,6 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class UploadImage extends AsyncTask<Void,Void,String>{
 
-    Account account;
     Activity callingActivity;
     ProgressDialog loading;
     Bitmap pic;
@@ -32,7 +33,6 @@ public class UploadImage extends AsyncTask<Void,Void,String>{
 
     public UploadImage(Activity callingActivity, String emailAuth, String sessionId, String email, Bitmap pic){
 
-        account = (Account)callingActivity.getApplication();
         this.callingActivity = callingActivity;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;

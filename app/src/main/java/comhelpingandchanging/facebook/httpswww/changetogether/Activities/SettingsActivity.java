@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,8 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
+import java.util.Set;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.PlacesAutoCompleteAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
@@ -41,7 +45,25 @@ public class SettingsActivity extends Activity {
     EditText password;
     EditText passwordConfirm;
     ImageView profilePic;
-    private Bitmap bitmap;
+    Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            Log.e("hallo", "loaded");
+            account.setProfilePic(bitmap);
+            profilePic.setImageBitmap(bitmap);
+            account.uploadProfilePic(SettingsActivity.this, bitmap);
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+            Log.e("hallo", "failed");
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+            Log.e("hallo", "prepare");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +107,7 @@ public class SettingsActivity extends Activity {
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     String loc = location.getText().toString();
                     String lang = language.getText().toString();
                     String currentPw = currentPassword.getText().toString();
@@ -118,34 +141,12 @@ public class SettingsActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
-                account.uri = data.getData();
-
-                    BitmapFactory.Options o = new BitmapFactory.Options();
-                    o.inSampleSize = 2;
-                    //bitmap = BitmapFactory.decodeFile(getImagePath(selectedImageUri), o);
-                    //profilePic.setImageBitmap(bitmap);
-                    //account.setProfilePic(bitmap);
-                    //UploadImage u = new UploadImage(this, account.getEmail(), account.getSessionId(), account.getEmail(), bitmap);
-                    //u.execute();
+                Picasso
+                        .with(this)
+                        .load(data.getData())
+                        .placeholder(R.drawable.blank_profile_pic)
+                        .into(target);
             }
         }
     }
-
-    public String getImagePath(Uri uri){
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":")+1);
-        cursor.close();
-
-        cursor = getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-        cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-        cursor.close();
-
-        return path;
-    }
-
 }

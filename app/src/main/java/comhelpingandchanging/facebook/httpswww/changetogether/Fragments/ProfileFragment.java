@@ -1,9 +1,11 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.res.Resources;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.InboxActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
@@ -27,19 +30,20 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 public class ProfileFragment extends SuperProfileFragment {
 
-    TextView profileName;
+    //TextView profileName;
     TextView profileLocation;
     TextView profileLanguage;
     ImageView profilePic;
+    FloatingActionButton settings;
     public ArrayList<String[]> helpingLocations = new ArrayList<String[]>(); // TODO: Benutzen, wegen LoadHelpingLocationsActivity.java
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_ownprofile, container, false);
+        view = inflater.inflate(R.layout.activity_profile, container, false);
         account =(Account) getActivity().getApplication();
 
-        profileName = (TextView) view.findViewById(R.id.profileName);
+        //profileName = (TextView) view.findViewById(R.id.profileName);
 
         profileLocation = (TextView) view.findViewById(R.id.ownProfileLocation);
         profileLocation.setText(account.getSearchLocation());
@@ -47,7 +51,7 @@ public class ProfileFragment extends SuperProfileFragment {
         profileLanguage = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profileLanguage.setText(account.getSearchLanguage());
 
-        profilePic = (ImageView) view.findViewById(R.id.ownProfilePic);
+        profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
 
         adapter = new CustomRecyclerViewAdapter(bieteItems);
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
@@ -76,13 +80,24 @@ public class ProfileFragment extends SuperProfileFragment {
 
         account.loadBidsActivity(this, account.getSearchEmail());
 
+        settings = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        settings.setImageResource(R.drawable.ic_menu_send);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent message = new Intent(getActivity(), InboxActivity.class);
+                startActivity(message);
+            }
+        });
+
+
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+
+        profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getSearchProfilePic(), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchEmail() + "'s Profil");
-
-        //Anpassung für andere Display Densities
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, getActivity().getResources().getDisplayMetrics());
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getSearchProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
 
         return view;
     }

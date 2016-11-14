@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,7 @@ public class MainAppActivity extends AppCompatActivity
     OwnProfileFragment ownProfileFragment;
     HelpingLocationsFragment helpingLocationsFragment;
     InboxFragment inboxFragment;
+    View header;
 
     public NavigationView navigationView;
     AppBarLayout appBarLayout;
@@ -86,7 +88,7 @@ public class MainAppActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
-        View header = navigationView.getHeaderView(0);
+        header = navigationView.getHeaderView(0);
         ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
         ((TextView) header.findViewById(R.id.profEmail)).setText(account.getEmail());
         ((TextView) header.findViewById(R.id.profLocation)).setText(account.getLocation());
@@ -173,5 +175,12 @@ public class MainAppActivity extends AppCompatActivity
             e.printStackTrace();
         }
         return latLong;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("hallo", "hallo");
+        ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
     }
 }

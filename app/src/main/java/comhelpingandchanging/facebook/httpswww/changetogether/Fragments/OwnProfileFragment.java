@@ -1,24 +1,20 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.res.Resources;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.widget.NestedScrollView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
@@ -34,17 +30,15 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 public class OwnProfileFragment extends SuperProfileFragment {
 
-    ImageView settings;
+    FloatingActionButton settings;
     TextView location;
     TextView language;
-    public ImageView profilePic;
-    int n = 0;
-
+    ImageView profilePic;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_ownprofile, container, false);
+        view = inflater.inflate(R.layout.activity_profile, container, false);
 
         account = (Account) getActivity().getApplication();
 
@@ -78,12 +72,10 @@ public class OwnProfileFragment extends SuperProfileFragment {
 
         account.loadBidsActivity(this, account.getEmail());
 
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getActivity().getResources().getDisplayMetrics());
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
+        refresh();
 
-        //refresh();
-
-        settings = (ImageView) getActivity().findViewById(R.id.fab);
+        settings = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        settings.setImageResource(R.drawable.ic_menu_manage);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,39 +88,21 @@ public class OwnProfileFragment extends SuperProfileFragment {
 
     private void refresh() {
 
-        Log.e("hallo", "hall");
-        //((ImageView)getActivity().findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
-        Picasso
-                .with(getActivity())
-                .load(account.uri)
-                .fit()
-                .centerCrop()
-                .into((ImageView)getActivity().findViewById(R.id.profPic));
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+
+        profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getProfilePic(), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
-
-
-        Picasso
-                .with(getActivity())
-                .load(account.uri)
-                .fit()
-                .centerCrop()
-                .into(profilePic);
-        //Anpassung für andere Display Densities
-        //float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getActivity().getResources().getDisplayMetrics());
-        //((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(Bitmap.createScaledBitmap(account.getProfilePic(),getActivity().getResources().getDisplayMetrics().widthPixels, (int)px, false));
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(n == 1)
         refresh();
-        n++;
         ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_own_profile);
     }
 }

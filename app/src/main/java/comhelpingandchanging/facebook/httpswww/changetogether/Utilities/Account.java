@@ -4,9 +4,19 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.ByteArrayOutputStream;
+
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
@@ -44,8 +54,14 @@ public class Account extends Application {
     private UserProfile self = null;
     private SearchedItem searchedItem = null;
     private String sessionId;
-    public Uri uri;
     //private FragmentManager fm;
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
     public void login(Activity callingActivity, String email, String password) {
 
