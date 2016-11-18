@@ -1,7 +1,9 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,11 +14,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.PlacesAutoCompleteAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.SpinnerAdapter;
@@ -27,13 +35,15 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 public class BidDialogNew extends DialogFragment {
     AutoCompleteTextView location;
     BieteFragment callingFragment;
+    Button done;
+    Calendar myCalendar;
+    EditText participants;
     String city;
     String bid;
     Spinner bidTypes;
     TextView description;
     TextView date;
     TextView time;
-    Button done;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +88,7 @@ public class BidDialogNew extends DialogFragment {
         location = (AutoCompleteTextView) rootView.findViewById(R.id.location);
         time = (TextView) rootView.findViewById(R.id.time);
         date = (TextView) rootView.findViewById(R.id.date);
+        participants = (EditText) rootView.findViewById(R.id.participants);
 
         final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
         autocompleteView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.autocomplete_list_item)); // vorher getActivity() anstelle von this
@@ -90,6 +101,47 @@ public class BidDialogNew extends DialogFragment {
             }
         });
 
+        myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener dateSetter = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), dateSetter, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCalendar = Calendar.getInstance();
+                int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+                int minute = myCalendar.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        time.setText( hourOfDay + ":" + minute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.show();
+
+            }
+        });
 
         description = (TextView) rootView.findViewById(R.id.description);
 
@@ -111,7 +163,17 @@ public class BidDialogNew extends DialogFragment {
             }
         });
 
+
+
         return rootView;
+    }
+
+    private void updateLabel(){
+
+        String myFormat = "dd/MM/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.GERMAN);
+
+        date.setText(sdf.format(myCalendar.getTime()));
     }
 
     public Double[] getLocationFromAddress(String strAddress){
