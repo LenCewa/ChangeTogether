@@ -151,9 +151,9 @@ public class Account extends Application {
         s.execute();
     }
 
-    public void addBid(Fragment callingFragment, String tag, String description, String location, double lat, double lng){
+    public void addBid(Fragment callingFragment, String tag, String description, String location, double lat, double lng, String date, String time, int maxParticipators){
 
-        AddBid a = new AddBid(callingFragment, getEmail(), getSessionId(), getEmail(), tag, description, location, lat, lng);
+        AddBid a = new AddBid(callingFragment, getEmail(), getSessionId(), getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
         a.execute();
     }
 

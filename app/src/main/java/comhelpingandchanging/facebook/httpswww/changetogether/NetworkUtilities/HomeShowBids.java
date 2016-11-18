@@ -1,9 +1,13 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -93,9 +97,17 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                         String tag = bidsInfo.getString("tag");
                         String description = bidsInfo.getString("description");
                         String location = bidsInfo.getString("location");
+                        String avgRating = bidsInfo.getString("averageRating");
+                        String count = bidsInfo.getString("count");
+                        String distance = String.valueOf(Math.round(bidsInfo.getDouble("distance")));
+                        String date = bidsInfo.getString("date");
+                        String time = bidsInfo.getString("time");
+                        int maxPart = bidsInfo.getInt("maxPart");
+                        String encodedPic = bidsInfo.getString("profilePic");
 
+                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, String.valueOf(maxPart), encodedPic};
                         if (!email.equals(account.getEmail())) {
-                            callingFragment.listItems.add(0, new String[]{id, email, tag, description, location});
+                            callingFragment.listItems.add(0, arr);
                             callingFragment.adapter.notifyDataSetChanged();
                         }
                     }

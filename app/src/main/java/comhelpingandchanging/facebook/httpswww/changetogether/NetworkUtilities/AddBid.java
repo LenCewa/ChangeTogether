@@ -27,9 +27,12 @@ public class AddBid extends AsyncTask<Void, Void, String > {
     private String location;
     double lat;
     double lng;
+    String date;
+    String time;
+    int maxParticipators;
     RequestHandler rh = new RequestHandler();
 
-    public AddBid(Fragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description, String location, double lat, double lng){
+    public AddBid(Fragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description, String location, double lat, double lng, String date, String time, int maxParticipators){
 
         this.callingFragment = callingFragment;
         this.emailAuth = emailAuth;
@@ -40,6 +43,9 @@ public class AddBid extends AsyncTask<Void, Void, String > {
         this.location = location;
         this.lat = lat;
         this.lng = lng;
+        this.date = date;
+        this.time = time;
+        this.maxParticipators = maxParticipators;
     }
 
     @Override
@@ -61,6 +67,9 @@ public class AddBid extends AsyncTask<Void, Void, String > {
         data.put("location", location);
         data.put("latitude", String.valueOf(lat));
         data.put("longitude", String.valueOf(lng));
+        data.put("date", date);
+        data.put("time", time);
+        data.put("maxParticipators", String.valueOf(maxParticipators));
         String result = rh.sendPostRequest(Constants.DBADDBID,data);
 
         return result;
@@ -74,7 +83,7 @@ public class AddBid extends AsyncTask<Void, Void, String > {
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AddBid(callingFragment, emailAuth, sessionId, email, tag, description, location, lat, lng).execute();
+                        new AddBid(callingFragment, emailAuth, sessionId, email, tag, description, location, lat, lng, date, time, maxParticipators).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

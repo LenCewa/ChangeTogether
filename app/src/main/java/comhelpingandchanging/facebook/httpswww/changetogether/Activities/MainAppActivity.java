@@ -182,5 +182,7 @@ public class MainAppActivity extends AppCompatActivity
         super.onResume();
         Log.e("hallo", "hallo");
         ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
+        ((TextView) header.findViewById(R.id.profEmail)).setText(account.getEmail());
+        ((TextView) header.findViewById(R.id.profLocation)).setText(account.getLocation());
     }
 }
