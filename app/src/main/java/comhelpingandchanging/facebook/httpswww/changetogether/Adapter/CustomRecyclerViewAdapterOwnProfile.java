@@ -19,20 +19,20 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
  * Created by Yannick on 10.11.2016.
  */
 
-public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ProfileInfoViewHolder> {
+public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<CustomRecyclerViewAdapterOwnProfile.ProfileInfoViewHolder> {
 
     ArrayList<String[]> data;
     ProfileInfoViewHolder holder;
 
-    public CustomRecyclerViewAdapter(ArrayList<String[]> data) {
+    public CustomRecyclerViewAdapterOwnProfile(ArrayList<String[]> data) {
         this.data = data;
     }
 
     @Override
-    public CustomRecyclerViewAdapter.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CustomRecyclerViewAdapterOwnProfile.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.profile_list_item, parent, false);
+                inflate(R.layout.own_profile_list_item, parent, false);
         holder = new ProfileInfoViewHolder(itemView);
         return holder;
     }
@@ -47,7 +47,6 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         }
 
         holder.location.setText(data.get(position)[4]);
-        holder.distance.setText("<=" + data.get(position)[7] + "km");
         holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
@@ -67,7 +66,6 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     public class ProfileInfoViewHolder extends RecyclerView.ViewHolder{
 
         TextView location;
-        TextView distance;
         TextView time;
         ImageView profilePic;
         RatingBar ratingBar;
@@ -78,7 +76,6 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
 
             super(vi);
             location = (TextView) vi.findViewById(R.id.location);
-            distance = (TextView) vi.findViewById(R.id.distance);
             time = (TextView) vi.findViewById(R.id.time);
             profilePic = (ImageView) vi.findViewById(R.id.profilePic);
             ratingBar = (RatingBar) vi.findViewById(R.id.ratingBar4);

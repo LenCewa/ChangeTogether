@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ChatActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
@@ -30,7 +31,6 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 public class ProfileFragment extends SuperProfileFragment {
 
-    //TextView profileName;
     TextView profileLocation;
     TextView profileLanguage;
     ImageView profilePic;
@@ -41,8 +41,6 @@ public class ProfileFragment extends SuperProfileFragment {
 
         view = inflater.inflate(R.layout.activity_profile, container, false);
         account =(Account) getActivity().getApplication();
-
-        //profileName = (TextView) view.findViewById(R.id.profileName);
 
         profileLocation = (TextView) view.findViewById(R.id.ownProfileLocation);
         profileLanguage = (TextView) view.findViewById(R.id.ownProfileLanguage);
@@ -57,29 +55,31 @@ public class ProfileFragment extends SuperProfileFragment {
         bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
 
+        cmp = new Comparator<String[]>() {
+            @Override
+            public int compare(String[] o1, String[] o2) {
+                int distance1 = Integer.parseInt(o1[7]);
+                int distance2 = Integer.parseInt(o2[7]);
+                if(distance1 < distance2)
+                    return -1;
+                else if(distance1 > distance2)
+                    return 1;
+                else
+                    return 0;
+            }
+        };
+
         bidList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-
                         SearchItemFragment f = new SearchItemFragment();
                         getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
-
-                        /**
-                        String[] arr = (String[]) adapter.getItem(position);
-                        int ID = Integer.parseInt(arr[0]);
-                        String tag = arr[1];
-
-                        Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
-                        intent.putExtra("id", ID);
-                        intent.putExtra("tag", tag);
-                        startActivity(intent);
-                         **/
                     }
                 })
         );
 
-        account.loadBidsActivity(this, account.getSearchEmail());
+        account.loadBidsActivity(this, account.getSearchEmail(), account.getLat(), account.getLng());
 
         sendMessage = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         sendMessage.setImageResource(R.drawable.ic_menu_send);

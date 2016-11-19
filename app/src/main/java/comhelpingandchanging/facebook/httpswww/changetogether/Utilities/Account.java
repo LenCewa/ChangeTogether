@@ -142,9 +142,9 @@ public class Account extends Application {
         l.execute();
     }*/
 
-    public void loadBidsActivity(SuperProfileFragment callingActivity, String searchedEmail){
+    public void loadBidsActivity(SuperProfileFragment callingActivity, String searchedEmail, double lat, double lng){
 
-        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), searchedEmail);
+        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), searchedEmail, lat, lng);
         l.execute();
     }
 
@@ -235,6 +235,10 @@ public class Account extends Application {
     }
 
     public Bitmap getProfilePic(){ return self.getProfilePic(); }
+
+    public double getLat(){ return self.getLat(); }
+
+    public double getLng(){ return self.getLng(); }
 
 
     public String getSearchID(){
@@ -378,6 +382,10 @@ public class Account extends Application {
     public void setProfilePic(Bitmap profilePic){
         self.setProfilePic(profilePic);
     }
+
+    public void setLat(double lat){ self.setLat(lat);}
+
+    public void setLng(double lng) { self.setLng(lng);}
 
     /*public void setFragmentManager(FragmentManager fm){
         this.fm = fm;

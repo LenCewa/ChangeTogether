@@ -16,10 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Comparator;
+
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapterOwnProfile;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -29,6 +32,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  */
 
 public class OwnProfileFragment extends SuperProfileFragment {
+
 
     FloatingActionButton settings;
     TextView location;
@@ -46,7 +50,7 @@ public class OwnProfileFragment extends SuperProfileFragment {
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
 
-        adapter = new CustomRecyclerViewAdapter(bieteItems);
+        adapter = new CustomRecyclerViewAdapterOwnProfile(bieteItems);
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -58,19 +62,13 @@ public class OwnProfileFragment extends SuperProfileFragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        String[] arr = (String[]) adapter.getItem(position);
-                        int ID = Integer.parseInt(arr[0]);
-                        String tag = arr[1];
-
-                        Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
-                        intent.putExtra("id", ID);
-                        intent.putExtra("tag", tag);
-                        startActivity(intent);
+                        SearchItemFragment f = new SearchItemFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
                     }
                 })
         );
 
-        account.loadBidsActivity(this, account.getEmail());
+        account.loadBidsActivity(this, account.getEmail(), account.getLat(), account.getLng());
 
         refresh();
 

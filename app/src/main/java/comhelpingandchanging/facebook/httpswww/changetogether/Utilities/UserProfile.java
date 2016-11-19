@@ -12,6 +12,8 @@ public class UserProfile {
     private String location = "";
     private String language = "";
     private Bitmap profilePic;
+    private double lat;
+    private double lng;
     //private ArrayList<String[]> feedback;
 
     public String getUsername(){
@@ -28,6 +30,10 @@ public class UserProfile {
 
     public Bitmap getProfilePic(){ return profilePic; }
 
+    public double getLat(){ return lat;}
+
+    public double getLng() { return lng;}
+
     public void setEmail(String email){
         this.email = email;
     }
@@ -42,5 +48,8 @@ public class UserProfile {
 
     public void setProfilePic(Bitmap profilePic){ this.profilePic = profilePic; }
 
+    public void setLat(double lat){ this.lat = lat;}
+
+    public void setLng(double lng) { this.lng = lng;}
 }
 

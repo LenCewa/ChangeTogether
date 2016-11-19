@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -18,6 +19,7 @@ public class SuperProfileFragment extends Fragment {
     View view;
     RecyclerView bidList;
     public ArrayList<String[]> bieteItems = new ArrayList<String[]>();
-    public CustomRecyclerViewAdapter adapter;
+    public RecyclerView.Adapter adapter;
+    public Comparator<String[]> cmp;
     Account account;
 }

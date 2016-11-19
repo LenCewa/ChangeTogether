@@ -147,8 +147,11 @@ public class HomeFragment extends Fragment {
                     .show();
         else {
             latLong = getLocationFromAddress(account.getLocation());
-            if(account != null && latLong != null)
+            if(account != null && latLong != null) {
+                account.setLat(latLong[0]);
+                account.setLng(latLong[1]);
                 account.homeShowBids(this, latLong[0], latLong[1]);
+            }
         }
     }
 

@@ -37,15 +37,6 @@
                 android:textColor="@android:color/black"
                 android:text="Wiesthal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/distance"
-                android:layout_alignParentRight="true"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:text="15km"/>
-
             <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/time"

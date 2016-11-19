@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,7 +102,11 @@ public class SearchFragment extends Fragment {
                             .show();
                 else {
                     Double[] latLong = getLocationFromAddress(account.getLocation());
-                    account.searchBid(SearchFragment.this, searchField.getText().toString(), latLong[0], latLong[1]);
+                    if(account != null && latLong != null) {
+                        account.setLat(latLong[0]);
+                        account.setLng(latLong[1]);
+                        account.searchBid(SearchFragment.this, searchField.getText().toString(), latLong[0], latLong[1]);
+                    }
                 }
                 // Eingefügt
                 //account.searchHelpingLocation(SearchFragment.this, searchField.getText().toString());

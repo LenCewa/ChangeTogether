@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
@@ -29,13 +30,17 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
     private String emailAuth;
     private String sessionId;
     private String email;
+    private double lat;
+    private double lng;
 
-    public LoadBidsActivity(SuperProfileFragment callingActivity, String emailAuth, String sessionId, String email){
+    public LoadBidsActivity(SuperProfileFragment callingActivity, String emailAuth, String sessionId, String email, double lat, double lng){
 
         this.callingFragment = callingActivity;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
         this.email = email;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     @Override
@@ -53,6 +58,8 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
         data.put("sessionId", sessionId);
 
         data.put("email", email);
+        data.put("latitude", String.valueOf(lat));
+        data.put("longitude", String.valueOf(lng));
         String result = rh.sendPostRequest(Constants.DBLOADBID,data);
 
         return result;
@@ -66,7 +73,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new LoadBidsActivity(callingFragment, emailAuth, sessionId, email).execute();
+                            new LoadBidsActivity(callingFragment, emailAuth, sessionId, email, lat, lng).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
@@ -83,21 +90,26 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                         JSONObject bidsInfo = bids.getJSONObject(i);
 
                         String id = bidsInfo.getString("id");
+                        String email = bidsInfo.getString("email");
                         String tag = bidsInfo.getString("tag");
                         String description = bidsInfo.getString("description");
                         String location = bidsInfo.getString("location");
                         String avgRating = bidsInfo.getString("averageRating");
                         String count = bidsInfo.getString("count");
+                        String distance = String.valueOf(Math.round(bidsInfo.getDouble("distance")));
                         String date = bidsInfo.getString("date");
                         String time = bidsInfo.getString("time");
                         int maxPart = bidsInfo.getInt("maxPart");
+                        String encodedPic = bidsInfo.getString("profilePic");
 
-                        String[] arr = new String[]{id, tag, description, location, avgRating, count, date, time, String.valueOf(maxPart)};
+                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, String.valueOf(maxPart), encodedPic};
                         if (!callingFragment.bieteItems.contains(arr))
                             callingFragment.bieteItems.add(arr);
                     }
+                    if(callingFragment.cmp != null)
+                        Collections.sort(callingFragment.bieteItems, callingFragment.cmp);
                     callingFragment.adapter.notifyDataSetChanged();
-                    ((CustomRecyclerViewAdapter)callingFragment.adapter).getItemCount();
+                    callingFragment.adapter.getItemCount();
                     if (callingFragment.bieteItems.isEmpty())
                         Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();
