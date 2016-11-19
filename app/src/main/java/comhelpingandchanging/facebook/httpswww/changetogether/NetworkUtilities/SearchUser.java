@@ -96,10 +96,11 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
                 }
-                Bitmap bitmap = BitmapFactory.decodeResource(callingFragment.getResources(),
-                        R.drawable.blank_profile_pic);
-
-                account.setSearchedItem(getUserProfile(location, language, bitmap), tag, description);
+                else {
+                    Bitmap bitmap = BitmapFactory.decodeResource(callingFragment.getResources(),
+                            R.drawable.blank_profile_pic);
+                    account.setSearchedItem(getUserProfile(location, language, bitmap), tag, description);
+                }
                 callingFragment.setElements();
             } catch (JSONException e) {
                 e.printStackTrace();

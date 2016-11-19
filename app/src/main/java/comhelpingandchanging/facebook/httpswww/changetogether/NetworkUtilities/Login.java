@@ -101,9 +101,11 @@ public class Login extends AsyncTask<Void, Void, String> {
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                         setSelfInfo(sessionId, email, location, language, decodedByte);
                     }
-                    Bitmap bitmap = BitmapFactory.decodeResource(callingActivity.getResources(),
-                            R.drawable.blank_profile_pic);
-                    setSelfInfo(sessionId, email, location, language, bitmap);
+                    else {
+                        Bitmap bitmap = BitmapFactory.decodeResource(callingActivity.getResources(),
+                                R.drawable.blank_profile_pic);
+                        setSelfInfo(sessionId, email, location, language, bitmap);
+                    }
                     account.getAccessToken(callingActivity);
                     Intent search = new Intent(callingActivity, MainAppActivity.class);
                     callingActivity.startActivity(search);
