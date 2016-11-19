@@ -56,6 +56,17 @@
                 android:layout_gravity="center_horizontal"
                 android:isIndicator="true" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rezensionen"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:layout_margin="10dp"
+                android:text="Rezensionen"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textAlignment="center" />
+
 
         </LinearLayout>
 

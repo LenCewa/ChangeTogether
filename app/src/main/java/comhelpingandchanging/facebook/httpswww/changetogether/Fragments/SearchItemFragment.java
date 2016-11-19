@@ -40,6 +40,7 @@ public class SearchItemFragment extends Fragment{
     TextView userEmail;
     TextView userBid;
     TextView userDescription;
+    TextView ratings;
     RatingBar ratingBar;
 
     @Override
@@ -53,12 +54,14 @@ public class SearchItemFragment extends Fragment{
         userBid = (TextView) view.findViewById(R.id.userBid);
         userDescription = (TextView) view.findViewById(R.id.userDescription);
         ratingBar = (RatingBar) view.findViewById(R.id.avergageRating);
+        ratings = (TextView) view.findViewById(R.id.rezensionen);
 
         userProfile.setImageBitmap(account.getSearchProfilePic());
         userEmail.setText(account.getSearchEmail());
         userBid.setText(account.getSearchTag());
         userDescription.setText(account.getSearchDescription());
         ratingBar.setRating(account.getSearchAverageRating());
+        ratings.setText(account.getSearchCount() + " Rezensionen");
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebot von " + account.getSearchEmail());
@@ -72,6 +75,14 @@ public class SearchItemFragment extends Fragment{
                     startActivity(intent);
                 }
                 return true;
+            }
+        });
+
+        ratings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                startActivity(intent);
             }
         });
 
