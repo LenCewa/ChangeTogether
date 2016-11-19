@@ -46,7 +46,6 @@ public class MainAppActivity extends AppCompatActivity
     View header;
 
     public NavigationView navigationView;
-    AppBarLayout appBarLayout;
 
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
@@ -74,8 +73,7 @@ public class MainAppActivity extends AppCompatActivity
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -111,6 +109,7 @@ public class MainAppActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        Log.e("hallo", "Hallo");
         getMenuInflater().inflate(R.menu.search_menu, menu);
         return true;
     }
@@ -141,8 +140,6 @@ public class MainAppActivity extends AppCompatActivity
 
         if(id == R.id.nav_home){
             fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack(null).commit();
-        } else if (id == R.id.nav_search) {
-            //fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack(null).commit();
         } else if (id == R.id.nav_biete) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack(null).commit();
         } else if (id == R.id.nav_own_profile) {
@@ -185,7 +182,7 @@ public class MainAppActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("hallo", "hallo");
+
         ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
         ((TextView) header.findViewById(R.id.profEmail)).setText(account.getEmail());
         ((TextView) header.findViewById(R.id.profLocation)).setText(account.getLocation());

@@ -39,7 +39,7 @@
 
         <activity
             android:name=".Activities.MainAppActivity"
-            android:label="@string/title_activity_main_app"
+            android:label=""
             android:theme="@style/ownTheme" />
     </application>
 
