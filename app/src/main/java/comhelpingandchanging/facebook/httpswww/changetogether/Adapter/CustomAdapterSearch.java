@@ -72,6 +72,11 @@ public class CustomAdapterSearch extends BaseAdapter {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             profilePic.setImageBitmap(decodedByte);
         }
+        else{
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.blank_profile_pic);
+            profilePic.setImageBitmap(bitmap);
+        }
 
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
