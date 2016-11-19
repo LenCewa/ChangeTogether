@@ -62,6 +62,22 @@ public class OwnProfileFragment extends SuperProfileFragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
+                        CustomRecyclerViewAdapterOwnProfile adapter = (CustomRecyclerViewAdapterOwnProfile) OwnProfileFragment.this.adapter;
+
+                        String id = adapter.getItem(position)[0];
+                        String email = adapter.getItem(position)[1];
+                        String tag = adapter.getItem(position)[2];
+                        String description = adapter.getItem(position)[3];
+                        String location = adapter.getItem(position)[4];
+                        String averageRating = adapter.getItem(position)[5];
+                        String count = adapter.getItem(position)[6];
+                        String distance = adapter.getItem(position)[7];
+                        String date = adapter.getItem(position)[8];
+                        String time = adapter.getItem(position)[9];
+                        String maxPart = adapter.getItem(position)[10];
+                        String encodedPic = adapter.getItem(position)[11];
+
+                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, maxPart, encodedPic);
                         SearchItemFragment f = new SearchItemFragment();
                         getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
                     }
