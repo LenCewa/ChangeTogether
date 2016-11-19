@@ -25,7 +25,7 @@ import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HelpingLocationsFragment;
+//import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HelpingLocationsFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.InboxFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.OwnProfileFragment;
@@ -41,7 +41,7 @@ public class MainAppActivity extends AppCompatActivity
     SearchFragment searchFragment;
     BieteFragment bieteFragment;
     OwnProfileFragment ownProfileFragment;
-    HelpingLocationsFragment helpingLocationsFragment;
+    //HelpingLocationsFragment helpingLocationsFragment;
     InboxFragment inboxFragment;
     View header;
 
@@ -70,7 +70,7 @@ public class MainAppActivity extends AppCompatActivity
             searchFragment = new SearchFragment();
             bieteFragment = new BieteFragment();
             ownProfileFragment = new OwnProfileFragment();
-            helpingLocationsFragment = new HelpingLocationsFragment();
+          //  helpingLocationsFragment = new HelpingLocationsFragment();
             inboxFragment = new InboxFragment();
         }
 
@@ -142,8 +142,8 @@ public class MainAppActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack(null).commit();
         } else if (id == R.id.nav_own_profile) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").addToBackStack(null).commit();
-        } else if (id == R.id.nav_helping) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").addToBackStack(null).commit();
+        //} else if (id == R.id.nav_helping) {
+            //fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").addToBackStack(null).commit();
         } else if (id == R.id.nav_inbox) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, inboxFragment, "helping").addToBackStack(null).commit();
         }

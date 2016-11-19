@@ -28,19 +28,19 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.A
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddHelpingLocation;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddInfo;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteBid;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteHelpingLocations;
+//import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteHelpingLocations;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.GetAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.HomeShowBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBidsActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocations;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocationsActivity;
+//import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocations;
+//import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocationsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Login;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoginWithAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Logout;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchFeedback;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
+//import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchUser;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.ShowPic;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
@@ -126,10 +126,10 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void loadHelpingLocations(Fragment callingFragment) {
+    /*public void loadHelpingLocations(Fragment callingFragment) {
         LoadHelpingLocations l = new LoadHelpingLocations(callingFragment, getEmail());
         l.execute();
-    }
+    }*/
 
     public void loadBidsActivity(SuperProfileFragment callingActivity, String searchedEmail){
 
@@ -137,10 +137,10 @@ public class Account extends Application {
         l.execute();
     }
 
-    public void loadHelpingLocationsActivity(Fragment callingActivity) {
+    /*public void loadHelpingLocationsActivity(Fragment callingActivity) {
         LoadHelpingLocationsActivity l = new LoadHelpingLocationsActivity(callingActivity, getSearchEmail());
         l.execute();
-    }
+    }*/
 
     public void searchBid(SearchFragment callingFragment, String tag, double lat, double lng){
 
@@ -148,10 +148,10 @@ public class Account extends Application {
         s.execute();
     }
 
-    public void searchHelpingLocation(Fragment callingFragment, String tag){
+   /* public void searchHelpingLocation(Fragment callingFragment, String tag){
         SearchHelpingLocation s = new SearchHelpingLocation(callingFragment, tag);
         s.execute();
-    }
+    }*/
 
     public void addBid(Fragment callingFragment, String tag, String description, String location, double lat, double lng, String date, String time, int maxParticipators){
 
@@ -171,10 +171,10 @@ public class Account extends Application {
         d.execute();
     }
 
-    public void deleteHelpingLocations(String tag, String description) {
+    /*public void deleteHelpingLocations(String tag, String description) {
         DeleteHelpingLocations d = new DeleteHelpingLocations(getEmail(), tag, description);
         d.execute();
-    }
+    }*/
 
     public void searchFeedback(ShowBidFeedback callingActivity, int id, String tag) {
 

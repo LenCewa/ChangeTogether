@@ -34,7 +34,6 @@ public class ProfileFragment extends SuperProfileFragment {
     TextView profileLanguage;
     ImageView profilePic;
     FloatingActionButton sendMessage;
-    public ArrayList<String[]> helpingLocations = new ArrayList<String[]>(); // TODO: Benutzen, wegen LoadHelpingLocationsActivity.java
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -38,7 +38,7 @@
         android:id="@+id/changeLanguage"
         android:textAlignment="center"
         android:layout_below="@+id/changeLocation"
-        android:hint="Language"
+        android:hint="Mother Tongue"
         android:textColorLink="@android:color/white"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white" />
