@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -95,10 +96,14 @@ public class Login extends AsyncTask<Void, Void, String> {
                     String language = userInfo.getString("language");
                     String encodedPic = userInfo.getString("profilePic");
 
-                    byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                    setSelfInfo(sessionId, email, location, language, decodedByte);
+                    if(encodedPic.length() > 0) {
+                        byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        setSelfInfo(sessionId, email, location, language, decodedByte);
+                    }
+                    Bitmap bitmap = BitmapFactory.decodeResource(callingActivity.getResources(),
+                            R.drawable.blank_profile_pic);
+                    setSelfInfo(sessionId, email, location, language, bitmap);
                     account.getAccessToken(callingActivity);
                     Intent search = new Intent(callingActivity, MainAppActivity.class);
                     callingActivity.startActivity(search);
