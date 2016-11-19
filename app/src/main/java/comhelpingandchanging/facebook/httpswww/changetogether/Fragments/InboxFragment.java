@@ -36,6 +36,8 @@ import com.google.android.gms.common.api.Status;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SignInActivity;
@@ -45,12 +47,16 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 //Tutorial Impoprts
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 import com.bumptech.glide.Glide;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.FriendlyMessage;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,7 +66,7 @@ import static de.hdodenhof.circleimageview.R.styleable.CircleImageView;
 /**
  * Created by len13 on 11.11.2016.
  *
- * https://codelabs.developers.google.com/codelabs/firebase-android/#7
+ * https://codelabs.developers.google.com/codelabs/firebase-android/#7 reicht bis zum 10. Punkt, Rest ist nicht wichtig
  * https://github.com/firebase/friendlychat
  * https://console.firebase.google.com/
  */
@@ -102,6 +108,8 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder> mFirebaseAdapter;
 
+    // Firebase instance variables
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     // My classical declarations
     View view;
@@ -112,8 +120,6 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
         setArguments(new Bundle());
     }
 
-
-    // Firebase instance variables
 
     @Nullable
     @Override
@@ -222,7 +228,62 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
             }
         });
 
+        // Initiialize Firebase Remote Config
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        // Define Firebase Remote Config Settings
+        FirebaseRemoteConfigSettings firebaseRemoteConfigSettings = new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(true).build();
+
+        // Define default config values. Defaults are used when fetched config values are not available.
+        // Eg: if an error occurred fetching values from the servern.
+        Map<String, Object> defaultConfigMap = new HashMap<>();
+        defaultConfigMap.put("friendly_msg_length", 10L); // friendly_msg_length siehe https://console.firebase.google.com/project/change-together-149218/config
+
+        // Apply config settings and default values
+        mFirebaseRemoteConfig.setConfigSettings(firebaseRemoteConfigSettings);
+        mFirebaseRemoteConfig.setDefaults(defaultConfigMap);
+
+        // Fetch remote config
+        fetchConfig();
+
         return view;
+    }
+
+    // Fetch the config to determine the allowed length of messages
+    public void fetchConfig() {
+        long cacheExpiration = 3600; //1 hour in seconds
+        // If developer mode is enabled reduce cacheExpiration to 0 so that each fetch goes to the server.
+        // TODO: 19.11.2016  this should not be used in release builds.
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+
+        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // Make the fetched config available via FirebaseRemoteConfig get<type> calls
+                mFirebaseRemoteConfig.activateFetched();
+                applyRetrievedLengthLimit();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // There has been an error fetching the config
+                Log.w(TAG, "Error fetching config: " + e.getMessage());
+                applyRetrievedLengthLimit();
+            }
+        });
+    }
+
+    /**
+     * Apply retrieved length limit to edit text field.
+     * This result may be fresh from the server or it may be from cached
+     * values.
+     */
+    private void applyRetrievedLengthLimit() {
+        Long friendly_msg_length = mFirebaseRemoteConfig.getLong("friendly_msg_length");
+        mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(friendly_msg_length.intValue())});
+        Log.d(TAG, "FML is: " + friendly_msg_length);
     }
 
     @Override
@@ -268,9 +329,11 @@ public class InboxFragment extends Fragment implements GoogleApiClient.OnConnect
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.fresh_config_menu: fetchConfig();
+                return true;
             case R.id.sign_out_menu:
                 mFirebaseAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient); // Entfernen weil hier (https://codelabs.developers.google.com/codelabs/firebase-android/#9) nicht mehr da...
                 mUsername = ANONYMOUS;
                 startActivity(new Intent(getActivity(), SignInActivity.class));
                 return true;
