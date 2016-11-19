@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ChatActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
@@ -88,8 +89,8 @@ public class ProfileFragment extends SuperProfileFragment {
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InboxFragment f = new InboxFragment();
-                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "inbox").addToBackStack(null).commit();
+                Intent i = new Intent(getActivity(), ChatActivity.class);
+                startActivity(i);
             }
         });
 
