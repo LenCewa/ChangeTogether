@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -29,24 +30,20 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProf
 public class SearchUser extends AsyncTask<Void, Void, String>{
 
     Account account;
-    SearchItemFragment callingFragment;
+    ProfileFragment callingFragment;
     String emailAuth;
     String sessionId;
     String email;
-    String tag;
-    String description;
     ProgressDialog loading;
     RequestHandler rh = new RequestHandler();
 
-    public SearchUser(SearchItemFragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description){
+    public SearchUser(ProfileFragment callingFragment, String emailAuth, String sessionId, String email){
 
         account = (Account) callingFragment.getActivity().getApplication();
         this.callingFragment = callingFragment;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
         this.email = email;
-        this.tag = tag;
-        this.description = description;
     }
 
     @Override
@@ -76,7 +73,7 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new SearchUser(callingFragment, emailAuth, sessionId, email, tag, description).execute();
+                            new SearchUser(callingFragment, emailAuth, sessionId, email).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
@@ -89,18 +86,8 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
 
                 String location = userInfo.getString("location");
                 String language = userInfo.getString("language");
-                String encodedPic = userInfo.getString("profilePic");
 
-                if(encodedPic.length() > 0) {
-                    byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    account.setSearchedItem(getUserProfile(location, language, decodedByte), tag, description);
-                }
-                else {
-                    Bitmap bitmap = BitmapFactory.decodeResource(callingFragment.getResources(),
-                            R.drawable.blank_profile_pic);
-                    account.setSearchedItem(getUserProfile(location, language, bitmap), tag, description);
-                }
+                account.setSearchedUser(location, language);
                 callingFragment.setElements();
             } catch (JSONException e) {
                 e.printStackTrace();

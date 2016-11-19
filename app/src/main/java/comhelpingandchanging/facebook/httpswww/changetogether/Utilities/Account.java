@@ -20,6 +20,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.Setting
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SuperProfileFragment;
@@ -52,6 +53,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.U
 public class Account extends Application {
 
     private UserProfile self = null;
+    private UserProfile searchedUser = null;
     private SearchedItem searchedItem = null;
     private boolean searchSet = false;
     private String sessionId;
@@ -102,16 +104,25 @@ public class Account extends Application {
         self = null;
     }
 
-    public void searchUser(SearchItemFragment callingActivity, String email, String tag, String description){
+    public void searchUer(ProfileFragment callingActivity){
 
-        SearchUser s = new SearchUser(callingActivity, getEmail(), getSessionId(), email, tag, description);
+        SearchUser s = new SearchUser(callingActivity, getEmail(), getSessionId(), getSearchEmail());
         s.execute();
     }
 
-    public void setSearchedItem(UserProfile userProfile, String tag, String description){
+    public void setSearchedUser(String location, String language){
+
+        searchedUser = new UserProfile();
+        searchedUser.setEmail(getSearchEmail());
+        searchedUser.setLocation(location);
+        searchedUser.setLanguage(language);
+        searchedUser.setProfilePic(getSearchProfilePic());
+    }
+
+    public void setSearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String maxParticipators, String encodedPic){
 
         searchSet = true;
-        searchedItem = new SearchedItem(userProfile, tag, description);
+        searchedItem = new SearchedItem(context, id, email, tag, description, location, averageRating, count, distance, date, time, maxParticipators, encodedPic);
     }
 
     public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
@@ -193,12 +204,6 @@ public class Account extends Application {
         u.execute();
     }
 
-    public void shoPic(Activity callingActivity){
-
-        ShowPic s = new ShowPic(callingActivity, getEmail(), getSessionId(), getEmail());
-        s.execute();
-    }
-
     public void editPassword(Activity callingActivity, String oldPw, String newPw){
 
         AddInfo a = new AddInfo(callingActivity, getEmail(), getSessionId(), getEmail(), "password", oldPw, newPw);
@@ -232,6 +237,14 @@ public class Account extends Application {
     public Bitmap getProfilePic(){ return self.getProfilePic(); }
 
 
+    public String getSearchID(){
+
+        if(searchSet)
+            return searchedItem.getId();
+        else
+            return null;
+    }
+
     public String getSearchTag(){
 
         if(searchSet)
@@ -248,16 +261,7 @@ public class Account extends Application {
             return null;
     }
 
-    public String getSearchEmail(){
-
-        if(searchSet)
-            return searchedItem.getUsername();
-        else
-            return null;
-    }
-
     public String getSearchLocation(){
-
 
         if(searchSet)
             return searchedItem.getLocation();
@@ -265,11 +269,76 @@ public class Account extends Application {
             return null;
     }
 
+    public float getSearchAverageRating(){
+
+        if(searchSet)
+            return searchedItem.getAverageRating();
+        else
+            return 0;
+    }
+
+    public String getSearchCount(){
+
+        if(searchSet)
+            return searchedItem.getCount();
+        else
+            return null;
+    }
+
+    public String getSearchDistance(){
+
+        if(searchSet)
+            return searchedItem.getDistance();
+        else
+            return null;
+    }
+
+    public String getSearchDate(){
+
+        if(searchSet)
+            return searchedItem.getDate();
+        else
+            return null;
+    }
+
+    public String getSearchTime(){
+
+        if(searchSet)
+            return searchedItem.getTime();
+        else
+            return null;
+    }
+
+    public String getSearchMaxParticipators(){
+
+        if(searchSet)
+            return searchedItem.getMaxParticipators();
+        else
+            return null;
+    }
+
+    public String getSearchEmail(){
+
+        if(searchSet)
+            return searchedItem.getEmail();
+        else
+            return null;
+    }
+
+    public String getSearchUserLocation(){
+
+
+        if(searchedUser != null)
+            return searchedUser.getLocation();
+        else
+            return null;
+    }
+
     public String getSearchLanguage(){
 
 
-        if(searchSet)
-            return searchedItem.getLanguage();
+        if(searchedUser != null)
+            return searchedUser.getLanguage();
         else
             return null;
     }
@@ -282,6 +351,13 @@ public class Account extends Application {
             return null;
     }
 
+    public boolean isUserSearched(){
+
+        if(searchedUser == null)
+            return false;
+        else
+            return true;
+    }
 
     /*public FragmentManager getFragmentManager(){
         return fm;

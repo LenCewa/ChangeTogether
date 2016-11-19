@@ -30,6 +30,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.Setting
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProfile;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -86,9 +87,23 @@ public class HomeFragment extends Fragment {
 
         searches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long ID) {
+
+                String id = adapter.getItem(position)[0];
+                String email = adapter.getItem(position)[1];
+                String tag = adapter.getItem(position)[2];
+                String description = adapter.getItem(position)[3];
+                String location = adapter.getItem(position)[4];
+                String averageRating = adapter.getItem(position)[5];
+                String count = adapter.getItem(position)[6];
+                String distance = adapter.getItem(position)[7];
+                String date = adapter.getItem(position)[8];
+                String time = adapter.getItem(position)[9];
+                String maxPart = adapter.getItem(position)[10];
+                String encodedPic = adapter.getItem(position)[11];
+
+                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, maxPart, encodedPic);
                 SearchItemFragment f = new SearchItemFragment();
-                f.getArguments().putStringArray("searchInfo", (String[]) adapter.getItem(position));
                 getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
             }
         });

@@ -45,10 +45,7 @@ public class ProfileFragment extends SuperProfileFragment {
         //profileName = (TextView) view.findViewById(R.id.profileName);
 
         profileLocation = (TextView) view.findViewById(R.id.ownProfileLocation);
-        profileLocation.setText(account.getSearchLocation());
-
         profileLanguage = (TextView) view.findViewById(R.id.ownProfileLanguage);
-        profileLanguage.setText(account.getSearchLanguage());
 
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
 
@@ -103,6 +100,17 @@ public class ProfileFragment extends SuperProfileFragment {
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchEmail() + "'s Profil");
 
+        if(account.isUserSearched())
+            setElements();
+        else
+            account.searchUer(this);
+
         return view;
+    }
+
+    public void setElements(){
+
+        profileLocation.setText(account.getSearchUserLocation());
+        profileLanguage.setText(account.getSearchLanguage());
     }
 }

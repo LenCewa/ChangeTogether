@@ -40,7 +40,7 @@ public class CustomAdapterSearch extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public String[] getItem(int position) {
         // TODO Auto-generated method stub
         return data.get(position);
     }

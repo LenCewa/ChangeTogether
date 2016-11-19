@@ -43,10 +43,6 @@ public class SearchItemFragment extends Fragment{
     String[] info;
     RatingBar ratingBar;
 
-    public SearchItemFragment(){
-        setArguments(new Bundle());
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_search_item, container, false);
@@ -59,14 +55,22 @@ public class SearchItemFragment extends Fragment{
         userDescription = (TextView) view.findViewById(R.id.userDescription);
         ratingBar = (RatingBar) view.findViewById(R.id.avergageRating);
 
+        userProfile.setImageBitmap(account.getSearchProfilePic());
+        userEmail.setText(account.getSearchEmail());
+        userBid.setText(account.getSearchTag());
+        userDescription.setText(account.getSearchDescription());
+        ratingBar.setRating(account.getSearchAverageRating());
+
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebot von " + account.getSearchEmail());
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
+
         ratingBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     if (info != null) {
                         Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
-                        intent.putExtra("id", info[0]);
-                        intent.putExtra("tag", info[2]);
                         startActivity(intent);
                     }
                 }
@@ -82,27 +86,6 @@ public class SearchItemFragment extends Fragment{
             }
         });
 
-        info = (String[]) getArguments().get("searchInfo");
-        if(info != null) {
-            account.searchUser(this, info[1], info[2], info[3]);
-            ratingBar.setRating(Float.parseFloat(info[5]));
-        }
-
-        if(info == null)
-            setElements();
-
         return view;
-    }
-
-    public void setElements(){
-
-        userProfile.setImageBitmap(account.getSearchProfilePic());
-        userEmail.setText(account.getSearchEmail());
-        userBid.setText(account.getSearchTag());
-        userDescription.setText(account.getSearchDescription());
-
-        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
-        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebot von " + account.getSearchEmail());
-        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
     }
 }
