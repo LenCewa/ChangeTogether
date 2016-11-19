@@ -40,7 +40,6 @@ public class SearchItemFragment extends Fragment{
     TextView userEmail;
     TextView userBid;
     TextView userDescription;
-    String[] info;
     RatingBar ratingBar;
 
     @Override
@@ -69,10 +68,8 @@ public class SearchItemFragment extends Fragment{
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (info != null) {
-                        Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
-                        startActivity(intent);
-                    }
+                    Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                    startActivity(intent);
                 }
                 return true;
             }
