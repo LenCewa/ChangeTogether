@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
@@ -27,7 +28,6 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
     ProgressDialog loading;
     Account account;
-    Activity callingActivity;
     SearchFragment callingFragment;
     RequestHandler rh = new RequestHandler();
     private String emailAuth;
@@ -39,7 +39,6 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
     public SearchBid(SearchFragment callingFragment, String emailAuth, String sessionId, String tag, double lat, double lng){
 
         account = (Account) callingFragment.getActivity().getApplication();
-        callingActivity = callingFragment.getActivity();
         this.callingFragment = callingFragment;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
@@ -73,7 +72,7 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         loading.dismiss();
-        if(result.equals("connection error"))Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
+        if(result.equals("connection error"))Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -84,7 +83,7 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
                 .show();
         else {
             if (result.equals("No entries"))
-                Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                         .show();
             else {
                 try {
@@ -109,9 +108,11 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
 
                         String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, String.valueOf(maxPart), encodedPic};
                         if (!email.equals(account.getEmail())) {
-                            callingFragment.listItems.add(arr);
+                            if(Integer.parseInt(distance) <= 75)
+                                callingFragment.listItems.add(arr);
                         }
                     }
+                    Collections.sort(callingFragment.listItems, callingFragment.cmp);
                     callingFragment.adapter.notifyDataSetChanged();
 
                     if (callingFragment.listItems.isEmpty())

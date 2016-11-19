@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
@@ -107,10 +108,13 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
 
                         String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, String.valueOf(maxPart), encodedPic};
                         if (!email.equals(account.getEmail())) {
-                            callingFragment.listItems.add(0, arr);
-                            callingFragment.adapter.notifyDataSetChanged();
+                            if(Integer.parseInt(distance) <= 75)
+                                callingFragment.listItems.add(arr);
                         }
                     }
+                    Collections.sort(callingFragment.listItems, callingFragment.cmp);
+                    callingFragment.adapter.notifyDataSetChanged();
+
                     if (callingFragment.listItems.isEmpty())
                         Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();

@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
     public CustomAdapterSearch adapter;
     View.OnClickListener setLocation;
+    public Comparator<String[]> cmp;
 
     public HomeFragment(){
         setArguments(new Bundle());
@@ -58,6 +61,20 @@ public class HomeFragment extends Fragment {
         searches = (ListView) view.findViewById(R.id.homeList);
         adapter = new CustomAdapterSearch(callingActivity, listItems);
         searches.setAdapter(adapter);
+
+        cmp = new Comparator<String[]>() {
+            @Override
+            public int compare(String[] o1, String[] o2) {
+                int distance1 = Integer.parseInt(o1[7]);
+                int distance2 = Integer.parseInt(o2[7]);
+                if(distance1 < distance2)
+                    return 1;
+                else if(distance1 > distance2)
+                    return -1;
+                else
+                    return 0;
+            }
+        };
 
         setLocation = new View.OnClickListener() {
             @Override
