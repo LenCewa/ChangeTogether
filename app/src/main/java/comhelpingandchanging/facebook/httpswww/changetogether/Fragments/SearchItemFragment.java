@@ -41,7 +41,6 @@ public class SearchItemFragment extends Fragment{
     TextView userBid;
     TextView userDescription;
     RatingBar ratingBar;
-    //a
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
