@@ -70,7 +70,6 @@ public class MainAppActivity extends AppCompatActivity
             searchFragment = new SearchFragment();
             bieteFragment = new BieteFragment();
             ownProfileFragment = new OwnProfileFragment();
-          //  helpingLocationsFragment = new HelpingLocationsFragment();
             inboxFragment = new InboxFragment();
         }
 
@@ -112,6 +111,7 @@ public class MainAppActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.search_menu, menu);
         return true;
     }
 
@@ -121,8 +121,13 @@ public class MainAppActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getFragmentManager();
 
-        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+
+            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack(null).commit();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -137,7 +142,7 @@ public class MainAppActivity extends AppCompatActivity
         if(id == R.id.nav_home){
             fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack(null).commit();
         } else if (id == R.id.nav_search) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack(null).commit();
+            //fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack(null).commit();
         } else if (id == R.id.nav_biete) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack(null).commit();
         } else if (id == R.id.nav_own_profile) {

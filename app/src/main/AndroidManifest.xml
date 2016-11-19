@@ -3,18 +3,16 @@
     package="comhelpingandchanging.facebook.httpswww.changetogether">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Utilities.Account"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="Change Together"
         android:supportsRtl="true"
-        android:theme="@style/ownTheme2"
-        android:label="Change Together">
+        android:theme="@style/ownTheme2">
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,9 +39,8 @@
 
         <activity
             android:name=".Activities.MainAppActivity"
-            android:theme="@style/ownTheme"
             android:label="@string/title_activity_main_app"
-            ></activity>
+            android:theme="@style/ownTheme" />
     </application>
 
 </manifest>
