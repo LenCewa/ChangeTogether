@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
     private void refresh(){
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
-        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Home");
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebote in deiner Nähe");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
 
         if(account.getLocation().equals("N/A"))
