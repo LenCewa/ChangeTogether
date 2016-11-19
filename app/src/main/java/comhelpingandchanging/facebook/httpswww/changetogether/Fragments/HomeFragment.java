@@ -68,9 +68,9 @@ public class HomeFragment extends Fragment {
                 int distance1 = Integer.parseInt(o1[7]);
                 int distance2 = Integer.parseInt(o2[7]);
                 if(distance1 < distance2)
-                    return 1;
-                else if(distance1 > distance2)
                     return -1;
+                else if(distance1 > distance2)
+                    return 1;
                 else
                     return 0;
             }
