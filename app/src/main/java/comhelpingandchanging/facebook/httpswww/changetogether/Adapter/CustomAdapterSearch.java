@@ -64,6 +64,7 @@ public class CustomAdapterSearch extends BaseAdapter {
         ImageView profilePic = (ImageView) vi.findViewById(R.id.profilePic);
         TextView profileName = (TextView) vi.findViewById(R.id.profileNameSearch);
         RatingBar ratingBar = (RatingBar) vi.findViewById(R.id.ratingBar4);
+        TextView count = (TextView) vi.findViewById(R.id.count);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
         if(data.get(position)[11].length() != 0) {
@@ -74,9 +75,10 @@ public class CustomAdapterSearch extends BaseAdapter {
 
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
-        time.setText(data.get(position)[9]);
+        time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
         profileName.setText(data.get(position)[1]);
         ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
+        count.setText(data.get(position)[6] + " Bewertungen");
         maxPart.setText("0/" + data.get(position)[10]);
 
         return vi;

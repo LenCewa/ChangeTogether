@@ -64,21 +64,21 @@
             android:layout_marginTop="6dp"/>
 
         <ImageView
-            android:layout_width="30dp"
             android:layout_below="@id/time"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="16dp"
             app:srcCompat="@drawable/blank_profile_pic"
             android:id="@+id/profilePic"
             android:scaleType="centerCrop"
-            android:layout_height="30dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profileNameSearch"
+            android:layout_alignTop="@+id/profilePic"
             android:layout_toEndOf="@+id/profilePic"
             android:layout_marginLeft="5dp"
-            android:layout_above="@+id/ratingBar4"
             android:textColor="@android:color/black"
             android:text="Yannick P"
             android:textSize="14sp" />
@@ -87,21 +87,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ratingBar4"
+            android:layout_below="@+id/profileNameSearch"
+            android:layout_above="@+id/count"
             android:layout_toEndOf="@+id/profilePic"
             android:layout_marginLeft="5dp"
-            android:layout_alignBottom="@+id/profilePic"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:numStars="5"
             android:stepSize="0.5"
             android:rating="3.5" />
 
         <TextView
+            android:text="40 Bewertungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/count"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/profilePic"
+            android:layout_alignBottom="@+id/profilePic"
+            android:textSize="10sp" />
+
+        <TextView
             android:text="4/20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/maxPart"
-            android:layout_alignParentRight="true"
-            android:layout_above="@id/ratingBar4"/>
+            android:layout_alignTop="@+id/profilePic"
+            android:layout_alignParentRight="true" />
 
         <TextView
             android:text="Teilnehmer"

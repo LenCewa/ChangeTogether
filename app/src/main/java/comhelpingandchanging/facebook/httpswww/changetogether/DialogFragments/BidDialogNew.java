@@ -150,12 +150,12 @@ public class BidDialogNew extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if (city != null && description.getText().toString().length() != 0 && location.getText().toString().length() != 0 &&
-                 city.equals(location.getText().toString()) && time.getText().toString().length() != 0 && date.getText().toString().length() != 0) {
+                 city.equals(location.getText().toString()) && time.getText().toString().length() != 0 && date.getText().toString().length() != 0 && participants.getText().toString().length() != 0) {
                     Double[] latLong = getLocationFromAddress(autocompleteView.getText().toString());
 
                     ((Account) callingFragment.getActivity().getApplication()).
                             addBid(callingFragment, bid, description.getText().toString(),
-                                    autocompleteView.getText().toString(), latLong[0], latLong[1], date.getText().toString(), time.getText().toString(), 0);
+                                    autocompleteView.getText().toString(), latLong[0], latLong[1], date.getText().toString(), time.getText().toString(), participants.getText().toString());
                     getDialog().dismiss();
                 }
                 else

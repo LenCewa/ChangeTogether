@@ -29,10 +29,10 @@ public class AddBid extends AsyncTask<Void, Void, String > {
     double lng;
     String date;
     String time;
-    int maxParticipators;
+    String maxParticipators;
     RequestHandler rh = new RequestHandler();
 
-    public AddBid(Fragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description, String location, double lat, double lng, String date, String time, int maxParticipators){
+    public AddBid(Fragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description, String location, double lat, double lng, String date, String time, String maxParticipators){
 
         this.callingFragment = callingFragment;
         this.emailAuth = emailAuth;
@@ -69,7 +69,7 @@ public class AddBid extends AsyncTask<Void, Void, String > {
         data.put("longitude", String.valueOf(lng));
         data.put("date", date);
         data.put("time", time);
-        data.put("maxParticipators", String.valueOf(maxParticipators));
+        data.put("maxParticipators", maxParticipators);
         String result = rh.sendPostRequest(Constants.DBADDBID,data);
 
         return result;
