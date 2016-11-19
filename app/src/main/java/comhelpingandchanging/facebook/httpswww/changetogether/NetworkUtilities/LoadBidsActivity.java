@@ -83,11 +83,16 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                         JSONObject bidsInfo = bids.getJSONObject(i);
 
                         String id = bidsInfo.getString("id");
-                        String email = bidsInfo.getString("email");
                         String tag = bidsInfo.getString("tag");
                         String description = bidsInfo.getString("description");
+                        String location = bidsInfo.getString("location");
+                        String avgRating = bidsInfo.getString("averageRating");
+                        String count = bidsInfo.getString("count");
+                        String date = bidsInfo.getString("date");
+                        String time = bidsInfo.getString("time");
+                        int maxPart = bidsInfo.getInt("maxPart");
 
-                        String[] arr = new String[]{id, tag, description};
+                        String[] arr = new String[]{id, tag, description, location, avgRating, count, date, time, String.valueOf(maxPart)};
                         if (!callingFragment.bieteItems.contains(arr))
                             callingFragment.bieteItems.add(arr);
                     }

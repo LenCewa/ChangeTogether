@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.InboxActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
@@ -34,7 +33,7 @@ public class ProfileFragment extends SuperProfileFragment {
     TextView profileLocation;
     TextView profileLanguage;
     ImageView profilePic;
-    FloatingActionButton settings;
+    FloatingActionButton sendMessage;
     public ArrayList<String[]> helpingLocations = new ArrayList<String[]>(); // TODO: Benutzen, wegen LoadHelpingLocationsActivity.java
 
     @Override
@@ -66,6 +65,10 @@ public class ProfileFragment extends SuperProfileFragment {
                     @Override public void onItemClick(View view, int position) {
 
 
+                        SearchItemFragment f = new SearchItemFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
+
+                        /**
                         String[] arr = (String[]) adapter.getItem(position);
                         int ID = Integer.parseInt(arr[0]);
                         String tag = arr[1];
@@ -74,15 +77,16 @@ public class ProfileFragment extends SuperProfileFragment {
                         intent.putExtra("id", ID);
                         intent.putExtra("tag", tag);
                         startActivity(intent);
+                         **/
                     }
                 })
         );
 
         account.loadBidsActivity(this, account.getSearchEmail());
 
-        settings = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        settings.setImageResource(R.drawable.ic_menu_send);
-        settings.setOnClickListener(new View.OnClickListener() {
+        sendMessage = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        sendMessage.setImageResource(R.drawable.ic_menu_send);
+        sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InboxFragment f = new InboxFragment();

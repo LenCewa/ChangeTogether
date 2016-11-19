@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -56,8 +57,7 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener {
                 add.show(getFragmentManager(), "Feedback Dialog");
             }
         });
-
-        account.searchFeedback(this, getIntent().getIntExtra("id", -1), getIntent().getStringExtra("tag"));
+        account.searchFeedback(this, Integer.parseInt(getIntent().getStringExtra("id")), getIntent().getStringExtra("tag"));
     }
 
     public void setStars(double stars){

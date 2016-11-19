@@ -53,6 +53,7 @@ public class Account extends Application {
 
     private UserProfile self = null;
     private SearchedItem searchedItem = null;
+    private boolean searchSet = false;
     private String sessionId;
     //private FragmentManager fm;
 
@@ -109,6 +110,7 @@ public class Account extends Application {
 
     public void setSearchedItem(UserProfile userProfile, String tag, String description){
 
+        searchSet = true;
         searchedItem = new SearchedItem(userProfile, tag, description);
     }
 
@@ -215,7 +217,6 @@ public class Account extends Application {
         a.execute();
     }
 
-
     public String getEmail(){
         return self.getUsername();
     }
@@ -232,26 +233,54 @@ public class Account extends Application {
 
 
     public String getSearchTag(){
-        return searchedItem.getTag();
+
+        if(searchSet)
+            return searchedItem.getTag();
+        else
+            return null;
     }
 
     public String getSearchDescription(){
-        return searchedItem.getDescription();
+
+        if(searchSet)
+            return searchedItem.getDescription();
+        else
+            return null;
     }
 
     public String getSearchEmail(){
-        return searchedItem.getUsername();
+
+        if(searchSet)
+            return searchedItem.getUsername();
+        else
+            return null;
     }
 
     public String getSearchLocation(){
-        return searchedItem.getLocation();
+
+
+        if(searchSet)
+            return searchedItem.getLocation();
+        else
+            return null;
     }
 
     public String getSearchLanguage(){
-        return searchedItem.getLanguage();
+
+
+        if(searchSet)
+            return searchedItem.getLanguage();
+        else
+            return null;
     }
 
-    public Bitmap getSearchProfilePic(){ return searchedItem.getProfilePic(); }
+    public Bitmap getSearchProfilePic(){
+
+        if(searchSet)
+            return searchedItem.getProfilePic();
+        else
+            return null;
+    }
 
 
     /*public FragmentManager getFragmentManager(){

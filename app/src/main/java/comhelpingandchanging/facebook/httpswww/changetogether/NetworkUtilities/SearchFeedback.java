@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchItemFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
@@ -106,6 +108,7 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
                                 .show();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.e("test", "result " + result);
                     Toast.makeText(callingActivity, "Couldnt load feedback", Toast.LENGTH_LONG).show();
                 }
             }

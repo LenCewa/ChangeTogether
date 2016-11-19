@@ -40,8 +40,7 @@ public class FeedbackDialog extends DialogFragment {
             public void onClick(View v) {
                 float rating = ratingBar.getRating();
                 String feedbackText = feedback.getText().toString();
-
-                account.addFeedback(FeedbackDialog.this, (int)getArguments().get("id"), (String)getArguments().get("tag"), feedbackText, rating);
+                account.addFeedback(FeedbackDialog.this, Integer.parseInt((String)getArguments().get("id")), (String)getArguments().get("tag"), feedbackText, rating);
             }
         });
 
