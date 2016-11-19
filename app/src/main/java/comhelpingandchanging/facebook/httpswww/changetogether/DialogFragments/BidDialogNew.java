@@ -35,6 +35,8 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 public class BidDialogNew extends DialogFragment {
     AutoCompleteTextView location;
     BieteFragment callingFragment;
+    Button dateButton;
+    Button timeButton;
     Button done;
     Calendar myCalendar;
     EditText participants;
@@ -87,7 +89,9 @@ public class BidDialogNew extends DialogFragment {
 
         location = (AutoCompleteTextView) rootView.findViewById(R.id.location);
         time = (TextView) rootView.findViewById(R.id.time);
+        timeButton = (Button) rootView.findViewById(R.id.timeButton);
         date = (TextView) rootView.findViewById(R.id.date);
+        dateButton = (Button) rootView.findViewById(R.id.dateButton);
         participants = (EditText) rootView.findViewById(R.id.participants);
 
         final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) rootView.findViewById(R.id.location);
@@ -115,6 +119,15 @@ public class BidDialogNew extends DialogFragment {
 
         };
 
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), dateSetter, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +135,24 @@ public class BidDialogNew extends DialogFragment {
                 new DatePickerDialog(getActivity(), dateSetter, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCalendar = Calendar.getInstance();
+                int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+                int minute = myCalendar.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        time.setText( hourOfDay + ":" + minute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.show();
+
             }
         });
 
