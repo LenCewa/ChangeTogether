@@ -100,10 +100,8 @@ public class ProfileFragment extends SuperProfileFragment {
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchEmail() + "'s Profil");
 
-        if(account.isUserSearched())
-            setElements();
-        else
-            account.searchUer(this);
+
+        account.searchUer(this);
 
         return view;
     }
