@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,10 +38,12 @@ public class SearchItemFragment extends Fragment{
     View view;
     Activity callingActivity;
     Account account;
+    Button join;
     ImageView userProfile;
     TextView userEmail;
     TextView userBid;
     TextView userDescription;
+    TextView ratings;
     RatingBar ratingBar;
 
     @Override
@@ -53,16 +57,26 @@ public class SearchItemFragment extends Fragment{
         userBid = (TextView) view.findViewById(R.id.userBid);
         userDescription = (TextView) view.findViewById(R.id.userDescription);
         ratingBar = (RatingBar) view.findViewById(R.id.avergageRating);
+        ratings = (TextView) view.findViewById(R.id.rezensionen);
+        join = (Button) view.findViewById(R.id.joinButton);
 
         userProfile.setImageBitmap(account.getSearchProfilePic());
         userEmail.setText(account.getSearchEmail());
         userBid.setText(account.getSearchTag());
         userDescription.setText(account.getSearchDescription());
         ratingBar.setRating(account.getSearchAverageRating());
+        ratings.setText(account.getSearchCount() + " Rezensionen");
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebot von " + account.getSearchEmail());
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
+
+        join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("TODO", "An DB senden");
+            }
+        });
 
         ratingBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -72,6 +86,14 @@ public class SearchItemFragment extends Fragment{
                     startActivity(intent);
                 }
                 return true;
+            }
+        });
+
+        ratings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                startActivity(intent);
             }
         });
 
