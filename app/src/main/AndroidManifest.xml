@@ -29,7 +29,6 @@
 
         <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.InboxActivity" />
         <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.SettingsActivity" />
         <activity android:name=".Activities.ShowBidFeedback" />
@@ -45,21 +44,5 @@
             android:label="@string/title_activity_main_app"
             ></activity>
     </application>
-
-    <service
-        android:name=".MyFirebaseMessagingService"
-        android:exported="false">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT" />
-        </intent-filter>
-    </service>
-
-    <service
-        android:name=".MyFirebaseInstanceIdService"
-        android:exported="false">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-        </intent-filter>
-    </service>
 
 </manifest>
