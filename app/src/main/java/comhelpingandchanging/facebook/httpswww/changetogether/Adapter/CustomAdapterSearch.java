@@ -66,13 +66,15 @@ public class CustomAdapterSearch extends BaseAdapter {
         RatingBar ratingBar = (RatingBar) vi.findViewById(R.id.ratingBar4);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
-        byte[] decodedString = Base64.decode(data.get(position)[11], Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        if(data.get(position)[11].length() != 0) {
+            byte[] decodedString = Base64.decode(data.get(position)[11], Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            profilePic.setImageBitmap(decodedByte);
+        }
 
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
         time.setText(data.get(position)[9]);
-        profilePic.setImageBitmap(decodedByte);
         profileName.setText(data.get(position)[1]);
         ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         maxPart.setText("0/" + data.get(position)[10]);
