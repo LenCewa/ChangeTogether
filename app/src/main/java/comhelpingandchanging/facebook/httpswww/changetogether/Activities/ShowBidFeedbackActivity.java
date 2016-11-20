@@ -43,7 +43,7 @@ public class ShowBidFeedbackActivity extends FragmentActivity implements MyDialo
         feedbackList = (ListView) findViewById(R.id.listFeedback);
         ratingBar = (RatingBar) findViewById(R.id.avergageRating);
 
-        bid.setText(getIntent().getStringExtra("tag"));
+        bid.setText(account.getSearchTag());
         adapter = new CustomAdapter(this, feedbacks);
         feedbackList.setAdapter(adapter);
 
