@@ -79,7 +79,7 @@ public class CustomAdapterBiete extends BaseAdapter {
 
         tag.setText(data.get(position)[2]);
         location.setText(data.get(position)[4]);
-        time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
+        time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
         ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         count.setText(data.get(position)[6] + " Bewertungen");
         maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);

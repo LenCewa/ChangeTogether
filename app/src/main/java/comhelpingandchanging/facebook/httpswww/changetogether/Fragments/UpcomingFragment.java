@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapterOwnProfile;
@@ -42,14 +43,58 @@ public class UpcomingFragment extends SuperProfileFragment {
         cmp = new Comparator<String[]>() {
             @Override
             public int compare(String[] o1, String[] o2) {
-                int distance1 = Integer.parseInt(o1[7]);
-                int distance2 = Integer.parseInt(o2[7]);
-                if(distance1 < distance2)
+                String date1 = o1[8];
+                String date2 = o2[8];
+                String time1 = o1[9];
+                String time2 = o2[9];
+
+                String[] d1 = date1.split(Pattern.quote("/"));
+                String[] d2 = date2.split(Pattern.quote("/"));
+                String[] t1 = time1.split(Pattern.quote(":"));
+                String[] t2 = time2.split(Pattern.quote(":"));
+
+                int day1 = Integer.parseInt(d1[0]);
+                int month1 = Integer.parseInt(d1[1]);
+                int year1 = Integer.parseInt(d1[2]);
+                int hours1 = Integer.parseInt(t1[0]);
+                int minutes1 = Integer.parseInt(t1[1]);
+
+                int day2 = Integer.parseInt(d2[0]);
+                int month2 = Integer.parseInt(d2[1]);
+                int year2 = Integer.parseInt(d2[2]);
+                int hours2 = Integer.parseInt(t2[0]);
+                int minutes2 = Integer.parseInt(t2[1]);
+
+                if(year1 < year2)
                     return -1;
-                else if(distance1 > distance2)
+                else if(year1 > year2)
                     return 1;
-                else
-                    return 0;
+                else {
+                    if(month1 < month2)
+                        return -1;
+                    else if(month1 > month2)
+                        return 1;
+                    else {
+                        if(day1 < day2)
+                            return -1;
+                        else if(day1 > day2)
+                            return 1;
+                        else {
+                            if(hours1 < hours2)
+                                return -1;
+                            else if(hours1 > hours2)
+                                return 1;
+                            else {
+                                if(minutes1 < minutes2)
+                                    return -1;
+                                else if(minutes1 > minutes2)
+                                    return 1;
+                                else
+                                    return 0;
+                            }
+                        }
+                    }
+                }
             }
         };
 

@@ -82,7 +82,7 @@ public class CustomAdapterHome extends BaseAdapter {
         tag.setText(data.get(position)[2]);
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
-        time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
+        time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
         profileName.setText(data.get(position)[1]);
         ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         count.setText(data.get(position)[6] + " Bewertungen");
