@@ -63,8 +63,8 @@ public class OwnBidsFragment extends SuperProfileFragment {
                         String encodedPic = adapter.getItem(position)[12];
 
                         account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
-                        SearchItemFragment f = new SearchItemFragment();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
+                        OwnSearchItemFragment f = new OwnSearchItemFragment();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
                     }
                 })
         );
