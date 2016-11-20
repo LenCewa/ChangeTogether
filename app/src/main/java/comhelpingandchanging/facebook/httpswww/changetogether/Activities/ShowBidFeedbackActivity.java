@@ -22,7 +22,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Ludwig on 05.11.2016.
  */
 
-public class ShowBidFeedback extends FragmentActivity implements MyDialogCloseListener {
+public class ShowBidFeedbackActivity extends FragmentActivity implements MyDialogCloseListener {
 
     TextView bid;
     FloatingActionButton rateBtn;

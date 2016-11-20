@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterBiete;
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.BidDialogNew;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.MyDialogCloseListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -42,7 +40,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_biete, container, false);
+        view = inflater.inflate(R.layout.fragment_biete, container, false);
         callingActivity = (MainAppActivity) getActivity();
 
         account = (Account) callingActivity.getApplication();

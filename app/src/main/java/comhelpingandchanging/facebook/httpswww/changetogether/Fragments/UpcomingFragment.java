@@ -2,8 +2,6 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +31,7 @@ public class UpcomingFragment extends SuperProfileFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         account = (Account) getActivity().getApplication();
 

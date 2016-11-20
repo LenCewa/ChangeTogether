@@ -50,7 +50,7 @@ public class BidDialogNew extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_select_biete_new, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_add_bid, container, false);
 
         callingFragment = (BieteFragment) getParentFragment();
 

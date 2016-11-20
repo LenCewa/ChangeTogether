@@ -29,7 +29,7 @@
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.ShowBidFeedback" />
+        <activity android:name=".Activities.ShowBidFeedbackActivity" />
         <activity android:name=".Activities.SignInActivity" />
         <activity android:name=".Activities.ChatActivity" />
 

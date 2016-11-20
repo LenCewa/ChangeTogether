@@ -15,11 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ChatActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -39,7 +37,7 @@ public class ProfileFragment extends SuperProfileFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
         account =(Account) getActivity().getApplication();
 
         profileLocation = (TextView) view.findViewById(R.id.ownProfileLocation);

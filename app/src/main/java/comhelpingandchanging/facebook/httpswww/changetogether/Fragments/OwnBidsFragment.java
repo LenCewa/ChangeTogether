@@ -27,7 +27,7 @@ public class OwnBidsFragment extends SuperProfileFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         account = (Account) getActivity().getApplication();
 

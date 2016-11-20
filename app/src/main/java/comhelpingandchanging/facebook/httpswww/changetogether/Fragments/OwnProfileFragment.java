@@ -37,7 +37,7 @@ public class OwnProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_tab, container, false);
+        view = inflater.inflate(R.layout.fragment_ownprofile_tab, container, false);
 
         account = (Account) getActivity().getApplication();
 

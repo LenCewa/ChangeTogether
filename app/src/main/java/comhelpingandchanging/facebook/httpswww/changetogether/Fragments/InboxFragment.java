@@ -40,7 +40,7 @@ public class InboxFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_inbox, container, false);
+        view = inflater.inflate(R.layout.fragment_inbox, container, false);
         callingActivity = getActivity();
         account = (Account) callingActivity.getApplication();
 

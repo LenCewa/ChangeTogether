@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedbackActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -39,7 +38,7 @@ public class SearchItemFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_search_item, container, false);
+        view = inflater.inflate(R.layout.fragment_search_item, container, false);
         callingActivity = getActivity();
 
         account = (Account) callingActivity.getApplication();
@@ -76,7 +75,7 @@ public class SearchItemFragment extends Fragment{
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                    Intent intent = new Intent(getActivity(), ShowBidFeedbackActivity.class);
                     startActivity(intent);
                 }
                 return true;
@@ -86,7 +85,7 @@ public class SearchItemFragment extends Fragment{
         ratings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                Intent intent = new Intent(getActivity(), ShowBidFeedbackActivity.class);
                 startActivity(intent);
             }
         });

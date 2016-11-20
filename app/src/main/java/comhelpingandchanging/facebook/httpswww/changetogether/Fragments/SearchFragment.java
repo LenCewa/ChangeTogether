@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +18,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -55,7 +49,7 @@ public class SearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_search, container, false);
+        view = inflater.inflate(R.layout.fragment_search, container, false);
         callingActivity = getActivity();
         account = (Account) callingActivity.getApplication();
 

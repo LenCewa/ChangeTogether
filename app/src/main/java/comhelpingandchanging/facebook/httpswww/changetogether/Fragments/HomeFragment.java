@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,19 +16,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterHome;
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
-import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.UserProfile;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -56,7 +48,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
         callingActivity = getActivity();
         account = (Account) callingActivity.getApplication();
 

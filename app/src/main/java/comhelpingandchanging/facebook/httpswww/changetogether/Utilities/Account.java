@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedbackActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
@@ -151,7 +151,7 @@ public class Account extends Application {
         d.execute();
     }
 
-    public void searchFeedback(ShowBidFeedback callingActivity, int id, String tag) {
+    public void searchFeedback(ShowBidFeedbackActivity callingActivity, int id, String tag) {
 
         SearchFeedback s = new SearchFeedback(callingActivity, getEmail(), getSessionId(), id, tag);
         s.execute();

@@ -14,8 +14,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
-import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchItemFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedbackActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
@@ -27,14 +26,14 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
 
     ProgressDialog loading;
     Account account;
-    ShowBidFeedback callingActivity;
+    ShowBidFeedbackActivity callingActivity;
     RequestHandler rh = new RequestHandler();
     private String emailAuth;
     private String sessionId;
     private String tag;
     private int id;
 
-    public SearchFeedback(ShowBidFeedback callingActivity, String emailAuth, String sessionId, int id, String tag){
+    public SearchFeedback(ShowBidFeedbackActivity callingActivity, String emailAuth, String sessionId, int id, String tag){
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
