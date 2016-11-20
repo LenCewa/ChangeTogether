@@ -46,6 +46,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
             holder.profilePic.setImageBitmap(decodedByte);
         }
 
+        holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
         holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
@@ -65,6 +66,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
 
     public class ProfileInfoViewHolder extends RecyclerView.ViewHolder{
 
+        TextView tag;
         TextView location;
         TextView time;
         ImageView profilePic;
@@ -75,6 +77,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
         public ProfileInfoViewHolder(View vi) {
 
             super(vi);
+            tag = (TextView) vi.findViewById(R.id.tag);
             location = (TextView) vi.findViewById(R.id.location);
             time = (TextView) vi.findViewById(R.id.time);
             profilePic = (ImageView) vi.findViewById(R.id.profilePic);

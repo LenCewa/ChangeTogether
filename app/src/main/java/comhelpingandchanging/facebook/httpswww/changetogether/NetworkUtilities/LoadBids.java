@@ -52,6 +52,8 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
         data.put("sessionId", sessionId);
 
         data.put("email", email);
+        data.put("latitude", String.valueOf(0));
+        data.put("longitude", String.valueOf(0));
         String result = rh.sendPostRequest(Constants.DBLOADBID,data);
 
         return result;
@@ -81,12 +83,25 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
                     for (int i = 0; i < bids.length(); i++) {
                         JSONObject bidsInfo = bids.getJSONObject(i);
 
+                        String id = bidsInfo.getString("id");
+                        String email = bidsInfo.getString("email");
                         String tag = bidsInfo.getString("tag");
+                        String description = bidsInfo.getString("description");
+                        String location = bidsInfo.getString("location");
+                        String avgRating = bidsInfo.getString("averageRating");
+                        String count = bidsInfo.getString("count");
+                        String distance = String.valueOf(Math.round(bidsInfo.getDouble("distance")));
+                        String date = bidsInfo.getString("date");
+                        String time = bidsInfo.getString("time");
+                        int maxPart = bidsInfo.getInt("maxPart");
+                        String encodedPic = bidsInfo.getString("profilePic");
 
-                        if (!callingFragment.bieteItems.contains(tag))
-                            callingFragment.bieteItems.add(tag);
+                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, String.valueOf(maxPart), encodedPic};
+                        if (!callingFragment.bieteItems.contains(arr))
+                            callingFragment.bieteItems.add(arr);
                     }
                     callingFragment.adapter.notifyDataSetChanged();
+
                     if (callingFragment.bieteItems.isEmpty())
                         Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();

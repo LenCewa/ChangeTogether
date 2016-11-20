@@ -46,6 +46,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
             holder.profilePic.setImageBitmap(decodedByte);
         }
 
+        holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
         holder.distance.setText("<=" + data.get(position)[7] + "km");
         holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
@@ -66,6 +67,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
 
     public class ProfileInfoViewHolder extends RecyclerView.ViewHolder{
 
+        TextView tag;
         TextView location;
         TextView distance;
         TextView time;
@@ -77,6 +79,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         public ProfileInfoViewHolder(View vi) {
 
             super(vi);
+            tag = (TextView) vi.findViewById(R.id.tag);
             location = (TextView) vi.findViewById(R.id.location);
             distance = (TextView) vi.findViewById(R.id.distance);
             time = (TextView) vi.findViewById(R.id.time);

@@ -26,15 +26,23 @@
             android:background="@color/colorListItem">
 
             <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tag"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:textColor="@android:color/black" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/location"
                 android:maxLines="1"
                 android:ellipsize="none"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
                 android:textColorLink="@color/colorList"
                 android:textColor="@android:color/black"
+                android:layout_below="@+id/tag"
                 android:text="Wiesthal" />
 
             <TextView

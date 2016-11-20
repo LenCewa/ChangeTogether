@@ -109,7 +109,7 @@ public class LoadBidsActivity extends AsyncTask<Void, Void, String>{
                     if(callingFragment.cmp != null)
                         Collections.sort(callingFragment.bieteItems, callingFragment.cmp);
                     callingFragment.adapter.notifyDataSetChanged();
-                    callingFragment.adapter.getItemCount();
+
                     if (callingFragment.bieteItems.isEmpty())
                         Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();

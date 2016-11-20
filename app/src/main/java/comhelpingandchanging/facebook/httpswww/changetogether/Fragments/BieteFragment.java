@@ -18,6 +18,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterBiete;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.BidDialogNew;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.MyDialogCloseListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -31,9 +33,9 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
 
     View view;
     MainAppActivity callingActivity;
-    public ArrayList<String> bieteItems = new ArrayList<>();
+    public ArrayList<String[]> bieteItems = new ArrayList<>();
     ListView bieteList_class;
-    public ArrayAdapter<String> adapter;
+    public CustomAdapterBiete adapter;
     Account account;
     FloatingActionButton fab;
 
@@ -46,7 +48,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
         account = (Account) callingActivity.getApplication();
 
         bieteList_class = (ListView) view.findViewById(R.id.bieteList);
-        adapter = new ArrayAdapter<String>(callingActivity, android.R.layout.simple_list_item_1, bieteItems);
+        adapter = new CustomAdapterBiete(getActivity(), bieteItems);
         bieteList_class.setAdapter(adapter);
 
         account.loadBids(this);
@@ -63,8 +65,8 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
         bieteList_class.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                account.deleteBid(BieteFragment.this, adapter.getItem(position), "");
-                account.loadBids(BieteFragment.this);
+                //account.deleteBid(BieteFragment.this, adapter.getItem(position), "");
+                //account.loadBids(BieteFragment.this);
                 return true;
             }
         });

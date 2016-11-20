@@ -27,6 +27,7 @@ import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterHome;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment {
     Double[] latLong;
     public ListView searches;
     public ArrayList<String[]> listItems = new ArrayList<String[]>();
-    public CustomAdapterSearch adapter;
+    public CustomAdapterHome adapter;
     View.OnClickListener setLocation;
     public Comparator<String[]> cmp;
 
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment {
         account = (Account) callingActivity.getApplication();
 
         searches = (ListView) view.findViewById(R.id.homeList);
-        adapter = new CustomAdapterSearch(callingActivity, listItems);
+        adapter = new CustomAdapterHome(callingActivity, listItems);
         searches.setAdapter(adapter);
 
         cmp = new Comparator<String[]>() {
