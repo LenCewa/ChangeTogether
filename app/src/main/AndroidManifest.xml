@@ -32,6 +32,7 @@
         <activity android:name=".Activities.ShowBidFeedback" />
         <activity android:name=".Activities.SignInActivity" />
         <activity android:name=".Activities.ChatActivity" />
+        <activity android:name=".Activities.EditActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

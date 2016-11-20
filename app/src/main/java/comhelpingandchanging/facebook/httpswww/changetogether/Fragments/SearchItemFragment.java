@@ -33,6 +33,7 @@ public class SearchItemFragment extends Fragment{
     ImageView userProfile;
     TextView userEmail;
     TextView userBid;
+    TextView timenDate;
     TextView userDescription;
     TextView ratings;
     RatingBar ratingBar;
@@ -47,6 +48,7 @@ public class SearchItemFragment extends Fragment{
         userEmail = (TextView) view.findViewById(R.id.userEmail);
         userBid = (TextView) view.findViewById(R.id.userBid);
         userDescription = (TextView) view.findViewById(R.id.userDescription);
+        timenDate = (TextView) view.findViewById(R.id.timenDate);
         ratingBar = (RatingBar) view.findViewById(R.id.avergageRating);
         ratings = (TextView) view.findViewById(R.id.rezensionen);
         join = (Button) view.findViewById(R.id.joinButton);
@@ -54,6 +56,7 @@ public class SearchItemFragment extends Fragment{
         userProfile.setImageBitmap(account.getSearchProfilePic());
         userEmail.setText(account.getSearchEmail());
         userBid.setText(account.getSearchTag());
+        timenDate.setText(account.getSearchDate() + " - " + account.getSearchTime() + " Uhr");
         userDescription.setText(account.getSearchDescription());
         ratingBar.setRating(account.getSearchAverageRating());
         ratings.setText(account.getSearchCount() + " Rezensionen");
