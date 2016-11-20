@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterBiete;
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterSearch;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.BidDialogNew;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.MyDialogCloseListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
@@ -34,7 +32,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
     View view;
     MainAppActivity callingActivity;
     public ArrayList<String[]> bieteItems = new ArrayList<>();
-    ListView bieteList_class;
+    ListView bieteList;
     public CustomAdapterBiete adapter;
     Account account;
     FloatingActionButton fab;
@@ -47,9 +45,9 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
 
         account = (Account) callingActivity.getApplication();
 
-        bieteList_class = (ListView) view.findViewById(R.id.bieteList);
+        bieteList = (ListView) view.findViewById(R.id.bieteList);
         adapter = new CustomAdapterBiete(getActivity(), bieteItems);
-        bieteList_class.setAdapter(adapter);
+        bieteList.setAdapter(adapter);
 
         account.loadBids(this);
 
@@ -62,7 +60,31 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
             }
         });
 
-        bieteList_class.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        bieteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long ID) {
+                String id = adapter.getItem(position)[0];
+                String email = adapter.getItem(position)[1];
+                String tag = adapter.getItem(position)[2];
+                String description = adapter.getItem(position)[3];
+                String location = adapter.getItem(position)[4];
+                String averageRating = adapter.getItem(position)[5];
+                String count = adapter.getItem(position)[6];
+                String distance = adapter.getItem(position)[7];
+                String date = adapter.getItem(position)[8];
+                String time = adapter.getItem(position)[9];
+                String part = adapter.getItem(position)[10];
+                String maxPart = adapter.getItem(position)[11];
+                String encodedPic = adapter.getItem(position)[12];
+
+                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
+                OwnSearchItemFragment f = new OwnSearchItemFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
+            }
+        });
+
+
+        bieteList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //account.deleteBid(BieteFragment.this, adapter.getItem(position), "");
