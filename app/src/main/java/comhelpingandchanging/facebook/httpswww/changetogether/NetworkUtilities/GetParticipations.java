@@ -1,7 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -115,7 +114,6 @@ public class GetParticipations extends AsyncTask<Void, Void, String>{
                     }
 
                     account.setParticipations(l);
-                    Log.e("hallo", Arrays.toString(account.getParticipations().get(0)));
 
                     if (l.isEmpty())
                         Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)

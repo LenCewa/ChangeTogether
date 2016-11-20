@@ -1,5 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.ThumbnailUtils;
@@ -7,8 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Comparator;
-
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapterOwnProfile;
-import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -31,64 +26,22 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Yannick on 03.11.2016.
  */
 
-public class OwnProfileFragment extends SuperProfileFragment {
+public class OwnProfileFragment extends Fragment {
 
-
+    View view;
+    Account account;
+    private FragmentTabHost mTabHost;
     FloatingActionButton settings;
-    TextView location;
-    TextView language;
     ImageView profilePic;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_profile, container, false);
+        view = inflater.inflate(R.layout.activity_tab, container, false);
 
         account = (Account) getActivity().getApplication();
 
-        location = (TextView) view.findViewById(R.id.ownProfileLocation);
-        language = (TextView) view.findViewById(R.id.ownProfileLanguage);
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
-
-        adapter = new CustomRecyclerViewAdapterOwnProfile(bieteItems);
-        bidList = (RecyclerView) view.findViewById(R.id.cardList);
-        bidList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        bidList.setLayoutManager(llm);
-        bidList.setAdapter(adapter);
-
-        bidList.addOnItemTouchListener(
-                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-
-                        CustomRecyclerViewAdapterOwnProfile adapter = (CustomRecyclerViewAdapterOwnProfile) OwnProfileFragment.this.adapter;
-
-                        String id = adapter.getItem(position)[0];
-                        String email = adapter.getItem(position)[1];
-                        String tag = adapter.getItem(position)[2];
-                        String description = adapter.getItem(position)[3];
-                        String location = adapter.getItem(position)[4];
-                        String averageRating = adapter.getItem(position)[5];
-                        String count = adapter.getItem(position)[6];
-                        String distance = adapter.getItem(position)[7];
-                        String date = adapter.getItem(position)[8];
-                        String time = adapter.getItem(position)[9];
-                        String part = adapter.getItem(position)[10];
-                        String maxPart = adapter.getItem(position)[11];
-                        String encodedPic = adapter.getItem(position)[12];
-
-                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
-                        SearchItemFragment f = new SearchItemFragment();
-                        getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
-                    }
-                })
-        );
-
-        account.loadBidsActivity(this, account.getEmail(), account.getLat(), account.getLng());
-
-        refresh();
-
         settings = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         settings.setImageResource(R.drawable.ic_menu_manage);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +51,22 @@ public class OwnProfileFragment extends SuperProfileFragment {
                 startActivity(settingsActivity);
             }
         });
+
+        mTabHost = (FragmentTabHost)view.findViewById(android.R.id.tabhost);
+        mTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
+
+        mTabHost.addTab(mTabHost.newTabSpec("angebote").setIndicator(getTabIndicator(getActivity(), "Angebote")),
+                OwnBidsFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("anstehende").setIndicator(getTabIndicator(getActivity(), "Anstehende")),
+                UpcomingFragment.class, null);
+
+        return view;
+    }
+
+    private View getTabIndicator(Context context, String title) {
+        View view = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
+        TextView tv = (TextView) view.findViewById(R.id.textView);
+        tv.setText(title);
         return view;
     }
 
@@ -110,8 +79,6 @@ public class OwnProfileFragment extends SuperProfileFragment {
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());
-        location.setText(account.getLocation());
-        language.setText(account.getLanguage());
     }
 
     @Override

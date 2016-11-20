@@ -4,17 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:androd="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true">
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="10dp"
-        android:layout_marginTop="150dp"
-        android:divider="@android:color/transparent"
-        android:layout_below="@+id/profPic"
-        android:id="@+id/cardList"
-        android:scrollbars="none" />
+    android:fitsSystemWindows="true"
+    >
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
@@ -28,6 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerHeight="10dp"
+                android:layout_marginTop="150dp"
+                android:divider="@android:color/transparent"
+                android:layout_below="@+id/profPic"
+                android:id="@+id/cardList"
+                android:scrollbars="none" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"

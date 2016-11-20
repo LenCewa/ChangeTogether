@@ -2,22 +2,13 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.util.Log;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
@@ -27,7 +18,6 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchIt
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SuperProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddFeedback;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddHelpingLocation;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddInfo;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteBid;
 //import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteHelpingLocations;
@@ -45,7 +35,6 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.S
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchFeedback;
 //import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchUser;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.ShowPic;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.UploadImage;
 
 /**
@@ -168,7 +157,7 @@ public class Account extends Application {
         s.execute();
     }
 
-    public void addFeedback(DialogFragment callingDialog, int id,String tag, String text, float rating){
+    public void addFeedback(DialogFragment callingDialog, int id, String tag, String text, float rating){
         AddFeedback a = new AddFeedback(callingDialog, getEmail(), getSessionId(), id, tag, getEmail(), text, rating);
         a.execute();
     }

@@ -1,6 +1,6 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +22,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Ludwig on 05.11.2016.
  */
 
-public class ShowBidFeedback extends Activity implements MyDialogCloseListener {
+public class ShowBidFeedback extends FragmentActivity implements MyDialogCloseListener {
 
     TextView bid;
     FloatingActionButton rateBtn;
@@ -54,7 +54,7 @@ public class ShowBidFeedback extends Activity implements MyDialogCloseListener {
                 add.setArguments(new Bundle());
                 add.getArguments().putInt("id", Integer.parseInt(account.getSearchID()));
                 add.getArguments().putString("tag", account.getSearchTag());
-                add.show(getFragmentManager(), "Feedback Dialog");
+                add.show(getSupportFragmentManager(), "Feedback Dialog");
             }
         });
         account.searchFeedback(this, Integer.parseInt(account.getSearchID()), account.getSearchTag());

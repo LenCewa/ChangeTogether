@@ -1,6 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 

@@ -58,7 +58,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
         holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
-        holder.maxPart.setText(data.get(position)[10] + "0/" + data.get(position)[11]);
+        holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
     }
 
     @Override

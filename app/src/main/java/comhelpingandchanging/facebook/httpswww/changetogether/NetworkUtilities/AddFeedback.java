@@ -1,7 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.Activity;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;

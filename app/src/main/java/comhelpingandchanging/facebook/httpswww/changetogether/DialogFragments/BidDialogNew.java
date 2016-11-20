@@ -2,12 +2,13 @@ package comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
+
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

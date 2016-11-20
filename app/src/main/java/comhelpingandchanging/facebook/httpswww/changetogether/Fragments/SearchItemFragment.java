@@ -1,7 +1,7 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -95,7 +95,7 @@ public class SearchItemFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 ProfileFragment f = new ProfileFragment();
-                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
+                //getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
             }
         });
 

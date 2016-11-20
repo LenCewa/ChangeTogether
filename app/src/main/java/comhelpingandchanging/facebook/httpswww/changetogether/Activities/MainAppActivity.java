@@ -1,11 +1,10 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
 
-import android.app.FragmentManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,8 +27,9 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFra
 //import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HelpingLocationsFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.InboxFragment;
-import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.OwnProfileFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.OwnBidsFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.OwnProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -40,7 +40,8 @@ public class MainAppActivity extends AppCompatActivity
     HomeFragment homeFragment;
     SearchFragment searchFragment;
     BieteFragment bieteFragment;
-    OwnProfileFragment ownProfileFragment;
+    OwnBidsFragment ownProfileFragment;
+    OwnProfileFragment tab;
     //HelpingLocationsFragment helpingLocationsFragment;
     InboxFragment inboxFragment;
     View header;
@@ -59,16 +60,17 @@ public class MainAppActivity extends AppCompatActivity
         account = (Account) getApplication();
 
         if (savedInstanceState != null) {
-            searchFragment = (SearchFragment) getFragmentManager().getFragment(savedInstanceState, "search");
-            bieteFragment = (BieteFragment) getFragmentManager().getFragment(savedInstanceState, "biete");
-            ownProfileFragment = (OwnProfileFragment) getFragmentManager().getFragment(savedInstanceState, "ownprofile");
-            inboxFragment = (InboxFragment) getFragmentManager().getFragment(savedInstanceState, "inbox");
+            searchFragment = (SearchFragment) getSupportFragmentManager().getFragment(savedInstanceState, "search");
+            bieteFragment = (BieteFragment) getSupportFragmentManager().getFragment(savedInstanceState, "biete");
+            ownProfileFragment = (OwnBidsFragment) getSupportFragmentManager().getFragment(savedInstanceState, "ownprofile");
+            inboxFragment = (InboxFragment) getSupportFragmentManager().getFragment(savedInstanceState, "inbox");
         }
         else {
             homeFragment = new HomeFragment();
             searchFragment = new SearchFragment();
             bieteFragment = new BieteFragment();
-            ownProfileFragment = new OwnProfileFragment();
+            ownProfileFragment = new OwnBidsFragment();
+            tab = new OwnProfileFragment();
             inboxFragment = new InboxFragment();
         }
 
@@ -90,7 +92,7 @@ public class MainAppActivity extends AppCompatActivity
         ((TextView) header.findViewById(R.id.profEmail)).setText(account.getEmail());
         ((TextView) header.findViewById(R.id.profLocation)).setText(account.getLocation());
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
     }
 
     @Override
@@ -120,7 +122,7 @@ public class MainAppActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.action_search) {
 
@@ -136,16 +138,14 @@ public class MainAppActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if(id == R.id.nav_home){
             fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack(null).commit();
         } else if (id == R.id.nav_biete) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack(null).commit();
         } else if (id == R.id.nav_own_profile) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, ownProfileFragment, "ownprofile").addToBackStack(null).commit();
-        //} else if (id == R.id.nav_helping) {
-            //fragmentManager.beginTransaction().replace(R.id.content_frame, helpingLocationsFragment, "helping").addToBackStack(null).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, tab, "ownprofile").addToBackStack(null).commit();
         } else if (id == R.id.nav_inbox) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, inboxFragment, "helping").addToBackStack(null).commit();
         }
