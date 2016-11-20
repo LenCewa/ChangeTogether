@@ -100,10 +100,11 @@ public class HomeFragment extends Fragment {
                 String distance = adapter.getItem(position)[7];
                 String date = adapter.getItem(position)[8];
                 String time = adapter.getItem(position)[9];
-                String maxPart = adapter.getItem(position)[10];
-                String encodedPic = adapter.getItem(position)[11];
+                String part = adapter.getItem(position)[10];
+                String maxPart = adapter.getItem(position)[11];
+                String encodedPic = adapter.getItem(position)[12];
 
-                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, maxPart, encodedPic);
+                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
                 SearchItemFragment f = new SearchItemFragment();
                 getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
             }
@@ -112,27 +113,6 @@ public class HomeFragment extends Fragment {
         refresh();
 
         return view;
-    }
-
-    public Double[] getLocationFromAddress(String strAddress){
-
-        Double[] latLong = new Double[2];
-        Geocoder coder = new Geocoder(getActivity());
-        List<Address> address;
-
-        try {
-            address = coder.getFromLocationName(strAddress,1);
-            if (address==null) {
-                return null;
-            }
-            Address location=address.get(0);
-            latLong[0] = location.getLatitude();
-            latLong[1] = location.getLongitude();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return latLong;
     }
 
     private void refresh(){
@@ -146,14 +126,8 @@ public class HomeFragment extends Fragment {
                     .setAction("Set location", setLocation)
                     .setActionTextColor(Color.RED)
                     .show();
-        else {
-            latLong = getLocationFromAddress(account.getLocation());
-            if(account != null && latLong != null) {
-                account.setLat(latLong[0]);
-                account.setLng(latLong[1]);
-                account.homeShowBids(this, latLong[0], latLong[1]);
-            }
-        }
+        else
+                account.homeShowBids(this, account.getLat(), account.getLng());
     }
 
     @Override

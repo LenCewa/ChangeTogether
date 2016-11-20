@@ -2,6 +2,8 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+
 /**
  * Created by Yannick on 29.10.2016.
  */
@@ -14,7 +16,7 @@ public class UserProfile {
     private Bitmap profilePic;
     private double lat;
     private double lng;
-    //private ArrayList<String[]> feedback;
+    private ArrayList<String[]> participations = new ArrayList<>();
 
     public String getUsername(){
         return email;
@@ -34,6 +36,8 @@ public class UserProfile {
 
     public double getLng() { return lng;}
 
+    public ArrayList<String[]> getParticipations(){ return participations; }
+
     public void setEmail(String email){
         this.email = email;
     }
@@ -51,5 +55,9 @@ public class UserProfile {
     public void setLat(double lat){ this.lat = lat;}
 
     public void setLng(double lng) { this.lng = lng;}
+
+    public void setParticipations(ArrayList<String[]> l){
+        participations = l;
+    }
 }
 

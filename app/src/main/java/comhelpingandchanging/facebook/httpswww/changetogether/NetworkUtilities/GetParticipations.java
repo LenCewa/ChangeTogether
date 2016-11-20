@@ -1,9 +1,12 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,36 +14,45 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
  * Created by Yannick on 29.10.2016.
  */
 
-public class LoadBids extends AsyncTask<Void, Void, String>{
+public class GetParticipations extends AsyncTask<Void, Void, String>{
 
     ProgressDialog loading;
-    BieteFragment callingFragment;
+    Account account;
+    Activity callingActivity;
     RequestHandler rh = new RequestHandler();
     private String emailAuth;
     private String sessionId;
     private String email;
+    private double lat;
+    private double lng;
 
-    public LoadBids(BieteFragment callingFragment, String emailAuth, String sessionId, String email){
+    public GetParticipations(Activity callingActivity, String emailAuth, String sessionId, String email, double lat, double lng){
 
-        this.callingFragment = callingFragment;
+        this.account = (Account) callingActivity.getApplication();
+        this.callingActivity = callingActivity;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
         this.email = email;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingFragment.getActivity(), "Uploading...", null,true,true);
+        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
 
     @Override
@@ -52,9 +64,9 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
         data.put("sessionId", sessionId);
 
         data.put("email", email);
-        data.put("latitude", String.valueOf(0));
-        data.put("longitude", String.valueOf(0));
-        String result = rh.sendPostRequest(Constants.DBLOADBID,data);
+        data.put("latitude", String.valueOf(lat));
+        data.put("longitude", String.valueOf(lng));
+        String result = rh.sendPostRequest(Constants.DBGETPARTICIPATIONS,data);
 
         return result;
     }
@@ -63,23 +75,24 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
     protected void onPostExecute(String result) {
         loading.dismiss();
         if(result.equals("connection error"))
-            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
+            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new LoadBids(callingFragment, emailAuth, sessionId, email).execute();
+                            new GetParticipations(callingActivity, emailAuth, sessionId, email, lat, lng).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
                     .show();
         else {
             if (result.equals("No entries"))
-                Toast.makeText(callingFragment.getActivity(), result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
             else {
                 try {
+                    ArrayList<String[]> l = new ArrayList<>();
                     JSONObject jsonObj = new JSONObject(result);
                     JSONArray bids = jsonObj.getJSONArray("bids");
-                    callingFragment.bieteItems.clear();
+
                     for (int i = 0; i < bids.length(); i++) {
                         JSONObject bidsInfo = bids.getJSONObject(i);
 
@@ -98,17 +111,18 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
                         String encodedPic = bidsInfo.getString("profilePic");
 
                         String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart, encodedPic};
-                        if (!callingFragment.bieteItems.contains(arr))
-                            callingFragment.bieteItems.add(arr);
+                        l.add(arr);
                     }
-                    callingFragment.adapter.notifyDataSetChanged();
 
-                    if (callingFragment.bieteItems.isEmpty())
-                        Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                    account.setParticipations(l);
+                    Log.e("hallo", Arrays.toString(account.getParticipations().get(0)));
+
+                    if (l.isEmpty())
+                        Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
                                 .show();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(callingFragment.getActivity(), "Couldnt load bids", Toast.LENGTH_LONG).show();
+                    Toast.makeText(callingActivity, "Couldnt load Participations", Toast.LENGTH_LONG).show();
                 }
             }
         }

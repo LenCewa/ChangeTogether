@@ -85,10 +85,11 @@ public class ProfileFragment extends SuperProfileFragment {
                         String distance = adapter.getItem(position)[7];
                         String date = adapter.getItem(position)[8];
                         String time = adapter.getItem(position)[9];
-                        String maxPart = adapter.getItem(position)[10];
-                        String encodedPic = adapter.getItem(position)[11];
+                        String part = adapter.getItem(position)[10];
+                        String maxPart = adapter.getItem(position)[11];
+                        String encodedPic = adapter.getItem(position)[12];
 
-                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, maxPart, encodedPic);
+                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
                         SearchItemFragment f = new SearchItemFragment();
                         getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
                     }

@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
@@ -39,6 +40,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.L
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Login;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoginWithAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Logout;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Participate;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchFeedback;
 //import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.SearchHelpingLocation;
@@ -58,13 +60,6 @@ public class Account extends Application {
     private boolean searchSet = false;
     private String sessionId;
     //private FragmentManager fm;
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
 
     public void login(Activity callingActivity, String email, String password) {
 
@@ -119,10 +114,10 @@ public class Account extends Application {
         searchedUser.setProfilePic(getSearchProfilePic());
     }
 
-    public void setSearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String maxParticipators, String encodedPic){
+    public void setSearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators, String encodedPic){
 
         searchSet = true;
-        searchedItem = new SearchedItem(context, id, email, tag, description, location, averageRating, count, distance, date, time, maxParticipators, encodedPic);
+        searchedItem = new SearchedItem(context, id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators, encodedPic);
     }
 
     public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
@@ -137,21 +132,11 @@ public class Account extends Application {
         l.execute();
     }
 
-    /*public void loadHelpingLocations(Fragment callingFragment) {
-        LoadHelpingLocations l = new LoadHelpingLocations(callingFragment, getEmail());
-        l.execute();
-    }*/
-
     public void loadBidsActivity(SuperProfileFragment callingActivity, String searchedEmail, double lat, double lng){
 
         LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), searchedEmail, lat, lng);
         l.execute();
     }
-
-    /*public void loadHelpingLocationsActivity(Fragment callingActivity) {
-        LoadHelpingLocationsActivity l = new LoadHelpingLocationsActivity(callingActivity, getSearchEmail());
-        l.execute();
-    }*/
 
     public void searchBid(SearchFragment callingFragment, String tag, double lat, double lng){
 
@@ -159,21 +144,16 @@ public class Account extends Application {
         s.execute();
     }
 
-   /* public void searchHelpingLocation(Fragment callingFragment, String tag){
-        SearchHelpingLocation s = new SearchHelpingLocation(callingFragment, tag);
-        s.execute();
-    }*/
-
     public void addBid(Fragment callingFragment, String tag, String description, String location, double lat, double lng, String date, String time, String maxParticipators){
 
         AddBid a = new AddBid(callingFragment, getEmail(), getSessionId(), getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
         a.execute();
     }
 
-    public void addHelpingLocation(Fragment callingFragment, String tag, String description){
+    public void participate(SearchItemFragment callingFragment, String bidId, String email){
 
-        AddHelpingLocation a = new AddHelpingLocation(callingFragment, getEmail(), tag, description);
-        a.execute();
+        Participate p = new Participate(callingFragment, getEmail(), getSessionId(), bidId, email);
+        p.execute();
     }
 
     public void deleteBid(Fragment callingFragment, String tag, String description){
@@ -181,11 +161,6 @@ public class Account extends Application {
         DeleteBid d = new DeleteBid(callingFragment, getEmail(), tag, description);
         d.execute();
     }
-
-    /*public void deleteHelpingLocations(String tag, String description) {
-        DeleteHelpingLocations d = new DeleteHelpingLocations(getEmail(), tag, description);
-        d.execute();
-    }*/
 
     public void searchFeedback(ShowBidFeedback callingActivity, int id, String tag) {
 
@@ -240,6 +215,15 @@ public class Account extends Application {
 
     public double getLng(){ return self.getLng(); }
 
+    public ArrayList<String[]> getParticipations() { return self.getParticipations(); }
+
+    public String[] getSearchedItem(){
+
+        if(searchSet)
+            return searchedItem.getSearchedItem();
+        else
+            return null;
+    }
 
     public String getSearchID(){
 
@@ -309,6 +293,14 @@ public class Account extends Application {
 
         if(searchSet)
             return searchedItem.getTime();
+        else
+            return null;
+    }
+
+    public String getSearchParticipators(){
+
+        if(searchSet)
+            return searchedItem.getParticipators();
         else
             return null;
     }
@@ -386,6 +378,8 @@ public class Account extends Application {
     public void setLat(double lat){ self.setLat(lat);}
 
     public void setLng(double lng) { self.setLng(lng);}
+
+    public void setParticipations(ArrayList<String[]> l) { self.setParticipations(l);}
 
     /*public void setFragmentManager(FragmentManager fm){
         this.fm = fm;

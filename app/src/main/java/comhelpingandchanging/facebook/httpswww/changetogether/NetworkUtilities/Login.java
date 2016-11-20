@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -23,7 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.SettingsActivity;
@@ -118,12 +122,39 @@ public class Login extends AsyncTask<Void, Void, String> {
         }
     }
 
-    private void setSelfInfo(String sessionId, String email, String location, String language, Bitmap profilePic){
+    private void setSelfInfo(String sessionId, String email, String location, String language, Bitmap profilePic) {
 
         account.setSessionId(sessionId);
         account.setEmail(email);
         account.setLocation(location);
         account.setLanguage(language);
         account.setProfilePic(profilePic);
+
+        Double[] latLong = getLocationFromAddress(location);
+        account.setLat(latLong[0]);
+        account.setLng(latLong[1]);
+        GetParticipations p = new GetParticipations(callingActivity, email, sessionId, email, latLong[0], latLong[1]);
+        p.execute();
+    }
+
+    public Double[] getLocationFromAddress(String strAddress){
+
+        Double[] latLong = new Double[2];
+        Geocoder coder = new Geocoder(callingActivity);
+        List<Address> address;
+
+        try {
+            address = coder.getFromLocationName(strAddress,1);
+            if (address==null) {
+                return null;
+            }
+            Address location=address.get(0);
+            latLong[0] = location.getLatitude();
+            latLong[1] = location.getLongitude();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return latLong;
     }
 }

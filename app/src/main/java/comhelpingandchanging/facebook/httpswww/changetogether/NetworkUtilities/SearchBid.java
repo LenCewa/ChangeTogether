@@ -103,10 +103,11 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
                         String distance = String.valueOf(Math.round(bidsInfo.getDouble("distance")));
                         String date = bidsInfo.getString("date");
                         String time = bidsInfo.getString("time");
-                        int maxPart = bidsInfo.getInt("maxPart");
+                        String part = bidsInfo.getString("part");
+                        String maxPart = bidsInfo.getString("maxPart");
                         String encodedPic = bidsInfo.getString("profilePic");
 
-                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, String.valueOf(maxPart), encodedPic};
+                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart, encodedPic};
                         if (!email.equals(account.getEmail())) {
                             if(Integer.parseInt(distance) <= 75)
                                 callingFragment.listItems.add(arr);

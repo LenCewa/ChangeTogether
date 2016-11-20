@@ -23,6 +23,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
 
     ArrayList<String[]> data;
     ProfileInfoViewHolder holder;
+    ViewGroup parent;
 
     public CustomRecyclerViewAdapterOwnProfile(ArrayList<String[]> data) {
         this.data = data;
@@ -31,6 +32,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
     @Override
     public CustomRecyclerViewAdapterOwnProfile.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        this.parent = parent;
         View itemView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.own_profile_list_item, parent, false);
         holder = new ProfileInfoViewHolder(itemView);
@@ -40,10 +42,15 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
     @Override
     public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
 
-        if(data.get(position)[11].length() != 0) {
-            byte[] decodedString = Base64.decode(data.get(position)[11], Base64.DEFAULT);
+        if(data.get(position)[12].length() != 0) {
+            byte[] decodedString = Base64.decode(data.get(position)[12], Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             holder.profilePic.setImageBitmap(decodedByte);
+        }
+        else{
+            Bitmap bitmap = BitmapFactory.decodeResource(parent.getResources(),
+                    R.drawable.blank_profile_pic);
+            holder.profilePic.setImageBitmap(bitmap);
         }
 
         holder.tag.setText(data.get(position)[2]);
@@ -51,7 +58,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
         holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
-        holder.maxPart.setText("0/" + data.get(position)[10]);
+        holder.maxPart.setText(data.get(position)[10] + "0/" + data.get(position)[11]);
     }
 
     @Override

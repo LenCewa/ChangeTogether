@@ -66,8 +66,8 @@ public class CustomAdapterBiete extends BaseAdapter {
         TextView count = (TextView) vi.findViewById(R.id.count);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
-        if(data.get(position)[11].length() != 0) {
-            byte[] decodedString = Base64.decode(data.get(position)[11], Base64.DEFAULT);
+        if(data.get(position)[12].length() != 0) {
+            byte[] decodedString = Base64.decode(data.get(position)[12], Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             profilePic.setImageBitmap(decodedByte);
         }
@@ -82,7 +82,7 @@ public class CustomAdapterBiete extends BaseAdapter {
         time.setText(data.get(position)[8] + " - " + data.get(position)[9]);
         ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         count.setText(data.get(position)[6] + " Bewertungen");
-        maxPart.setText("0/" + data.get(position)[10]);
+        maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
 
         return vi;
     }

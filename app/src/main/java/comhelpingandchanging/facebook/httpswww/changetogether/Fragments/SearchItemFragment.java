@@ -62,10 +62,13 @@ public class SearchItemFragment extends Fragment{
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebot von " + account.getSearchEmail());
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
 
+        if(listContainsId(account.getSearchID()))
+            join.setText("Nicht mehr teilnehmen");
+
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("TODO", "An DB senden");
+                account.participate(SearchItemFragment.this, account.getSearchID(), account.getEmail());
             }
         });
 
@@ -97,5 +100,18 @@ public class SearchItemFragment extends Fragment{
         });
 
         return view;
+    }
+
+    public void setButtonText(String text){
+        join.setText(text);
+    }
+
+    public boolean listContainsId(String id){
+
+        for (String[] s : account.getParticipations()){
+            if(s[0].equals(id))
+                return true;
+        }
+        return false;
     }
 }

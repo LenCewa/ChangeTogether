@@ -15,6 +15,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 public class SearchedItem {
 
     private Context context;
+    private String[] searchedItem;
     private String id;
     private String email;
     private String tag;
@@ -25,12 +26,14 @@ public class SearchedItem {
     private String distance;
     private String date;
     private String time;
+    private String part;
     private String maxParticipators;
     private String encodedPic;
 
-    public SearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String maxParticipators, String encodedPic){
+    public SearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators, String encodedPic){
 
         this.context = context;
+        searchedItem = new String[] {id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators, encodedPic};
         this.id = id;
         this.email = email;
         this.tag = tag;
@@ -41,9 +44,12 @@ public class SearchedItem {
         this.distance = distance;
         this.date = date;
         this.time = time;
+        this.part = part;
         this.maxParticipators = maxParticipators;
         this.encodedPic = encodedPic;
     }
+
+    public String[] getSearchedItem() { return searchedItem;}
 
     public String getId(){
         return id;
@@ -82,6 +88,8 @@ public class SearchedItem {
     public String getTime(){
         return time;
     }
+
+    public String getParticipators(){ return part; }
 
     public String getMaxParticipators(){
         return maxParticipators;
