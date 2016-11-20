@@ -3,12 +3,16 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapterOwnProfile;
@@ -35,6 +39,22 @@ public class UpcomingFragment extends SuperProfileFragment {
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
 
+        cmp = new Comparator<String[]>() {
+            @Override
+            public int compare(String[] o1, String[] o2) {
+                int distance1 = Integer.parseInt(o1[7]);
+                int distance2 = Integer.parseInt(o2[7]);
+                if(distance1 < distance2)
+                    return -1;
+                else if(distance1 > distance2)
+                    return 1;
+                else
+                    return 0;
+            }
+        };
+
+        Collections.sort(account.getParticipations(), cmp);
+
         adapter = new CustomRecyclerViewAdapter(account.getParticipations());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
@@ -42,6 +62,7 @@ public class UpcomingFragment extends SuperProfileFragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
+
 
         bidList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
