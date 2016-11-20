@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.EditActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
-import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.BidDialogNew;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -40,7 +39,7 @@ public class OwnSearchItemFragment extends Fragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            view = inflater.inflate(R.layout.own_search_item, container, false);
+            view = inflater.inflate(R.layout.fragment_own_search_item, container, false);
             callingActivity = getActivity();
 
             account = (Account) callingActivity.getApplication();
