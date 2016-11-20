@@ -86,7 +86,7 @@ public class UpcomingFragment extends SuperProfileFragment {
 
                         account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
                         SearchItemFragment f = new SearchItemFragment();
-                        getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
                     }
                 })
         );

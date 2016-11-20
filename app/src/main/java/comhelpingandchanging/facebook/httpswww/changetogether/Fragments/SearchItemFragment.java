@@ -95,7 +95,7 @@ public class SearchItemFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 ProfileFragment f = new ProfileFragment();
-                //getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
             }
         });
 
