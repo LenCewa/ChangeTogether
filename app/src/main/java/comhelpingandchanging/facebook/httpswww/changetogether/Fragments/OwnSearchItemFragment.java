@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.EditActivity;
-import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedback;
+import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.EditDialog;
+import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedbackActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -68,7 +68,7 @@ public class OwnSearchItemFragment extends Fragment {
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EditActivity add = new EditActivity();
+                    EditDialog add = new EditDialog();
                     add.show(getChildFragmentManager(), "Biete Dialog");
                 }
             });
@@ -77,7 +77,7 @@ public class OwnSearchItemFragment extends Fragment {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                        Intent intent = new Intent(getActivity(), ShowBidFeedbackActivity.class);
                         startActivity(intent);
                     }
                     return true;
@@ -87,7 +87,7 @@ public class OwnSearchItemFragment extends Fragment {
             ratings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ShowBidFeedback.class);
+                    Intent intent = new Intent(getActivity(), ShowBidFeedbackActivity.class);
                     startActivity(intent);
                 }
             });

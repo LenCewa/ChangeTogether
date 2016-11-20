@@ -1,4 +1,4 @@
-package comhelpingandchanging.facebook.httpswww.changetogether.Activities;
+package comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -42,7 +42,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Ludwig on 20.11.2016.
  */
 
-public class EditActivity extends DialogFragment {
+public class EditDialog extends DialogFragment {
     AutoCompleteTextView location;
     Account account;
     OwnSearchItemFragment callingFragment;
@@ -59,7 +59,7 @@ public class EditActivity extends DialogFragment {
     TextView time;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_select_biete_new, container, false);
+        View rootView = inflater.inflate(R.layout.dialog_add_bid, container, false);
 
         callingFragment = (OwnSearchItemFragment) getParentFragment();
         account = (Account) callingFragment.getActivity().getApplication();
