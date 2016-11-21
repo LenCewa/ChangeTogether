@@ -1,6 +1,8 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,6 +119,17 @@ public class SearchFragment extends Fragment {
                 String part = adapter.getItem(position)[10];
                 String maxPart = adapter.getItem(position)[11];
                 String encodedPic = adapter.getItem(position)[12];
+
+                if(encodedPic.length() != 0) {
+                    byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    account.setSearchedUserProfilePic(decodedByte);
+                }
+                else{
+                    Bitmap bitmap = BitmapFactory.decodeResource(SearchFragment.this.getResources(),
+                            R.drawable.blank_profile_pic);
+                    account.setSearchedUserProfilePic(bitmap);
+                }
 
                 account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
                 SearchItemFragment f = new SearchItemFragment();

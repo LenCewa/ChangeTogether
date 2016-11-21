@@ -101,9 +101,9 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
                         String time = bidsInfo.getString("time");
                         String part = bidsInfo.getString("part");
                         String maxPart = bidsInfo.getString("maxPart");
-                        String encodedPic = bidsInfo.getString("profilePic");
+                        //String encodedPic = bidsInfo.getString("profilePic");
 
-                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart, encodedPic};
+                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart};
                         if (!callingFragment.bieteItems.contains(arr))
                             callingFragment.bieteItems.add(arr);
                     }

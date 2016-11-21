@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -21,21 +22,23 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
  * Created by Yannick on 10.11.2016.
  */
 
-public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ProfileInfoViewHolder> {
+public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<CustomRecyclerViewAdapterUpcoming.ProfileInfoViewHolder> {
 
     Account account;
+    Activity activity;
     ArrayList<String[]> data;
     ProfileInfoViewHolder holder;
     ViewGroup parent;
 
-    public CustomRecyclerViewAdapter(Activity activity, ArrayList<String[]> data) {
+    public CustomRecyclerViewAdapterUpcoming(Activity activity, ArrayList<String[]> data) {
 
         this.account = (Account)activity.getApplication();
+        this.activity = activity;
         this.data = data;
     }
 
     @Override
-    public CustomRecyclerViewAdapter.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CustomRecyclerViewAdapterUpcoming.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         this.parent = parent;
         View itemView = LayoutInflater.from(parent.getContext()).
@@ -47,6 +50,18 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     @Override
     public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
 
+        String encodedPic = data.get(position)[12];
+        if(encodedPic.length() != 0) {
+            byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.profilePic.setImageBitmap(decodedByte);
+        }
+        else{
+            Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(),
+                    R.drawable.blank_profile_pic);
+           holder.profilePic.setImageBitmap(bitmap);
+        }
+
         holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
         holder.distance.setText("<=" + data.get(position)[7] + "km");
@@ -54,7 +69,6 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
         holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
-        holder.profilePic.setImageBitmap(account.getSearchProfilePic());
     }
 
     @Override

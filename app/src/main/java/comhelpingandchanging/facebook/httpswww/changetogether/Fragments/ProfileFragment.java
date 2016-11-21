@@ -45,7 +45,7 @@ public class ProfileFragment extends SuperProfileFragment {
 
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
 
-        adapter = new CustomRecyclerViewAdapter(bieteItems);
+        adapter = new CustomRecyclerViewAdapter(getActivity(), bieteItems);
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -85,9 +85,8 @@ public class ProfileFragment extends SuperProfileFragment {
                         String time = adapter.getItem(position)[9];
                         String part = adapter.getItem(position)[10];
                         String maxPart = adapter.getItem(position)[11];
-                        String encodedPic = adapter.getItem(position)[12];
 
-                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
+                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, null);
                         SearchItemFragment f = new SearchItemFragment();
                         getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
                     }

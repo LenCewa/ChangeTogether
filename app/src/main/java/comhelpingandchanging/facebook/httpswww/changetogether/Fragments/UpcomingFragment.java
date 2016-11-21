@@ -1,9 +1,12 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import java.util.regex.Pattern;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapterOwnProfile;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapterUpcoming;
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.RecyclerItemClickListener;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
@@ -98,7 +102,7 @@ public class UpcomingFragment extends SuperProfileFragment {
 
         Collections.sort(account.getParticipations(), cmp);
 
-        adapter = new CustomRecyclerViewAdapter(account.getParticipations());
+        adapter = new CustomRecyclerViewAdapterUpcoming(getActivity(), account.getParticipations());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -110,7 +114,7 @@ public class UpcomingFragment extends SuperProfileFragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        CustomRecyclerViewAdapter adapter = (CustomRecyclerViewAdapter) UpcomingFragment.this.adapter;
+                        CustomRecyclerViewAdapterUpcoming adapter = (CustomRecyclerViewAdapterUpcoming) UpcomingFragment.this.adapter;
 
                         String id = adapter.getItem(position)[0];
                         String email = adapter.getItem(position)[1];
@@ -125,6 +129,17 @@ public class UpcomingFragment extends SuperProfileFragment {
                         String part = adapter.getItem(position)[10];
                         String maxPart = adapter.getItem(position)[11];
                         String encodedPic = adapter.getItem(position)[12];
+
+                        if(encodedPic.length() != 0) {
+                            byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            account.setSearchedUserProfilePic(decodedByte);
+                        }
+                        else{
+                            Bitmap bitmap = BitmapFactory.decodeResource(UpcomingFragment.this.getResources(),
+                                    R.drawable.blank_profile_pic);
+                            account.setSearchedUserProfilePic(bitmap);
+                        }
 
                         account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
                         SearchItemFragment f = new SearchItemFragment();

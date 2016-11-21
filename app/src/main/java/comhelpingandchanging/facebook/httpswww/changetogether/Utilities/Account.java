@@ -47,7 +47,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.U
 public class Account extends Application {
 
     private UserProfile self = null;
-    private UserProfile searchedUser = null;
+    private UserProfile searchedUser = new UserProfile();
     private SearchedItem searchedItem = null;
     private boolean searchSet = false;
     private String sessionId;
@@ -89,6 +89,11 @@ public class Account extends Application {
 
     public void deleteInfo(){
         self = null;
+        searchedUser = new UserProfile();
+        searchedItem = null;
+        searchSet = false;
+        Constants.lastIdHome = "-1";
+        Constants.lastIdOwnBids = "-1";
     }
 
     public void searchUer(ProfileFragment callingActivity){
@@ -99,11 +104,8 @@ public class Account extends Application {
 
     public void setSearchedUser(String location, String language){
 
-        searchedUser = new UserProfile();
-        searchedUser.setEmail(getSearchEmail());
         searchedUser.setLocation(location);
         searchedUser.setLanguage(language);
-        searchedUser.setProfilePic(getSearchProfilePic());
     }
 
     public void setSearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators, String encodedPic){
@@ -323,28 +325,17 @@ public class Account extends Application {
 
     public String getSearchUserLocation(){
 
-
-        if(searchedUser != null)
-            return searchedUser.getLocation();
-        else
-            return null;
+        return searchedUser.getLocation();
     }
 
     public String getSearchLanguage(){
 
-
-        if(searchedUser != null)
-            return searchedUser.getLanguage();
-        else
-            return null;
+        return searchedUser.getLanguage();
     }
 
     public Bitmap getSearchProfilePic(){
 
-        if(searchSet)
-            return searchedItem.getProfilePic();
-        else
-            return null;
+        return searchedUser.getProfilePic();
     }
 
     public boolean isUserSearched(){
@@ -382,6 +373,14 @@ public class Account extends Application {
     public void setParticipations(ArrayList<String[]> l) { self.setParticipations(l);}
 
     public void setOwnBids(ArrayList<String[]> l) { self.setOwnBids(l);}
+
+    public void setSearchedUserEmail(String email){
+        searchedUser.setEmail(email);
+    }
+
+    public void setSearchedUserProfilePic(Bitmap profilePic){
+        searchedUser.setProfilePic(profilePic);
+    }
 
     /*public void setFragmentManager(FragmentManager fm){
         this.fm = fm;
