@@ -4,6 +4,8 @@ package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
  * Created by Yannick on 03.11.2016.
  */
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -18,13 +20,14 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
+
 public class RequestHandler {
 
     public String sendPostRequest(String URL,
                                   HashMap<String, String> params) {
 
         URL url;
-
         StringBuilder sb = new StringBuilder();
         try {
             url = new URL(URL);
@@ -36,7 +39,6 @@ public class RequestHandler {
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
-
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
@@ -46,7 +48,6 @@ public class RequestHandler {
             writer.close();
             os.close();
             int responseCode = conn.getResponseCode();
-
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 sb = new StringBuilder();
@@ -54,6 +55,7 @@ public class RequestHandler {
                 while ((response = br.readLine()) != null){
                     sb.append(response);
                 }
+                Log.e("respnse", sb.toString());
             }
 
         } catch (Exception e) {

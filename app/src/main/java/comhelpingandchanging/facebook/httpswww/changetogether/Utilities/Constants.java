@@ -6,6 +6,8 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 public class Constants {
 
+    public static String lastId = "-1";
+
     public static final String DBREGISTER = "http://change-together.spdns.org/app/register.php";
     public static final String DBLOGIN = "http://change-together.spdns.org/app/login.php";
     public static final String DBLOGOUT = "http://change-together.spdns.org/app/logout.php";
@@ -19,12 +21,6 @@ public class Constants {
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";
     public static final String DBPARTICIPATE = "http://change-together.spdns.org/app/participate.php";
     public static final String DBGETPARTICIPATIONS = "http://change-together.spdns.org/app/getParticipations.php";
-
-    // Mögliche Fehler in PHPs?
-    public static final String DBLOADHELPINGLOCATION = "http://change-together.spdns.org/app/loadHelpingLocation.php";
-    public static final String DBDELETEHELPINGLOCATION = "http://change-together.spdns.org/app/deleteHelpingLocation.php";
-    public static final String DBADDHELPINGLOCATION = "http://change-together.spdns.org/app/addHelpingLocation.php";
-    public static final String DBSEARCHHELPINGLOCATION = "http://change-together.spdns.org/app/searchHelpingLocation.php";
 
     public static final String DBUPLOADPIC = "http://change-together.spdns.org/app/uploadPic.php";
     public static final String DBSHOWPIC = "http://change-together.spdns.org/app/showPic.php";

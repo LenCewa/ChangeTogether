@@ -36,8 +36,9 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
     private String sessionId;
     private double lat;
     private double lng;
+    private String lastId;
 
-    public HomeShowBids(HomeFragment callingFragment, String emailAuth, String sessionId, double lat, double lng){
+    public HomeShowBids(HomeFragment callingFragment, String emailAuth, String sessionId, double lat, double lng, String lastId){
 
         account = (Account) callingFragment.getActivity().getApplication();
         this.callingFragment = callingFragment;
@@ -45,6 +46,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
         this.sessionId = sessionId;
         this.lat = lat;
         this.lng = lng;
+        this.lastId = lastId;
     }
 
     @Override
@@ -63,6 +65,8 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
 
         data.put("latitude", String.valueOf(lat));
         data.put("longitude", String.valueOf(lng));
+        data.put("lastId", lastId);
+        Log.e("lastId", lastId);
         String result = rh.sendPostRequest(Constants.DBHOMESHOWBIDS,data);
 
         return result;
@@ -76,7 +80,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new HomeShowBids(callingFragment, emailAuth, sessionId, lat, lng).execute();
+                        new HomeShowBids(callingFragment, emailAuth, sessionId, lat, lng, lastId).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)
@@ -89,7 +93,8 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                 try {
                     JSONObject jsonObj = new JSONObject(result);
                     JSONArray bids = jsonObj.getJSONArray("bids");
-                    callingFragment.listItems.clear();
+                    if(bids.length() > 0)
+                        Constants.lastId = bids.getJSONObject(0).getString("id");
                     for (int i = 0; i < bids.length(); i++) {
                         JSONObject bidsInfo = bids.getJSONObject(i);
 

@@ -111,7 +111,7 @@ public class Account extends Application {
 
     public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
 
-        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), lat, lng);
+        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), lat, lng, Constants.lastId);
         h.execute();
     }
 
