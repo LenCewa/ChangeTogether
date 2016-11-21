@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ChangeTogether.iml" filepath="$PROJECT_DIR$/ChangeTogether.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Radiant.iml" filepath="$PROJECT_DIR$/Radiant.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

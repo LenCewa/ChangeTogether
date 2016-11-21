@@ -10,7 +10,7 @@
         android:name="app.radiant.c.lly.Utilities.Account"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Change Together"
+        android:label="Radiant"
         android:supportsRtl="true"
         android:theme="@style/ownTheme2">
         <activity android:name="app.radiant.c.lly.Activities.MainActivity">
