@@ -64,7 +64,7 @@
             android:layout_below="@+id/time"
             android:layout_marginTop="6dp"/>
 
-        <comhelpingandchanging.facebook.httpswww.changetogether.Widgets.CircleImageView
+        <app.radiant.c.lly.Widgets.CircleImageView
             android:layout_below="@id/time"
             android:layout_marginTop="16dp"
             app:srcCompat="@drawable/blank_profile_pic"

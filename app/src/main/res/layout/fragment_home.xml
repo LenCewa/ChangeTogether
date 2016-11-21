@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainAppActivity"
+    tools:context="app.radiant.c.lly.Activities.MainAppActivity"
     android:background="@android:color/white">
 
     <ListView
@@ -15,7 +15,6 @@
         android:dividerHeight="10dp"
         android:layout_marginTop="20dp"
         android:divider="@android:color/transparent"
-        android:layout_below="@+id/home"
         android:id="@+id/homeList"
         />
 
