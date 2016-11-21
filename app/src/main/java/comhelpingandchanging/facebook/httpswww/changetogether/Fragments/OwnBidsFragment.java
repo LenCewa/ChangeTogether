@@ -55,13 +55,12 @@ public class OwnBidsFragment extends SuperProfileFragment {
                         String location = adapter.getItem(position)[4];
                         String averageRating = adapter.getItem(position)[5];
                         String count = adapter.getItem(position)[6];
-                        String distance = adapter.getItem(position)[7];
-                        String date = adapter.getItem(position)[8];
-                        String time = adapter.getItem(position)[9];
-                        String part = adapter.getItem(position)[10];
-                        String maxPart = adapter.getItem(position)[11];
+                        String date = adapter.getItem(position)[7];
+                        String time = adapter.getItem(position)[8];
+                        String part = adapter.getItem(position)[9];
+                        String maxPart = adapter.getItem(position)[10];
 
-                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, null);
+                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, null, date, time, part, maxPart, null);
                         OwnSearchItemFragment f = new OwnSearchItemFragment();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
                     }

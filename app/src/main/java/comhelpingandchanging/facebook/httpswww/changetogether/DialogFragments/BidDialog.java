@@ -33,7 +33,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFra
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
-public class BidDialogNew extends DialogFragment {
+public class BidDialog extends DialogFragment {
     AutoCompleteTextView location;
     BieteFragment callingFragment;
     Button dateButton;

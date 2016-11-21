@@ -69,7 +69,7 @@ public class OwnSearchItemFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     EditDialog add = new EditDialog();
-                    add.show(getChildFragmentManager(), "Biete Dialog");
+                    add.show(getChildFragmentManager(), "Edit Dialog");
                 }
             });
 

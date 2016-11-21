@@ -24,6 +24,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.A
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.AddInfo;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteBid;
 //import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.DeleteHelpingLocations;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.EditBid;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.GetAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.HomeShowBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBids;
@@ -148,6 +149,12 @@ public class Account extends Application {
 
         AddBid a = new AddBid(callingFragment, getEmail(), getSessionId(), getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
         a.execute();
+    }
+
+    public void editBid(Fragment callingFragment, String id, String tag, String description, String location, double lat, double lng, String date, String time, String maxParticipators){
+
+        EditBid e = new EditBid(callingFragment, getEmail(), getSessionId(), id, getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
+        e.execute();
     }
 
     public void participate(SearchItemFragment callingFragment, String bidId, String email){

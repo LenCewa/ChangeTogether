@@ -54,6 +54,7 @@ public class EditDialog extends DialogFragment {
     String city;
     String bid;
     Spinner bidTypes;
+    String id;
     TextView description;
     TextView date;
     TextView time;
@@ -106,6 +107,7 @@ public class EditDialog extends DialogFragment {
         participants = (EditText) rootView.findViewById(R.id.participants);
         description = (TextView) rootView.findViewById(R.id.description);
 
+        id = account.getSearchID();
         location.setText(account.getSearchLocation());
         time.setText(account.getSearchTime());
         date.setText(account.getSearchDate());
@@ -203,7 +205,7 @@ public class EditDialog extends DialogFragment {
                     Double[] latLong = getLocationFromAddress(autocompleteView.getText().toString());
 
                     ((Account) callingFragment.getActivity().getApplication()).
-                            addBid(callingFragment, bid, description.getText().toString(),
+                            editBid(callingFragment, id, bid, description.getText().toString(),
                                     autocompleteView.getText().toString(), latLong[0], latLong[1], date.getText().toString(), time.getText().toString(), participants.getText().toString());
                     getDialog().dismiss();
                 }

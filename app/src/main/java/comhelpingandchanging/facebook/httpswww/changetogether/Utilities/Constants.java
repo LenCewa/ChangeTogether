@@ -18,6 +18,7 @@ public class Constants {
     public static final String DBHOMESHOWBIDS = "http://change-together.spdns.org/app/homeShowBids.php";
     public static final String DBSEARCHBID = "http://change-together.spdns.org/app/searchBid.php";
     public static final String DBADDBID = "http://change-together.spdns.org/app/addBid.php";
+    public static final String DBEDITBID = "http://change-together.spdns.org/app/editBid.php";
     public static final String DBLOADBID = "http://change-together.spdns.org/app/loadBids.php";
     public static final String DBLOADOWNBID = "http://change-together.spdns.org/app/loadOwnBids.php";
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";

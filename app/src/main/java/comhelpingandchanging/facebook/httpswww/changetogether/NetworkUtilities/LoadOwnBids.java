@@ -123,13 +123,12 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
                         String location = bidsInfo.getString("location");
                         String avgRating = bidsInfo.getString("averageRating");
                         String count = bidsInfo.getString("count");
-                        String distance = String.valueOf(Math.round(bidsInfo.getDouble("distance")));
                         String date = bidsInfo.getString("date");
                         String time = bidsInfo.getString("time");
                         String part = bidsInfo.getString("part");
                         String maxPart = bidsInfo.getString("maxPart");
 
-                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart};
+                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, date, time, part, maxPart};
                         if(!account.getOwnBids().contains(arr))
                             account.getOwnBids().add(arr);
                     }

@@ -68,14 +68,17 @@ public class RequestHandler {
         StringBuilder result = new StringBuilder();
         boolean first = true;
         for (Map.Entry<String, String> entry : params.entrySet()) {
+
             if (first)
                 first = false;
             else
                 result.append("&");
 
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            if(entry.getKey() != null && entry.getValue() != null) {
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }
         }
 
         return result.toString();

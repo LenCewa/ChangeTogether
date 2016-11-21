@@ -48,10 +48,10 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
 
         holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
-        holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
+        holder.time.setText(data.get(position)[7] + " - " + data.get(position)[8] + " Uhr");
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
-        holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+        holder.maxPart.setText(data.get(position)[9] + "/" + data.get(position)[10]);
         holder.profilePic.setImageBitmap(((Account)context.getActivity().getApplication()).getProfilePic());
     }
 
