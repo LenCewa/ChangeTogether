@@ -9,6 +9,7 @@ import android.view.View;
 
 import java.util.HashMap;
 
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
@@ -17,6 +18,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 
 public class AddBid extends AsyncTask<Void, Void, String > {
 
+    Account account;
     ProgressDialog loading;
     private Fragment callingFragment;
     private String emailAuth;
@@ -34,6 +36,7 @@ public class AddBid extends AsyncTask<Void, Void, String > {
 
     public AddBid(Fragment callingFragment, String emailAuth, String sessionId, String email, String tag, String description, String location, double lat, double lng, String date, String time, String maxParticipators){
 
+        this.account = (Account) callingFragment.getActivity().getApplication();
         this.callingFragment = callingFragment;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;

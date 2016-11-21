@@ -17,6 +17,7 @@ public class UserProfile {
     private double lat;
     private double lng;
     private ArrayList<String[]> participations = new ArrayList<>();
+    private ArrayList<String[]> ownBids = new ArrayList<>();
 
     public String getUsername(){
         return email;
@@ -38,6 +39,8 @@ public class UserProfile {
 
     public ArrayList<String[]> getParticipations(){ return participations; }
 
+    public ArrayList<String[]> getOwnBids(){ return ownBids; }
+
     public void setEmail(String email){
         this.email = email;
     }
@@ -58,6 +61,10 @@ public class UserProfile {
 
     public void setParticipations(ArrayList<String[]> l){
         participations = l;
+    }
+
+    public void setOwnBids(ArrayList<String[]> l){
+        ownBids = l;
     }
 }
 

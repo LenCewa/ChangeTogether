@@ -112,12 +112,7 @@ public class GetParticipations extends AsyncTask<Void, Void, String>{
                         String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart, encodedPic};
                         l.add(arr);
                     }
-
                     account.setParticipations(l);
-
-                    if (l.isEmpty())
-                        Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
-                                .show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(callingActivity, "Couldnt load Participations", Toast.LENGTH_LONG).show();

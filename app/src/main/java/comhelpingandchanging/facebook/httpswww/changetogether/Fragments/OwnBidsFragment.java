@@ -34,7 +34,7 @@ public class OwnBidsFragment extends SuperProfileFragment {
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
 
-        adapter = new CustomRecyclerViewAdapterOwnProfile(bieteItems);
+        adapter = new CustomRecyclerViewAdapterOwnProfile(this, account.getOwnBids());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -60,24 +60,20 @@ public class OwnBidsFragment extends SuperProfileFragment {
                         String time = adapter.getItem(position)[9];
                         String part = adapter.getItem(position)[10];
                         String maxPart = adapter.getItem(position)[11];
-                        String encodedPic = adapter.getItem(position)[12];
 
-                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
+                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, null);
                         OwnSearchItemFragment f = new OwnSearchItemFragment();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
                     }
                 })
         );
 
-        account.loadBidsActivity(this, account.getEmail(), account.getLat(), account.getLng());
-
-        refresh();
-
         return view;
     }
 
     private void refresh() {
 
+        account.loadOwnBids(this);
         location.setText(account.getLocation());
         language.setText(account.getLanguage());
     }

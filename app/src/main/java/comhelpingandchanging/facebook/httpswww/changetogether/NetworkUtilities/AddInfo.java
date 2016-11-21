@@ -55,7 +55,7 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-//        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+//        loading = ProgressDialog.show(ownBidsFragment, "Uploading...", null,true,true);
     }
 
     @Override

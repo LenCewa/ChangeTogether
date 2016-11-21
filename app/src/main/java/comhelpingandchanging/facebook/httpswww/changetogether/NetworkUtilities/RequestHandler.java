@@ -55,7 +55,6 @@ public class RequestHandler {
                 while ((response = br.readLine()) != null){
                     sb.append(response);
                 }
-                Log.e("respnse", sb.toString());
             }
 
         } catch (Exception e) {

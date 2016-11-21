@@ -20,6 +20,7 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Activities.MainApp
 import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomAdapterBiete;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.BidDialogNew;
 import comhelpingandchanging.facebook.httpswww.changetogether.DialogFragments.MyDialogCloseListener;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadOwnBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
@@ -31,7 +32,6 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
 
     View view;
     MainAppActivity callingActivity;
-    public ArrayList<String[]> bieteItems = new ArrayList<>();
     ListView bieteList;
     public CustomAdapterBiete adapter;
     Account account;
@@ -46,10 +46,9 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
         account = (Account) callingActivity.getApplication();
 
         bieteList = (ListView) view.findViewById(R.id.bieteList);
-        adapter = new CustomAdapterBiete(getActivity(), bieteItems);
+        adapter = new CustomAdapterBiete(getActivity(), account.getOwnBids());
         bieteList.setAdapter(adapter);
 
-        account.loadBids(this);
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +74,8 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
                 String time = adapter.getItem(position)[9];
                 String part = adapter.getItem(position)[10];
                 String maxPart = adapter.getItem(position)[11];
-                String encodedPic = adapter.getItem(position)[12];
 
-                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
+                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, null);
                 OwnSearchItemFragment f = new OwnSearchItemFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
             }
@@ -92,6 +90,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
                 return true;
             }
         });
+
         return view;
     }
 
@@ -100,7 +99,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Deine Angebote");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
-        account.loadBids(this);
+        account.loadOwnBids(this);
     }
 
     @Override

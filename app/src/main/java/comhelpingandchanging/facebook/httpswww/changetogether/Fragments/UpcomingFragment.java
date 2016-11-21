@@ -106,7 +106,6 @@ public class UpcomingFragment extends SuperProfileFragment {
         bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
 
-
         bidList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {

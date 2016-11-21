@@ -11,9 +11,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.HashMap;
 
-import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Adapter.CustomRecyclerViewAdapter;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SuperProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constants;
 
 /**
@@ -23,18 +25,22 @@ import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Constant
 public class LoadBids extends AsyncTask<Void, Void, String>{
 
     ProgressDialog loading;
-    BieteFragment callingFragment;
+    SuperProfileFragment callingFragment;
     RequestHandler rh = new RequestHandler();
     private String emailAuth;
     private String sessionId;
     private String email;
+    private double lat;
+    private double lng;
 
-    public LoadBids(BieteFragment callingFragment, String emailAuth, String sessionId, String email){
+    public LoadBids(SuperProfileFragment callingActivity, String emailAuth, String sessionId, String email, double lat, double lng){
 
-        this.callingFragment = callingFragment;
+        this.callingFragment = callingActivity;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
         this.email = email;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     @Override
@@ -52,8 +58,8 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
         data.put("sessionId", sessionId);
 
         data.put("email", email);
-        data.put("latitude", String.valueOf(0));
-        data.put("longitude", String.valueOf(0));
+        data.put("latitude", String.valueOf(lat));
+        data.put("longitude", String.valueOf(lng));
         String result = rh.sendPostRequest(Constants.DBLOADBID,data);
 
         return result;
@@ -67,7 +73,7 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
                     .setAction("Retry", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new LoadBids(callingFragment, emailAuth, sessionId, email).execute();
+                            new LoadBids(callingFragment, emailAuth, sessionId, email, lat, lng).execute();
                         }
                     })
                     .setActionTextColor(Color.RED)
@@ -101,6 +107,8 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
                         if (!callingFragment.bieteItems.contains(arr))
                             callingFragment.bieteItems.add(arr);
                     }
+                    if(callingFragment.cmp != null)
+                        Collections.sort(callingFragment.bieteItems, callingFragment.cmp);
                     callingFragment.adapter.notifyDataSetChanged();
 
                     if (callingFragment.bieteItems.isEmpty())

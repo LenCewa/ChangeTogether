@@ -1,7 +1,9 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.Adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.R;
+import comhelpingandchanging.facebook.httpswww.changetogether.Utilities.Account;
 
 /**
  * Created by Yannick on 10.11.2016.
@@ -21,18 +24,19 @@ import comhelpingandchanging.facebook.httpswww.changetogether.R;
 
 public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<CustomRecyclerViewAdapterOwnProfile.ProfileInfoViewHolder> {
 
+    Fragment context;
     ArrayList<String[]> data;
     ProfileInfoViewHolder holder;
-    ViewGroup parent;
 
-    public CustomRecyclerViewAdapterOwnProfile(ArrayList<String[]> data) {
+    public CustomRecyclerViewAdapterOwnProfile(Fragment context, ArrayList<String[]> data) {
+
+        this.context = context;
         this.data = data;
     }
 
     @Override
     public CustomRecyclerViewAdapterOwnProfile.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        this.parent = parent;
         View itemView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.own_profile_list_item, parent, false);
         holder = new ProfileInfoViewHolder(itemView);
@@ -42,23 +46,13 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
     @Override
     public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
 
-        if(data.get(position)[12].length() != 0) {
-            byte[] decodedString = Base64.decode(data.get(position)[12], Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            holder.profilePic.setImageBitmap(decodedByte);
-        }
-        else{
-            Bitmap bitmap = BitmapFactory.decodeResource(parent.getResources(),
-                    R.drawable.blank_profile_pic);
-            holder.profilePic.setImageBitmap(bitmap);
-        }
-
         holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
         holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
         holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+        holder.profilePic.setImageBitmap(((Account)context.getActivity().getApplication()).getProfilePic());
     }
 
     @Override

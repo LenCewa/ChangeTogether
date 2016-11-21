@@ -1,12 +1,9 @@
 package comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -66,7 +63,6 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
         data.put("latitude", String.valueOf(lat));
         data.put("longitude", String.valueOf(lng));
         data.put("lastId", lastId);
-        Log.e("lastId", lastId);
         String result = rh.sendPostRequest(Constants.DBHOMESHOWBIDS,data);
 
         return result;
@@ -74,6 +70,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
+        Log.e("home", result);
         loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
@@ -93,12 +90,11 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                 try {
                     JSONObject jsonObj = new JSONObject(result);
                     JSONArray bids = jsonObj.getJSONArray("bids");
-                    if(bids.length() > 0)
-                        Constants.lastId = bids.getJSONObject(0).getString("id");
                     for (int i = 0; i < bids.length(); i++) {
                         JSONObject bidsInfo = bids.getJSONObject(i);
 
                         String id = bidsInfo.getString("id");
+                        Constants.lastIdHome = id;
                         String email = bidsInfo.getString("email");
                         String tag = bidsInfo.getString("tag");
                         String description = bidsInfo.getString("description");

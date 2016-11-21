@@ -6,7 +6,8 @@ package comhelpingandchanging.facebook.httpswww.changetogether.Utilities;
 
 public class Constants {
 
-    public static String lastId = "-1";
+    public static String lastIdHome = "-1";
+    public static String lastIdOwnBids = "-1";
 
     public static final String DBREGISTER = "http://change-together.spdns.org/app/register.php";
     public static final String DBLOGIN = "http://change-together.spdns.org/app/login.php";
@@ -18,6 +19,7 @@ public class Constants {
     public static final String DBSEARCHBID = "http://change-together.spdns.org/app/searchBid.php";
     public static final String DBADDBID = "http://change-together.spdns.org/app/addBid.php";
     public static final String DBLOADBID = "http://change-together.spdns.org/app/loadBids.php";
+    public static final String DBLOADOWNBID = "http://change-together.spdns.org/app/loadOwnBids.php";
     public static final String DBDELETEBID = "http://change-together.spdns.org/app/deleteBid.php";
     public static final String DBPARTICIPATE = "http://change-together.spdns.org/app/participate.php";
     public static final String DBGETPARTICIPATIONS = "http://change-together.spdns.org/app/getParticipations.php";

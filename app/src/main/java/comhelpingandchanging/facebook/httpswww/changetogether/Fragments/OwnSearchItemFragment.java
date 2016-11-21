@@ -52,8 +52,8 @@ public class OwnSearchItemFragment extends Fragment {
             ratings = (TextView) view.findViewById(R.id.rezensionen);
             edit = (Button) view.findViewById(R.id.editButton);
 
-            userProfile.setImageBitmap(account.getSearchProfilePic());
-            userEmail.setText(account.getSearchEmail());
+            userProfile.setImageBitmap(account.getProfilePic());
+            userEmail.setText(account.getEmail());
             userBid.setText(account.getSearchTag());
             timenDate.setText(account.getSearchDate() + " - " + account.getSearchTime() + " Uhr");
             userDescription.setText(account.getSearchDescription());

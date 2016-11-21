@@ -95,14 +95,4 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
             }
         }
     }
-
-    private UserProfile getUserProfile(String location, String language, Bitmap bitmap){
-
-        UserProfile u = new UserProfile();
-        u.setEmail(email);
-        u.setLocation(location);
-        u.setLanguage(language);
-        u.setProfilePic(bitmap);
-        return u;
-    }
 }

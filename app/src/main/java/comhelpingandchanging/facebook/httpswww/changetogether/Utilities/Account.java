@@ -6,12 +6,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 
 import comhelpingandchanging.facebook.httpswww.changetogether.Activities.ShowBidFeedbackActivity;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.BieteFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.HomeFragment;
+import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.OwnBidsFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.ProfileFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchFragment;
 import comhelpingandchanging.facebook.httpswww.changetogether.Fragments.SearchItemFragment;
@@ -24,9 +27,9 @@ import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.D
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.GetAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.HomeShowBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBids;
-import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadBidsActivity;
 //import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocations;
 //import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadHelpingLocationsActivity;
+import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoadOwnBids;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Login;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.LoginWithAccessToken;
 import comhelpingandchanging.facebook.httpswww.changetogether.NetworkUtilities.Logout;
@@ -111,19 +114,25 @@ public class Account extends Application {
 
     public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
 
-        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), lat, lng, Constants.lastId);
+        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), lat, lng, Constants.lastIdHome);
         h.execute();
     }
 
-    public void loadBids(BieteFragment callingFragment){
+    public void loadOwnBids(BieteFragment callingActivity){
 
-        LoadBids l = new LoadBids(callingFragment, getEmail(), getSessionId(), getEmail());
+        LoadOwnBids l = new LoadOwnBids(callingActivity, getEmail(), getSessionId(), getEmail(), getLat(), getLng(), Constants.lastIdOwnBids);
+        l.execute();
+    }
+
+    public void loadOwnBids(OwnBidsFragment callingActivity){
+
+        LoadOwnBids l = new LoadOwnBids(callingActivity, getEmail(), getSessionId(), getEmail(), getLat(), getLng(), Constants.lastIdOwnBids);
         l.execute();
     }
 
     public void loadBidsActivity(SuperProfileFragment callingActivity, String searchedEmail, double lat, double lng){
 
-        LoadBidsActivity l = new LoadBidsActivity(callingActivity, getEmail(), getSessionId(), searchedEmail, lat, lng);
+        LoadBids l = new LoadBids(callingActivity, getEmail(), getSessionId(), searchedEmail, lat, lng);
         l.execute();
     }
 
@@ -205,6 +214,8 @@ public class Account extends Application {
     public double getLng(){ return self.getLng(); }
 
     public ArrayList<String[]> getParticipations() { return self.getParticipations(); }
+
+    public ArrayList<String[]> getOwnBids() { return self.getOwnBids(); }
 
     public String[] getSearchedItem(){
 
@@ -369,6 +380,8 @@ public class Account extends Application {
     public void setLng(double lng) { self.setLng(lng);}
 
     public void setParticipations(ArrayList<String[]> l) { self.setParticipations(l);}
+
+    public void setOwnBids(ArrayList<String[]> l) { self.setOwnBids(l);}
 
     /*public void setFragmentManager(FragmentManager fm){
         this.fm = fm;
