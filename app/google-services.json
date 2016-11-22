@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:828490251442:android:4ddcd7a140b74fbc",
         "android_client_info": {
-          "package_name": "comhelpingandchanging.facebook.httpswww.changetogether"
+          "package_name": "app.radiant.c.lly"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "828490251442-7nq118igq682s9unj9rhce1febi0nhfq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "comhelpingandchanging.facebook.httpswww.changetogether",
+            "package_name": "app.radiant.c.lly",
             "certificate_hash": "A0732126F696B02631E62E8C3F9471957D5F6549"
           }
         },
