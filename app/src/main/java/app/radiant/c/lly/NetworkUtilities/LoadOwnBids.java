@@ -27,7 +27,6 @@ import app.radiant.c.lly.Utilities.Constants;
 
 public class LoadOwnBids extends AsyncTask<Void, Void, String>{
 
-    ProgressDialog loading;
     Account account;
     OwnBidsFragment ownBidsFragment;
     BieteFragment bieteFragment;
@@ -40,6 +39,16 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
     private double lng;
     private String lastId;
 
+    public LoadOwnBids(Activity callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
+
+        account = (Account)callingActivity.getApplication();
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
+        this.email = email;
+        this.lat = lat;
+        this.lng = lng;
+        this.lastId = lastId;
+    }
 
     public LoadOwnBids(OwnBidsFragment callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
 
@@ -70,7 +79,6 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
 
     @Override
@@ -92,8 +100,6 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        Log.e("ownbids", result);
-        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
@@ -132,10 +138,10 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
                         if(!account.getOwnBids().contains(arr))
                             account.getOwnBids().add(arr);
                     }
-                    if(bieteFragment == null)
-                        ownBidsFragment.adapter.notifyDataSetChanged();
-                    else
+                    if(bieteFragment != null)
                         bieteFragment.adapter.notifyDataSetChanged();
+                    else if(ownBidsFragment != null)
+                        ownBidsFragment.adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(callingActivity, "Couldnt load bids", Toast.LENGTH_LONG).show();

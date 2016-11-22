@@ -1,9 +1,9 @@
 package app.radiant.c.lly.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.res.Resources;
 import android.util.Base64;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.radiant.c.lly.R;
+import app.radiant.c.lly.Utilities.Constants;
 
 /**
  * Created by Yannick on 18.10.2016.
@@ -68,16 +69,15 @@ public class CustomAdapterHome extends BaseAdapter {
         TextView count = (TextView) vi.findViewById(R.id.count);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
-        if(data.get(position)[12].length() != 0) {
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, r.getDisplayMetrics());
+
+
+        if (data.get(position)[12].length() != 0) {
             byte[] decodedString = Base64.decode(data.get(position)[12], Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            profilePic.setImageBitmap(decodedByte);
-        }
-        else{
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.blank_profile_pic);
-            profilePic.setImageBitmap(bitmap);
-        }
+            profilePic.setImageBitmap(Constants.decodeBitmap(decodedString, decodedString.length, (int)px, (int)px));
+        } else
+            profilePic.setImageBitmap(Constants.decodeBitmap(r, R.drawable.blank_profile_pic, (int)px, (int)px));
 
         tag.setText(data.get(position)[2]);
         location.setText(data.get(position)[4]);

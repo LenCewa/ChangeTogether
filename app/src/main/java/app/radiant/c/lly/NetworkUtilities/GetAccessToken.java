@@ -20,7 +20,6 @@ import app.radiant.c.lly.Utilities.Constants;
 
 public class GetAccessToken extends AsyncTask<Void, Void, String> {
 
-    ProgressDialog loading;
     private Activity callingActivity;
     private String emailAuth;
     private String sessionId;
@@ -38,7 +37,6 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
 
     @Override
@@ -47,7 +45,6 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
 
         data.put("emailAuth", emailAuth);
         data.put("sessionId", sessionId);
-        Log.e("sessionId", sessionId);
         data.put("email", email);
         String result = rh.sendPostRequest(Constants.DBGETACCESTOKEN,data);
 
@@ -56,7 +53,6 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
