@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "828490251442",
-    "firebase_url": "https://change-together-149218.firebaseio.com",
-    "project_id": "change-together-149218",
-    "storage_bucket": "change-together-149218.appspot.com"
+    "project_number": "548416209889",
+    "firebase_url": "https://radiant-25a1a.firebaseio.com",
+    "project_id": "radiant-25a1a",
+    "storage_bucket": "radiant-25a1a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:828490251442:android:4ddcd7a140b74fbc",
+        "mobilesdk_app_id": "1:548416209889:android:1024bb8059f1bf4c",
         "android_client_info": {
           "package_name": "app.radiant.c.lly"
         }
       },
       "oauth_client": [
         {
-          "client_id": "828490251442-7nq118igq682s9unj9rhce1febi0nhfq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "app.radiant.c.lly",
-            "certificate_hash": "A0732126F696B02631E62E8C3F9471957D5F6549"
-          }
-        },
-        {
-          "client_id": "828490251442-n1k55qs9v3a2g161upm4g4p3iaqgn2c4.apps.googleusercontent.com",
+          "client_id": "548416209889-8rqkr75u6ftnfvshm3odt2dr4juc84ui.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCv6qs5HJPIbDak7R-HrDgjd0GOQVLjxnE"
+          "current_key": "AIzaSyDUaSEZhlhTCOS5SN4XhUyMBqpqgy81d8c"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "828490251442-n1k55qs9v3a2g161upm4g4p3iaqgn2c4.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

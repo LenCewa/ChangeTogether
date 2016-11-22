@@ -10,10 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin">
    <!-- tools:context="comhelpingandchanging.facebook.httpswww.changetogether.XYZ???.InboxFragment"> -->
 
+   <Button
+       android:text="Display Email"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:id="@+id/addUsernameBtn" />
+
    <ListView
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
+       android:layout_height="wrap_content"
        android:id="@+id/userChatList"
-       android:layout_centerVertical="true"
+       android:layout_below="@+id/addUsernameBtn"
        android:layout_alignParentStart="true" />
 </RelativeLayout>
