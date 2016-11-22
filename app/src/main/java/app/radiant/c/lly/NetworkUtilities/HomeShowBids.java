@@ -70,7 +70,6 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        Log.e("home", result);
         loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)

@@ -12,7 +12,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Radiant"
         android:supportsRtl="true"
-        android:theme="@style/ownTheme2">
+        android:theme="@style/ownTheme2"
+        android:largeHeap="true">
         <activity android:name="app.radiant.c.lly.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

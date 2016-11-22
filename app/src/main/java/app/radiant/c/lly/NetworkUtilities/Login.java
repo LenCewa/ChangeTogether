@@ -51,7 +51,7 @@ public class Login extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+        loading = ProgressDialog.show(callingActivity, "Logging in...", null,true,true);
     }
 
     @Override
@@ -67,7 +67,6 @@ public class Login extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
@@ -112,6 +111,7 @@ public class Login extends AsyncTask<Void, Void, String> {
                 }
             }
         }
+        loading.dismiss();
     }
 
     private void setSelfInfo(String sessionId, String email, String location, String language, Bitmap profilePic) {
@@ -127,6 +127,8 @@ public class Login extends AsyncTask<Void, Void, String> {
         account.setLng(latLong[1]);
         GetParticipations p = new GetParticipations(callingActivity, email, sessionId, email, latLong[0], latLong[1]);
         p.execute();
+        LoadOwnBids l = new LoadOwnBids(callingActivity, email, sessionId, email, latLong[0], latLong[1], Constants.lastIdOwnBids);
+        l.execute();
     }
 
     public Double[] getLocationFromAddress(String strAddress){

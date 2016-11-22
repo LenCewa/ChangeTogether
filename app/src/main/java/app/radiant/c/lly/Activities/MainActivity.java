@@ -22,38 +22,40 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     Button register;
     Account account;
-    CheckBox stayLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash_screen);
 
         account = (Account) getApplication();
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sp.edit();
 
         if(!sp.getString("email","").equals("") && !sp.getString("accessToken","").equals(""))
-            account.loginWithAccessToken(this, sp.getString("email",""), sp.getString("accessToken",""));
+            account.loginWithAccessToken(this, sp.getString("email", ""), sp.getString("accessToken", ""));
+        else {
+            setContentView(R.layout.activity_main);
 
-        login = (Button) findViewById(R.id.loginBtn);
-        register = (Button) findViewById(R.id.registerBtn);
+            login = (Button) findViewById(R.id.loginBtn);
+            register = (Button) findViewById(R.id.registerBtn);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent login = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(login);
-            }
-        });
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(login);
+                }
+            });
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent register = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(register);
-            }
-        });
+            register.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent register = new Intent(MainActivity.this, RegisterActivity.class);
+                    startActivity(register);
+                }
+            });
+        }
     }
 
     @Override

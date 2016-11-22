@@ -24,7 +24,6 @@ import app.radiant.c.lly.Utilities.Constants;
 
 public class GetParticipations extends AsyncTask<Void, Void, String>{
 
-    ProgressDialog loading;
     Account account;
     Activity callingActivity;
     RequestHandler rh = new RequestHandler();
@@ -48,7 +47,6 @@ public class GetParticipations extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
     }
 
     @Override
@@ -69,7 +67,6 @@ public class GetParticipations extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
