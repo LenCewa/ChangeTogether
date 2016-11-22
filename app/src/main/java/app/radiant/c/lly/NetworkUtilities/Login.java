@@ -3,6 +3,7 @@ package app.radiant.c.lly.NetworkUtilities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
@@ -91,16 +93,20 @@ public class Login extends AsyncTask<Void, Void, String> {
                     String language = userInfo.getString("language");
                     String encodedPic = userInfo.getString("profilePic");
 
+                    Resources r = callingActivity.getResources();
+                    float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+                    int width = r.getDisplayMetrics().widthPixels;
+
                     if(encodedPic.length() > 0) {
                         byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        Bitmap decodedByte = Constants.decodeBitmap(decodedString, decodedString.length, width, (int)height);
                         setSelfInfo(sessionId, email, location, language, decodedByte);
                     }
                     else {
-                        Bitmap bitmap = BitmapFactory.decodeResource(callingActivity.getResources(),
-                                R.drawable.blank_profile_pic);
+                        Bitmap bitmap = Constants.decodeBitmap(r, R.drawable.blank_profile_pic, width, (int)height);
                         setSelfInfo(sessionId, email, location, language, bitmap);
                     }
+
                     account.getAccessToken(callingActivity);
                     Intent search = new Intent(callingActivity, MainAppActivity.class);
                     callingActivity.startActivity(search);

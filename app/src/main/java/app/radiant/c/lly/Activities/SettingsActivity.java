@@ -2,10 +2,14 @@ package app.radiant.c.lly.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -16,9 +20,12 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.IOException;
+
 import app.radiant.c.lly.Adapter.PlacesAutoCompleteAdapter;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Utilities.Constants;
 
 /**
  * Created by Ludwig on 29.10.2016.
@@ -131,11 +138,21 @@ public class SettingsActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE) {
-                Picasso
-                        .with(this)
-                        .load(data.getData())
-                        .placeholder(R.drawable.blank_profile_pic)
-                        .into(target);
+                Uri uri = data.getData();
+
+                Resources r = this.getResources();
+                float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+                int width = r.getDisplayMetrics().widthPixels;
+
+                try {
+                    Bitmap bitmap = Constants.decodeBitmap(this, uri, width, (int)height);
+                    account.setProfilePic(bitmap);
+                    profilePic.setImageBitmap(bitmap);
+                    account.uploadProfilePic(this, bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
             }
         }
     }

@@ -1,8 +1,15 @@
 package app.radiant.c.lly.Utilities;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Log;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * Created by Yannick on 28.10.2016.
@@ -87,6 +94,25 @@ public class Constants {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeByteArray(pic, 0, length, options);
+    }
+
+    public static Bitmap decodeBitmap(Activity activity, Uri uri,
+                                      int reqWidth, int reqHeight) throws FileNotFoundException {
+
+        InputStream input = activity.getContentResolver().openInputStream(uri);
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(input, null, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        InputStream input2 = activity.getContentResolver().openInputStream(uri);
+        return BitmapFactory.decodeStream(input2, null, options);
     }
 
     public static Bitmap decodeBitmap(Resources res, int resId,
