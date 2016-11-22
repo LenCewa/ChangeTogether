@@ -1,15 +1,19 @@
 package app.radiant.c.lly.Activities;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import app.radiant.c.lly.NetworkUtilities.Register;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Utilities.Constants;
 
 /**
  * Created by Yannick on 28.10.2016.
@@ -27,6 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
+        ((ImageView) findViewById(R.id.imageView3)).setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
 
         account = (Account) getApplication();
         email = (EditText) findViewById(R.id.emailTxt2);

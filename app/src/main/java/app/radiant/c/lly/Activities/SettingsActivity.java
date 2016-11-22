@@ -17,9 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
 import java.io.IOException;
 
 import app.radiant.c.lly.Adapter.PlacesAutoCompleteAdapter;
@@ -42,25 +39,6 @@ public class SettingsActivity extends Activity {
     EditText password;
     EditText passwordConfirm;
     ImageView profilePic;
-    Target target = new Target() {
-        @Override
-        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            Log.e("hallo", "loaded");
-            account.setProfilePic(bitmap);
-            profilePic.setImageBitmap(bitmap);
-            account.uploadProfilePic(SettingsActivity.this, bitmap);
-        }
-
-        @Override
-        public void onBitmapFailed(Drawable errorDrawable) {
-            Log.e("hallo", "failed");
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
-            Log.e("hallo", "prepare");
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

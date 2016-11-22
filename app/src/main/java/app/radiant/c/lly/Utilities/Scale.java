@@ -5,6 +5,7 @@ import android.media.ThumbnailUtils;
 
 import com.squareup.picasso.Transformation;
 
+
 /**
  * Created by Yannick on 14.11.2016.
  */
