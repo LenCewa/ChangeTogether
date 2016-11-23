@@ -52,7 +52,7 @@ public class SearchItemFragment extends Fragment{
         ratings = (TextView) view.findViewById(R.id.rezensionen);
         join = (Button) view.findViewById(R.id.joinButton);
 
-        userProfile.setImageBitmap(account.userPics.get(account.getSearchEmail()));
+        userProfile.setImageBitmap(account.getBitmapFromCache(account.getSearchEmail()));
         userEmail.setText(account.getSearchEmail());
         userBid.setText(account.getSearchTag());
         timenDate.setText(account.getSearchDate() + " - " + account.getSearchTime() + " Uhr");

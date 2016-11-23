@@ -108,21 +108,6 @@ public class SearchBid extends AsyncTask<Void, Void, String>{
                         String time = bidsInfo.getString("time");
                         String part = bidsInfo.getString("part");
                         String maxPart = bidsInfo.getString("maxPart");
-                        String encodedPic = bidsInfo.getString("profilePic");
-
-                        if(!account.userPics.containsKey(email)) {
-                            Resources r = callingFragment.getResources();
-                            float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, r.getDisplayMetrics());
-
-                            if (encodedPic.length() > 0) {
-                                byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-                                Bitmap decodedByte = Constants.decodeBitmap(decodedString, decodedString.length, (int) height, (int) height);
-                                account.userPics.put(email, decodedByte);
-                            } else {
-                                Bitmap bitmap = Constants.decodeBitmap(r, R.drawable.blank_profile_pic, (int) height, (int) height);
-                                account.userPics.put(email, bitmap);
-                            }
-                        }
 
                         String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart};
                         if (!email.equals(account.getEmail())) {

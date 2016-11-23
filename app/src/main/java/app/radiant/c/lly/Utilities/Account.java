@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.LruCache;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +48,34 @@ public class Account extends Application {
     private SearchedItem searchedItem = null;
     private boolean searchSet = false;
     private String sessionId;
-    public HashMap<String, Bitmap> userPics = new HashMap<>();
+    private LruCache<String, Bitmap> bitmapCache;
     //private FragmentManager fm;
+
+    public Account(){
+
+        //Get max available VM Memory
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+        //use 1/8 of total memory for Bitmap cache
+        final int cacheSize = maxMemory / 8;
+
+        bitmapCache = new LruCache<String, Bitmap>(cacheSize){
+
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                return bitmap.getByteCount() / 1024;
+            }
+        };
+    }
+
+    public void addBitmapToCache(String key, Bitmap bitmap){
+        if(getBitmapFromCache(key) == null)
+            bitmapCache.put(key, bitmap);
+    }
+
+    public Bitmap getBitmapFromCache(String key){
+        return bitmapCache.get(key);
+    }
 
     public void login(Activity callingActivity, String email, String password) {
 

@@ -2,6 +2,7 @@ package app.radiant.c.lly.Utilities;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +10,9 @@ import android.net.Uri;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 
 /**
  * Created by Yannick on 28.10.2016.
@@ -44,6 +47,8 @@ public class Constants {
     public static final String DBSEARCHUSER = "http://change-together.spdns.org/app/searchUser.php";
     public static final String DBSEARCHFEEDBACK = "http://change-together.spdns.org/app/searchFeedback.php";
     public static final String DBADDFEEDBACK = "http://change-together.spdns.org/app/addFeedback.php";
+
+    public static final String PICS = "http://change-together.spdns.org/app/pics/";
 
     public static final String USERTABLE = "User";
     public static final String SUPPLYTABLE = "Supply";

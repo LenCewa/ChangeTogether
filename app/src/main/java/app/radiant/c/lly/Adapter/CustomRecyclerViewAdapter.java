@@ -1,6 +1,7 @@
 package app.radiant.c.lly.Adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import app.radiant.c.lly.NetworkUtilities.GetBitmap;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -21,6 +23,7 @@ import app.radiant.c.lly.Utilities.Account;
 public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ProfileInfoViewHolder> {
 
     Account account;
+    Activity activity;
     ArrayList<String[]> data;
     ProfileInfoViewHolder holder;
     ViewGroup parent;
@@ -28,6 +31,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     public CustomRecyclerViewAdapter(Activity activity, ArrayList<String[]> data) {
 
         this.account = (Account)activity.getApplication();
+        this.activity = activity;
         this.data = data;
     }
 
@@ -51,7 +55,12 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
         holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
-        holder.profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
+
+        Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
+        if(pic != null)
+            holder.profilePic.setImageBitmap(pic);
+        else
+            new GetBitmap(activity, holder.profilePic, data.get(position)[1]).execute();
     }
 
     @Override

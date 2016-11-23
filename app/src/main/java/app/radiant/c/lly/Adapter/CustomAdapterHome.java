@@ -2,6 +2,7 @@ package app.radiant.c.lly.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import app.radiant.c.lly.NetworkUtilities.GetBitmap;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -22,7 +24,7 @@ import app.radiant.c.lly.Utilities.Account;
 public class CustomAdapterHome extends BaseAdapter {
 
     Account account;
-    Context context;
+    Activity context;
     ArrayList<String[]> data;
     private static LayoutInflater inflater = null;
 
@@ -70,18 +72,7 @@ public class CustomAdapterHome extends BaseAdapter {
         TextView count = (TextView) vi.findViewById(R.id.count);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
-        /**
-        Resources r = context.getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, r.getDisplayMetrics());
 
-
-        if (data.get(position)[12].length() != 0) {
-            byte[] decodedString = Base64.decode(data.get(position)[12], Base64.DEFAULT);
-            profilePic.setImageBitmap(Constants.decodeBitmap(decodedString, decodedString.length, (int)px, (int)px));
-        } else
-            profilePic.setImageBitmap(Constants.decodeBitmap(r, R.drawable.blank_profile_pic, (int)px, (int)px));
-        **/
-        profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
         tag.setText(data.get(position)[2]);
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
@@ -90,6 +81,12 @@ public class CustomAdapterHome extends BaseAdapter {
         ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         count.setText(data.get(position)[6] + " Bewertungen");
         maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+
+        Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
+        if(pic != null)
+            profilePic.setImageBitmap(pic);
+        else
+            new GetBitmap(context, profilePic, data.get(position)[1]).execute();
 
         return vi;
     }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import app.radiant.c.lly.NetworkUtilities.GetBitmap;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -72,7 +73,6 @@ public class CustomAdapterSearch extends BaseAdapter {
         TextView count = (TextView) vi.findViewById(R.id.count);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
-        profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
         time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
@@ -80,6 +80,12 @@ public class CustomAdapterSearch extends BaseAdapter {
         ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         count.setText(data.get(position)[6] + " Bewertungen");
         maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+
+        Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
+        if(pic != null)
+            profilePic.setImageBitmap(pic);
+        else
+            new GetBitmap(context, profilePic, data.get(position)[1]).execute();
 
         return vi;
     }

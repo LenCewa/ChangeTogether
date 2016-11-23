@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import app.radiant.c.lly.NetworkUtilities.GetBitmap;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -49,7 +50,7 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Cust
     @Override
     public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
         
-        holder.profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
+        //holder.profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
         holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
         holder.distance.setText("<=" + data.get(position)[7] + "km");
@@ -57,6 +58,12 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Cust
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
         holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+
+        Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
+        if(pic != null)
+            holder.profilePic.setImageBitmap(pic);
+        else
+            new GetBitmap(activity, holder.profilePic, data.get(position)[1]).execute();
     }
 
     @Override
