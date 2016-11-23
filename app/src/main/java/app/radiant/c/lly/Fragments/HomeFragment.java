@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +112,7 @@ public class HomeFragment extends Fragment {
 
     private void refresh(){
 
+        Log.e("cacheSize", String.valueOf(account.bitmapCache.size()));
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebote in deiner Nähe");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);

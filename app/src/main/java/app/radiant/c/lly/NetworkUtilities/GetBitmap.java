@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -49,7 +50,8 @@ public class GetBitmap extends AsyncTask<Void, Void, Bitmap> {
         }
 
         Resources r = context.getResources();
-        float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+        //float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, r.getDisplayMetrics());
+        int height = r.getDisplayMetrics().heightPixels/2;
         int width = r.getDisplayMetrics().widthPixels;
 
         final BitmapFactory.Options options = new BitmapFactory.Options();

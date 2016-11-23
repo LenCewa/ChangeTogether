@@ -154,9 +154,9 @@ public class UpcomingFragment extends SuperProfileFragment {
 
     @Override
     public void onStop() {
-        Log.e("Stop", "Stop");
         super.onStop();
         adapter = null;
         bidList = null;
+        Log.e("cacheSize", String.valueOf(account.bitmapCache.size()));
     }
 }

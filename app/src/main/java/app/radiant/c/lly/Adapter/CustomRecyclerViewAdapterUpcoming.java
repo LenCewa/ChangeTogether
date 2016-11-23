@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,7 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Cust
 
     @Override
     public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
-        
-        //holder.profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
+
         holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
         holder.distance.setText("<=" + data.get(position)[7] + "km");
@@ -60,10 +60,12 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Cust
         holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
 
         Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
-        if(pic != null)
+        if(pic != null) {
             holder.profilePic.setImageBitmap(pic);
-        else
+        }
+        else {
             new GetBitmap(activity, holder.profilePic, data.get(position)[1]).execute();
+        }
     }
 
     @Override
