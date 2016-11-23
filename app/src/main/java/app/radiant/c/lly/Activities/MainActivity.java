@@ -44,11 +44,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sp.edit();
 
-        // [PRIO]
-        editor.remove("accessToken");
-        editor.commit();
-        // [END PRIO]
-
         if(!sp.getString("email","").equals("") && !sp.getString("accessToken","").equals(""))
             account.loginWithAccessToken(this, sp.getString("email", ""), sp.getString("accessToken", ""));
         else {

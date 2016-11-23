@@ -50,8 +50,8 @@ public class GetBitmap extends AsyncTask<Void, Void, Bitmap> {
         }
 
         Resources r = context.getResources();
-        //float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, r.getDisplayMetrics());
-        int height = r.getDisplayMetrics().heightPixels/2;
+        //float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+        int height = r.getDisplayMetrics().heightPixels / 2;
         int width = r.getDisplayMetrics().widthPixels;
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -64,7 +64,7 @@ public class GetBitmap extends AsyncTask<Void, Void, Bitmap> {
 
         // Calculate inSampleSize
         options.inSampleSize = Constants.calculateInSampleSize(options, width, (int)height);
-
+        options.inPreferredConfig=Bitmap.Config.RGB_565;
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         Bitmap decodedByte = null;
