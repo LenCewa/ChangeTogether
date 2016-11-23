@@ -1,5 +1,6 @@
 package app.radiant.c.lly.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,18 +16,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.radiant.c.lly.R;
+import app.radiant.c.lly.Utilities.Account;
 
 /**
  * Created by Yannick on 18.10.2016.
  */
 
 public class CustomAdapterSearch extends BaseAdapter {
-    Context context;
+
+    Account account;
+    Activity context;
     ArrayList<String[]> data;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapterSearch(Context context, ArrayList<String[]> data) {
+    public CustomAdapterSearch(Activity context, ArrayList<String[]> data) {
         // TODO Auto-generated constructor stub
+        account = (Account) context.getApplication();
         this.context = context;
         this.data = data;
         inflater = (LayoutInflater) context
@@ -67,17 +72,7 @@ public class CustomAdapterSearch extends BaseAdapter {
         TextView count = (TextView) vi.findViewById(R.id.count);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
-        if(data.get(position)[12].length() != 0) {
-            byte[] decodedString = Base64.decode(data.get(position)[12], Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            profilePic.setImageBitmap(decodedByte);
-        }
-        else{
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.blank_profile_pic);
-            profilePic.setImageBitmap(bitmap);
-        }
-
+        profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
         time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");

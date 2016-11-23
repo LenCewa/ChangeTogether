@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,20 +127,8 @@ public class UpcomingFragment extends SuperProfileFragment {
                         String time = adapter.getItem(position)[9];
                         String part = adapter.getItem(position)[10];
                         String maxPart = adapter.getItem(position)[11];
-                        String encodedPic = adapter.getItem(position)[12];
 
-                        if(encodedPic.length() != 0) {
-                            byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                            account.setSearchedUserProfilePic(decodedByte);
-                        }
-                        else{
-                            Bitmap bitmap = BitmapFactory.decodeResource(UpcomingFragment.this.getResources(),
-                                    R.drawable.blank_profile_pic);
-                            account.setSearchedUserProfilePic(bitmap);
-                        }
-
-                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
+                        account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, null);
                         SearchItemFragment f = new SearchItemFragment();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
                     }
@@ -161,5 +150,13 @@ public class UpcomingFragment extends SuperProfileFragment {
     public void onResume() {
         super.onResume();
         refresh();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("Stop", "Stop");
+        super.onStop();
+        adapter = null;
+        bidList = null;
     }
 }

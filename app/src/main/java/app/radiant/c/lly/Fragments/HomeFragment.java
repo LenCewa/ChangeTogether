@@ -97,19 +97,10 @@ public class HomeFragment extends Fragment {
                 String time = adapter.getItem(position)[9];
                 String part = adapter.getItem(position)[10];
                 String maxPart = adapter.getItem(position)[11];
-                String encodedPic = adapter.getItem(position)[12];
 
-                if(encodedPic.length() != 0) {
-                    byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    account.setSearchedUserProfilePic(decodedByte);
-                }
-                else{
-                    Bitmap bitmap = BitmapFactory.decodeResource(HomeFragment.this.getResources(),
-                            R.drawable.blank_profile_pic);
-                    account.setSearchedUserProfilePic(bitmap);
-                }
-                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, encodedPic);
+                account.setSearchedUserProfilePic(account.userPics.get("email"));
+
+                account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart, null);
 
                 SearchItemFragment f = new SearchItemFragment();
                 getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();

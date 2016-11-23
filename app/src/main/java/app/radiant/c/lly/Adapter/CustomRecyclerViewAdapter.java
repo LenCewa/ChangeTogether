@@ -51,7 +51,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
         holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
-        holder.profilePic.setImageBitmap(account.getSearchProfilePic());
+        holder.profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
     }
 
     @Override

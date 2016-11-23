@@ -1,10 +1,13 @@
 package app.radiant.c.lly.NetworkUtilities;
 
 import android.app.ProgressDialog;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import android.util.Base64;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import app.radiant.c.lly.Fragments.HomeFragment;
+import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
 
@@ -107,7 +111,21 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                         String maxPart = bidsInfo.getString("maxPart");
                         String encodedPic = bidsInfo.getString("profilePic");
 
-                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart, encodedPic};
+                        if(!account.userPics.containsKey(email)) {
+                            Resources r = callingFragment.getResources();
+                            float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, r.getDisplayMetrics());
+
+                            if (encodedPic.length() > 0) {
+                                byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
+                                Bitmap decodedByte = Constants.decodeBitmap(decodedString, decodedString.length, (int) height, (int) height);
+                                account.userPics.put(email, decodedByte);
+                            } else {
+                                Bitmap bitmap = Constants.decodeBitmap(r, R.drawable.blank_profile_pic, (int) height, (int) height);
+                                account.userPics.put(email, bitmap);
+                            }
+                        }
+
+                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, distance, date, time, part, maxPart};
                         if (!email.equals(account.getEmail())) {
                             if(Integer.parseInt(distance) <= 75)
                                 callingFragment.listItems.add(arr);

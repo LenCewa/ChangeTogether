@@ -48,19 +48,8 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Cust
 
     @Override
     public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
-
-        String encodedPic = data.get(position)[12];
-        if(encodedPic.length() != 0) {
-            byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            holder.profilePic.setImageBitmap(decodedByte);
-        }
-        else{
-            Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(),
-                    R.drawable.blank_profile_pic);
-           holder.profilePic.setImageBitmap(bitmap);
-        }
-
+        
+        holder.profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
         holder.tag.setText(data.get(position)[2]);
         holder.location.setText(data.get(position)[4]);
         holder.distance.setText("<=" + data.get(position)[7] + "km");

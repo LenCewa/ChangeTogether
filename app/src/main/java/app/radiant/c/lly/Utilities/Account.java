@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import app.radiant.c.lly.Activities.ShowBidFeedbackActivity;
 import app.radiant.c.lly.Fragments.BieteFragment;
@@ -46,6 +47,7 @@ public class Account extends Application {
     private SearchedItem searchedItem = null;
     private boolean searchSet = false;
     private String sessionId;
+    public HashMap<String, Bitmap> userPics = new HashMap<>();
     //private FragmentManager fm;
 
     public void login(Activity callingActivity, String email, String password) {

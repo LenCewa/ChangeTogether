@@ -1,9 +1,7 @@
 package app.radiant.c.lly.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.Base64;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +13,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.radiant.c.lly.R;
-import app.radiant.c.lly.Utilities.Constants;
+import app.radiant.c.lly.Utilities.Account;
 
 /**
  * Created by Yannick on 18.10.2016.
  */
 
 public class CustomAdapterHome extends BaseAdapter {
+
+    Account account;
     Context context;
     ArrayList<String[]> data;
     private static LayoutInflater inflater = null;
 
-    public CustomAdapterHome(Context context, ArrayList<String[]> data) {
+    public CustomAdapterHome(Activity context, ArrayList<String[]> data) {
         // TODO Auto-generated constructor stub
+        account = (Account) context.getApplication();
         this.context = context;
         this.data = data;
         inflater = (LayoutInflater) context
@@ -69,6 +70,7 @@ public class CustomAdapterHome extends BaseAdapter {
         TextView count = (TextView) vi.findViewById(R.id.count);
         TextView maxPart = (TextView) vi.findViewById(R.id.maxPart);
 
+        /**
         Resources r = context.getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, r.getDisplayMetrics());
 
@@ -78,7 +80,8 @@ public class CustomAdapterHome extends BaseAdapter {
             profilePic.setImageBitmap(Constants.decodeBitmap(decodedString, decodedString.length, (int)px, (int)px));
         } else
             profilePic.setImageBitmap(Constants.decodeBitmap(r, R.drawable.blank_profile_pic, (int)px, (int)px));
-
+        **/
+        profilePic.setImageBitmap(account.userPics.get(data.get(position)[1]));
         tag.setText(data.get(position)[2]);
         location.setText(data.get(position)[4]);
         distance.setText("<=" + data.get(position)[7] + "km");
