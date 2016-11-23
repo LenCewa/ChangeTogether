@@ -27,12 +27,11 @@ public class SearchedItem {
     private String time;
     private String part;
     private String maxParticipators;
-    private String encodedPic;
 
-    public SearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators, String encodedPic){
+    public SearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators){
 
         this.context = context;
-        searchedItem = new String[] {id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators, encodedPic};
+        searchedItem = new String[] {id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators};
         this.id = id;
         this.email = email;
         this.tag = tag;
@@ -45,7 +44,6 @@ public class SearchedItem {
         this.time = time;
         this.part = part;
         this.maxParticipators = maxParticipators;
-        this.encodedPic = encodedPic;
     }
 
     public String[] getSearchedItem() { return searchedItem;}
@@ -92,19 +90,5 @@ public class SearchedItem {
 
     public String getMaxParticipators(){
         return maxParticipators;
-    }
-
-    public Bitmap getProfilePic(){
-
-        if(encodedPic.length() > 0) {
-            byte[] decodedString = Base64.decode(encodedPic, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            return decodedByte;
-        }
-        else {
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.blank_profile_pic);
-            return bitmap;
-        }
     }
 }

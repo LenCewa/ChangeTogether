@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     EditText email, password;
     Account account;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
-        ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
+        imageView = ((ImageView) findViewById(R.id.imageView2));
+        imageView.setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
 
         loginBtn = (Button) findViewById(R.id.login);
         email = (EditText) findViewById(R.id.emailTxt);
@@ -44,5 +46,11 @@ public class LoginActivity extends AppCompatActivity {
                     account.login(LoginActivity.this, email.getText().toString(), password.getText().toString());
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        imageView.setImageBitmap(null);
     }
 }

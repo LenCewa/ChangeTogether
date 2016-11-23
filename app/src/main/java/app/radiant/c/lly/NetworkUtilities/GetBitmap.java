@@ -49,7 +49,8 @@ public class GetBitmap extends AsyncTask<Void, Void, Bitmap> {
         }
 
         Resources r = context.getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, r.getDisplayMetrics());
+        float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+        int width = r.getDisplayMetrics().widthPixels;
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -57,11 +58,10 @@ public class GetBitmap extends AsyncTask<Void, Void, Bitmap> {
             BitmapFactory.decodeStream(url.openStream(), null, options);
         } catch (IOException e) {
             //e.printStackTrace();
-
         }
 
         // Calculate inSampleSize
-        options.inSampleSize = Constants.calculateInSampleSize(options, (int)px, (int)px);
+        options.inSampleSize = Constants.calculateInSampleSize(options, width, (int)height);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
@@ -70,7 +70,7 @@ public class GetBitmap extends AsyncTask<Void, Void, Bitmap> {
             decodedByte = BitmapFactory.decodeStream(url.openStream(), null, options);
         } catch (IOException e) {
             //e.printStackTrace();
-            decodedByte = Constants.decodeBitmap(r, R.drawable.blank_profile_pic, (int)px, (int)px);
+            decodedByte = Constants.decodeBitmap(r, R.drawable.blank_profile_pic, width, (int)height);
         }
 
         account.addBitmapToCache(email, decodedByte);

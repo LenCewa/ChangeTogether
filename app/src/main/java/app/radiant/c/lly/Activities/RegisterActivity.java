@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText passwordConfirm;
     Button register;
     Account account;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
-        ((ImageView) findViewById(R.id.imageView3)).setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
+        imageView = ((ImageView) findViewById(R.id.imageView3));
+        imageView.setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
 
         account = (Account) getApplication();
         email = (EditText) findViewById(R.id.emailTxt2);
@@ -59,5 +61,11 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "E-Mail can not be empty", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        imageView.setImageBitmap(null);
     }
 }

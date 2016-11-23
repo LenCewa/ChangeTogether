@@ -135,6 +135,7 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
         p.execute();
         LoadOwnBids l = new LoadOwnBids(callingActivity, email, sessionId, email, latLong[0], latLong[1], Constants.lastIdOwnBids);
         l.execute();
+
     }
 
     public Double[] getLocationFromAddress(String strAddress){

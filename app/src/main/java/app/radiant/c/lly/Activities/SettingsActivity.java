@@ -123,10 +123,9 @@ public class SettingsActivity extends Activity {
                 int width = r.getDisplayMetrics().widthPixels;
 
                 try {
-                    Bitmap bitmap = Constants.decodeBitmap(this, uri, width, (int)height);
-                    account.setProfilePic(bitmap);
-                    profilePic.setImageBitmap(bitmap);
-                    account.uploadProfilePic(this, bitmap);
+                    account.setProfilePic(Constants.decodeBitmap(this, uri, width, (int)height));
+                    profilePic.setImageBitmap(account.getProfilePic());
+                    account.uploadProfilePic(this, account.getProfilePic());
                 } catch (IOException e) {
                     e.printStackTrace();
                     return;

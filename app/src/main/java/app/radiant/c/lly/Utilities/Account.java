@@ -132,10 +132,10 @@ public class Account extends Application {
         searchedUser.setLanguage(language);
     }
 
-    public void setSearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators, String encodedPic){
+    public void setSearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators){
 
         searchSet = true;
-        searchedItem = new SearchedItem(context, id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators, encodedPic);
+        searchedItem = new SearchedItem(context, id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators);
     }
 
     public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
@@ -305,14 +305,6 @@ public class Account extends Application {
             return null;
     }
 
-    public String getSearchDistance(){
-
-        if(searchSet)
-            return searchedItem.getDistance();
-        else
-            return null;
-    }
-
     public String getSearchDate(){
 
         if(searchSet)
@@ -363,18 +355,6 @@ public class Account extends Application {
         return searchedUser.getLanguage();
     }
 
-    public Bitmap getSearchProfilePic(){
-
-        return searchedUser.getProfilePic();
-    }
-
-    public boolean isUserSearched(){
-
-        if(searchedUser == null)
-            return false;
-        else
-            return true;
-    }
 
     /*public FragmentManager getFragmentManager(){
         return fm;
@@ -401,16 +381,6 @@ public class Account extends Application {
     public void setLng(double lng) { self.setLng(lng);}
 
     public void setParticipations(ArrayList<String[]> l) { self.setParticipations(l);}
-
-    public void setOwnBids(ArrayList<String[]> l) { self.setOwnBids(l);}
-
-    public void setSearchedUserEmail(String email){
-        searchedUser.setEmail(email);
-    }
-
-    public void setSearchedUserProfilePic(Bitmap profilePic){
-        searchedUser.setProfilePic(profilePic);
-    }
 
     /*public void setFragmentManager(FragmentManager fm){
         this.fm = fm;

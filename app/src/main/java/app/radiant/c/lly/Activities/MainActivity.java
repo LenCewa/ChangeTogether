@@ -28,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
     Button login;
     Button register;
     Account account;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash_screen);
+
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
+        imageView = ((ImageView) findViewById(R.id.imageView2));
+        imageView.setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int) px, (int) px));
 
         account = (Account) getApplication();
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
@@ -40,15 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(!sp.getString("email","").equals("") && !sp.getString("accessToken","").equals(""))
             account.loginWithAccessToken(this, sp.getString("email", ""), sp.getString("accessToken", ""));
-
+        else {
             setContentView(R.layout.activity_main);
 
-        Resources r = getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
-        ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
-
-
-        ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
+            ((ImageView) findViewById(R.id.imageView2)).setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int) px, (int) px));
 
             login = (Button) findViewById(R.id.loginBtn);
             register = (Button) findViewById(R.id.registerBtn);
@@ -68,11 +69,17 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(register);
                 }
             });
-
+        }
     }
 
     @Override
     public void onBackPressed() {
         return;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        imageView.setImageBitmap(null);
     }
 }
