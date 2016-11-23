@@ -53,7 +53,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingFragment.getActivity(), "Uploading...", null,true,true);
+        loading = ProgressDialog.show(callingFragment.getActivity(), "Suche Angebote in deiner Nähe...", null,true,true);
     }
 
     @Override

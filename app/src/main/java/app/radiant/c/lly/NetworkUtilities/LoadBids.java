@@ -45,7 +45,7 @@ public class LoadBids extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingFragment.getActivity(), "Uploading...", null,true,true);
+        loading = ProgressDialog.show(callingFragment.getActivity(), "Lade Profil...", null,true,true);
     }
 
     @Override

@@ -2,6 +2,7 @@ package app.radiant.c.lly.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
+import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.Utilities.Constants;
 
 /**
@@ -74,5 +76,8 @@ public class GetAccessToken extends AsyncTask<Void, Void, String> {
                 editor.commit();
             }
         }
+        Intent search = new Intent(callingActivity, MainAppActivity.class);
+        callingActivity.startActivity(search);
+        callingActivity.finishAffinity();
     }
 }

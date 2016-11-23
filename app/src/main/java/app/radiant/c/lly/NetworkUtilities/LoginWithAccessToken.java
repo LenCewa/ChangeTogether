@@ -69,7 +69,6 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                     .setAction("Retry", new View.OnClickListener() {
@@ -107,17 +106,13 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
                         Bitmap bitmap = Constants.decodeBitmap(r, R.drawable.blank_profile_pic, width, (int)height);
                         setSelfInfo(sessionId, email, location, language, bitmap);
                     }
-
-                    account.getAccessToken(callingActivity);
-                    Intent search = new Intent(callingActivity, MainAppActivity.class);
-                    callingActivity.startActivity(search);
-                    callingActivity.finishAffinity();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(callingActivity, "Couldnt get User Info", Toast.LENGTH_LONG);
                 }
             }
         }
+        loading.dismiss();
     }
 
     private void setSelfInfo(String sessionId, String email, String location, String language, Bitmap profilePic){
@@ -133,9 +128,6 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
         account.setLng(latLong[1]);
         GetParticipations p = new GetParticipations(callingActivity, email, sessionId, email, latLong[0], latLong[1]);
         p.execute();
-        LoadOwnBids l = new LoadOwnBids(callingActivity, email, sessionId, email, latLong[0], latLong[1], Constants.lastIdOwnBids);
-        l.execute();
-
     }
 
     public Double[] getLocationFromAddress(String strAddress){

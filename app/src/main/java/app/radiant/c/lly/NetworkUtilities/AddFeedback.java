@@ -19,7 +19,6 @@ import app.radiant.c.lly.Utilities.Constants;
 
 public class AddFeedback extends AsyncTask <Void, Void, String>{
 
-    ProgressDialog loading;
     Account account;
     DialogFragment callingDialog;
     RequestHandler rh = new RequestHandler();
@@ -49,7 +48,6 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingDialog.getActivity(), "Uploading...", null,true,true);
     }
 
     @Override
@@ -73,7 +71,6 @@ public class AddFeedback extends AsyncTask <Void, Void, String>{
     @Override
     protected void onPostExecute(final String result) {
         Activity callingActivity = callingDialog.getActivity();
-        loading.dismiss();
         if(callingDialog != null)
             callingDialog.dismiss();
         if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)

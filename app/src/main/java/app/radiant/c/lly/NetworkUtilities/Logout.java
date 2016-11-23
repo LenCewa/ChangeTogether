@@ -37,7 +37,7 @@ public class Logout extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        loading = ProgressDialog.show(callingActivity, "Uploading...", null,true,true);
+        loading = ProgressDialog.show(callingActivity, "Logging out...", null,true,true);
     }
 
     @Override

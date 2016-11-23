@@ -2,6 +2,7 @@ package app.radiant.c.lly.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.Fragments.BieteFragment;
 import app.radiant.c.lly.Fragments.OwnBidsFragment;
 import app.radiant.c.lly.Utilities.Account;
@@ -42,6 +44,7 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
     public LoadOwnBids(Activity callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
 
         account = (Account)callingActivity.getApplication();
+        this.callingActivity = callingActivity;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
         this.email = email;
@@ -142,6 +145,8 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
                         bieteFragment.adapter.notifyDataSetChanged();
                     else if(ownBidsFragment != null)
                         ownBidsFragment.adapter.notifyDataSetChanged();
+
+                    account.getAccessToken(callingActivity);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(callingActivity, "Couldnt load bids", Toast.LENGTH_LONG).show();

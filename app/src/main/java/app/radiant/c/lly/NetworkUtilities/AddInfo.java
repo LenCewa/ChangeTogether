@@ -18,7 +18,6 @@ import app.radiant.c.lly.Utilities.Constants;
 
 public class AddInfo extends AsyncTask<Void, Void, String > {
 
-    ProgressDialog loading;
     Account account;
     Activity callingActivity;
     String emailAuth;
@@ -55,7 +54,6 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-//        loading = ProgressDialog.show(ownBidsFragment, "Uploading...", null,true,true);
     }
 
     @Override
@@ -87,7 +85,6 @@ public class AddInfo extends AsyncTask<Void, Void, String > {
 
     @Override
     protected void onPostExecute(String result) {
-       // loading.dismiss();
         if(result.equals("connection error")) Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
