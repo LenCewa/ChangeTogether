@@ -29,7 +29,6 @@ import app.radiant.c.lly.Utilities.Constants;
  */
 
 public class SettingsActivity extends Activity {
-    private static final int PICK_IMAGE = 1;
     Button save;
     String city;
     Account account;
@@ -74,7 +73,7 @@ public class SettingsActivity extends Activity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
             }
         });
 
@@ -115,14 +114,16 @@ public class SettingsActivity extends Activity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == PICK_IMAGE) {
+            if (requestCode == 1) {
                 Uri uri = data.getData();
 
                 Resources r = this.getResources();
-                float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+                int height = r.getDisplayMetrics().heightPixels / 2;
                 int width = r.getDisplayMetrics().widthPixels;
 
                 try {
+                    account.getProfilePic().recycle();
+                    account.setProfilePic(null);
                     account.setProfilePic(Constants.decodeBitmap(this, uri, width, (int)height));
                     profilePic.setImageBitmap(account.getProfilePic());
                     account.uploadProfilePic(this, account.getProfilePic());
@@ -132,5 +133,11 @@ public class SettingsActivity extends Activity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

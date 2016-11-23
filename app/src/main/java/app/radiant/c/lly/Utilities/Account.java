@@ -142,9 +142,9 @@ public class Account extends Application {
         searchedItem = new SearchedItem(context, id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators);
     }
 
-    public void homeShowBids(HomeFragment callingFragment, double lat, double lng){
+    public void homeShowBids(HomeFragment callingFragment){
 
-        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), lat, lng, Constants.lastIdHome);
+        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), getLat(), getLng(), Constants.lastIdHome);
         h.execute();
     }
 

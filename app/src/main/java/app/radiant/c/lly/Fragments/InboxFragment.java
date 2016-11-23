@@ -2,6 +2,7 @@ package app.radiant.c.lly.Fragments;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -163,4 +166,15 @@ public class InboxFragment extends Fragment {
         // [END create_user_with_email]
     }
 
+    public void refresh(){
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Chats");
+        ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
 }

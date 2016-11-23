@@ -74,7 +74,6 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
-        loading.dismiss();
         if(result.equals("connection error"))
             Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
@@ -128,5 +127,7 @@ public class HomeShowBids extends AsyncTask<Void, Void, String>{
                 }
             }
         }
+        callingFragment.swipeContainer.setRefreshing(false);
+        loading.dismiss();
     }
 }

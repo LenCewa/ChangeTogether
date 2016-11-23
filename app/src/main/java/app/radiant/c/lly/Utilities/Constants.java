@@ -87,7 +87,7 @@ public class Constants {
 
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
+        options.inPreferredConfig=Bitmap.Config.RGB_565;
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeByteArray(pic, 0, length, options);
@@ -105,7 +105,7 @@ public class Constants {
 
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
+        options.inPreferredConfig=Bitmap.Config.RGB_565;
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         InputStream input2 = activity.getContentResolver().openInputStream(uri);
@@ -122,7 +122,7 @@ public class Constants {
 
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
+        options.inPreferredConfig=Bitmap.Config.RGB_565;
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);

@@ -9,13 +9,18 @@
     tools:context="app.radiant.c.lly.Activities.MainAppActivity"
     android:background="@android:color/white">
 
-    <ListView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="10dp"
-        android:layout_marginTop="20dp"
-        android:divider="@android:color/transparent"
-        android:id="@+id/homeList"
-        />
+        android:id="@+id/swipeRefresh"
+        android:layout_marginTop="20dp">
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"
+            android:divider="@android:color/transparent"
+            android:id="@+id/homeList"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

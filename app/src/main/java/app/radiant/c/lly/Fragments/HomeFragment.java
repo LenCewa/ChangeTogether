@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,10 +45,7 @@ public class HomeFragment extends Fragment {
     public CustomAdapterHome adapter;
     View.OnClickListener setLocation;
     public Comparator<String[]> cmp;
-
-    public HomeFragment(){
-        setArguments(new Bundle());
-    }
+    public SwipeRefreshLayout swipeContainer;
 
     @Nullable
     @Override
@@ -105,6 +103,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+               refresh();
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
         refresh();
 
         return view;
@@ -112,7 +125,6 @@ public class HomeFragment extends Fragment {
 
     private void refresh(){
 
-        Log.e("cacheSize", String.valueOf(account.bitmapCache.size()));
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebote in deiner Nähe");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
@@ -123,7 +135,7 @@ public class HomeFragment extends Fragment {
                     .setActionTextColor(Color.RED)
                     .show();
         else
-                account.homeShowBids(this, account.getLat(), account.getLng());
+                account.homeShowBids(this);
     }
 
     @Override
