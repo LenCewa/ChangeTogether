@@ -86,7 +86,7 @@ public class InboxFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(account.getEmail(), "empty");
+                createAccount(account.getEmail(), "emptyPassword1");
             }
         });
 
@@ -150,6 +150,7 @@ public class InboxFragment extends Fragment {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.e(TAG, "Fucking Bullshit");
+                            Log.e(TAG, task.getException().getMessage());
                             /*Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();*/
                         }
