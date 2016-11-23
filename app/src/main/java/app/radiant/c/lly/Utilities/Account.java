@@ -7,9 +7,11 @@ import android.graphics.Bitmap;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.LruCache;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import app.radiant.c.lly.Activities.ShowBidFeedbackActivity;
 import app.radiant.c.lly.Fragments.BieteFragment;
@@ -48,7 +50,7 @@ public class Account extends Application {
     private SearchedItem searchedItem = null;
     private boolean searchSet = false;
     private String sessionId;
-    private LruCache<String, Bitmap> bitmapCache;
+    public LruCache<String, Bitmap> bitmapCache;
     //private FragmentManager fm;
 
     public Account(){
@@ -69,8 +71,10 @@ public class Account extends Application {
     }
 
     public void addBitmapToCache(String key, Bitmap bitmap){
+        Log.e("cache", String.valueOf(getBitmapFromCache(key) == null));
         if(getBitmapFromCache(key) == null)
             bitmapCache.put(key, bitmap);
+        Log.e("cacheSize " + key, String.valueOf(bitmapCache.size()));
     }
 
     public Bitmap getBitmapFromCache(String key){
