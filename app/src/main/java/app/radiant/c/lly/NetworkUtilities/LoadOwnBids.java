@@ -40,6 +40,7 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
     private double lat;
     private double lng;
     private String lastId;
+    private boolean login = false;
 
     public LoadOwnBids(Activity callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
 
@@ -51,6 +52,7 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
         this.lat = lat;
         this.lng = lng;
         this.lastId = lastId;
+        login = true;
     }
 
     public LoadOwnBids(OwnBidsFragment callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
@@ -146,12 +148,13 @@ public class LoadOwnBids extends AsyncTask<Void, Void, String>{
                     else if(ownBidsFragment != null)
                         ownBidsFragment.adapter.notifyDataSetChanged();
 
-                    account.getAccessToken(callingActivity);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(callingActivity, "Couldnt load bids", Toast.LENGTH_LONG).show();
                 }
             }
         }
+        if(login)
+            account.getAccessToken(callingActivity);
     }
 }

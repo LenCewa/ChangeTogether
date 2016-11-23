@@ -111,13 +111,13 @@ public class GetParticipations extends AsyncTask<Void, Void, String>{
                         l.add(arr);
                     }
                     account.setParticipations(l);
-                    LoadOwnBids loadOwnBids = new LoadOwnBids(callingActivity, email, sessionId, email, lat, lng, Constants.lastIdOwnBids);
-                    loadOwnBids.execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(callingActivity, "Couldnt load Participations", Toast.LENGTH_LONG).show();
                 }
             }
+            LoadOwnBids loadOwnBids = new LoadOwnBids(callingActivity, email, sessionId, email, lat, lng, Constants.lastIdOwnBids);
+            loadOwnBids.execute();
         }
     }
 }
