@@ -55,7 +55,7 @@ public abstract class GetDBData extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        
+
         String result = rh.sendPostRequest(url, data);
 
         return result;

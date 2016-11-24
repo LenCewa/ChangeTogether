@@ -101,7 +101,7 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Recy
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data.size() + 1;
     }
 
     public String[] getItem(int position){

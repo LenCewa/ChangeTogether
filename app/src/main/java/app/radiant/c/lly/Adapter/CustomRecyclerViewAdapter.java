@@ -65,6 +65,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         if (viewHolder instanceof ProfileInfoViewHolder) {
             ProfileInfoViewHolder holder = (ProfileInfoViewHolder) viewHolder;
             int position = pos - 1;
+
             holder.tag.setText(data.get(position)[2]);
             holder.location.setText(data.get(position)[4]);
             holder.distance.setText("<=" + data.get(position)[7] + "km");
@@ -97,7 +98,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data.size() + 1;
     }
 
     public String[] getItem(int position){ return data.get(position - 1); }
