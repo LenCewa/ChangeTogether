@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -26,6 +27,7 @@ import app.radiant.c.lly.Activities.SettingsActivity;
 import app.radiant.c.lly.Adapter.ViewPagerAdapter;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Widgets.NestedScrollViewFling;
 
 /**
  * Created by Yannick on 03.11.2016.

@@ -8,22 +8,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
 
 import app.radiant.c.lly.Activities.MainAppActivity;
-import app.radiant.c.lly.Adapter.CustomAdapterBiete;
+import app.radiant.c.lly.Adapter.CustomRecyclerViewAdapterBiete;
+import app.radiant.c.lly.Adapter.CustomRecyclerViewAdapterOwnProfile;
+import app.radiant.c.lly.Adapter.RecyclerItemClickListener;
 import app.radiant.c.lly.DialogFragments.BidDialog;
 import app.radiant.c.lly.DialogFragments.MyDialogCloseListener;
 import app.radiant.c.lly.NetworkUtilities.LoadOwnBids;
@@ -40,8 +42,8 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
 
     View view;
     MainAppActivity callingActivity;
-    ListView bieteList;
-    public CustomAdapterBiete adapter;
+    RecyclerView bieteList;
+    public CustomRecyclerViewAdapterBiete adapter;
     Account account;
     FloatingActionButton fab;
 
@@ -53,9 +55,27 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
 
         account = (Account) callingActivity.getApplication();
 
-        bieteList = (ListView) view.findViewById(R.id.bieteList);
-        adapter = new CustomAdapterBiete(getActivity(), account.getSelf().getOwnBids());
+        adapter = new CustomRecyclerViewAdapterBiete(this, account.getSelf().getOwnBids());
+        bieteList = (RecyclerView) view.findViewById(R.id.bieteList);
+        bieteList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        bieteList.setLayoutManager(llm);
         bieteList.setAdapter(adapter);
+        bieteList.setOnScrollListener(new HidingScrollListener() {
+            AppBarLayout mToolbar = (AppBarLayout) getActivity().findViewById(R.id.app_bar_layout);
+            @Override
+            public void onHide() {
+                fab.hide();
+                mToolbar.animate().translationY(-mToolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+            }
+
+            @Override
+            public void onShow() {
+                fab.show();
+                mToolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+            }
+        });
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +86,9 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
             }
         });
 
-        bieteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long ID) {
+        bieteList.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override public void onItemClick(View view, int position) {
+
                 String id = adapter.getItem(position)[0];
                 String email = adapter.getItem(position)[1];
                 String tag = adapter.getItem(position)[2];
@@ -85,18 +105,9 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
                 OwnSearchItemFragment f = new OwnSearchItemFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
             }
-        });
+        }));
 
 
-        bieteList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //account.deleteBid(BieteFragment.this, adapter.getItem(position), "");
-                //account.loadBids(BieteFragment.this);
-                return true;
-            }
-        });
-        
 
         return view;
     }

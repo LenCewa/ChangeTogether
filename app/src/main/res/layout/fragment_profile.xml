@@ -1,26 +1,19 @@
-<RelativeLayout
+<app.radiant.c.lly.Widgets.NestedScrollViewFling
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:androd="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
-    >
+    android:layout_height="match_parent">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants">
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="10dp"
+        android:divider="@android:color/transparent"
+        android:id="@+id/cardList"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dividerHeight="10dp"
-                android:divider="@android:color/transparent"
-                android:id="@+id/cardList"
-                android:scrollbars="none" />
-
-        </FrameLayout>
+</app.radiant.c.lly.Widgets.NestedScrollViewFling>
 
 
-</RelativeLayout>

@@ -1,7 +1,10 @@
 package app.radiant.c.lly.Fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +22,7 @@ import app.radiant.c.lly.NetworkUtilities.LoadOwnBids;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
+import app.radiant.c.lly.Widgets.NestedScrollViewFling;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -50,6 +54,16 @@ public class OwnBidsFragment extends SuperProfileFragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
+        bidList.setNestedScrollingEnabled(false);
+        ((NestedScrollViewFling)view.findViewById(R.id.nestedScrollView)).setOnTopReachedListener(new NestedScrollViewFling.OnFlingEndReachedTopListener()
+        {
+            @Override
+            public void onTopReached(Boolean isBeingTouched)
+            {
+                if (!isBeingTouched)
+                    expandToolbar();
+            }
+        });
 
         bidList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {

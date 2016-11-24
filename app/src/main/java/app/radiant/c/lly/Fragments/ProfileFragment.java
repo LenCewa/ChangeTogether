@@ -29,6 +29,7 @@ import app.radiant.c.lly.NetworkUtilities.LoadBids;
 import app.radiant.c.lly.NetworkUtilities.SearchUser;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Widgets.NestedScrollViewFling;
 
 /**
  * Created by len13 on 17.10.2016.
@@ -54,6 +55,17 @@ public class ProfileFragment extends SuperProfileFragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
+        bidList.setNestedScrollingEnabled(false);
+        ((NestedScrollViewFling)view.findViewById(R.id.nestedScrollView)).setOnTopReachedListener(new NestedScrollViewFling.OnFlingEndReachedTopListener()
+        {
+            @Override
+            public void onTopReached(Boolean isBeingTouched)
+            {
+                if (!isBeingTouched)
+                    expandToolbar();
+            }
+        });
+
 
         cmp = new Comparator<String[]>() {
             @Override

@@ -21,6 +21,7 @@ import app.radiant.c.lly.Adapter.CustomRecyclerViewAdapterUpcoming;
 import app.radiant.c.lly.Adapter.RecyclerItemClickListener;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Widgets.NestedScrollViewFling;
 
 /**
  * Created by Yannick on 20.11.2016.
@@ -28,8 +29,7 @@ import app.radiant.c.lly.Utilities.Account;
 
 public class UpcomingFragment extends SuperProfileFragment {
 
-    TextView location;
-    TextView language;
+
 
     @Nullable
     @Override
@@ -105,6 +105,16 @@ public class UpcomingFragment extends SuperProfileFragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         bidList.setLayoutManager(llm);
         bidList.setAdapter(adapter);
+        bidList.setNestedScrollingEnabled(false);
+        ((NestedScrollViewFling)view.findViewById(R.id.nestedScrollView)).setOnTopReachedListener(new NestedScrollViewFling.OnFlingEndReachedTopListener()
+        {
+            @Override
+            public void onTopReached(Boolean isBeingTouched)
+            {
+                if (!isBeingTouched)
+                    expandToolbar();
+            }
+        });
 
         bidList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {

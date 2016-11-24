@@ -1,6 +1,9 @@
 package app.radiant.c.lly.Fragments;
 
 
+import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
 /**
@@ -23,4 +27,33 @@ public class SuperProfileFragment extends Fragment {
     public RecyclerView.Adapter adapter;
     public Comparator<String[]> cmp;
     Account account;
+    protected Handler mHandler;
+    protected Boolean stop = false;
+    protected Runnable mRunnable = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            stop = false;
+        }
+    };
+
+    public void expandToolbar() {
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout)getActivity().findViewById(R.id.coordinatorLayout);
+        AppBarLayout appBarLayout = (AppBarLayout)getActivity().findViewById(R.id.app_bar_layout);
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+        if (behavior != null && !stop)
+        {
+            behavior.onNestedFling(coordinatorLayout, appBarLayout, null, 0, -10000, false);
+            stop = true;
+            useHandler();
+        }
+    }
+
+    public void useHandler()
+    {
+        mHandler = new Handler();
+        mHandler.postDelayed(mRunnable, 200);
+    }
 }
