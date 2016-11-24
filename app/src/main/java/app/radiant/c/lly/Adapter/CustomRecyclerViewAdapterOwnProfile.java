@@ -48,7 +48,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Cu
         holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
         holder.count.setText(data.get(position)[6] + " Bewertungen");
         holder.maxPart.setText(data.get(position)[9] + "/" + data.get(position)[10]);
-        holder.profilePic.setImageBitmap(((Account)context.getActivity().getApplication()).getProfilePic());
+        holder.profilePic.setImageBitmap(((Account)context.getActivity().getApplication()).getSelf().getProfilePic());
     }
 
     @Override

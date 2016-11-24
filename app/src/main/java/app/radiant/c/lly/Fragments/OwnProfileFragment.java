@@ -75,10 +75,10 @@ public class OwnProfileFragment extends Fragment {
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
 
-        profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getProfilePic(), profilePic.getWidth(), (int)px));
+        profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getSelf().getProfilePic(), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
-        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getEmail());
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSelf().getEmail());
     }
 
     @Override

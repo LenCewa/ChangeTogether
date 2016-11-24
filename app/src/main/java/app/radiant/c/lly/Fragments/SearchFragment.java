@@ -23,11 +23,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import app.radiant.c.lly.Activities.SettingsActivity;
 import app.radiant.c.lly.Adapter.CustomAdapterSearch;
+import app.radiant.c.lly.NetworkUtilities.LoadOwnBids;
+import app.radiant.c.lly.NetworkUtilities.SearchBid;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Utilities.Constants;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -92,13 +96,18 @@ public class SearchFragment extends Fragment {
                 listItems.clear();
                 adapter.notifyDataSetChanged();
 
-                if(account.getLocation().equals("N/A"))
+                if(account.getSelf().getLocation().equals("N/A"))
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_INDEFINITE)
                             .setAction("Set location", setLocation)
                             .setActionTextColor(Color.RED)
                             .show();
-                else
-                        account.searchBid(SearchFragment.this, searchField.getText().toString(), account.getLat(), account.getLng());
+                else {
+                    HashMap<String, String> data = account.getAuthMap();
+                    data.put("tag", searchField.getText().toString());
+                    data.put("latitude", String.valueOf(account.getSelf().getLat()));
+                    data.put("longitude", String.valueOf(account.getSelf().getLng()));
+                    new SearchBid(SearchFragment.this, data).execute();
+                }
             }
         });
 

@@ -17,18 +17,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.Activities.SettingsActivity;
 import app.radiant.c.lly.Adapter.CustomAdapterHome;
+import app.radiant.c.lly.NetworkUtilities.HomeShowBids;
+import app.radiant.c.lly.NetworkUtilities.SearchBid;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Utilities.Constants;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -108,7 +113,20 @@ public class HomeFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               refresh();
+
+                if(account.getSelf().getLocation().equals("N/A"))
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)
+                            .setAction("Set location", setLocation)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                else {
+                    HashMap<String, String> data = account.getAuthMap();
+                    data.put("email", account.getSelf().getEmail());
+                    data.put("latitude", String.valueOf(account.getSelf().getLat()));
+                    data.put("longitude", String.valueOf(account.getSelf().getLng()));
+                    data.put("lastId", Constants.lastIdHome);
+                    new HomeShowBids(HomeFragment.this, data).execute();
+                }
             }
         });
 
@@ -117,8 +135,21 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
         refresh();
+
+        if(account.getSelf().getLocation().equals("N/A"))
+            Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)
+                    .setAction("Set location", setLocation)
+                    .setActionTextColor(Color.RED)
+                    .show();
+        else {
+            HashMap<String, String> data = account.getAuthMap();
+            data.put("email", account.getSelf().getEmail());
+            data.put("latitude", String.valueOf(account.getSelf().getLat()));
+            data.put("longitude", String.valueOf(account.getSelf().getLng()));
+            data.put("lastId", Constants.lastIdHome);
+            new HomeShowBids(this, data).execute();
+        }
 
         return view;
     }
@@ -128,14 +159,6 @@ public class HomeFragment extends Fragment {
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebote in deiner Nähe");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
-
-        if(account.getLocation().equals("N/A"))
-            Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)
-                    .setAction("Set location", setLocation)
-                    .setActionTextColor(Color.RED)
-                    .show();
-        else
-                account.homeShowBids(this);
     }
 
     @Override

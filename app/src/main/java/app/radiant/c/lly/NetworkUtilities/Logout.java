@@ -69,7 +69,6 @@ public class Logout extends AsyncTask<Void, Void, String> {
 
     private void setSelfInfo(){
 
-        account.setSessionId(null);
         account.deleteInfo();
     }
 }

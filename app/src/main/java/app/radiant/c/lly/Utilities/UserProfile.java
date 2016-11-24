@@ -19,7 +19,7 @@ public class UserProfile {
     private ArrayList<String[]> participations = new ArrayList<>();
     private ArrayList<String[]> ownBids = new ArrayList<>();
 
-    public String getUsername(){
+    public String getEmail(){
         return email;
     }
 

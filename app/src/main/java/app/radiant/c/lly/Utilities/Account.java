@@ -51,7 +51,6 @@ public class Account extends Application {
     private boolean searchSet = false;
     private String sessionId;
     public LruCache<String, Bitmap> bitmapCache;
-    //private FragmentManager fm;
 
     public Account(){
 
@@ -70,17 +69,33 @@ public class Account extends Application {
         };
     }
 
+    /**
+     * Adds a bitmap to cache if not already in the cache
+     * @param key - email of the user associated with this bitmap
+     * @param bitmap - profile pic of the user
+     */
     public void addBitmapToCache(String key, Bitmap bitmap){
-        Log.e("cache", String.valueOf(getBitmapFromCache(key) == null));
         if(getBitmapFromCache(key) == null)
             bitmapCache.put(key, bitmap);
-        Log.e("cacheSize " + key, String.valueOf(bitmapCache.size()));
     }
 
+    /**
+     * Get bitmap with specific key from cache
+     * @param key - email of the user associated with this bitmap
+     * @return
+     */
     public Bitmap getBitmapFromCache(String key){
         return bitmapCache.get(key);
     }
 
+    /**
+     * initializes a self UserProfile Object and calls AsyncTask to fetch user info
+     * Login AsyncTask sets all required Attributes of UserProfile, also it calls getParticipations
+     * and from there getAccesToken, which is needed to stay logged in
+     * @param callingActivity
+     * @param email
+     * @param password
+     */
     public void login(Activity callingActivity, String email, String password) {
 
         self = new UserProfile();
@@ -88,20 +103,12 @@ public class Account extends Application {
         login.execute();
     }
 
-    public void setSessionId(String sessionId){
-        this.sessionId = sessionId;
-    }
-
-    public String getSessionId(){
-       return sessionId;
-    }
-
-    public void getAccessToken(Activity callingActivity){
-
-        GetAccessToken token = new GetAccessToken(callingActivity, getEmail(), getSessionId(), getEmail());
-        token.execute();
-    }
-
+    /**
+     * Basically the same as login except for not logging in with a password but an Access Token
+     * @param callingActivity
+     * @param email
+     * @param token
+     */
     public void loginWithAccessToken(Activity callingActivity, String email, String token){
 
         self = new UserProfile();
@@ -109,13 +116,35 @@ public class Account extends Application {
         login.execute();
     }
 
+    /**
+     * Gets Acces Token from Server so user stays logged in without safing his password on system
+     * Gets called from Login or LoginWithAccesToken so it gets called after these tasks are finished
+     * @param callingActivity
+     */
+    public void getAccessToken(Activity callingActivity){
+
+        GetAccessToken token = new GetAccessToken(callingActivity, self.getEmail(), sessionId, self.getEmail());
+        token.execute();
+    }
+
+    /**
+     * Starts an AsyncTask Logout to let the Server know you are now offline.
+     * Also this removes the Access Token from SharedPreferences so next time the app
+     * gets started, user has to login with password again
+     * @param callingActivity
+     */
     public void logout(Activity callingActivity){
 
-        Logout l = new Logout(callingActivity, getEmail(), getSessionId());
+        Logout l = new Logout(callingActivity, self.getEmail(), sessionId);
         l.execute();
     }
 
+    /**
+     * Gets called from Logout AsyncTask to delete all info currently available in the memory.
+     */
     public void deleteInfo(){
+
+        sessionId = null;
         self = null;
         searchedUser = new UserProfile();
         searchedItem = null;
@@ -124,269 +153,109 @@ public class Account extends Application {
         Constants.lastIdOwnBids = "-1";
     }
 
-    public void searchUer(ProfileFragment callingActivity){
-
-        SearchUser s = new SearchUser(callingActivity, getEmail(), getSessionId(), getSearchEmail());
-        s.execute();
-    }
-
+    /**
+     * Sets location and language attribute of UserProfile class
+     * @param location
+     * @param language
+     */
     public void setSearchedUser(String location, String language){
 
         searchedUser.setLocation(location);
         searchedUser.setLanguage(language);
     }
 
+    /**
+     * Sets all values which identify a specific bid
+     * @param context
+     * @param id
+     * @param email
+     * @param tag
+     * @param description
+     * @param location
+     * @param averageRating
+     * @param count
+     * @param distance
+     * @param date
+     * @param time
+     * @param part
+     * @param maxParticipators
+     */
     public void setSearchedItem(Context context, String id, String email, String tag, String description, String location, String averageRating, String count, String distance, String date, String time, String part, String maxParticipators){
 
         searchSet = true;
         searchedItem = new SearchedItem(context, id, email, tag, description, location, averageRating, count, distance, date, time, part, maxParticipators);
     }
 
-    public void homeShowBids(HomeFragment callingFragment){
+    //Getter
+    public UserProfile getSelf(){ return self;}
 
-        HomeShowBids h = new HomeShowBids(callingFragment, getEmail(), getSessionId(), getLat(), getLng(), Constants.lastIdHome);
-        h.execute();
+    public UserProfile getSearchedUser() { return searchedUser; }
+
+    public SearchedItem getSearchedItem() { return searchedItem; }
+
+    /**
+     * Puts the email and the sessionId in a HashMap.
+     * This is needed for every request sent to the server
+     * @return - HashMap with email and sessionId
+     */
+    public HashMap<String, String> getAuthMap(){
+        HashMap<String,String> hm = new HashMap<>();
+        hm.put("emailAuth", self.getEmail());
+        hm.put("sessionId", sessionId);
+
+        return hm;
     }
 
-    public void loadOwnBids(BieteFragment callingActivity){
-
-        LoadOwnBids l = new LoadOwnBids(callingActivity, getEmail(), getSessionId(), getEmail(), getLat(), getLng(), Constants.lastIdOwnBids);
-        l.execute();
+    //Setter
+    public void setSessionId(String sessionId){
+        this.sessionId = sessionId;
     }
 
-    public void loadOwnBids(OwnBidsFragment callingActivity){
-
-        LoadOwnBids l = new LoadOwnBids(callingActivity, getEmail(), getSessionId(), getEmail(), getLat(), getLng(), Constants.lastIdOwnBids);
-        l.execute();
-    }
-
-    public void loadBidsActivity(SuperProfileFragment callingActivity, String searchedEmail, double lat, double lng){
-
-        LoadBids l = new LoadBids(callingActivity, getEmail(), getSessionId(), searchedEmail, lat, lng);
-        l.execute();
-    }
-
-    public void searchBid(SearchFragment callingFragment, String tag, double lat, double lng){
-
-        SearchBid s = new SearchBid(callingFragment, getEmail(), getSessionId(), tag, lat, lng);
-        s.execute();
-    }
-
+    //TODO: Remove following methods
     public void addBid(Fragment callingFragment, String tag, String description, String location, double lat, double lng, String date, String time, String maxParticipators){
 
-        AddBid a = new AddBid(callingFragment, getEmail(), getSessionId(), getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
+        AddBid a = new AddBid(callingFragment, self.getEmail(), sessionId, self.getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
         a.execute();
     }
 
     public void editBid(Fragment callingFragment, String id, String tag, String description, String location, double lat, double lng, String date, String time, String maxParticipators){
 
-        EditBid e = new EditBid(callingFragment, getEmail(), getSessionId(), id, getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
+        EditBid e = new EditBid(callingFragment, self.getEmail(), sessionId, id, self.getEmail(), tag, description, location, lat, lng, date, time, maxParticipators);
         e.execute();
     }
 
     public void participate(SearchItemFragment callingFragment, String bidId, String email){
 
-        Participate p = new Participate(callingFragment, getEmail(), getSessionId(), bidId, email);
+        Participate p = new Participate(callingFragment, self.getEmail(), sessionId, bidId, email);
         p.execute();
     }
 
-    public void deleteBid(Fragment callingFragment, String tag, String description){
-
-        DeleteBid d = new DeleteBid(callingFragment, getEmail(), tag, description);
-        d.execute();
-    }
-
-    public void searchFeedback(ShowBidFeedbackActivity callingActivity, int id, String tag) {
-
-        SearchFeedback s = new SearchFeedback(callingActivity, getEmail(), getSessionId(), id, tag);
-        s.execute();
-    }
-
     public void addFeedback(DialogFragment callingDialog, int id, String tag, String text, float rating){
-        AddFeedback a = new AddFeedback(callingDialog, getEmail(), getSessionId(), id, tag, getEmail(), text, rating);
+        AddFeedback a = new AddFeedback(callingDialog, self.getEmail(), sessionId, id, tag, self.getEmail(), text, rating);
         a.execute();
     }
 
     public void uploadProfilePic(Activity callingActivity, Bitmap pic){
 
-        UploadImage u = new UploadImage(callingActivity, getEmail(), getSessionId(), getEmail(), pic);
+        UploadImage u = new UploadImage(callingActivity, self.getEmail(), sessionId, self.getEmail(), pic);
         u.execute();
     }
 
     public void editPassword(Activity callingActivity, String oldPw, String newPw){
 
-        AddInfo a = new AddInfo(callingActivity, getEmail(), getSessionId(), getEmail(), "password", oldPw, newPw);
+        AddInfo a = new AddInfo(callingActivity, self.getEmail(), sessionId, self.getEmail(), "password", oldPw, newPw);
         a.execute();
     }
 
     public void editLocation(Activity callingActivity, String location){
 
-        AddInfo a = new AddInfo(callingActivity, getEmail(), getSessionId(), getEmail(), "location", location);
+        AddInfo a = new AddInfo(callingActivity, self.getEmail(), sessionId, self.getEmail(), "location", location);
         a.execute();
     }
 
     public void editLanguage(Activity callingActivity, String language){
 
-        AddInfo a = new AddInfo(callingActivity, getEmail(), getSessionId(), getEmail(), "language", language);
+        AddInfo a = new AddInfo(callingActivity, self.getEmail(), sessionId, self.getEmail(), "language", language);
         a.execute();
     }
-
-    public String getEmail(){
-        return self.getUsername();
-    }
-
-    public String getLocation(){
-        return self.getLocation();
-    }
-
-    public String getLanguage(){
-        return self.getLanguage();
-    }
-
-    public Bitmap getProfilePic(){ return self.getProfilePic(); }
-
-    public double getLat(){ return self.getLat(); }
-
-    public double getLng(){ return self.getLng(); }
-
-    public ArrayList<String[]> getParticipations() { return self.getParticipations(); }
-
-    public ArrayList<String[]> getOwnBids() { return self.getOwnBids(); }
-
-    public String[] getSearchedItem(){
-
-        if(searchSet)
-            return searchedItem.getSearchedItem();
-        else
-            return null;
-    }
-
-    public String getSearchID(){
-
-        if(searchSet)
-            return searchedItem.getId();
-        else
-            return null;
-    }
-
-    public String getSearchTag(){
-
-        if(searchSet)
-            return searchedItem.getTag();
-        else
-            return null;
-    }
-
-    public String getSearchDescription(){
-
-        if(searchSet)
-            return searchedItem.getDescription();
-        else
-            return null;
-    }
-
-    public String getSearchLocation(){
-
-        if(searchSet)
-            return searchedItem.getLocation();
-        else
-            return null;
-    }
-
-    public float getSearchAverageRating(){
-
-        if(searchSet)
-            return searchedItem.getAverageRating();
-        else
-            return 0;
-    }
-
-    public String getSearchCount(){
-
-        if(searchSet)
-            return searchedItem.getCount();
-        else
-            return null;
-    }
-
-    public String getSearchDate(){
-
-        if(searchSet)
-            return searchedItem.getDate();
-        else
-            return null;
-    }
-
-    public String getSearchTime(){
-
-        if(searchSet)
-            return searchedItem.getTime();
-        else
-            return null;
-    }
-
-    public String getSearchParticipators(){
-
-        if(searchSet)
-            return searchedItem.getParticipators();
-        else
-            return null;
-    }
-
-    public String getSearchMaxParticipators(){
-
-        if(searchSet)
-            return searchedItem.getMaxParticipators();
-        else
-            return null;
-    }
-
-    public String getSearchEmail(){
-
-        if(searchSet)
-            return searchedItem.getEmail();
-        else
-            return null;
-    }
-
-    public String getSearchUserLocation(){
-
-        return searchedUser.getLocation();
-    }
-
-    public String getSearchLanguage(){
-
-        return searchedUser.getLanguage();
-    }
-
-
-    /*public FragmentManager getFragmentManager(){
-        return fm;
-    }*/
-
-    public void setEmail(String email){
-        self.setEmail(email);
-    }
-
-    public void setLocation(String location){
-        self.setLocation(location);
-    }
-
-    public void setLanguage(String language){
-        self.setLanguage(language);
-    }
-
-    public void setProfilePic(Bitmap profilePic){
-        self.setProfilePic(profilePic);
-    }
-
-    public void setLat(double lat){ self.setLat(lat);}
-
-    public void setLng(double lng) { self.setLng(lng);}
-
-    public void setParticipations(ArrayList<String[]> l) { self.setParticipations(l);}
-
-    /*public void setFragmentManager(FragmentManager fm){
-        this.fm = fm;
-    }*/
 }

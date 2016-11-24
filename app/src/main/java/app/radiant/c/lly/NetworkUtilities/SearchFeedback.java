@@ -22,25 +22,53 @@ import app.radiant.c.lly.Utilities.Constants;
  * Created by Yannick on 05.11.2016.
  */
 
-public class SearchFeedback extends AsyncTask <Void, Void, String>{
+public class SearchFeedback extends GetDBData{
 
     ProgressDialog loading;
-    Account account;
     ShowBidFeedbackActivity callingActivity;
-    RequestHandler rh = new RequestHandler();
-    private String emailAuth;
-    private String sessionId;
-    private String tag;
-    private int id;
 
-    public SearchFeedback(ShowBidFeedbackActivity callingActivity, String emailAuth, String sessionId, int id, String tag){
+    public SearchFeedback(ShowBidFeedbackActivity callingActivity, HashMap<String, String> data){
 
-        account = (Account) callingActivity.getApplication();
+        super(callingActivity, Constants.DBSEARCHFEEDBACK, data);
         this.callingActivity = callingActivity;
-        this.emailAuth = emailAuth;
-        this.sessionId = sessionId;
-        this.tag = tag;
-        this.id = id;
+    }
+
+    @Override
+    protected void retry() {
+        new SearchFeedback(callingActivity, data).execute();
+    }
+
+    @Override
+    protected void parseJSON(String result) {
+
+        try {
+            JSONObject jsonObj = new JSONObject(result);
+            JSONArray feedback = jsonObj.getJSONArray("feedback");
+            double averageRating = feedback.getJSONObject(0).getDouble("averageRating");
+            callingActivity.setStars(averageRating);
+
+            JSONArray allFeedback = feedback.getJSONObject(0).getJSONArray("allFeedback");
+            callingActivity.feedbacks.clear();
+            for (int i = 0; i < allFeedback.length(); i++) {
+                JSONObject bidsInfo = allFeedback.getJSONObject(i);
+
+                String fromUser = bidsInfo.getString("fromUser");
+                String text = bidsInfo.getString("text");
+                String rating = bidsInfo.getString("rating");
+
+                String[] arr = new String[]{fromUser, text, rating};
+                callingActivity.feedbacks.add(arr);
+            }
+            callingActivity.adapter.notifyDataSetChanged();
+
+            if (callingActivity.feedbacks.isEmpty())
+                Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
+                        .show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("test", "result " + result);
+            Toast.makeText(callingActivity, "Couldnt load feedback", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -50,67 +78,9 @@ public class SearchFeedback extends AsyncTask <Void, Void, String>{
     }
 
     @Override
-    protected String doInBackground(Void... params) {
-
-        HashMap<String,String> data = new HashMap<>();
-
-        data.put("emailAuth", emailAuth);
-        data.put("sessionId", sessionId);
-
-        data.put("id", String.valueOf(id));
-        data.put("tag", tag);
-        String result = rh.sendPostRequest(Constants.DBSEARCHFEEDBACK,data);
-
-        return result;
-    }
-
-    @Override
     protected void onPostExecute(String result) {
 
+        super.onPostExecute(result);
         loading.dismiss();
-        if(result.equals("connection error"))
-            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
-                    .setAction("Retry", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            new SearchFeedback(callingActivity, emailAuth, sessionId, id, tag).execute();
-                        }
-                    })
-                    .setActionTextColor(Color.RED)
-                    .show();
-        else {
-            if (result.equals("No entries"))
-                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
-            else {
-                try {
-                    JSONObject jsonObj = new JSONObject(result);
-                    JSONArray feedback = jsonObj.getJSONArray("feedback");
-                    double averageRating = feedback.getJSONObject(0).getDouble("averageRating");
-                    callingActivity.setStars(averageRating);
-
-                    JSONArray allFeedback = feedback.getJSONObject(0).getJSONArray("allFeedback");
-                    callingActivity.feedbacks.clear();
-                    for (int i = 0; i < allFeedback.length(); i++) {
-                        JSONObject bidsInfo = allFeedback.getJSONObject(i);
-
-                        String fromUser = bidsInfo.getString("fromUser");
-                        String text = bidsInfo.getString("text");
-                        String rating = bidsInfo.getString("rating");
-
-                        String[] arr = new String[]{fromUser, text, rating};
-                        callingActivity.feedbacks.add(arr);
-                    }
-                    callingActivity.adapter.notifyDataSetChanged();
-
-                    if (callingActivity.feedbacks.isEmpty())
-                        Snackbar.make(callingActivity.findViewById(android.R.id.content), "No entries", Snackbar.LENGTH_SHORT)
-                                .show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("test", "result " + result);
-                    Toast.makeText(callingActivity, "Couldnt load feedback", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
     }
 }

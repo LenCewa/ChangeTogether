@@ -20,7 +20,9 @@ import java.net.HttpURLConnection;
 
 public class Constants {
 
+    public static int page = 0;
     public static String lastIdHome = "-1";
+    public static String lastDistance = "0";
     public static String lastIdOwnBids = "-1";
 
     public static final String DBREGISTER = "http://change-together.spdns.org/app/register.php";

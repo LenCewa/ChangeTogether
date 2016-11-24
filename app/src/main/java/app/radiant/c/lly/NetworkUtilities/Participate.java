@@ -72,7 +72,7 @@ public class Participate extends AsyncTask<Void, Void, String > {
                 .setActionTextColor(Color.RED)
                 .show();
         else if(result.equals("Success")){
-            account.getParticipations().add(account.getSearchedItem());
+            account.getSelf().getParticipations().add(account.getSearchedItem().getArray());
             callingFragment.setButtonText("Nicht mehr teilnehmen");
         }
         else

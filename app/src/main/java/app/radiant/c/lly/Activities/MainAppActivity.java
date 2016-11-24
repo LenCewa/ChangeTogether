@@ -88,9 +88,9 @@ public class MainAppActivity extends AppCompatActivity
         navigationView.setCheckedItem(R.id.nav_home);
 
         header = navigationView.getHeaderView(0);
-        ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
-        ((TextView) header.findViewById(R.id.profEmail)).setText(account.getEmail());
-        ((TextView) header.findViewById(R.id.profLocation)).setText(account.getLocation());
+        ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getSelf().getProfilePic());
+        ((TextView) header.findViewById(R.id.profEmail)).setText(account.getSelf().getEmail());
+        ((TextView) header.findViewById(R.id.profLocation)).setText(account.getSelf().getLocation());
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
     }
@@ -111,7 +111,6 @@ public class MainAppActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        Log.e("hallo", "Hallo");
         getMenuInflater().inflate(R.menu.search_menu, menu);
         return true;
     }
@@ -183,8 +182,8 @@ public class MainAppActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getProfilePic());
-        ((TextView) header.findViewById(R.id.profEmail)).setText(account.getEmail());
-        ((TextView) header.findViewById(R.id.profLocation)).setText(account.getLocation());
+        ((ImageView) header.findViewById(R.id.profPic)).setImageBitmap(account.getSelf().getProfilePic());
+        ((TextView) header.findViewById(R.id.profEmail)).setText(account.getSelf().getEmail());
+        ((TextView) header.findViewById(R.id.profLocation)).setText(account.getSelf().getLocation());
     }
 }

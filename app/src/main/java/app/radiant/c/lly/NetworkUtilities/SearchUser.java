@@ -21,23 +21,40 @@ import app.radiant.c.lly.Utilities.Constants;
  * Created by Yannick on 05.11.2016.
  */
 
-public class SearchUser extends AsyncTask<Void, Void, String>{
+public class SearchUser extends GetDBData{
 
-    Account account;
+
     ProfileFragment callingFragment;
-    String emailAuth;
-    String sessionId;
-    String email;
     ProgressDialog loading;
-    RequestHandler rh = new RequestHandler();
 
-    public SearchUser(ProfileFragment callingFragment, String emailAuth, String sessionId, String email){
+    public SearchUser(ProfileFragment callingFragment, HashMap<String, String> data){
 
-        account = (Account) callingFragment.getActivity().getApplication();
+        super(callingFragment.getActivity(), Constants.DBSEARCHUSER, data);
         this.callingFragment = callingFragment;
-        this.emailAuth = emailAuth;
-        this.sessionId = sessionId;
-        this.email = email;
+    }
+
+    @Override
+    protected void retry() {
+        new SearchUser(callingFragment, data).execute();
+    }
+
+    @Override
+    protected void parseJSON(String result) {
+
+        try {
+            JSONObject jsonObj = new JSONObject(result);
+            JSONArray user = jsonObj.getJSONArray("user");
+            JSONObject userInfo = user.getJSONObject(0);
+
+            String location = userInfo.getString("location");
+            String language = userInfo.getString("language");
+
+            account.setSearchedUser(location, language);
+            callingFragment.setElements();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(callingFragment.getActivity(), "Couldnt get User Info", Toast.LENGTH_LONG);
+        }
     }
 
     @Override
@@ -46,47 +63,10 @@ public class SearchUser extends AsyncTask<Void, Void, String>{
         loading = ProgressDialog.show(callingFragment.getActivity(), "Loading profile...", null,true,true);
     }
 
-    @Override
-    protected String doInBackground(Void... params) {
-        HashMap<String,String> data = new HashMap<>();
-
-        data.put("emailAuth", emailAuth);
-        data.put("sessionId", sessionId);
-
-        data.put("email", email);
-        String result = rh.sendPostRequest(Constants.DBSEARCHUSER,data);
-
-        return result;
-    }
 
     @Override
     protected void onPostExecute(String result) {
+        super.onPostExecute(result);
         loading.dismiss();
-        if(result.equals("connection error"))
-            Snackbar.make(callingFragment.getActivity().findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
-                    .setAction("Retry", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            new SearchUser(callingFragment, emailAuth, sessionId, email).execute();
-                        }
-                    })
-                    .setActionTextColor(Color.RED)
-                    .show();
-        else {
-            try {
-                JSONObject jsonObj = new JSONObject(result);
-                JSONArray user = jsonObj.getJSONArray("user");
-                JSONObject userInfo = user.getJSONObject(0);
-
-                String location = userInfo.getString("location");
-                String language = userInfo.getString("language");
-
-                account.setSearchedUser(location, language);
-                callingFragment.setElements();
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(callingFragment.getActivity(), "Couldnt get User Info", Toast.LENGTH_LONG);
-            }
-        }
     }
 }

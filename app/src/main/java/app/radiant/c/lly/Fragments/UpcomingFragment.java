@@ -99,9 +99,9 @@ public class UpcomingFragment extends SuperProfileFragment {
             }
         };
 
-        Collections.sort(account.getParticipations(), cmp);
+        Collections.sort(account.getSelf().getParticipations(), cmp);
 
-        adapter = new CustomRecyclerViewAdapterUpcoming(getActivity(), account.getParticipations());
+        adapter = new CustomRecyclerViewAdapterUpcoming(getActivity(), account.getSelf().getParticipations());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -142,8 +142,8 @@ public class UpcomingFragment extends SuperProfileFragment {
 
     private void refresh() {
 
-        location.setText(account.getLocation());
-        language.setText(account.getLanguage());
+        location.setText(account.getSelf().getLocation());
+        language.setText(account.getSelf().getLanguage());
     }
 
     @Override
@@ -157,6 +157,5 @@ public class UpcomingFragment extends SuperProfileFragment {
         super.onStop();
         adapter = null;
         bidList = null;
-        Log.e("cacheSize", String.valueOf(account.bitmapCache.size()));
     }
 }

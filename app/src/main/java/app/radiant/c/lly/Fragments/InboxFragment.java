@@ -89,7 +89,7 @@ public class InboxFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(account.getEmail(), "emptyPassword1");
+                createAccount(account.getSelf().getEmail(), "emptyPassword1");
             }
         });
 

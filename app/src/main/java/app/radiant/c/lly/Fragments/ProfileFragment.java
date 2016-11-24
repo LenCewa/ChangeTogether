@@ -16,10 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Comparator;
+import java.util.HashMap;
 
 import app.radiant.c.lly.Activities.ChatActivity;
 import app.radiant.c.lly.Adapter.CustomRecyclerViewAdapter;
 import app.radiant.c.lly.Adapter.RecyclerItemClickListener;
+import app.radiant.c.lly.NetworkUtilities.GetParticipations;
+import app.radiant.c.lly.NetworkUtilities.LoadBids;
+import app.radiant.c.lly.NetworkUtilities.SearchUser;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -93,7 +97,11 @@ public class ProfileFragment extends SuperProfileFragment {
                 })
         );
 
-        account.loadBidsActivity(this, account.getSearchEmail(), account.getLat(), account.getLng());
+        HashMap<String, String> data = account.getAuthMap();
+        data.put("email", account.getSearchedItem().getEmail());
+        data.put("latitude", String.valueOf(account.getSelf().getLat()));
+        data.put("longitude", String.valueOf(account.getSelf().getLng()));
+        new LoadBids(this, data).execute();
 
         sendMessage = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         sendMessage.setImageResource(R.drawable.ic_menu_send);
@@ -109,20 +117,22 @@ public class ProfileFragment extends SuperProfileFragment {
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
 
-        profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getBitmapFromCache(account.getSearchEmail()), profilePic.getWidth(), (int)px));
+        profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getBitmapFromCache(account.getSearchedItem().getEmail()), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
-        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchEmail() + "'s Profil");
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchedItem().getEmail() + "'s Profil");
 
 
-        account.searchUer(this);
+        data = account.getAuthMap();
+        data.put("email", account.getSearchedItem().getEmail());
+        new SearchUser(this, data).execute();
 
         return view;
     }
 
     public void setElements(){
 
-        profileLocation.setText(account.getSearchUserLocation());
-        profileLanguage.setText(account.getSearchLanguage());
+        profileLocation.setText(account.getSearchedUser().getLocation());
+        profileLanguage.setText(account.getSearchedUser().getLanguage());
     }
 }

@@ -96,12 +96,12 @@ public class EditBid extends AsyncTask<Void, Void, String > {
                 .setActionTextColor(Color.RED)
                 .show();
         if(result.equals("Success"))
-            for(int i = 0; i < account.getOwnBids().size(); i++){
-                String[] s = account.getOwnBids().get(i);
+            for(int i = 0; i < account.getSelf().getOwnBids().size(); i++){
+                String[] s = account.getSelf().getOwnBids().get(i);
 
                 if(s[0].equals(id)){
-                    account.getOwnBids().remove(i);
-                    account.getOwnBids().add(i, new String[]{id, email, tag, description, location, String.valueOf(account.getSearchAverageRating()), account.getSearchCount(), date, time, account.getSearchParticipators(), maxParticipators});
+                    account.getSelf().getOwnBids().remove(i);
+                    account.getSelf().getOwnBids().add(i, new String[]{id, email, tag, description, location, String.valueOf(account.getSearchedItem().getAverageRating()), account.getSearchedItem().getCount(), date, time, account.getSearchedItem().getParticipators(), maxParticipators});
                 }
             }
     }

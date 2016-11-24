@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
@@ -81,7 +82,7 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
                     .show();
         else {
             if(result.equals("error") || result.equals("log in first"))
-                ;
+                Log.e("error", result);
             else {
                 try {
                     JSONObject jsonObj = new JSONObject(result);
@@ -106,6 +107,13 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
                         Bitmap bitmap = Constants.decodeBitmap(r, R.drawable.blank_profile_pic, width, (int)height);
                         setSelfInfo(sessionId, email, location, language, bitmap);
                     }
+                    account.getAccessToken(callingActivity);
+
+                    HashMap<String, String> data = account.getAuthMap();
+                    data.put("email", email);
+                    data.put("latitude", String.valueOf(account.getSelf().getLat()));
+                    data.put("longitude", String.valueOf(account.getSelf().getLng()));
+                    new GetParticipations(callingActivity, data).execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(callingActivity, "Couldnt get User Info", Toast.LENGTH_LONG);
@@ -118,16 +126,14 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
     private void setSelfInfo(String sessionId, String email, String location, String language, Bitmap profilePic){
 
         account.setSessionId(sessionId);
-        account.setEmail(email);
-        account.setLocation(location);
-        account.setLanguage(language);
-        account.setProfilePic(profilePic);
+        account.getSelf().setEmail(email);
+        account.getSelf().setLocation(location);
+        account.getSelf().setLanguage(language);
+        account.getSelf().setProfilePic(profilePic);
 
         Double[] latLong = getLocationFromAddress(location);
-        account.setLat(latLong[0]);
-        account.setLng(latLong[1]);
-        GetParticipations p = new GetParticipations(callingActivity, email, sessionId, email, latLong[0], latLong[1]);
-        p.execute();
+        account.getSelf().setLat(latLong[0]);
+        account.getSelf().setLng(latLong[1]);
     }
 
     public Double[] getLocationFromAddress(String strAddress){

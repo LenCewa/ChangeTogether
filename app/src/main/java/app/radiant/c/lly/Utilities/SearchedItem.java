@@ -46,7 +46,7 @@ public class SearchedItem {
         this.maxParticipators = maxParticipators;
     }
 
-    public String[] getSearchedItem() { return searchedItem;}
+    public String[] getArray() { return searchedItem;}
 
     public String getId(){
         return id;

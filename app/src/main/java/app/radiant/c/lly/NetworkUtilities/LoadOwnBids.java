@@ -27,134 +27,70 @@ import app.radiant.c.lly.Utilities.Constants;
  * Created by Yannick on 29.10.2016.
  */
 
-public class LoadOwnBids extends AsyncTask<Void, Void, String>{
+public class LoadOwnBids extends GetDBData{
 
-    Account account;
-    OwnBidsFragment ownBidsFragment;
-    BieteFragment bieteFragment;
-    Activity callingActivity;
-    RequestHandler rh = new RequestHandler();
-    private String emailAuth;
-    private String sessionId;
-    private String email;
-    private double lat;
-    private double lng;
-    private String lastId;
-    private boolean login = false;
+    private OwnBidsFragment ownBidsFragment;
+    private BieteFragment bieteFragment;
 
-    public LoadOwnBids(Activity callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
+    public LoadOwnBids(OwnBidsFragment ownBidsFragment, HashMap<String, String> data){
 
-        account = (Account)callingActivity.getApplication();
-        this.callingActivity = callingActivity;
-        this.emailAuth = emailAuth;
-        this.sessionId = sessionId;
-        this.email = email;
-        this.lat = lat;
-        this.lng = lng;
-        this.lastId = lastId;
-        login = true;
+        super(ownBidsFragment.getActivity(), Constants.DBLOADOWNBID, data);
+        this.ownBidsFragment = ownBidsFragment;
     }
 
-    public LoadOwnBids(OwnBidsFragment callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
+    public LoadOwnBids(BieteFragment bieteFragment, HashMap<String, String> data){
 
-        account = (Account)callingActivity.getActivity().getApplication();
-        this.callingActivity = callingActivity.getActivity();
-        this.ownBidsFragment = callingActivity;
-        this.emailAuth = emailAuth;
-        this.sessionId = sessionId;
-        this.email = email;
-        this.lat = lat;
-        this.lng = lng;
-        this.lastId = lastId;
-    }
-
-    public LoadOwnBids(BieteFragment callingActivity, String emailAuth, String sessionId, String email, double lat, double lng, String lastId){
-
-        account = (Account)callingActivity.getActivity().getApplication();
-        this.callingActivity = callingActivity.getActivity();
-        this.bieteFragment = callingActivity;
-        this.emailAuth = emailAuth;
-        this.sessionId = sessionId;
-        this.email = email;
-        this.lat = lat;
-        this.lng = lng;
-        this.lastId = lastId;
+        super(bieteFragment.getActivity(), Constants.DBLOADOWNBID, data);
+        this.bieteFragment = bieteFragment;
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+    protected void retry() {
+        if(bieteFragment != null)
+            new LoadOwnBids(bieteFragment, data).execute();
+        else if(ownBidsFragment != null)
+            new LoadOwnBids(ownBidsFragment, data).execute();
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected void parseJSON(String result) {
+        try {
+            JSONObject jsonObj = new JSONObject(result);
+            JSONArray bids = jsonObj.getJSONArray("bids");
+            ArrayList<String[]> l = new ArrayList<>();
+            for (int i = 0; i < bids.length(); i++) {
+                JSONObject bidsInfo = bids.getJSONObject(i);
 
-        HashMap<String,String> data = new HashMap<>();
+                String id = bidsInfo.getString("id");
+                Constants.lastIdOwnBids = id;
+                String email = bidsInfo.getString("email");
+                String tag = bidsInfo.getString("tag");
+                String description = bidsInfo.getString("description");
+                String location = bidsInfo.getString("location");
+                String avgRating = bidsInfo.getString("averageRating");
+                String count = bidsInfo.getString("count");
+                String date = bidsInfo.getString("date");
+                String time = bidsInfo.getString("time");
+                String part = bidsInfo.getString("part");
+                String maxPart = bidsInfo.getString("maxPart");
 
-        data.put("emailAuth", emailAuth);
-        data.put("sessionId", sessionId);
+                String[] arr = new String[]{id, email, tag, description, location, avgRating, count, date, time, part, maxPart};
+                if(!account.getSelf().getOwnBids().contains(arr))
+                    account.getSelf().getOwnBids().add(arr);
+            }
+            if(bieteFragment != null)
+                bieteFragment.adapter.notifyDataSetChanged();
+            else if(ownBidsFragment != null)
+                ownBidsFragment.adapter.notifyDataSetChanged();
 
-        data.put("email", email);
-        data.put("latitude", String.valueOf(lat));
-        data.put("longitude", String.valueOf(lng));
-        data.put("lastId", lastId);
-        String result = rh.sendPostRequest(Constants.DBLOADOWNBID,data);
-
-        return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(callingActivity, "Couldnt load bids", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     protected void onPostExecute(String result) {
-        if(result.equals("connection error"))
-            Snackbar.make(callingActivity.findViewById(android.R.id.content), "Connection error", Snackbar.LENGTH_LONG)
-                    .setAction("Retry", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            new LoadOwnBids(ownBidsFragment, emailAuth, sessionId, email, lat, lng, lastId).execute();
-                        }
-                    })
-                    .setActionTextColor(Color.RED)
-                    .show();
-        else {
-            if (result.equals("No entries"))
-                Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
-            else {
-                try {
-                    JSONObject jsonObj = new JSONObject(result);
-                    JSONArray bids = jsonObj.getJSONArray("bids");
-                    ArrayList<String[]> l = new ArrayList<>();
-                    for (int i = 0; i < bids.length(); i++) {
-                        JSONObject bidsInfo = bids.getJSONObject(i);
-
-                        String id = bidsInfo.getString("id");
-                        Constants.lastIdOwnBids = id;
-                        String email = bidsInfo.getString("email");
-                        String tag = bidsInfo.getString("tag");
-                        String description = bidsInfo.getString("description");
-                        String location = bidsInfo.getString("location");
-                        String avgRating = bidsInfo.getString("averageRating");
-                        String count = bidsInfo.getString("count");
-                        String date = bidsInfo.getString("date");
-                        String time = bidsInfo.getString("time");
-                        String part = bidsInfo.getString("part");
-                        String maxPart = bidsInfo.getString("maxPart");
-
-                        String[] arr = new String[]{id, email, tag, description, location, avgRating, count, date, time, part, maxPart};
-                        if(!account.getOwnBids().contains(arr))
-                            account.getOwnBids().add(arr);
-                    }
-                    if(bieteFragment != null)
-                        bieteFragment.adapter.notifyDataSetChanged();
-                    else if(ownBidsFragment != null)
-                        ownBidsFragment.adapter.notifyDataSetChanged();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(callingActivity, "Couldnt load bids", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-        if(login)
-            account.getAccessToken(callingActivity);
+        super.onPostExecute(result);
     }
 }

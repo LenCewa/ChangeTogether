@@ -52,25 +52,25 @@ public class SearchItemFragment extends Fragment{
         ratings = (TextView) view.findViewById(R.id.rezensionen);
         join = (Button) view.findViewById(R.id.joinButton);
 
-        userProfile.setImageBitmap(account.getBitmapFromCache(account.getSearchEmail()));
-        userEmail.setText(account.getSearchEmail());
-        userBid.setText(account.getSearchTag());
-        timenDate.setText(account.getSearchDate() + " - " + account.getSearchTime() + " Uhr");
-        userDescription.setText(account.getSearchDescription());
-        ratingBar.setRating(account.getSearchAverageRating());
-        ratings.setText(account.getSearchCount() + " Rezensionen");
+        userProfile.setImageBitmap(account.getBitmapFromCache(account.getSearchedItem().getEmail()));
+        userEmail.setText(account.getSearchedItem().getEmail());
+        userBid.setText(account.getSearchedItem().getTag());
+        timenDate.setText(account.getSearchedItem().getDate() + " - " + account.getSearchedItem().getTime() + " Uhr");
+        userDescription.setText(account.getSearchedItem().getDescription());
+        ratingBar.setRating(account.getSearchedItem().getAverageRating());
+        ratings.setText(account.getSearchedItem().getCount() + " Rezensionen");
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
-        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebot von " + account.getSearchEmail());
+        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Angebot von " + account.getSearchedItem().getEmail());
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
 
-        if(listContainsId(account.getSearchID()))
+        if(listContainsId(account.getSearchedItem().getId()))
             join.setText("Nicht mehr teilnehmen");
 
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                account.participate(SearchItemFragment.this, account.getSearchID(), account.getEmail());
+                account.participate(SearchItemFragment.this, account.getSearchedItem().getId(), account.getSearchedItem().getEmail());
             }
         });
 
@@ -110,7 +110,7 @@ public class SearchItemFragment extends Fragment{
 
     public boolean listContainsId(String id){
 
-        for (String[] s : account.getParticipations()){
+        for (String[] s : account.getSelf().getParticipations()){
             if(s[0].equals(id))
                 return true;
         }

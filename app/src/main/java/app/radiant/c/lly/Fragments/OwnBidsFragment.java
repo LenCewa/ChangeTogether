@@ -9,10 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import app.radiant.c.lly.Adapter.CustomRecyclerViewAdapterOwnProfile;
 import app.radiant.c.lly.Adapter.RecyclerItemClickListener;
+import app.radiant.c.lly.NetworkUtilities.HomeShowBids;
+import app.radiant.c.lly.NetworkUtilities.LoadOwnBids;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Utilities.Constants;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -34,7 +39,7 @@ public class OwnBidsFragment extends SuperProfileFragment {
         location = (TextView) view.findViewById(R.id.ownProfileLocation);
         language = (TextView) view.findViewById(R.id.ownProfileLanguage);
 
-        adapter = new CustomRecyclerViewAdapterOwnProfile(this, account.getOwnBids());
+        adapter = new CustomRecyclerViewAdapterOwnProfile(this, account.getSelf().getOwnBids());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -72,9 +77,14 @@ public class OwnBidsFragment extends SuperProfileFragment {
 
     private void refresh() {
 
-        account.loadOwnBids(this);
-        location.setText(account.getLocation());
-        language.setText(account.getLanguage());
+        HashMap<String, String> data = account.getAuthMap();
+        data.put("email", account.getSelf().getEmail());
+        data.put("latitude", String.valueOf(account.getSelf().getLat()));
+        data.put("longitude", String.valueOf(account.getSelf().getLng()));
+        data.put("lastId", Constants.lastIdOwnBids);
+        new LoadOwnBids(this, data).execute();
+        location.setText(account.getSelf().getLocation());
+        language.setText(account.getSelf().getLanguage());
     }
 
     @Override

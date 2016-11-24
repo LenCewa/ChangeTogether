@@ -14,12 +14,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.Adapter.CustomAdapterBiete;
 import app.radiant.c.lly.DialogFragments.BidDialog;
 import app.radiant.c.lly.DialogFragments.MyDialogCloseListener;
+import app.radiant.c.lly.NetworkUtilities.LoadOwnBids;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Utilities.Constants;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -43,7 +47,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
         account = (Account) callingActivity.getApplication();
 
         bieteList = (ListView) view.findViewById(R.id.bieteList);
-        adapter = new CustomAdapterBiete(getActivity(), account.getOwnBids());
+        adapter = new CustomAdapterBiete(getActivity(), account.getSelf().getOwnBids());
         bieteList.setAdapter(adapter);
 
 
@@ -95,7 +99,13 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Deine Angebote");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);
-        account.loadOwnBids(this);
+
+        HashMap<String, String> data = account.getAuthMap();
+        data.put("email", account.getSelf().getEmail());
+        data.put("latitude", String.valueOf(account.getSelf().getLat()));
+        data.put("longitude", String.valueOf(account.getSelf().getLng()));
+        data.put("lastId", Constants.lastIdOwnBids);
+        new LoadOwnBids(this, data).execute();
     }
 
     @Override

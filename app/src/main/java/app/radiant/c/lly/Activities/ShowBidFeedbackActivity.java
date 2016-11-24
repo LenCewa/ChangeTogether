@@ -10,10 +10,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import app.radiant.c.lly.Adapter.CustomAdapter;
 import app.radiant.c.lly.DialogFragments.FeedbackDialog;
 import app.radiant.c.lly.DialogFragments.MyDialogCloseListener;
+import app.radiant.c.lly.NetworkUtilities.GetParticipations;
+import app.radiant.c.lly.NetworkUtilities.SearchFeedback;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -42,7 +45,7 @@ public class ShowBidFeedbackActivity extends FragmentActivity implements MyDialo
         feedbackList = (ListView) findViewById(R.id.listFeedback);
         ratingBar = (RatingBar) findViewById(R.id.avergageRating);
 
-        bid.setText(account.getSearchTag());
+        bid.setText(account.getSearchedItem().getTag());
         adapter = new CustomAdapter(this, feedbacks);
         feedbackList.setAdapter(adapter);
 
@@ -51,12 +54,16 @@ public class ShowBidFeedbackActivity extends FragmentActivity implements MyDialo
             public void onClick(View v) {
                 FeedbackDialog add = new FeedbackDialog();
                 add.setArguments(new Bundle());
-                add.getArguments().putInt("id", Integer.parseInt(account.getSearchID()));
-                add.getArguments().putString("tag", account.getSearchTag());
+                add.getArguments().putInt("id", Integer.parseInt(account.getSearchedItem().getId()));
+                add.getArguments().putString("tag", account.getSearchedItem().getTag());
                 add.show(getSupportFragmentManager(), "Feedback Dialog");
             }
         });
-        account.searchFeedback(this, Integer.parseInt(account.getSearchID()), account.getSearchTag());
+        HashMap<String, String> data = account.getAuthMap();
+        data.put("id", account.getSearchedItem().getId());
+        data.put("tag", account.getSearchedItem().getTag());
+        new SearchFeedback(this, data).execute();
+
     }
 
     public void setStars(double stars){
@@ -65,7 +72,10 @@ public class ShowBidFeedbackActivity extends FragmentActivity implements MyDialo
 
     private void refresh(){
         feedbacks.clear();
-        account.searchFeedback(this, Integer.parseInt(account.getSearchID()), account.getSearchTag());
+        HashMap<String, String> data = account.getAuthMap();
+        data.put("id", account.getSearchedItem().getId());
+        data.put("tag", account.getSearchedItem().getTag());
+        new SearchFeedback(this, data).execute();
     }
 
 
