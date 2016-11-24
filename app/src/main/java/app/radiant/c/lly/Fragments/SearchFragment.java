@@ -3,6 +3,8 @@ package app.radiant.c.lly.Fragments;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -146,6 +149,10 @@ public class SearchFragment extends Fragment {
 
     private void refresh(){
 
+        RelativeLayout content = (RelativeLayout) getActivity().findViewById(R.id.content_main_app);
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) content.getLayoutParams();
+        p.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        content.setLayoutParams(p);
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Suche Angebote");

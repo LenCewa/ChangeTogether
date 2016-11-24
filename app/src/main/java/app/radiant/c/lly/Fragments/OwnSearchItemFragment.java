@@ -1,6 +1,8 @@
 package app.radiant.c.lly.Fragments;
 
 import android.app.Activity;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import app.radiant.c.lly.DialogFragments.EditDialog;
@@ -41,6 +44,11 @@ public class OwnSearchItemFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.fragment_own_search_item, container, false);
             callingActivity = getActivity();
+
+            RelativeLayout content = (RelativeLayout) getActivity().findViewById(R.id.content_main_app);
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) content.getLayoutParams();
+            p.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+            content.setLayoutParams(p);
 
             account = (Account) callingActivity.getApplication();
             userProfile = (ImageView) view.findViewById(R.id.userProfile);

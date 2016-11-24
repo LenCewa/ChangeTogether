@@ -6,7 +6,9 @@ import android.content.res.Resources;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import app.radiant.c.lly.Activities.MainAppActivity;
@@ -107,6 +110,11 @@ public class OwnProfileFragment extends Fragment {
 
         Resources r = getResources();
         int px = r.getDisplayMetrics().heightPixels / 3;
+
+        RelativeLayout content = (RelativeLayout) getActivity().findViewById(R.id.content_main_app);
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) content.getLayoutParams();
+        p.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        content.setLayoutParams(p);
 
         profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getSelf().getProfilePic(), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");

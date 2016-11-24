@@ -2,7 +2,9 @@ package app.radiant.c.lly.Fragments;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -167,6 +170,11 @@ public class InboxFragment extends Fragment {
     }
 
     public void refresh(){
+        RelativeLayout content = (RelativeLayout) getActivity().findViewById(R.id.content_main_app);
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) content.getLayoutParams();
+        p.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        content.setLayoutParams(p);
+
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Chats");
         ((ImageView)getActivity().findViewById(R.id.ownProfilePic)).setImageBitmap(null);

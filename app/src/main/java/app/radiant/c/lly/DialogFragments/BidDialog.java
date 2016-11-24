@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,13 @@ import java.util.Locale;
 import app.radiant.c.lly.Adapter.PlacesAutoCompleteAdapter;
 import app.radiant.c.lly.Adapter.SpinnerAdapter;
 import app.radiant.c.lly.Fragments.BieteFragment;
+import app.radiant.c.lly.Fragments.HomeFragment;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
 public class BidDialog extends DialogFragment {
     AutoCompleteTextView location;
-    BieteFragment callingFragment;
+    Fragment callingFragment;
     Button dateButton;
     Button timeButton;
     Button done;
@@ -52,7 +54,7 @@ public class BidDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dialog_add_bid, container, false);
 
-        callingFragment = (BieteFragment) getParentFragment();
+        callingFragment = getParentFragment();
 
         bidTypes = (Spinner) rootView.findViewById(R.id.bidSpinner);
 
@@ -227,16 +229,5 @@ public class BidDialog extends DialogFragment {
             e.printStackTrace();
         }
         return latLong;
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-
-        Activity activity = getActivity();
-        if(callingFragment instanceof MyDialogCloseListener)
-            ((MyDialogCloseListener)callingFragment).handleDialogClose(dialog);
-        else if(activity instanceof MyDialogCloseListener)
-            ((MyDialogCloseListener)activity).handleDialogClose(dialog);
     }
 }

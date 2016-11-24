@@ -1,5 +1,7 @@
 package app.radiant.c.lly.Fragments;
 
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -9,9 +11,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -24,6 +30,7 @@ import app.radiant.c.lly.NetworkUtilities.LoadOwnBids;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
+import app.radiant.c.lly.Widgets.HidingScrollListener;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -89,11 +96,17 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
                 return true;
             }
         });
+        
 
         return view;
     }
 
     private void refresh(){
+
+        RelativeLayout content = (RelativeLayout) getActivity().findViewById(R.id.content_main_app);
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) content.getLayoutParams();
+        p.setBehavior(null);
+        content.setLayoutParams(p);
 
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(false);
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("Deine Angebote");

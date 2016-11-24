@@ -74,7 +74,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             holder.count.setText(data.get(position)[6] + " Bewertungen");
             holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
 
-            Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
+            Bitmap pic = account.getBitmapFromCache(account.getSearchedItem().getEmail());
             if(pic != null)
                 holder.profilePic.setImageBitmap(pic);
             else
