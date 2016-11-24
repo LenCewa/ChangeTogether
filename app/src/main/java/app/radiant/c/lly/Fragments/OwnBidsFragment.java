@@ -26,18 +26,12 @@ import app.radiant.c.lly.Utilities.Constants;
 public class OwnBidsFragment extends SuperProfileFragment {
 
 
-    TextView location;
-    TextView language;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         account = (Account) getActivity().getApplication();
-
-        location = (TextView) view.findViewById(R.id.ownProfileLocation);
-        language = (TextView) view.findViewById(R.id.ownProfileLanguage);
 
         adapter = new CustomRecyclerViewAdapterOwnProfile(this, account.getSelf().getOwnBids());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
@@ -83,8 +77,6 @@ public class OwnBidsFragment extends SuperProfileFragment {
         data.put("longitude", String.valueOf(account.getSelf().getLng()));
         data.put("lastId", Constants.lastIdOwnBids);
         new LoadOwnBids(this, data).execute();
-        location.setText(account.getSelf().getLocation());
-        language.setText(account.getSelf().getLanguage());
     }
 
     @Override

@@ -3,6 +3,7 @@ package app.radiant.c.lly.Adapter;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
@@ -23,49 +24,78 @@ import app.radiant.c.lly.Utilities.Account;
  * Created by Yannick on 10.11.2016.
  */
 
-public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<CustomRecyclerViewAdapterUpcoming.ProfileInfoViewHolder> {
+public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Account account;
     Activity activity;
     ArrayList<String[]> data;
-    ProfileInfoViewHolder holder;
-    ViewGroup parent;
+    ProfileHeaderViewHolder headerHolder;
+    ProfileInfoViewHolder infoHolder;
+    private final int TYPE_HEADER = 0;
+    private final int TYPE_ITEM = 1;
 
     public CustomRecyclerViewAdapterUpcoming(Activity activity, ArrayList<String[]> data) {
 
-        this.account = (Account)activity.getApplication();
+        account = (Account) activity.getApplication();
         this.activity = activity;
         this.data = data;
     }
 
     @Override
-    public CustomRecyclerViewAdapterUpcoming.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        this.parent = parent;
-        View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.profile_list_item, parent, false);
-        holder = new ProfileInfoViewHolder(itemView);
-        return holder;
+        RecyclerView.ViewHolder holder = null;
+
+        if (viewType == TYPE_ITEM) {
+            //inflate your layout and pass it to view holder
+            View itemView = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.profile_list_item, parent, false);
+            infoHolder = new ProfileInfoViewHolder(itemView);
+            return infoHolder;
+        } else{
+            //inflate your layout and pass it to view holder
+            View itemView = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.profile_list_header, parent, false);
+            headerHolder = new ProfileHeaderViewHolder(itemView);
+            return headerHolder;
+        }
     }
 
     @Override
-    public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        if (viewHolder instanceof ProfileInfoViewHolder) {
+            ProfileInfoViewHolder holder = (ProfileInfoViewHolder) viewHolder;
 
-        holder.tag.setText(data.get(position)[2]);
-        holder.location.setText(data.get(position)[4]);
-        holder.distance.setText("<=" + data.get(position)[7] + "km");
-        holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
-        holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
-        holder.count.setText(data.get(position)[6] + " Bewertungen");
-        holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+            holder.tag.setText(data.get(position)[2]);
+            holder.location.setText(data.get(position)[4]);
+            holder.distance.setText("<=" + data.get(position)[7] + "km");
+            holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
+            holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
+            holder.count.setText(data.get(position)[6] + " Bewertungen");
+            holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
 
-        Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
-        if(pic != null) {
-            holder.profilePic.setImageBitmap(pic);
+            Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
+            if(pic != null) {
+                holder.profilePic.setImageBitmap(pic);
+            }
+            else {
+                new GetBitmap(activity, holder.profilePic, data.get(position)[1]).execute();
+            }
         }
-        else {
-            new GetBitmap(activity, holder.profilePic, data.get(position)[1]).execute();
+        else if (viewHolder instanceof ProfileHeaderViewHolder) {
+            ProfileHeaderViewHolder holder = (ProfileHeaderViewHolder) viewHolder;
+
+            holder.location.setText(account.getSelf().getLocation());
+            holder.language.setText(account.getSelf().getLanguage());
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0)
+            return TYPE_HEADER;
+        else
+            return TYPE_ITEM;
     }
 
     @Override
@@ -74,7 +104,7 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Cust
     }
 
     public String[] getItem(int position){
-        
+
         return data.get(position);
     }
 
@@ -102,4 +132,19 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Cust
             maxPart = (TextView) vi.findViewById(R.id.maxPart);
         }
     }
+
+    public class ProfileHeaderViewHolder extends RecyclerView.ViewHolder{
+
+        TextView location;
+        TextView language;
+
+        public ProfileHeaderViewHolder(View vi){
+
+            super(vi);
+            location = (TextView) vi.findViewById(R.id.ownProfileLocation);
+            language = (TextView) vi.findViewById(R.id.ownProfileLanguage);
+        }
+    }
+
+
 }

@@ -4,6 +4,7 @@ package app.radiant.c.lly.Fragments;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Comparator;

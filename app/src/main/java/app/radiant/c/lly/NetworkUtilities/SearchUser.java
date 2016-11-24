@@ -13,7 +13,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import app.radiant.c.lly.Adapter.CustomRecyclerViewAdapter;
 import app.radiant.c.lly.Fragments.ProfileFragment;
+import app.radiant.c.lly.Fragments.SearchItemFragment;
+import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
 
@@ -24,10 +27,10 @@ import app.radiant.c.lly.Utilities.Constants;
 public class SearchUser extends GetDBData{
 
 
-    ProfileFragment callingFragment;
+    SearchItemFragment callingFragment;
     ProgressDialog loading;
 
-    public SearchUser(ProfileFragment callingFragment, HashMap<String, String> data){
+    public SearchUser(SearchItemFragment callingFragment, HashMap<String, String> data){
 
         super(callingFragment.getActivity(), Constants.DBSEARCHUSER, data);
         this.callingFragment = callingFragment;
@@ -50,7 +53,6 @@ public class SearchUser extends GetDBData{
             String language = userInfo.getString("language");
 
             account.setSearchedUser(location, language);
-            callingFragment.setElements();
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(callingFragment.getActivity(), "Couldnt get User Info", Toast.LENGTH_LONG);
@@ -68,5 +70,7 @@ public class SearchUser extends GetDBData{
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         loading.dismiss();
+        ProfileFragment f = new ProfileFragment();
+        callingFragment.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
     }
 }

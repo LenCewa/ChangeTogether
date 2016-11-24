@@ -20,13 +20,16 @@ import app.radiant.c.lly.Utilities.Account;
  * Created by Yannick on 10.11.2016.
  */
 
-public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.ProfileInfoViewHolder> {
+public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Account account;
     Activity activity;
     ArrayList<String[]> data;
-    ProfileInfoViewHolder holder;
     ViewGroup parent;
+    ProfileHeaderViewHolder headerHolder;
+    ProfileInfoViewHolder infoHolder;
+    private final int TYPE_HEADER = 0;
+    private final int TYPE_ITEM = 1;
 
     public CustomRecyclerViewAdapter(Activity activity, ArrayList<String[]> data) {
 
@@ -36,31 +39,60 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     }
 
     @Override
-    public CustomRecyclerViewAdapter.ProfileInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         this.parent = parent;
-        View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.profile_list_item, parent, false);
-        holder = new ProfileInfoViewHolder(itemView);
-        return holder;
+        RecyclerView.ViewHolder holder = null;
+
+        if (viewType == TYPE_ITEM) {
+            //inflate your layout and pass it to view holder
+            View itemView = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.profile_list_item, parent, false);
+            infoHolder = new ProfileInfoViewHolder(itemView);
+            return infoHolder;
+        } else{
+            //inflate your layout and pass it to view holder
+            View itemView = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.profile_list_header, parent, false);
+            headerHolder = new ProfileHeaderViewHolder(itemView);
+            return headerHolder;
+        }
     }
 
     @Override
-    public void onBindViewHolder(ProfileInfoViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
 
-        holder.tag.setText(data.get(position)[2]);
-        holder.location.setText(data.get(position)[4]);
-        holder.distance.setText("<=" + data.get(position)[7] + "km");
-        holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
-        holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
-        holder.count.setText(data.get(position)[6] + " Bewertungen");
-        holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+        if (viewHolder instanceof ProfileInfoViewHolder) {
+            ProfileInfoViewHolder holder = (ProfileInfoViewHolder) viewHolder;
 
-        Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
-        if(pic != null)
-            holder.profilePic.setImageBitmap(pic);
+            holder.tag.setText(data.get(position)[2]);
+            holder.location.setText(data.get(position)[4]);
+            holder.distance.setText("<=" + data.get(position)[7] + "km");
+            holder.time.setText(data.get(position)[8] + " - " + data.get(position)[9] + " Uhr");
+            holder.ratingBar.setRating(Float.parseFloat(data.get(position)[5]));
+            holder.count.setText(data.get(position)[6] + " Bewertungen");
+            holder.maxPart.setText(data.get(position)[10] + "/" + data.get(position)[11]);
+
+            Bitmap pic = account.getBitmapFromCache(data.get(position)[1]);
+            if(pic != null)
+                holder.profilePic.setImageBitmap(pic);
+            else
+                new GetBitmap(activity, holder.profilePic, data.get(position)[1]).execute();
+
+        } else if (viewHolder instanceof ProfileHeaderViewHolder) {
+            ProfileHeaderViewHolder holder = (ProfileHeaderViewHolder) viewHolder;
+
+            holder.location.setText(account.getSearchedUser().getLocation());
+            holder.language.setText(account.getSearchedUser().getLanguage());
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0)
+            return TYPE_HEADER;
         else
-            new GetBitmap(activity, holder.profilePic, data.get(position)[1]).execute();
+            return TYPE_ITEM;
     }
 
     @Override
@@ -68,10 +100,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         return data.size();
     }
 
-    public String[] getItem(int position){
-        
-        return data.get(position);
-    }
+    public String[] getItem(int position){ return data.get(position); }
 
     public class ProfileInfoViewHolder extends RecyclerView.ViewHolder{
 
@@ -95,6 +124,19 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
             ratingBar = (RatingBar) vi.findViewById(R.id.ratingBar4);
             count = (TextView) vi.findViewById(R.id.count);
             maxPart = (TextView) vi.findViewById(R.id.maxPart);
+        }
+    }
+
+    public class ProfileHeaderViewHolder extends RecyclerView.ViewHolder{
+
+        TextView location;
+        TextView language;
+
+        public ProfileHeaderViewHolder(View vi){
+
+            super(vi);
+            location = (TextView) vi.findViewById(R.id.ownProfileLocation);
+            language = (TextView) vi.findViewById(R.id.ownProfileLanguage);
         }
     }
 }

@@ -73,7 +73,7 @@ public class OwnProfileFragment extends Fragment {
     private void refresh() {
 
         Resources r = getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+        int px = r.getDisplayMetrics().heightPixels / 3;
 
         profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getSelf().getProfilePic(), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");

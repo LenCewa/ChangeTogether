@@ -15,7 +15,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
+import java.util.HashMap;
+
 import app.radiant.c.lly.Activities.ShowBidFeedbackActivity;
+import app.radiant.c.lly.NetworkUtilities.SearchUser;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -96,8 +99,9 @@ public class SearchItemFragment extends Fragment{
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileFragment f = new ProfileFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
+                HashMap<String,String> data = account.getAuthMap();
+                data.put("email", account.getSearchedItem().getEmail());
+                new SearchUser(SearchItemFragment.this, data).execute();
             }
         });
 

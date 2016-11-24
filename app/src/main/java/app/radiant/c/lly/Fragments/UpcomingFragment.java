@@ -38,9 +38,6 @@ public class UpcomingFragment extends SuperProfileFragment {
 
         account = (Account) getActivity().getApplication();
 
-        location = (TextView) view.findViewById(R.id.ownProfileLocation);
-        language = (TextView) view.findViewById(R.id.ownProfileLanguage);
-
         cmp = new Comparator<String[]>() {
             @Override
             public int compare(String[] o1, String[] o2) {
@@ -135,22 +132,10 @@ public class UpcomingFragment extends SuperProfileFragment {
                 })
         );
 
-        refresh();
-
         return view;
     }
 
-    private void refresh() {
 
-        location.setText(account.getSelf().getLocation());
-        language.setText(account.getSelf().getLanguage());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refresh();
-    }
 
     @Override
     public void onStop() {

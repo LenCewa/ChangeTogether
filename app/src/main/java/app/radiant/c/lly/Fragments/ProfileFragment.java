@@ -33,8 +33,6 @@ import app.radiant.c.lly.Utilities.Account;
 
 public class ProfileFragment extends SuperProfileFragment {
 
-    TextView profileLocation;
-    TextView profileLanguage;
     ImageView profilePic;
     FloatingActionButton sendMessage;
 
@@ -43,9 +41,6 @@ public class ProfileFragment extends SuperProfileFragment {
 
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         account =(Account) getActivity().getApplication();
-
-        profileLocation = (TextView) view.findViewById(R.id.ownProfileLocation);
-        profileLanguage = (TextView) view.findViewById(R.id.ownProfileLanguage);
 
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
 
@@ -115,24 +110,14 @@ public class ProfileFragment extends SuperProfileFragment {
 
 
         Resources r = getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
+        int px = r.getDisplayMetrics().heightPixels / 3;
 
         profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getBitmapFromCache(account.getSearchedItem().getEmail()), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSearchedItem().getEmail() + "'s Profil");
 
-
-        data = account.getAuthMap();
-        data.put("email", account.getSearchedItem().getEmail());
-        new SearchUser(this, data).execute();
-
         return view;
     }
 
-    public void setElements(){
-
-        profileLocation.setText(account.getSearchedUser().getLocation());
-        profileLanguage.setText(account.getSearchedUser().getLanguage());
-    }
 }

@@ -50,8 +50,7 @@ public class GetBitmap extends AsyncTask<Void, Void, Bitmap> {
         }
 
         Resources r = context.getResources();
-        //float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, r.getDisplayMetrics());
-        int height = r.getDisplayMetrics().heightPixels / 2;
+        int height = r.getDisplayMetrics().heightPixels / 3;
         int width = r.getDisplayMetrics().widthPixels;
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
