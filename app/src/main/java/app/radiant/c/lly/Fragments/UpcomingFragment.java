@@ -110,6 +110,9 @@ public class UpcomingFragment extends SuperProfileFragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
+                        if(position == 0)
+                            return;
+
                         CustomRecyclerViewAdapterUpcoming adapter = (CustomRecyclerViewAdapterUpcoming) UpcomingFragment.this.adapter;
 
                         String id = adapter.getItem(position)[0];

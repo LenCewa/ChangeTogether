@@ -60,11 +60,11 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int pos) {
 
         if (viewHolder instanceof ProfileInfoViewHolder) {
             ProfileInfoViewHolder holder = (ProfileInfoViewHolder) viewHolder;
-
+            int position = pos - 1;
             holder.tag.setText(data.get(position)[2]);
             holder.location.setText(data.get(position)[4]);
             holder.distance.setText("<=" + data.get(position)[7] + "km");
@@ -100,7 +100,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         return data.size();
     }
 
-    public String[] getItem(int position){ return data.get(position); }
+    public String[] getItem(int position){ return data.get(position - 1); }
 
     public class ProfileInfoViewHolder extends RecyclerView.ViewHolder{
 

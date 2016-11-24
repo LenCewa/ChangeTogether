@@ -10,6 +10,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.Activities.SettingsActivity;
+import app.radiant.c.lly.Adapter.ViewPagerAdapter;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 
@@ -33,6 +35,8 @@ public class OwnProfileFragment extends Fragment {
     private FragmentTabHost mTabHost;
     FloatingActionButton settings;
     ImageView profilePic;
+    ViewPager viewPager;
+    ViewPagerAdapter pagerAdapter;
 
     @Nullable
     @Override
@@ -52,6 +56,9 @@ public class OwnProfileFragment extends Fragment {
             }
         });
 
+        viewPager = (ViewPager) view.findViewById(R.id.pager);
+        //tabWidget = (TabWidget) findViewById(android.R.id.tabs);
+
         mTabHost = (FragmentTabHost)view.findViewById(android.R.id.tabhost);
         mTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
 
@@ -59,6 +66,32 @@ public class OwnProfileFragment extends Fragment {
                 OwnBidsFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("anstehende").setIndicator(getTabIndicator(getActivity(), "Anstehende")),
                 UpcomingFragment.class, null);
+
+        pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), new String[]{ "Angebote", "Anstehende"});
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTabHost.setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        mTabHost.setOnTabChangedListener(new FragmentTabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                viewPager.setCurrentItem(mTabHost.getCurrentTab());
+            }
+        });
 
         return view;
     }
@@ -78,7 +111,7 @@ public class OwnProfileFragment extends Fragment {
         profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getSelf().getProfilePic(), profilePic.getWidth(), (int)px));
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
-        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(account.getSelf().getEmail());
+        ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Dein Profil");
     }
 
     @Override

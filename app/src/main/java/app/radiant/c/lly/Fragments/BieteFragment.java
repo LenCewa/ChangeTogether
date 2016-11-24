@@ -50,7 +50,6 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
         adapter = new CustomAdapterBiete(getActivity(), account.getSelf().getOwnBids());
         bieteList.setAdapter(adapter);
 
-
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

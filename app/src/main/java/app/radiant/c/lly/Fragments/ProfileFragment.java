@@ -70,6 +70,9 @@ public class ProfileFragment extends SuperProfileFragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
+                        if(position == 0)
+                            return;
+
                         CustomRecyclerViewAdapter adapter = (CustomRecyclerViewAdapter)ProfileFragment.this.adapter;
 
                         String id = adapter.getItem(position)[0];

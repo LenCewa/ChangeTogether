@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,12 @@ import app.radiant.c.lly.Utilities.Constants;
 
 public class OwnBidsFragment extends SuperProfileFragment {
 
+    public static OwnBidsFragment newInstance() {
+        OwnBidsFragment fragment = new OwnBidsFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -32,6 +39,9 @@ public class OwnBidsFragment extends SuperProfileFragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         account = (Account) getActivity().getApplication();
+
+        if(getArguments() == null)
+            return view;
 
         adapter = new CustomRecyclerViewAdapterOwnProfile(this, account.getSelf().getOwnBids());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
@@ -44,6 +54,9 @@ public class OwnBidsFragment extends SuperProfileFragment {
         bidList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+
+                        if(position == 0)
+                            return;
 
                         CustomRecyclerViewAdapterOwnProfile adapter = (CustomRecyclerViewAdapterOwnProfile) OwnBidsFragment.this.adapter;
 
@@ -76,7 +89,8 @@ public class OwnBidsFragment extends SuperProfileFragment {
         data.put("latitude", String.valueOf(account.getSelf().getLat()));
         data.put("longitude", String.valueOf(account.getSelf().getLng()));
         data.put("lastId", Constants.lastIdOwnBids);
-        new LoadOwnBids(this, data).execute();
+        if(getArguments() != null)
+            new LoadOwnBids(this, data).execute();
     }
 
     @Override

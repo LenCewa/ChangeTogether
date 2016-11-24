@@ -43,7 +43,7 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Re
         if (viewType == TYPE_ITEM) {
             //inflate your layout and pass it to view holder
             View itemView = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.profile_list_item, parent, false);
+                    inflate(R.layout.own_profile_list_item, parent, false);
             infoHolder = new CustomRecyclerViewAdapterOwnProfile.ProfileInfoViewHolder(itemView);
             return infoHolder;
         } else{
@@ -56,9 +56,10 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Re
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int pos) {
         if (viewHolder instanceof ProfileInfoViewHolder) {
             ProfileInfoViewHolder holder = (ProfileInfoViewHolder) viewHolder;
+            int position = pos - 1;
 
             holder.tag.setText(data.get(position)[2]);
             holder.location.setText(data.get(position)[4]);
@@ -86,12 +87,12 @@ public class CustomRecyclerViewAdapterOwnProfile extends RecyclerView.Adapter<Re
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data.size() + 1;
     }
 
     public String[] getItem(int position){
         
-        return data.get(position);
+        return data.get(position - 1);
     }
 
     public class ProfileInfoViewHolder extends RecyclerView.ViewHolder{

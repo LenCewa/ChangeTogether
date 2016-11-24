@@ -75,8 +75,7 @@ public class LoadOwnBids extends GetDBData{
                 String maxPart = bidsInfo.getString("maxPart");
 
                 String[] arr = new String[]{id, email, tag, description, location, avgRating, count, date, time, part, maxPart};
-                if(!account.getSelf().getOwnBids().contains(arr))
-                    account.getSelf().getOwnBids().add(arr);
+                account.getSelf().getOwnBids().add(arr);
             }
             if(bieteFragment != null)
                 bieteFragment.adapter.notifyDataSetChanged();

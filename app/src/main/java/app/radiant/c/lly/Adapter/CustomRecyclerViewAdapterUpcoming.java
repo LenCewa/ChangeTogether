@@ -62,9 +62,10 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Recy
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int pos) {
         if (viewHolder instanceof ProfileInfoViewHolder) {
             ProfileInfoViewHolder holder = (ProfileInfoViewHolder) viewHolder;
+            int position = pos - 1;
 
             holder.tag.setText(data.get(position)[2]);
             holder.location.setText(data.get(position)[4]);
@@ -105,7 +106,7 @@ public class CustomRecyclerViewAdapterUpcoming extends RecyclerView.Adapter<Recy
 
     public String[] getItem(int position){
 
-        return data.get(position);
+        return data.get(position - 1);
     }
 
     public class ProfileInfoViewHolder extends RecyclerView.ViewHolder{
