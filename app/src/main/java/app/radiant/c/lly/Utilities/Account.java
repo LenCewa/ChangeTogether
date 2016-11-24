@@ -52,6 +52,9 @@ public class Account extends Application {
     private String sessionId;
     public LruCache<String, Bitmap> bitmapCache;
 
+    /**
+     * Initializes a cache for the bitmaps
+     */
     public Account(){
 
         //Get max available VM Memory
