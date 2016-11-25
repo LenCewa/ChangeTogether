@@ -24,7 +24,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i){
             case 0:
-                return new OwnBidsFragment();
+                return new OwnBidsFragment().newInstance();
             case 1:
                 return new UpcomingFragment();
             default:

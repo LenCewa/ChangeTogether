@@ -123,7 +123,6 @@ public class OwnProfileFragment extends Fragment {
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Dein Profil");
         //((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
-
     }
 
     @Override

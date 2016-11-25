@@ -36,6 +36,13 @@ public class OwnBidsFragment extends SuperProfileFragment {
 
     ImageView profilePic;
 
+    public static OwnBidsFragment newInstance(){
+
+        OwnBidsFragment fragment = new OwnBidsFragment();
+        fragment.setArguments(new Bundle());
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +50,6 @@ public class OwnBidsFragment extends SuperProfileFragment {
 
         account = (Account) getActivity().getApplication();
 
-        Log.e("onCreate", "onCreate");
         profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
         adapter = new CustomRecyclerViewAdapterOwnProfile(this, account.getSelf().getOwnBids());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
@@ -101,7 +107,8 @@ public class OwnBidsFragment extends SuperProfileFragment {
         data.put("latitude", String.valueOf(account.getSelf().getLat()));
         data.put("longitude", String.valueOf(account.getSelf().getLng()));
         data.put("lastId", Constants.lastIdOwnBids);
-        new LoadOwnBids(this, data).execute();
+        if(getArguments() != null)
+            new LoadOwnBids(this, data).execute();
     }
 
     @Override
