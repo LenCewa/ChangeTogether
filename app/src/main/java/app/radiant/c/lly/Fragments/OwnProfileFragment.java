@@ -122,6 +122,8 @@ public class OwnProfileFragment extends Fragment {
         ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Dein Profil");
+        //((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
+
     }
 
     @Override

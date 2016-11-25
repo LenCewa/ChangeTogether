@@ -143,4 +143,8 @@ public class ProfileFragment extends SuperProfileFragment {
         return view;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 }

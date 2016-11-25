@@ -1,9 +1,12 @@
 package app.radiant.c.lly.Fragments;
 
+import android.content.res.Resources;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -30,12 +34,7 @@ import app.radiant.c.lly.Widgets.NestedScrollViewFling;
 
 public class OwnBidsFragment extends SuperProfileFragment {
 
-    public static OwnBidsFragment newInstance() {
-        OwnBidsFragment fragment = new OwnBidsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    ImageView profilePic;
 
     @Nullable
     @Override
@@ -44,9 +43,8 @@ public class OwnBidsFragment extends SuperProfileFragment {
 
         account = (Account) getActivity().getApplication();
 
-        if(getArguments() == null)
-            return view;
-
+        Log.e("onCreate", "onCreate");
+        profilePic = (ImageView) getActivity().findViewById(R.id.ownProfilePic);
         adapter = new CustomRecyclerViewAdapterOwnProfile(this, account.getSelf().getOwnBids());
         bidList = (RecyclerView) view.findViewById(R.id.cardList);
         bidList.setHasFixedSize(true);
@@ -103,8 +101,7 @@ public class OwnBidsFragment extends SuperProfileFragment {
         data.put("latitude", String.valueOf(account.getSelf().getLat()));
         data.put("longitude", String.valueOf(account.getSelf().getLng()));
         data.put("lastId", Constants.lastIdOwnBids);
-        if(getArguments() != null)
-            new LoadOwnBids(this, data).execute();
+        new LoadOwnBids(this, data).execute();
     }
 
     @Override

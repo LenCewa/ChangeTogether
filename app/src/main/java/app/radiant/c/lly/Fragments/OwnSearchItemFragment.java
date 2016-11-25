@@ -45,6 +45,9 @@ public class OwnSearchItemFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_own_search_item, container, false);
             callingActivity = getActivity();
 
+            AppBarLayout mToolbar = (AppBarLayout) getActivity().findViewById(R.id.app_bar_layout);
+            mToolbar.setTranslationY(0);
+
             RelativeLayout content = (RelativeLayout) getActivity().findViewById(R.id.content_main_app);
             CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) content.getLayoutParams();
             p.setBehavior(new AppBarLayout.ScrollingViewBehavior());
