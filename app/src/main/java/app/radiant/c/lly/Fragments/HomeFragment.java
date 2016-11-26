@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -78,6 +79,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.tab_layout);
+        tabLayout.setVisibility(TabLayout.GONE);
 
         adapter = new CustomRecyclerViewAdapterHome(getActivity(), listItems);
         searches = (RecyclerView) view.findViewById(R.id.homeList);
@@ -141,7 +144,7 @@ public class HomeFragment extends Fragment {
 
                 account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart);
                 SearchItemFragment f = new SearchItemFragment();
-                getFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
+                account.fm.beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack("searchItem").commit();
             }
         }));
 
@@ -172,6 +175,8 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+
+        ((FloatingActionButton) getActivity().findViewById(R.id.fab)).setVisibility(View.GONE);
 
         if(account.getSelf().getLocation().equals("N/A"))
             Snackbar.make(getActivity().findViewById(android.R.id.content), "Please set your location first", Snackbar.LENGTH_LONG)

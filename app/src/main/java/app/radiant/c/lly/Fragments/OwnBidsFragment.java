@@ -36,13 +36,6 @@ public class OwnBidsFragment extends SuperProfileFragment {
 
     ImageView profilePic;
 
-    public static OwnBidsFragment newInstance(){
-
-        OwnBidsFragment fragment = new OwnBidsFragment();
-        fragment.setArguments(new Bundle());
-        return fragment;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,7 +85,7 @@ public class OwnBidsFragment extends SuperProfileFragment {
 
                         account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, null, date, time, part, maxPart);
                         OwnSearchItemFragment f = new OwnSearchItemFragment();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
+                        getChildFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
                     }
                 })
         );
@@ -107,8 +100,7 @@ public class OwnBidsFragment extends SuperProfileFragment {
         data.put("latitude", String.valueOf(account.getSelf().getLat()));
         data.put("longitude", String.valueOf(account.getSelf().getLng()));
         data.put("lastId", Constants.lastIdOwnBids);
-        if(getArguments() != null)
-            new LoadOwnBids(this, data).execute();
+        new LoadOwnBids(this, data).execute();
     }
 
     @Override

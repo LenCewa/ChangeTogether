@@ -2,6 +2,7 @@ package app.radiant.c.lly.Fragments;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -77,6 +78,10 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
             }
         });
 
+
+        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.tab_layout);
+        tabLayout.setVisibility(TabLayout.GONE);
+        ((FloatingActionButton) getActivity().findViewById(R.id.fab)).setVisibility(View.GONE);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +108,7 @@ public class BieteFragment extends Fragment implements MyDialogCloseListener {
 
                 account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, null, date, time, part, maxPart);
                 OwnSearchItemFragment f = new OwnSearchItemFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack(null).commit();
+                account.fm.beginTransaction().replace(R.id.content_frame, f, "OwnsearchItem").addToBackStack("OwnsearchItem").commit();
             }
         }));
 

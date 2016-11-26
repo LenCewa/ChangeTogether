@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -98,6 +100,10 @@ public class InboxFragment extends Fragment {
 
         // Code
         chats = (ListView) view.findViewById(R.id.userChatList);
+
+        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.tab_layout);
+        tabLayout.setVisibility(TabLayout.GONE);
+        ((FloatingActionButton) getActivity().findViewById(R.id.fab)).setVisibility(View.GONE);
 
         // Add example content to array
         exampleContent.add("Chat 1");

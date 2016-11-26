@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 
@@ -51,6 +52,7 @@ public class Account extends Application {
     private boolean searchSet = false;
     private String sessionId;
     public LruCache<String, Bitmap> bitmapCache;
+    public FragmentManager fm;
 
     /**
      * Initializes a cache for the bitmaps

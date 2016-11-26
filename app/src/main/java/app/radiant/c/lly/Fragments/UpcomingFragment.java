@@ -29,8 +29,6 @@ import app.radiant.c.lly.Widgets.NestedScrollViewFling;
 
 public class UpcomingFragment extends SuperProfileFragment {
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -140,7 +138,7 @@ public class UpcomingFragment extends SuperProfileFragment {
 
                         account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart);
                         SearchItemFragment f = new SearchItemFragment();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
+                        getChildFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack("searchItem").commit();
                     }
                 })
         );
@@ -153,7 +151,5 @@ public class UpcomingFragment extends SuperProfileFragment {
     @Override
     public void onStop() {
         super.onStop();
-        adapter = null;
-        bidList = null;
     }
 }

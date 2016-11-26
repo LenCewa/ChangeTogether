@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -70,6 +72,10 @@ public class SearchFragment extends Fragment {
         searchField = (EditText) view.findViewById(R.id.editText3);
         searchField.setText(getArguments().getString("searchText"));
 
+        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.tab_layout);
+        tabLayout.setVisibility(TabLayout.GONE);
+        ((FloatingActionButton) getActivity().findViewById(R.id.fab)).setVisibility(View.GONE);
+
         searchBtn = (Button) view.findViewById(R.id.searchBtn);
 
         cmp = new Comparator<String[]>() {
@@ -133,7 +139,7 @@ public class SearchFragment extends Fragment {
 
                 account.setSearchedItem(getActivity(), id, email, tag, description, location, averageRating, count, distance, date, time, part, maxPart);
                 SearchItemFragment f = new SearchItemFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack(null).commit();
+                account.fm.beginTransaction().replace(R.id.content_frame, f, "searchItem").addToBackStack("searchItem").commit();
             }
         });
 

@@ -71,6 +71,6 @@ public class SearchUser extends GetDBData{
         super.onPostExecute(result);
         loading.dismiss();
         ProfileFragment f = new ProfileFragment();
-        callingFragment.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack(null).commit();
+        account.fm.beginTransaction().replace(R.id.content_frame, f, "profile").addToBackStack("profile").commit();
     }
 }

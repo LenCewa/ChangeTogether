@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -66,7 +67,6 @@ public class ProfileFragment extends SuperProfileFragment {
             }
         });
 
-
         cmp = new Comparator<String[]>() {
             @Override
             public int compare(String[] o1, String[] o2) {
@@ -116,7 +116,11 @@ public class ProfileFragment extends SuperProfileFragment {
         data.put("longitude", String.valueOf(account.getSelf().getLng()));
         new LoadBids(this, data).execute();
 
+        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.tab_layout);
+        tabLayout.setVisibility(TabLayout.GONE);
+
         sendMessage = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        sendMessage.setVisibility(View.VISIBLE);
         sendMessage.setImageResource(R.drawable.ic_menu_send);
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override

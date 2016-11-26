@@ -5,6 +5,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -59,18 +60,18 @@ public class MainAppActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_app);
 
         account = (Account) getApplication();
+        account.fm = getSupportFragmentManager();
 
         if (savedInstanceState != null) {
-            searchFragment = (SearchFragment) getSupportFragmentManager().getFragment(savedInstanceState, "search");
-            bieteFragment = (BieteFragment) getSupportFragmentManager().getFragment(savedInstanceState, "biete");
-            ownProfileFragment = (OwnBidsFragment) getSupportFragmentManager().getFragment(savedInstanceState, "ownprofile");
-            inboxFragment = (InboxFragment) getSupportFragmentManager().getFragment(savedInstanceState, "inbox");
+            searchFragment = (SearchFragment) account.fm.getFragment(savedInstanceState, "search");
+            bieteFragment = (BieteFragment) account.fm.getFragment(savedInstanceState, "biete");
+            ownProfileFragment = (OwnBidsFragment) account.fm.getFragment(savedInstanceState, "ownprofile");
+            inboxFragment = (InboxFragment) account.fm.getFragment(savedInstanceState, "inbox");
         }
         else {
             homeFragment = new HomeFragment();
             searchFragment = new SearchFragment();
             bieteFragment = new BieteFragment();
-            ownProfileFragment = new OwnBidsFragment();
             tab = new OwnProfileFragment();
             inboxFragment = new InboxFragment();
         }
@@ -93,7 +94,7 @@ public class MainAppActivity extends AppCompatActivity
         ((TextView) header.findViewById(R.id.profEmail)).setText(account.getSelf().getEmail());
         ((TextView) header.findViewById(R.id.profLocation)).setText(account.getSelf().getLocation());
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, homeFragment, "home").commit();
+        account.fm.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack("home").commit();
     }
 
     @Override
@@ -102,8 +103,8 @@ public class MainAppActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
+        else if (account.fm.getBackStackEntryCount() > 0) {
+            account.fm.popBackStack();
         } else {
             //super.onBackPressed();
         }
@@ -122,11 +123,10 @@ public class MainAppActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.action_search) {
 
-            fragmentManager.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack(null).commit();
+            account.fm.beginTransaction().replace(R.id.content_frame, searchFragment, "search").addToBackStack("search").commit();
             return true;
         }
 
@@ -138,16 +138,16 @@ public class MainAppActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if(id == R.id.nav_home){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack(null).commit();
+            account.fm.beginTransaction().replace(R.id.content_frame, homeFragment, "home").addToBackStack("home").commit();
         } else if (id == R.id.nav_biete) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack(null).commit();
+            account.fm.beginTransaction().replace(R.id.content_frame, bieteFragment, "biete").addToBackStack("biete").commit();
         } else if (id == R.id.nav_own_profile) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, tab, "ownprofile").addToBackStack(null).commit();
+            tab = new OwnProfileFragment();
+            account.fm.beginTransaction().replace(R.id.content_frame, tab, "ownprofile").addToBackStack("ownprofile").commit();
         } else if (id == R.id.nav_inbox) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, inboxFragment, "helping").addToBackStack(null).commit();
+            account.fm.beginTransaction().replace(R.id.content_frame, inboxFragment, "helping").addToBackStack("helping").commit();
         }
         else if (id == R.id.nav_logout){
             account.logout(this);

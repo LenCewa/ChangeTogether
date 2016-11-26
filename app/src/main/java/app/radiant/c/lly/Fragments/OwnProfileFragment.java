@@ -1,20 +1,19 @@
 package app.radiant.c.lly.Fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +23,9 @@ import android.widget.TextView;
 
 import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.Activities.SettingsActivity;
-import app.radiant.c.lly.Adapter.ViewPagerAdapter;
+import app.radiant.c.lly.Adapter.PagerAdapter;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
-import app.radiant.c.lly.Widgets.NestedScrollViewFling;
 
 /**
  * Created by Yannick on 03.11.2016.
@@ -37,11 +35,8 @@ public class OwnProfileFragment extends Fragment {
 
     View view;
     Account account;
-    private FragmentTabHost mTabHost;
     FloatingActionButton settings;
     ImageView profilePic;
-    ViewPager viewPager;
-    ViewPagerAdapter pagerAdapter;
 
     @Nullable
     @Override
@@ -61,50 +56,38 @@ public class OwnProfileFragment extends Fragment {
             }
         });
 
-        viewPager = (ViewPager) view.findViewById(R.id.pager);
-        //tabWidget = (TabWidget) findViewById(android.R.id.tabs);
+        ((FloatingActionButton) getActivity().findViewById(R.id.fab)).setVisibility(View.GONE);
 
-        mTabHost = (FragmentTabHost)view.findViewById(android.R.id.tabhost);
-        mTabHost.setup(getActivity(), getChildFragmentManager(), android.R.id.tabcontent);
+        TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.tab_layout);
+        tabLayout.setVisibility(TabLayout.VISIBLE);
+        if(tabLayout.getTabCount() != 2) {
+            tabLayout.addTab(tabLayout.newTab().setText("Angebote"));
+            tabLayout.addTab(tabLayout.newTab().setText("Anstehende"));
+        }
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        mTabHost.addTab(mTabHost.newTabSpec("angebote").setIndicator(getTabIndicator(getActivity(), "Angebote")),
-                OwnBidsFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("anstehende").setIndicator(getTabIndicator(getActivity(), "Anstehende")),
-                UpcomingFragment.class, null);
-
-        pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), new String[]{ "Angebote", "Anstehende"});
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
 
             @Override
-            public void onPageSelected(int position) {
-                mTabHost.setCurrentTab(position);
-            }
+            public void onTabReselected(TabLayout.Tab tab) {
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        mTabHost.setOnTabChangedListener(new FragmentTabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                viewPager.setCurrentItem(mTabHost.getCurrentTab());
             }
         });
 
-        return view;
-    }
-
-    private View getTabIndicator(Context context, String title) {
-        View view = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
-        TextView tv = (TextView) view.findViewById(R.id.textView);
-        tv.setText(title);
         return view;
     }
 
@@ -119,10 +102,12 @@ public class OwnProfileFragment extends Fragment {
         content.setLayoutParams(p);
 
         profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(account.getSelf().getProfilePic(), profilePic.getWidth(), (int)px));
-        ((TextView)getActivity().findViewById(R.id.toolbar_title)).setText("");
+        if(!isProfilePrevious())
+            ((TextView) getActivity().findViewById(R.id.toolbar_title)).setText("");
+        else
+            ((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitleEnabled(true);
         ((CollapsingToolbarLayout)getActivity().findViewById(R.id.collapsing_toolbar)).setTitle("Dein Profil");
-        //((AppBarLayout)getActivity().findViewById(R.id.app_bar_layout)).setExpanded(true);
     }
 
     @Override
@@ -130,5 +115,20 @@ public class OwnProfileFragment extends Fragment {
         super.onResume();
         refresh();
         ((MainAppActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_own_profile);
+    }
+
+    private boolean isProfilePrevious(){
+        int index = account.fm.getBackStackEntryCount() - 1;
+        FragmentManager.BackStackEntry backEntry;
+        String tag = "";
+        if(index > 0) {
+            backEntry = account.fm.getBackStackEntryAt(index);
+            if(backEntry != null)
+                tag = backEntry.getName();
+        }
+        if(tag != null && tag.equals("profile"))
+            return true;
+
+        return false;
     }
 }
