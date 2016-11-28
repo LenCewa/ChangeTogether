@@ -4,6 +4,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEmail(email.toString())) {
+                if(validateEmail(email.getText().toString())) {
                     if (password.getText().toString().length() != 0 && passwordConfirm.getText().toString().length() != 0) {
                         if (password.getText().toString().equals(passwordConfirm.getText().toString())) {
                             Register register = new Register(RegisterActivity.this, email.getText().toString(), password.getText().toString());
@@ -58,8 +60,10 @@ public class RegisterActivity extends AppCompatActivity {
                     } else
                         Toast.makeText(RegisterActivity.this, "Password can not be empty", Toast.LENGTH_SHORT).show();
                 }
-                else
+                else {
                     Toast.makeText(RegisterActivity.this, "E-Mail can not be empty / or incorrect form", Toast.LENGTH_SHORT).show();
+                    Log.d("FUCK: ", email.toString());
+                }
             }
         });
     }
@@ -70,10 +74,15 @@ public class RegisterActivity extends AppCompatActivity {
         imageView.setImageBitmap(null);
     }
 
-    public boolean validateEmail(String email) {
-        if (email.contains("@") && email.contains("."))
-            return true;
-        return false;
-
+    public final static boolean validateEmail(String email) {
+        CharSequence cs = email;
+        if (cs == null) {
+            Log.d("FUCK validate if", cs.toString());
+            return false;
+        }
+        else {
+            Log.d("FUCK validate else", cs.toString());
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(cs).matches();
+        }
     }
 }
