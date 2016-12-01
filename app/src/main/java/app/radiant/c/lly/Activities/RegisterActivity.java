@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(validateEmail(email.getText().toString())) {
                     if (password.getText().toString().length() != 0 && passwordConfirm.getText().toString().length() != 0) {
                         if (password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                            createUser(email.getText().toString(), Constants.FIREBASE_DEFAULT_PASSWORD);
+                            createUser(email.getText().toString(), password.getText().toString());
                             Register register = new Register(RegisterActivity.this, email.getText().toString(), password.getText().toString());
                             register.execute();
                         } else

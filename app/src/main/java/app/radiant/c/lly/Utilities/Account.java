@@ -53,6 +53,7 @@ public class Account extends Application {
     private String sessionId;
     public LruCache<String, Bitmap> bitmapCache;
     public FragmentManager fm;
+    private String firebaseToken;
 
     /**
      * Initializes a cache for the bitmaps
@@ -72,6 +73,16 @@ public class Account extends Application {
                 return bitmap.getByteCount() / 1024;
             }
         };
+    }
+
+    public void setFirebaseToken(String token){
+
+        firebaseToken = token;
+    }
+
+    public String getFirebaseToken(){
+
+        return firebaseToken;
     }
 
     /**

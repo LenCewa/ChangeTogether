@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.e(TAG, "onAuthStateChanged:sign_in:" + user.getUid());
+                    account.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
+                    Log.e(TAG, account.getFirebaseToken());
                 } else {
                     // User is signed out
                     Log.e(TAG, "onAuthStateChanged:signed_out");
@@ -73,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 String pw = password.getText().toString();
 
                 if(validateEmail(e) == true && pw.length() > 0)
-                    signInUser(e, Constants.FIREBASE_DEFAULT_PASSWORD);
+                    signInUser(e, pw);
                     account.login(LoginActivity.this, email.getText().toString(), password.getText().toString());
             }
         });

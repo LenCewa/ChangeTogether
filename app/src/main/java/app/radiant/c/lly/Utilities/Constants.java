@@ -20,9 +20,7 @@ import java.net.HttpURLConnection;
 
 public class Constants {
 
-    public static int page = 0;
     public static String lastIdHome = "-1";
-    public static String lastDistance = "0";
     public static String lastIdOwnBids = "-1";
 
     public static final String DBREGISTER = "http://change-together.spdns.org/app/register.php";
@@ -52,18 +50,9 @@ public class Constants {
 
     public static final String PICS = "http://change-together.spdns.org/app/pics/";
 
-    public static final String USERTABLE = "User";
-    public static final String SUPPLYTABLE = "Supply";
-    public static final String BIDTABLE = "Bidding";
-
-    public static final String EMAILROW = "email";
-    public static final String BIDDINGTAG = "tag";
-
     // Auto Fill Location Name Google API Key String Constant
     public static final String PRIVATE_GOOGLE_API_KEY = "AIzaSyCDLrf4wg0oCpzYepocnaBMoXvoYws1cpw";
     public static final String PRIVATE_GOOGLE_FIREBASE_API_KEY = "AIzaSyCpfiikIRLYxFAoP_VIEXWElB4DiW-CLLU";
-
-    public static final String FIREBASE_DEFAULT_PASSWORD = "emptyPassword1";
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
