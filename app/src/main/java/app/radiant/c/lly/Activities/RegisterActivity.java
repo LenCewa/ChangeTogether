@@ -19,8 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import app.radiant.c.lly.NetworkUtilities.Register;
+import app.radiant.c.lly.NetworkUtilities.UpdateFirebaseId;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
@@ -58,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.e(TAG, "onAuthStateChanged:sign_in:" + user.getUid());
+                    account.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
+                    new UpdateFirebaseId(RegisterActivity.this, account.getSelf().getEmail(), account.getFirebaseToken()).execute();
                 } else {
                     // User is signed out
                     Log.e(TAG, "onAuthStateChanged:signed_out");

@@ -28,6 +28,7 @@ public class Constants {
     public static final String DBLOGOUT = "http://change-together.spdns.org/app/logout.php";
     public static final String DBGETACCESTOKEN = "http://change-together.spdns.org/app/getAccessToken.php";
     public static final String DBLOGINWITHACCESSTOKEN = "http://change-together.spdns.org/app/loginWithAccessToken.php";
+    public static final String DBFIREBASEID = "http://change-together.spdns.org/app/updateFirebasId.php";
 
     public static final String DBHOMESHOWBIDS = "http://change-together.spdns.org/app/homeShowBids.php";
     public static final String DBSEARCHBID = "http://change-together.spdns.org/app/searchBid.php";
