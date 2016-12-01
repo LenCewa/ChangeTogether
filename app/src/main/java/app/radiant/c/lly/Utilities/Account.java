@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.radiant.c.lly.Activities.FirebaseActivity;
 import app.radiant.c.lly.Activities.ShowBidFeedbackActivity;
 import app.radiant.c.lly.Fragments.BieteFragment;
 import app.radiant.c.lly.Fragments.HomeFragment;
@@ -112,7 +113,7 @@ public class Account extends Application {
      * @param email
      * @param password
      */
-    public void login(Activity callingActivity, String email, String password) {
+    public void login(FirebaseActivity callingActivity, String email, String password) {
 
         self = new UserProfile();
         Login login = new Login(callingActivity, email, password);
@@ -125,7 +126,7 @@ public class Account extends Application {
      * @param email
      * @param token
      */
-    public void loginWithAccessToken(Activity callingActivity, String email, String token){
+    public void loginWithAccessToken(FirebaseActivity callingActivity, String email, String token){
 
         self = new UserProfile();
         LoginWithAccessToken login = new LoginWithAccessToken(callingActivity, email, token);
@@ -225,6 +226,10 @@ public class Account extends Application {
     //Setter
     public void setSessionId(String sessionId){
         this.sessionId = sessionId;
+    }
+
+    public String getSessionId(){
+        return sessionId;
     }
 
     //TODO: Remove following methods

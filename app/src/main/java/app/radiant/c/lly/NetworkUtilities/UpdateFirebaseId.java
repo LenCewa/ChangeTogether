@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 
 import java.util.HashMap;
@@ -27,10 +28,12 @@ public class UpdateFirebaseId extends AsyncTask<Void, Void, String > {
     private String firebaseId;
     RequestHandler rh = new RequestHandler();
 
-    public UpdateFirebaseId(Activity callingActivity, String email, String firebaseId){
+    public UpdateFirebaseId(Activity callingActivity, String emailAuth, String sessionId, String email, String firebaseId){
 
-        this.account = (Account) this.callingActivity.getApplication();
+        this.account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
+        this.emailAuth = emailAuth;
+        this.sessionId = sessionId;
         this.email = email;
         this.firebaseId = firebaseId;
     }
@@ -50,6 +53,7 @@ public class UpdateFirebaseId extends AsyncTask<Void, Void, String > {
 
         data.put("email", email);
         data.put("firebaseId", firebaseId);
+        Log.e("firebase", "Hashmap: " + data.toString());
         String result = rh.sendPostRequest(Constants.DBFIREBASEID,data);
 
         return result;
@@ -63,7 +67,7 @@ public class UpdateFirebaseId extends AsyncTask<Void, Void, String > {
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new UpdateFirebaseId(callingActivity, email, firebaseId).execute();
+                        new UpdateFirebaseId(callingActivity, emailAuth, sessionId, email, firebaseId).execute();
                     }
                 })
                 .setActionTextColor(Color.RED)

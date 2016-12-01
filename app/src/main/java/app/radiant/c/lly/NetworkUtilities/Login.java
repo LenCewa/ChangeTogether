@@ -8,11 +8,18 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +29,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import app.radiant.c.lly.Activities.FirebaseActivity;
+import app.radiant.c.lly.Activities.LoginActivity;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
@@ -34,12 +43,14 @@ public class Login extends AsyncTask<Void, Void, String> {
 
     ProgressDialog loading;
     private Account account;
-    private Activity callingActivity;
+    private FirebaseActivity callingActivity;
     private String email;
     private String password;
+    private FirebaseAuth userAuth;
+    private FirebaseAuth.AuthStateListener userAuthListener;
     RequestHandler rh = new RequestHandler();
 
-    public Login(Activity callingActivity, String email, String password) {
+    public Login(FirebaseActivity callingActivity, String email, String password) {
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
@@ -151,5 +162,11 @@ public class Login extends AsyncTask<Void, Void, String> {
             e.printStackTrace();
         }
         return latLong;
+    }
+
+    private void loginFirebase(){
+
+
+
     }
 }

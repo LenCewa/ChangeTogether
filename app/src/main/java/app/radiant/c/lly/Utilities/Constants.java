@@ -28,7 +28,7 @@ public class Constants {
     public static final String DBLOGOUT = "http://change-together.spdns.org/app/logout.php";
     public static final String DBGETACCESTOKEN = "http://change-together.spdns.org/app/getAccessToken.php";
     public static final String DBLOGINWITHACCESSTOKEN = "http://change-together.spdns.org/app/loginWithAccessToken.php";
-    public static final String DBFIREBASEID = "http://change-together.spdns.org/app/updateFirebasId.php";
+    public static final String DBFIREBASEID = "http://change-together.spdns.org/app/updateFirebaseId.php";
 
     public static final String DBHOMESHOWBIDS = "http://change-together.spdns.org/app/homeShowBids.php";
     public static final String DBSEARCHBID = "http://change-together.spdns.org/app/searchBid.php";
@@ -54,7 +54,7 @@ public class Constants {
     // Auto Fill Location Name Google API Key String Constant
     public static final String PRIVATE_GOOGLE_API_KEY = "AIzaSyCDLrf4wg0oCpzYepocnaBMoXvoYws1cpw";
     public static final String PRIVATE_GOOGLE_FIREBASE_API_KEY = "AIzaSyCpfiikIRLYxFAoP_VIEXWElB4DiW-CLLU";
-
+    public static final String DEFAULTPASSWORD = "emptyPassword1";
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image

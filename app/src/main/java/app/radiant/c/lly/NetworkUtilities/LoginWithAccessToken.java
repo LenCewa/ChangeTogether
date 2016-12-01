@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import app.radiant.c.lly.Activities.FirebaseActivity;
 import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
@@ -38,12 +39,12 @@ public class LoginWithAccessToken extends AsyncTask<Void, Void, String> {
 
     ProgressDialog loading;
     private Account account;
-    private Activity callingActivity;
+    private FirebaseActivity callingActivity;
     private String email;
     private String accessToken;
     RequestHandler rh = new RequestHandler();
 
-    public LoginWithAccessToken(Activity callingActivity, String email, String accessToken) {
+    public LoginWithAccessToken(FirebaseActivity callingActivity, String email, String accessToken) {
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;

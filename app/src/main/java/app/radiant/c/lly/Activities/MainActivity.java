@@ -23,11 +23,10 @@ import app.radiant.c.lly.Utilities.Constants;
  * Created by Yannick on 28.10.2016.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FirebaseActivity {
 
     Button login;
     Button register;
-    Account account;
     ImageView imageView;
 
     @Override
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         imageView = ((ImageView) findViewById(R.id.imageView2));
         imageView.setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int) px, (int) px));
 
-        account = (Account) getApplication();
         SharedPreferences sp = getSharedPreferences("login_state", Activity.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sp.edit();
 

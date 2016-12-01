@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
+import app.radiant.c.lly.Activities.FirebaseActivity;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
 
@@ -21,12 +22,12 @@ public class Register extends AsyncTask<Void, Void, String>{
 
     ProgressDialog loading;
     Account account;
-    private Activity callingActivity;
+    private FirebaseActivity callingActivity;
     private String email;
     private String password;
     RequestHandler rh = new RequestHandler();
 
-    public Register(Activity callingActivity, String email, String password) {
+    public Register(FirebaseActivity callingActivity, String email, String password) {
 
         account = (Account) callingActivity.getApplication();
         this.callingActivity = callingActivity;
@@ -64,10 +65,8 @@ public class Register extends AsyncTask<Void, Void, String>{
                 .setActionTextColor(Color.RED)
                 .show();
         else {
-            if (result.equals("User added, logging in...") || result.equals("User already exists, logging in instead...")) {
+            if (result.equals("User added, logging in...") || result.equals("User already exists, logging in instead..."))
                 account.login(callingActivity, email, password);
-            }
-            Toast.makeText(callingActivity, result, Toast.LENGTH_SHORT).show();
         }
     }
 }

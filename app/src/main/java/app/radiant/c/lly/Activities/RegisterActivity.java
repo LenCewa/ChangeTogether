@@ -31,19 +31,14 @@ import app.radiant.c.lly.Utilities.Constants;
  * Created by Yannick on 28.10.2016.
  */
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends FirebaseActivity {
 
     EditText email;
     EditText password;
     EditText passwordConfirm;
     Button register;
-    Account account;
     ImageView imageView;
 
-    // Befidet sich ein Nutzer in der MainAppActivity wurde er eingeloggt und wird hier
-    // im Hintergrund in Firebase eingeloggt
-    private FirebaseAuth userAuth;
-    private FirebaseAuth.AuthStateListener userAuthListener;
     private static final String TAG = "RegisterActivity";
     String userEmail;
 
@@ -52,29 +47,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        userAuth = FirebaseAuth.getInstance();
-        userAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.e(TAG, "onAuthStateChanged:sign_in:" + user.getUid());
-                    account.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
-                    new UpdateFirebaseId(RegisterActivity.this, account.getSelf().getEmail(), account.getFirebaseToken()).execute();
-                } else {
-                    // User is signed out
-                    Log.e(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
-
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
         imageView = ((ImageView) findViewById(R.id.imageView3));
         imageView.setImageBitmap(Constants.decodeBitmap(r, R.drawable.logo, (int)px, (int)px));
 
-        account = (Account) getApplication();
         email = (EditText) findViewById(R.id.emailTxt2);
         password = (EditText) findViewById(R.id.passwordTxt2);
         passwordConfirm = (EditText) findViewById(R.id.passwordConfirmTxt);
@@ -86,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(validateEmail(email.getText().toString())) {
                     if (password.getText().toString().length() != 0 && passwordConfirm.getText().toString().length() != 0) {
                         if (password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                            createUser(email.getText().toString(), password.getText().toString());
+                            createUser(email.getText().toString(), Constants.DEFAULTPASSWORD);
                             Register register = new Register(RegisterActivity.this, email.getText().toString(), password.getText().toString());
                             register.execute();
                         } else
@@ -103,38 +80,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        userAuth.addAuthStateListener(userAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (userAuthListener != null) {
-            userAuth.removeAuthStateListener(userAuthListener);
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         imageView.setImageBitmap(null);
-    }
-
-    private void createUser(String email, String password) {
-        userAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.e(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                        if (!task.isSuccessful()) {
-                            Log.e(TAG, "createUser:failed", task.getException());
-                            Log.e(TAG, task.getException().getMessage());
-                        }
-                    }
-                });
     }
 
     public final static boolean validateEmail(String email) {

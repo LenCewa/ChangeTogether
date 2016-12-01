@@ -23,41 +23,17 @@ import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends FirebaseActivity {
     //Push
     Button loginBtn;
     EditText email, password;
-    Account account;
     ImageView imageView;
 
-    // Befidet sich ein Nutzer in der MainAppActivity wurde er eingeloggt und wird hier
-    // im Hintergrund in Firebase eingeloggt
-    private FirebaseAuth userAuth;
-    private FirebaseAuth.AuthStateListener userAuthListener;
-    private static final String TAG = "LoginActivity";
-    String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        userAuth = FirebaseAuth.getInstance();
-        userAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.e(TAG, "onAuthStateChanged:sign_in:" + user.getUid());
-                    account.setFirebaseToken(FirebaseInstanceId.getInstance().getToken());
-                    new UpdateFirebaseId(LoginActivity.this, account.getSelf().getEmail(), account.getFirebaseToken()).execute();
-                } else {
-                    // User is signed out
-                    Log.e(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
 
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
@@ -68,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.emailTxt);
         password = (EditText) findViewById(R.id.passwordTxt);
 
-        account = (Account) getApplication();
 
         loginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -76,25 +51,12 @@ public class LoginActivity extends AppCompatActivity {
                 String e = email.getText().toString();
                 String pw = password.getText().toString();
 
-                if(validateEmail(e) == true && pw.length() > 0)
-                    signInUser(e, pw);
-                    account.login(LoginActivity.this, email.getText().toString(), password.getText().toString());
+                if(validateEmail(e) == true && pw.length() > 0) {
+                    signInUser(e, Constants.DEFAULTPASSWORD);
+                    account.login(LoginActivity.this, e, pw);
+                }
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        userAuth.addAuthStateListener(userAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (userAuthListener != null) {
-            userAuth.removeAuthStateListener(userAuthListener);
-        }
     }
 
     @Override
@@ -103,20 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         imageView.setImageBitmap(null);
     }
 
-    private void signInUser(String email, String password) {
-        userAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.e(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                        if (!task.isSuccessful()) {
-                            Log.e(TAG, "signInWithEmail:failed", task.getException());
-                            Log.e(TAG, task.getException().getMessage());
-                        }
-                    }
-                });
-    }
 
     public final static boolean validateEmail(String email) {
         CharSequence cs = email;
