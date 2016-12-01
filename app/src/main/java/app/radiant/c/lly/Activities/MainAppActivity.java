@@ -39,6 +39,7 @@ import app.radiant.c.lly.Fragments.InboxFragment;
 import app.radiant.c.lly.Fragments.OwnBidsFragment;
 import app.radiant.c.lly.Fragments.SearchFragment;
 import app.radiant.c.lly.Fragments.OwnProfileFragment;
+import app.radiant.c.lly.NetworkUtilities.MyFirebaseInstanceIDService;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
@@ -54,6 +55,7 @@ public class MainAppActivity extends AppCompatActivity
     OwnProfileFragment tab;
     InboxFragment inboxFragment;
     View header;
+
 
     public NavigationView navigationView;
 
