@@ -2,6 +2,7 @@ package app.radiant.c.lly.Activities;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import app.radiant.c.lly.NetworkUtilities.Register;
 import app.radiant.c.lly.R;
@@ -31,10 +38,32 @@ public class RegisterActivity extends AppCompatActivity {
     Account account;
     ImageView imageView;
 
+    // Befidet sich ein Nutzer in der MainAppActivity wurde er eingeloggt und wird hier
+    // im Hintergrund in Firebase eingeloggt
+    private FirebaseAuth userAuth;
+    private FirebaseAuth.AuthStateListener userAuthListener;
+    private static final String TAG = "RegisterActivity";
+    String userEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        userAuth = FirebaseAuth.getInstance();
+        userAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.e(TAG, "onAuthStateChanged:sign_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.e(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
 
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
@@ -53,6 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(validateEmail(email.getText().toString())) {
                     if (password.getText().toString().length() != 0 && passwordConfirm.getText().toString().length() != 0) {
                         if (password.getText().toString().equals(passwordConfirm.getText().toString())) {
+                            createUser(email.getText().toString(), Constants.FIREBASE_DEFAULT_PASSWORD);
                             Register register = new Register(RegisterActivity.this, email.getText().toString(), password.getText().toString());
                             register.execute();
                         } else
@@ -62,16 +92,45 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(RegisterActivity.this, "E-Mail can not be empty / or incorrect form", Toast.LENGTH_SHORT).show();
-                    Log.d("FUCK: ", email.toString());
+                    Log.e("FUCK: ", email.toString());
                 }
             }
         });
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        userAuth.addAuthStateListener(userAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (userAuthListener != null) {
+            userAuth.removeAuthStateListener(userAuthListener);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         imageView.setImageBitmap(null);
+    }
+
+    private void createUser(String email, String password) {
+        userAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.e(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                        if (!task.isSuccessful()) {
+                            Log.e(TAG, "createUser:failed", task.getException());
+                            Log.e(TAG, task.getException().getMessage());
+                        }
+                    }
+                });
     }
 
     public final static boolean validateEmail(String email) {

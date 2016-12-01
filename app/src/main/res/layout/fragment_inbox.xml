@@ -10,13 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin">
    <!-- tools:context="comhelpingandchanging.facebook.httpswww.changetogether.XYZ???.InboxFragment"> -->
 
-   <Button
-       android:text="Display Email"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_centerHorizontal="true"
-       android:id="@+id/addUsernameBtn" />
-
    <ListView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"

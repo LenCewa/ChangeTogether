@@ -3,6 +3,7 @@ package app.radiant.c.lly.Activities;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -20,6 +21,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +41,7 @@ import app.radiant.c.lly.Fragments.SearchFragment;
 import app.radiant.c.lly.Fragments.OwnProfileFragment;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
+import app.radiant.c.lly.Utilities.Constants;
 
 public class MainAppActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,7 +52,6 @@ public class MainAppActivity extends AppCompatActivity
     BieteFragment bieteFragment;
     OwnBidsFragment ownProfileFragment;
     OwnProfileFragment tab;
-    //HelpingLocationsFragment helpingLocationsFragment;
     InboxFragment inboxFragment;
     View header;
 

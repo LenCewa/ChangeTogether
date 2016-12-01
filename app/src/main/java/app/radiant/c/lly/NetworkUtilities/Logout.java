@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 
@@ -32,6 +36,15 @@ public class Logout extends AsyncTask<Void, Void, String> {
         this.callingActivity = callingActivity;
         this.emailAuth = emailAuth;
         this.sessionId = sessionId;
+        // Den User von Firebase ausloggen wenn man sich aus der App abmeldet
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Log.e("Logout", user.getEmail() + " wurde ausgeloggt.");
+            FirebaseAuth.getInstance().signOut();
+        } else {
+            Log.e("Logout", "kein User angemeldet");
+        }
+
     }
 
     @Override

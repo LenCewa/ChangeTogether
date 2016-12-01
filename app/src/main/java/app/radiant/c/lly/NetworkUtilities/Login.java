@@ -2,10 +2,8 @@ package app.radiant.c.lly.NetworkUtilities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -24,7 +22,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import app.radiant.c.lly.Activities.MainAppActivity;
 import app.radiant.c.lly.R;
 import app.radiant.c.lly.Utilities.Account;
 import app.radiant.c.lly.Utilities.Constants;
